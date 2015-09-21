@@ -1,0 +1,92 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.mutualmobile.gradle.plugins.dexinfo'
+
+// Hat tip to Jake Wharton for this - found it in the u2020 app
+def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+
+    compileSdkVersion globalConfiguration.getAt("ANDROID_COMPILE_SDK_VERSION") as int
+    buildToolsVersion globalConfiguration.getAt("ANDROID_BUILD_TOOLS_VERSION")
+
+    defaultConfig {
+        applicationId "org.phphub.app"
+        minSdkVersion globalConfiguration.getAt("ANDROID_BUILD_MIN_SDK_VERSION") as int
+        targetSdkVersion globalConfiguration.getAt("ANDROID_COMPILE_SDK_VERSION") as int
+        versionCode globalConfiguration.getAt("VERSION_CODE") as int
+        versionName globalConfiguration.getAt("VERSION_NAME")
+
+        buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('../buildsystem/debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+        release {
+        }
+    }
+
+    buildTypes {
+        debug {
+            versionNameSuffix "-dev"
+            signingConfig signingConfigs.debug
+        }
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // This is important, it will run lint checks but won't abort build
+    lintOptions {
+        abortOnError false
+        disable 'InvalidPackage'
+    }
+
+    packagingOptions {
+        // Butter Knife
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+    }
+}
+
+def SUPPORT_VERSION = '22.2.1'
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+
+    compile 'com.android.support:support-annotations:' + SUPPORT_VERSION
+    compile 'com.android.support:support-v13:' + SUPPORT_VERSION
+    compile 'com.android.support:cardview-v7:' + SUPPORT_VERSION
+    compile 'com.android.support:appcompat-v7:' + SUPPORT_VERSION
+    compile 'com.android.support:recyclerview-v7:' + SUPPORT_VERSION
+    compile 'com.android.support:design:' + SUPPORT_VERSION
+
+    // retrofit
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
+    compile 'com.squareup.okhttp:okhttp:2.0.0'
+    compile 'com.squareup.retrofit:retrofit:1.9.0'
+
+    // LeakCanary
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
+
+    // fresco
+    compile 'com.facebook.fresco:fresco:0.7.0+'
+    compile 'com.facebook.fresco:imagepipeline-okhttp:0.7.0+'
+
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.ogaclejapan.smarttablayout:library:1.4.1@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.4.1@aar'
+    compile 'io.nlopez.smartadapters:library:1.2.2'
+    compile 'com.kennyc:multistateview:1.1'
+    compile 'com.nineoldandroids:library:2.4.0'
+    compile 'cn.bingoogolapple:bga-badgeview:1.0.2@aar'
+}
