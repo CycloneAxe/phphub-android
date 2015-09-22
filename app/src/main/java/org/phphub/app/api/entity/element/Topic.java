@@ -20,7 +20,19 @@ public class Topic {
     protected SupportDate updatedAt;
 
     @SerializedName("user")
-    protected User user;
+    protected UserInfo userInfo;
+
+    public class UserInfo {
+        User data;
+
+        public User getData() {
+            return data;
+        }
+
+        public void setData(User data) {
+            this.data = data;
+        }
+    }
 
     public int getId() {
         return id;
@@ -70,11 +82,11 @@ public class Topic {
         this.updatedAt = updatedAt;
     }
 
-    public User getUser() {
-        return user;
+    public UserInfo getUserInfo() {
+        return userInfo;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
     }
 }

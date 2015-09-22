@@ -34,7 +34,11 @@ public class TopicItemView extends BaseAdapterItemView<Topic> {
 
     @Override
     public void bind(Topic topic) {
+
+        Uri avatarUri = Uri.parse(topic.getUserInfo().getData().getAvatar());
+
         topicContentView.showTextBadge(String.valueOf(topic.getReplyCount()));
         titleView.setText(topic.getTitle());
+        avatarView.setImageURI(avatarUri);
     }
 }
