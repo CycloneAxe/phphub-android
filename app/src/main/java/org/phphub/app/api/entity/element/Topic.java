@@ -19,6 +19,9 @@ public class Topic {
     @SerializedName("updated_at")
     protected SupportDate updatedAt;
 
+    @SerializedName("user")
+    protected User user;
+
     public int getId() {
         return id;
     }
@@ -65,5 +68,13 @@ public class Topic {
 
     public void setUpdatedAt(SupportDate updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
