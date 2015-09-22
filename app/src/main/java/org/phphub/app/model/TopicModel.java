@@ -5,7 +5,6 @@ import android.content.Context;
 import org.phphub.app.api.BaseApi;
 import org.phphub.app.api.TopicApi;
 import org.phphub.app.api.entity.TopicEntity;
-import org.phphub.app.api.entity.element.Topic;
 import org.phphub.app.common.base.BaseModel;
 
 import java.util.HashMap;

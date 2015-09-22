@@ -6,6 +6,7 @@ import android.view.View;
 
 import org.phphub.app.common.qualified.ClickType;
 
+import butterknife.ButterKnife;
 import io.nlopez.smartadapters.views.BindableLayout;
 
 public abstract class BaseAdapterItemView<T> extends BindableLayout<T> {
@@ -23,6 +24,11 @@ public abstract class BaseAdapterItemView<T> extends BindableLayout<T> {
 
     public BaseAdapterItemView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
+    }
+
+    @Override
+    public void onViewInflated() {
+        ButterKnife.bind(this);
     }
 
     public void notifyItemAction(@ClickType int actionId, T theItem, View view) {

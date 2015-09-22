@@ -11,4 +11,6 @@ import java.lang.annotation.RetentionPolicy;
 })
 public @interface ClickType {
     int CLICK_TYPE_USER_CLICKED = 1000;
+
+    int CLICK_TYPE_TOPIC_CLICKED = 1001;
 }
