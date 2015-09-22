@@ -10,7 +10,6 @@
     android:paddingRight="24dp"
     android:textColor="@color/tab_text_switch"
     android:textSize="14sp"
-    android:textAllCaps="true"
     android:textStyle="bold">
 
 </TextView>
