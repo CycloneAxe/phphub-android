@@ -60,6 +60,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected int getLayoutResId() {
-        return R.layout.activity_main;
+        return R.layout.main;
     }
 }

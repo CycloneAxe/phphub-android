@@ -7,6 +7,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.widget.TextView;
 
 import org.phphub.app.R;
 
@@ -17,6 +18,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Nullable
     @Bind(R.id.toolbar)
     Toolbar toolbarView;
+
+    @Nullable
+    @Bind(R.id.tv_title)
+    TextView titleView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +37,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     protected void setupToolbar() {
-        if (toolbarView != null) {
-            setSupportActionBar(toolbarView);
+        if (toolbarView == null) {
+            return;
+        }
+        setSupportActionBar(toolbarView);
+        if (titleView != null) {
+            titleView.setText(getTitle());
         }
         if (!TextUtils.isEmpty(NavUtils.getParentActivityName(this))) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

@@ -14,7 +14,7 @@
         android:id="@+id/viewpagertab"
         android:layout_width="match_parent"
         android:layout_height="@dimen/tab_height"
-        android:background="#ffffff"
+        android:background="@android:color/white"
         app:stl_distributeEvenly="true"
         app:stl_dividerColor="@color/transparent"
         app:stl_dividerThickness="0dp"

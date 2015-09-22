@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PHPHub</string>
+    <string name="recommended">Recommended</string>
 </resources>

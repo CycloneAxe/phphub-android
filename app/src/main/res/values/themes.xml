@@ -5,10 +5,8 @@
     </style>
 
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/accentColor</item>
         <item name="android:windowBackground">@android:color/darker_gray</item>
-        <item name="android:background">#F2F2F2</item>
+        <item name="android:background">@android:color/white</item>
     </style>
 </resources>
