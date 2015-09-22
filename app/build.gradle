@@ -86,7 +86,7 @@ dependencies {
 
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.ogaclejapan.smarttablayout:library:1.4.1@aar'
-    compile 'com.ogaclejapan.smarttablayout:utils-v13:1.4.1@aar'
+    compile 'com.ogaclejapan.smarttablayout:utils-v4:1.4.1@aar'
     compile 'io.nlopez.smartadapters:library:1.2.2'
     compile 'com.kennyc:multistateview:1.1'
     compile 'com.nineoldandroids:library:2.4.0'
