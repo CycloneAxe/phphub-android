@@ -6,7 +6,6 @@
 
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorAccent">@color/accentColor</item>
-        <item name="android:windowBackground">@android:color/darker_gray</item>
-        <item name="android:background">@android:color/white</item>
+        <item name="android:windowBackground">@color/backgroundGray</item>
     </style>
 </resources>
