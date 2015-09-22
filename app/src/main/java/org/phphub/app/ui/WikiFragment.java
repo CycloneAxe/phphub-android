@@ -1,6 +1,5 @@
 package org.phphub.app.ui;
 
-import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -8,8 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.phphub.app.R;
+import org.phphub.app.common.base.BaseFragment;
 
-public class WikiFragment extends Fragment {
+public class WikiFragment extends BaseFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

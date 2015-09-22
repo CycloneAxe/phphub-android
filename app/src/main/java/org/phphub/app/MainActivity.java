@@ -18,8 +18,6 @@ import org.phphub.app.ui.RecommendedFragment;
 import org.phphub.app.ui.TopicsFragment;
 import org.phphub.app.ui.WikiFragment;
 
-import java.util.ArrayList;
-
 import butterknife.Bind;
 
 public class MainActivity extends BaseActivity {
@@ -36,6 +34,8 @@ public class MainActivity extends BaseActivity {
     }
 
     protected void setupTabView() {
+        final LayoutInflater inflater = LayoutInflater.from(this);
+        final int[] tabIcons = {R.mipmap.ic_recommended, R.mipmap.ic_topics, R.mipmap.ic_wiki, R.mipmap.ic_me};
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(),
                 FragmentPagerItems.with(this)
@@ -49,25 +49,9 @@ public class MainActivity extends BaseActivity {
         viewpagerTabView.setCustomTabView(new SmartTabLayout.TabProvider() {
             @Override
             public View createTabView(ViewGroup container, int position, PagerAdapter pagerAdapter) {
-                View view = LayoutInflater.from(MainActivity.this)
-                                    .inflate(R.layout.custom_tab_icon, container, false);
+                View view = inflater.inflate(R.layout.custom_tab_icon, container, false);
                 TintableImageView iconView = (TintableImageView) view.findViewById(R.id.tiv_icon);
-                switch (position) {
-                    case 0:
-                        iconView.setImageResource(R.mipmap.ic_recommended);
-                        break;
-                    case 1:
-                        iconView.setImageResource(R.mipmap.ic_topics);
-                        break;
-                    case 2:
-                        iconView.setImageResource(R.mipmap.ic_wiki);
-                        break;
-                    case 3:
-                        iconView.setImageResource(R.mipmap.ic_me);
-                        break;
-                    default:
-                        throw new IllegalStateException("Invalid position: " + position);
-                }
+                iconView.setImageResource(tabIcons[position % tabIcons.length]);
                 return view;
             }
         });
