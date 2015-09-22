@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- String for the account type you want to use in your app -->
+    <string name="auth_account_type">org.phphub.app.account</string>
+    <!-- String for the type of token you're using. -->
+    <string name="auth_token_type">org.phphub.app.token</string>
+    <!-- String for the Action to open the activity to login if necessary -->
+    <string name="authentication_action">org.phphub.auth.action.AUTH</string>
+</resources>
