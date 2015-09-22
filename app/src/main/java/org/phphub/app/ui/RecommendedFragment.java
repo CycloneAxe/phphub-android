@@ -42,6 +42,8 @@ public class RecommendedFragment extends BaseFragment implements
     @Bind(R.id.recycler_view)
     RecyclerView topicListView;
 
+    int pageIndex = 1;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +65,10 @@ public class RecommendedFragment extends BaseFragment implements
                 .listener(this)
                 .into(topicListView);
 
+        loadTopics(pageIndex);
+    }
+
+    protected void loadTopics(int pageIndex) {
         topicModel.getTopicsByExcellent(1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -82,6 +88,7 @@ public class RecommendedFragment extends BaseFragment implements
                     @Override
                     public void call(Throwable throwable) {
                         Logger.e(throwable.getMessage());
+                        multiStateView.setViewState(MultiStateView.VIEW_STATE_ERROR);
                     }
                 });
     }

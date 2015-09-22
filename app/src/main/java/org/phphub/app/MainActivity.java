@@ -36,15 +36,17 @@ public class MainActivity extends BaseActivity {
     protected void setupTabView() {
         final LayoutInflater inflater = LayoutInflater.from(this);
         final int[] tabIcons = {R.mipmap.ic_recommended, R.mipmap.ic_topics, R.mipmap.ic_wiki, R.mipmap.ic_me};
+        FragmentPagerItems fragmentPagerItems = FragmentPagerItems.with(this)
+                .add("recommended", RecommendedFragment.class)
+                .add("topics", TopicsFragment.class)
+                .add("wiki", WikiFragment.class)
+                .add("me", MeFragment.class)
+                .create();
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getFragmentManager(),
-                FragmentPagerItems.with(this)
-                        .add("recommended", RecommendedFragment.class)
-                        .add("topics", TopicsFragment.class)
-                        .add("wiki", WikiFragment.class)
-                        .add("me", MeFragment.class)
-                        .create());
+                fragmentPagerItems);
 
+        viewPagerView.setOffscreenPageLimit(fragmentPagerItems.size());
         viewPagerView.setAdapter(adapter);
         viewpagerTabView.setCustomTabView(new SmartTabLayout.TabProvider() {
             @Override
