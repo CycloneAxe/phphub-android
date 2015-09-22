@@ -9,6 +9,7 @@
 
     <color name="white">#ffffff</color>
     <color name="placeholder_avatar">#342D99F3</color>
+    <color name="item_badge_background">#64B3F1</color>
 
     <color name="black">#FF000000</color>
     <color name="black_20">#33000000</color>
