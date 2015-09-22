@@ -14,11 +14,12 @@ android {
     defaultConfig {
         applicationId "org.phphub.app"
         minSdkVersion globalConfiguration.getAt("ANDROID_BUILD_MIN_SDK_VERSION") as int
-        targetSdkVersion globalConfiguration.getAt("ANDROID_COMPILE_SDK_VERSION") as int
+        targetSdkVersion globalConfiguration.getAt("ANDROID_TARGET_SDK_VERSION") as int
         versionCode globalConfiguration.getAt("VERSION_CODE") as int
         versionName globalConfiguration.getAt("VERSION_NAME")
 
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
+        buildConfigField "String", "BASE_URL", "\"https://api.phphub.org\""
     }
 
     signingConfigs {
