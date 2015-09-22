@@ -93,4 +93,5 @@ dependencies {
     compile 'cn.bingoogolapple:bga-badgeview:1.0.2@aar'
     compile 'io.reactivex:rxandroid:1.0.1'
     compile 'io.reactivex:rxjava:1.0.14'
+    compile 'com.orhanobut:logger:1.11'
 }
