@@ -1,2 +1,19 @@
 <resources>
+
+    <style name="ProgressBarStyle" parent="@android:style/Widget.Holo.ProgressBar.Horizontal"/>
+
+    <style name="ListProgressBarStyle" parent="@android:style/Widget.Holo.ProgressBar" />
+
+    <style name="list_topic_title">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">#555555</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="list_topic_des">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">#C5C5C5</item>
+    </style>
+
 </resources>

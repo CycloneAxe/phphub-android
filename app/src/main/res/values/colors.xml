@@ -5,6 +5,12 @@
     <color name="icon_enabled">#6392D7</color>
     <color name="icon_disabled">#D3D3D3</color>
     <color name="gray">#80808080</color>
+    <color name="backgroundGray">#EFEFF4</color>
+
+    <color name="white">#ffffff</color>
+    <color name="placeholder_avatar">#342D99F3</color>
+    <color name="item_badge_background">#64B3F1</color>
+
     <color name="black">#FF000000</color>
     <color name="black_20">#33000000</color>
     <color name="tab_text_enabled">#FF000000</color>

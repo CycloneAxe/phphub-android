@@ -1,9 +1,13 @@
 <resources>
     <string name="app_name">PHPHub</string>
+
     <string name="recommended">Recommended</string>
     <string name="recent">Recent</string>
     <string name="vote">Vote</string>
     <string name="nobody">Nobody</string>
     <string name="wiki">Wiki</string>
     <string name="me">Me</string>
+
+    <string name="safe">Safe</string>
+    <string name="last_for">Last For</string>
 </resources>
