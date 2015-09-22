@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">PHPHub</string>
     <string name="recommended">Recommended</string>
+    <string name="recent">Recent</string>
+    <string name="vote">Vote</string>
+    <string name="nobody">Nobody</string>
 </resources>

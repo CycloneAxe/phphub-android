@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
-import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItemAdapter;
-import com.ogaclejapan.smarttablayout.utils.v13.FragmentPagerItems;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import org.phphub.app.common.base.BaseActivity;
 import org.phphub.app.common.widget.TintableImageView;
@@ -36,17 +36,17 @@ public class MainActivity extends BaseActivity {
     protected void setupTabView() {
         final LayoutInflater inflater = LayoutInflater.from(this);
         final int[] tabIcons = {R.mipmap.ic_recommended, R.mipmap.ic_topics, R.mipmap.ic_wiki, R.mipmap.ic_me};
-        FragmentPagerItems fragmentPagerItems = FragmentPagerItems.with(this)
+        FragmentPagerItems pages = FragmentPagerItems.with(this)
                 .add("recommended", RecommendedFragment.class)
                 .add("topics", TopicsFragment.class)
                 .add("wiki", WikiFragment.class)
                 .add("me", MeFragment.class)
                 .create();
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
-                getFragmentManager(),
-                fragmentPagerItems);
+                getSupportFragmentManager(),
+                pages);
 
-        viewPagerView.setOffscreenPageLimit(fragmentPagerItems.size());
+        viewPagerView.setOffscreenPageLimit(pages.size());
         viewPagerView.setAdapter(adapter);
         viewpagerTabView.setCustomTabView(new SmartTabLayout.TabProvider() {
             @Override

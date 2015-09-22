@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.ogaclejapan.smarttablayout.SmartTabLayout
+        android:id="@+id/viewpagertab"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tab_height"
+        app:stl_customTabTextLayoutId="@layout/common_viewpager_tab_text"
+        app:stl_customTabTextViewId="@+id/tv_tab_title"
+        app:stl_distributeEvenly="true"
+        app:stl_dividerColor="@color/transparent"
+        app:stl_dividerThickness="0dp"
+        app:stl_overlineColor="@color/black_20"
+        app:stl_overlineThickness="1dp"
+        app:stl_indicatorColor="@color/black"
+        app:stl_indicatorCornerRadius="1dp"
+        app:stl_indicatorGravity="bottom"
+        app:stl_indicatorInterpolation="linear"
+        app:stl_indicatorThickness="1dp"
+        app:stl_indicatorWithoutPadding="true"
+        app:stl_underlineColor="@color/transparent"
+        app:stl_underlineThickness="0dp"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+</merge>
