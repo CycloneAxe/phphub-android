@@ -14,6 +14,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textSize="18sp"
+        android:textColor="#767676"
         android:gravity="center"
         tools:text="@string/app_name"/>
 </android.support.v7.widget.Toolbar>
