@@ -46,6 +46,23 @@ public class RecommendedFragment extends BaseFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         topicModel = new TopicModel(App.getInstance());
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.recommended_list, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        topicListView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        adapter = SmartAdapter.empty()
+                .map(Topic.class, TopicItemView.class)
+                .listener(this)
+                .into(topicListView);
+
         topicModel.getTopicsByExcellent(1)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -67,22 +84,6 @@ public class RecommendedFragment extends BaseFragment implements
                         Logger.e(throwable.getMessage());
                     }
                 });
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.recommended_list, container, false);
-    }
-
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        topicListView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        adapter = SmartAdapter.empty()
-                .map(Topic.class, TopicItemView.class)
-                .listener(this)
-                .into(topicListView);
     }
 
     @Override
