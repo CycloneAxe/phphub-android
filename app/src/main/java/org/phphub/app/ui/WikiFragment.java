@@ -20,4 +20,9 @@ public class WikiFragment extends BaseFragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+    @Override
+    protected String getTitle() {
+        return getString(R.string.wiki);
+    }
 }

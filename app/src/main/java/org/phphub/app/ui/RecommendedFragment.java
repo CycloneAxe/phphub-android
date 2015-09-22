@@ -65,11 +65,7 @@ public class RecommendedFragment extends BaseFragment implements
                 .listener(this)
                 .into(topicListView);
 
-        loadTopics(pageIndex);
-    }
-
-    protected void loadTopics(int pageIndex) {
-        topicModel.getTopicsByExcellent(1)
+        topicModel.getTopicsByExcellent(pageIndex)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Func1<TopicEntity, List<Topic>>() {
