@@ -37,9 +37,9 @@ public class TopicsFragment extends BaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         FragmentPagerItems pages = FragmentPagerItems.with(getActivity())
-                .add(TOPIC_TYPE_RECENT, TopicFragment.class, getTopicTypeBundle(TOPIC_TYPE_RECENT))
-                .add(TOPIC_TYPE_VOTE, TopicFragment.class, getTopicTypeBundle(TOPIC_TYPE_VOTE))
-                .add(TOPIC_TYPE_NOBODY, TopicFragment.class, getTopicTypeBundle(TOPIC_TYPE_NOBODY))
+                .add(R.string.recent, TopicFragment.class, getTopicTypeBundle(TOPIC_TYPE_RECENT))
+                .add(R.string.vote, TopicFragment.class, getTopicTypeBundle(TOPIC_TYPE_VOTE))
+                .add(R.string.nobody, TopicFragment.class, getTopicTypeBundle(TOPIC_TYPE_NOBODY))
                 .create();
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getChildFragmentManager(),
