@@ -91,4 +91,6 @@ dependencies {
     compile 'com.kennyc:multistateview:1.1'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'cn.bingoogolapple:bga-badgeview:1.0.2@aar'
+    compile 'io.reactivex:rxandroid:1.0.1'
+    compile 'io.reactivex:rxjava:1.0.14'
 }
