@@ -18,11 +18,9 @@
             android:id="@+id/refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:overlay="true"
-            app:isLoadMore="true"
-            app:wave_show="true"
-            app:wave_color="@color/material_blue"
-            app:wave_height_type="normal">
+            app:overlay="false"
+            app:wave_show="false"
+            app:isLoadMore="true">
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
