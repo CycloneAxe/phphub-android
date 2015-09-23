@@ -25,8 +25,8 @@
                 android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:paddingLeft="12dp"
-                android:paddingRight="12dp"/>
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"/>
         </com.cjj.MaterialRefreshLayout>
     </com.kennyc.view.MultiStateView>
 </LinearLayout>
