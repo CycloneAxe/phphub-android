@@ -15,7 +15,7 @@ import org.phphub.app.R;
 import org.phphub.app.api.entity.TopicEntity;
 import org.phphub.app.api.entity.element.Topic;
 import org.phphub.app.common.adapter.TopicItemView;
-import org.phphub.app.common.base.BaseFragment;
+import org.phphub.app.common.base.BaseSupportFragment;
 import org.phphub.app.model.TopicModel;
 
 import java.util.List;
@@ -29,7 +29,7 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-public class WikiFragment  extends BaseFragment implements
+public class WikiFragment  extends BaseSupportFragment implements
         ViewEventListener<Topic> {
     TopicModel topicModel;
 

@@ -13,13 +13,13 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import org.phphub.app.R;
-import org.phphub.app.common.base.BaseFragment;
+import org.phphub.app.common.base.BaseSupportFragment;
 import org.phphub.app.common.qualified.TopicType;
 
 import butterknife.Bind;
 import static org.phphub.app.common.qualified.TopicType.*;
 
-public class TopicsFragment extends BaseFragment {
+public class TopicsFragment extends BaseSupportFragment {
     @Bind(R.id.viewpagertab)
     SmartTabLayout viewpagerTabView;
 

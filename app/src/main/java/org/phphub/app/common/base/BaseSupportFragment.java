@@ -14,7 +14,7 @@ import icepick.Icepick;
 import nucleus.presenter.Presenter;
 import nucleus.view.NucleusSupportFragment;
 
-public abstract class BaseFragment<PresenterType extends Presenter> extends NucleusSupportFragment<PresenterType> {
+public abstract class BaseSupportFragment<PresenterType extends Presenter> extends NucleusSupportFragment<PresenterType> {
     @Nullable
     @Bind(R.id.tv_title)
     TextView titleView;

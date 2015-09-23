@@ -16,7 +16,7 @@ import com.orhanobut.logger.Logger;
 import org.phphub.app.R;
 import org.phphub.app.api.entity.element.Topic;
 import org.phphub.app.common.adapter.TopicItemView;
-import org.phphub.app.common.base.BaseFragment;
+import org.phphub.app.common.base.BaseSupportFragment;
 import org.phphub.app.ui.presenter.RecommendedPresenter;
 
 import java.util.List;
@@ -28,7 +28,7 @@ import io.nlopez.smartadapters.utils.ViewEventListener;
 import nucleus.factory.RequiresPresenter;
 
 @RequiresPresenter(RecommendedPresenter.class)
-public class RecommendedFragment extends BaseFragment<RecommendedPresenter> implements
+public class RecommendedFragment extends BaseSupportFragment<RecommendedPresenter> implements
         ViewEventListener<Topic>{
 
     RecyclerMultiAdapter adapter;

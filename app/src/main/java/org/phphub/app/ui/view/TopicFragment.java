@@ -8,11 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.phphub.app.R;
-import org.phphub.app.common.base.BaseFragment;
+import org.phphub.app.common.base.BaseSupportFragment;
 
 import icepick.State;
 
-public class TopicFragment extends BaseFragment {
+public class TopicFragment extends BaseSupportFragment {
     public static final String TOPIC_TYPE_KEY = "topic_type";
 
     @State
