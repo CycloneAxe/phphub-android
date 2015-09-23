@@ -31,7 +31,7 @@ public class TopicItemView extends BaseAdapterItemView<Topic> {
 
     @Override
     public int getLayoutId() {
-        return R.layout.recommended_list_item;
+        return R.layout.topic_item;
     }
 
     @Override

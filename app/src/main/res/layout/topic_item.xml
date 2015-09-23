@@ -25,36 +25,36 @@
         app:badge_padding="6dp"
         app:badge_horizontalMargin="12dp">
 
-            <include layout="@layout/common_avatar"
-                android:id="@+id/avatar"
-                android:layout_width="50dp"
-                android:layout_height="50dp"/>
-            <LinearLayout
-                android:id="@+id/rlyt_item_details"
+        <include layout="@layout/common_avatar"
+            android:id="@+id/avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"/>
+        <LinearLayout
+            android:id="@+id/rlyt_item_details"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@id/avatar"
+            android:gravity="center_vertical"
+            android:layout_marginRight="35dp"
+            android:layout_marginLeft="10dp">
+
+            <TextView
+                android:id="@+id/tv_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_toRightOf="@id/avatar"
-                android:gravity="center_vertical"
-                android:layout_marginRight="35dp"
-                android:layout_marginLeft="10dp">
+                style="@style/list_topic_title"
+                tools:text="Homestead 环境：用 Homestead 命令行来操作虚拟机"/>
 
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/list_topic_title"
-                    tools:text="Homestead 环境：用 Homestead 命令行来操作虚拟机"/>
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                style="@style/list_topic_des"
+                tools:text="安全 • 最后由 fvzone • 4天"/>
 
-                <TextView
-                    android:id="@+id/tv_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    style="@style/list_topic_des"
-                    android:text="安全 • 最后由 fvzone • 4天"/>
-
-            </LinearLayout>
+        </LinearLayout>
 
     </cn.bingoogolapple.badgeview.BGABadgeRelativeLayout>
 </android.support.v7.widget.CardView>
