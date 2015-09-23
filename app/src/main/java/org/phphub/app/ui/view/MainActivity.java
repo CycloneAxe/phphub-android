@@ -1,4 +1,4 @@
-package org.phphub.app;
+package org.phphub.app.ui.view;
 
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
@@ -11,12 +11,9 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
+import org.phphub.app.R;
 import org.phphub.app.common.base.BaseActivity;
 import org.phphub.app.common.widget.TintableImageView;
-import org.phphub.app.ui.MeFragment;
-import org.phphub.app.ui.RecommendedFragment;
-import org.phphub.app.ui.TopicsFragment;
-import org.phphub.app.ui.WikiFragment;
 
 import butterknife.Bind;
 
