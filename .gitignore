@@ -41,5 +41,8 @@ proguard/
 *.keystore
 !debug.keystore
 
+# System files
+.DS_Store
+
 gradle.properties
 signing.properties
