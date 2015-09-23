@@ -12,6 +12,7 @@ import org.phphub.app.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import icepick.Icepick;
 import nucleus.presenter.Presenter;
 import nucleus.view.NucleusAppCompatActivity;
 
@@ -27,8 +28,15 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
         setContentView(getLayoutResId());
         setupToolbar();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Icepick.saveInstanceState(this, outState);
     }
 
     @Override
