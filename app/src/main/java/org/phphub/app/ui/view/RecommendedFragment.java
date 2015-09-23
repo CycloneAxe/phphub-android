@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.kennyc.view.MultiStateView;
 import com.orhanobut.logger.Logger;
 
@@ -15,7 +17,6 @@ import org.phphub.app.R;
 import org.phphub.app.api.entity.element.Topic;
 import org.phphub.app.common.adapter.TopicItemView;
 import org.phphub.app.common.base.BaseFragment;
-import org.phphub.app.model.TopicModel;
 import org.phphub.app.ui.presenter.RecommendedPresenter;
 
 import java.util.List;
@@ -29,12 +30,14 @@ import nucleus.factory.RequiresPresenter;
 @RequiresPresenter(RecommendedPresenter.class)
 public class RecommendedFragment extends BaseFragment<RecommendedPresenter> implements
         ViewEventListener<Topic>{
-    TopicModel topicModel;
 
     RecyclerMultiAdapter adapter;
 
     @Bind(R.id.multiStateView)
     MultiStateView multiStateView;
+
+    @Bind(R.id.refresh)
+    MaterialRefreshLayout refreshView;
 
     @Bind(R.id.recycler_view)
     RecyclerView topicListView;
@@ -59,7 +62,20 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
                 .listener(this)
                 .into(topicListView);
 
-        getPresenter().refresh();
+        refreshView.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+                getPresenter().refresh();
+            }
+
+            @Override
+            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+                super.onRefreshLoadMore(materialRefreshLayout);
+                getPresenter().nextPage();
+            }
+        });
+
+        refreshView.autoRefresh();
     }
 
     @Override
@@ -71,8 +87,10 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
         if (pageIndex == 1) {
             adapter.setItems(topics);
             multiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
+            refreshView.finishRefresh();
         } else {
             adapter.addItems(topics);
+            refreshView.finishRefreshLoadMore();
         }
     }
 
