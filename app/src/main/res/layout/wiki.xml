@@ -15,11 +15,19 @@
         app:msv_emptyView="@layout/common_empty"
         app:msv_loadingView="@layout/common_loading"
         app:msv_viewState="loading">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <com.cjj.MaterialRefreshLayout
+            android:id="@+id/refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="12dp"
-            android:paddingRight="12dp"/>
+            app:overlay="false"
+            app:wave_show="false"
+            app:isLoadMore="true">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="12dp"
+                android:paddingRight="12dp"/>
+        </com.cjj.MaterialRefreshLayout>
     </com.kennyc.view.MultiStateView>
 </LinearLayout>

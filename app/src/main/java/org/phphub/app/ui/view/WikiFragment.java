@@ -7,8 +7,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.cjj.MaterialRefreshLayout;
+import com.cjj.MaterialRefreshListener;
 import com.kennyc.view.MultiStateView;
 import com.orhanobut.logger.Logger;
 
@@ -18,6 +20,7 @@ import org.phphub.app.api.entity.element.Topic;
 import org.phphub.app.common.adapter.TopicItemView;
 import org.phphub.app.common.base.BaseSupportFragment;
 import org.phphub.app.model.TopicModel;
+import org.phphub.app.ui.presenter.WikiPresenter;
 
 import java.util.List;
 
@@ -25,12 +28,11 @@ import butterknife.Bind;
 import io.nlopez.smartadapters.SmartAdapter;
 import io.nlopez.smartadapters.adapters.RecyclerMultiAdapter;
 import io.nlopez.smartadapters.utils.ViewEventListener;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import nucleus.factory.RequiresPresenter;
+import static org.phphub.app.common.qualified.ClickType.*;
 
-public class WikiFragment  extends BaseSupportFragment implements
+@RequiresPresenter(WikiPresenter.class)
+public class WikiFragment  extends BaseSupportFragment<WikiPresenter> implements
         ViewEventListener<Topic> {
     TopicModel topicModel;
 
@@ -69,28 +71,20 @@ public class WikiFragment  extends BaseSupportFragment implements
                 .listener(this)
                 .into(topicListView);
 
-        topicModel.getTopicsByWiki(pageIndex)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(new Func1<TopicEntity, List<Topic>>() {
-                    @Override
-                    public List<Topic> call(TopicEntity topicEntity) {
-                        return topicEntity.getData();
-                    }
-                })
-                .subscribe(new Action1<List<Topic>>() {
-                    @Override
-                    public void call(List<Topic> topics) {
-                        adapter.setItems(topics);
-                        multiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Logger.e(throwable.getMessage());
-                        multiStateView.setViewState(MultiStateView.VIEW_STATE_ERROR);
-                    }
-                });
+        refreshView.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+                getPresenter().refresh();
+            }
+
+            @Override
+            public void onRefreshLoadMore(MaterialRefreshLayout materialRefreshLayout) {
+                super.onRefreshLoadMore(materialRefreshLayout);
+                getPresenter().nextPage();
+            }
+        });
+
+        refreshView.autoRefresh();
     }
 
     @Override
@@ -99,7 +93,30 @@ public class WikiFragment  extends BaseSupportFragment implements
     }
 
     @Override
-    public void onViewEvent(int i, Topic topic, int i1, View view) {
+    public void onViewEvent(int actionId, Topic topic, int option, View view) {
+        switch (actionId) {
+            case CLICK_TYPE_TOPIC_CLICKED:
+                Toast.makeText(getActivity(), topic.getTitle(), Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
 
+    public void onChangeItems(List<Topic> topics, int pageIndex){
+        if (pageIndex == 1) {
+            adapter.setItems(topics);
+            multiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
+            refreshView.finishRefresh();
+        } else {
+            adapter.addItems(topics);
+            refreshView.finishRefresh();
+        }
+    }
+
+    public void onNetworkError(Throwable throwable, int pageIndex) {
+        Logger.e(throwable.getMessage());
+
+        if (pageIndex == 1) {
+            multiStateView.setViewState(MultiStateView.VIEW_STATE_ERROR);
+        }
     }
 }
