@@ -12,6 +12,7 @@
     <color name="item_badge_background">#64B3F1</color>
 
     <color name="black">#FF000000</color>
-    <color name="tab_text_enabled">#FF000000</color>
-    <color name="tab_text_disabled">#4D000000</color>
+    <color name="tab_under_line">#387CB2</color>
+    <color name="tab_text_enabled">#767676</color>
+    <color name="tab_text_disabled">#B3B3B3</color>
 </resources>

@@ -19,7 +19,7 @@
         app:stl_dividerThickness="0dp"
         app:stl_overlineColor="@color/transparent"
         app:stl_overlineThickness="0dp"
-        app:stl_indicatorColor="@color/black"
+        app:stl_indicatorColor="@color/tab_under_line"
         app:stl_indicatorCornerRadius="1dp"
         app:stl_indicatorGravity="bottom"
         app:stl_indicatorInterpolation="linear"
