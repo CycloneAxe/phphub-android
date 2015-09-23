@@ -1,34 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <include layout="@layout/common_toolbar" />
 
-    <com.kennyc.view.MultiStateView
-        android:id="@+id/multiStateView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:msv_errorView="@layout/common_error"
-        app:msv_emptyView="@layout/common_empty"
-        app:msv_loadingView="@layout/common_loading"
-        app:msv_viewState="loading">
-        <com.cjj.MaterialRefreshLayout
-            android:id="@+id/refresh"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:overlay="false"
-            app:wave_show="false"
-            app:isLoadMore="true">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="8dp"
-                android:paddingRight="8dp"
-                android:paddingBottom="10dp"/>
-        </com.cjj.MaterialRefreshLayout>
-    </com.kennyc.view.MultiStateView>
+    <include layout="@layout/topic_list" />
 
 </LinearLayout>

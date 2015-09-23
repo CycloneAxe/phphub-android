@@ -8,7 +8,6 @@
     android:paddingLeft="24dp"
     android:paddingRight="24dp"
     android:textColor="@color/tab_text_switch"
-    android:textSize="16sp"
-    android:textStyle="bold">
+    android:textSize="16sp">
 
 </TextView>
