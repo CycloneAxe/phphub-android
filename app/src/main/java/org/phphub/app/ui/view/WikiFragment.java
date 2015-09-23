@@ -108,7 +108,7 @@ public class WikiFragment  extends BaseSupportFragment<WikiPresenter> implements
             refreshView.finishRefresh();
         } else {
             adapter.addItems(topics);
-            refreshView.finishRefresh();
+            refreshView.finishRefreshLoadMore();
         }
     }
 
