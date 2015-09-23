@@ -31,6 +31,18 @@ public class TopicModel extends BaseModel<TopicApi> {
         return getTopics("excellent", pageIndex);
     }
 
+    public Observable<TopicEntity> getTopicsByRecent(int pageIndex) {
+        return getTopics("recent", pageIndex);
+    }
+
+    public Observable<TopicEntity> getTopicsByVote(int pageIndex) {
+        return getTopics("vote", pageIndex);
+    }
+
+    public Observable<TopicEntity> getTopicsByNobody(int pageIndex) {
+        return getTopics("nobody", pageIndex);
+    }
+
     public Observable<TopicEntity> getTopicsByWiki(int pageIndex) {
         return getTopics("wiki", pageIndex);
     }
