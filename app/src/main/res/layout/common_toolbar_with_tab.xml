@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    android:id="@+id/toolbar"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@drawable/shap_line_only_bottom"
+    app:theme="@style/ThemeOverlay.AppCompat.Light"
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
 
     <com.ogaclejapan.smarttablayout.SmartTabLayout
         android:id="@+id/viewpagertab"
@@ -14,8 +17,8 @@
         app:stl_distributeEvenly="true"
         app:stl_dividerColor="@color/transparent"
         app:stl_dividerThickness="0dp"
-        app:stl_overlineColor="@color/black_20"
-        app:stl_overlineThickness="1dp"
+        app:stl_overlineColor="@color/transparent"
+        app:stl_overlineThickness="0dp"
         app:stl_indicatorColor="@color/black"
         app:stl_indicatorCornerRadius="1dp"
         app:stl_indicatorGravity="bottom"
@@ -25,10 +28,4 @@
         app:stl_underlineColor="@color/transparent"
         app:stl_underlineThickness="0dp"/>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"/>
-
-</merge>
+</android.support.v7.widget.Toolbar>

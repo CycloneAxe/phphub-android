@@ -4,7 +4,6 @@
     android:id="@+id/tv_tab_title"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
-    android:background="?attr/selectableItemBackground"
     android:gravity="center"
     android:paddingLeft="24dp"
     android:paddingRight="24dp"

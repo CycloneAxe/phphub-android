@@ -2,6 +2,7 @@ allprojects {
   repositories {
     jcenter()
     maven { url 'https://dl.bintray.com/kennyc1012/maven' }
+    maven { url "https://clojars.org/repo/" }
   }
 }
 

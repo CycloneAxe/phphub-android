@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
@@ -16,7 +17,7 @@ import com.orhanobut.logger.Logger;
 import org.phphub.app.R;
 import org.phphub.app.api.entity.element.Topic;
 import org.phphub.app.common.adapter.TopicItemView;
-import org.phphub.app.common.base.BaseFragment;
+import org.phphub.app.common.base.BaseSupportFragment;
 import org.phphub.app.ui.presenter.RecommendedPresenter;
 
 import java.util.List;
@@ -26,9 +27,10 @@ import io.nlopez.smartadapters.SmartAdapter;
 import io.nlopez.smartadapters.adapters.RecyclerMultiAdapter;
 import io.nlopez.smartadapters.utils.ViewEventListener;
 import nucleus.factory.RequiresPresenter;
+import static org.phphub.app.common.qualified.ClickType.*;
 
 @RequiresPresenter(RecommendedPresenter.class)
-public class RecommendedFragment extends BaseFragment<RecommendedPresenter> implements
+public class RecommendedFragment extends BaseSupportFragment<RecommendedPresenter> implements
         ViewEventListener<Topic>{
 
     RecyclerMultiAdapter adapter;
@@ -103,6 +105,10 @@ public class RecommendedFragment extends BaseFragment<RecommendedPresenter> impl
 
     @Override
     public void onViewEvent(int actionId, Topic topic, int position, View view) {
-
+        switch (actionId) {
+            case CLICK_TYPE_TOPIC_CLICKED:
+                Toast.makeText(getActivity(), topic.getTitle(), Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }

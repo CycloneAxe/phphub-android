@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import org.phphub.app.R;
-import org.phphub.app.common.base.BaseFragment;
+import org.phphub.app.common.base.BaseSupportFragment;
 
-public class MeFragment extends BaseFragment {
+public class MeFragment extends BaseSupportFragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

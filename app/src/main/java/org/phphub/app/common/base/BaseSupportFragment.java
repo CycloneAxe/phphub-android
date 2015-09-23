@@ -10,17 +10,25 @@ import org.phphub.app.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import icepick.Icepick;
 import nucleus.presenter.Presenter;
 import nucleus.view.NucleusSupportFragment;
 
-public abstract class BaseFragment<PresenterType extends Presenter> extends NucleusSupportFragment<PresenterType> {
+public abstract class BaseSupportFragment<PresenterType extends Presenter> extends NucleusSupportFragment<PresenterType> {
     @Nullable
     @Bind(R.id.tv_title)
     TextView titleView;
 
     @Override
+    public void onSaveInstanceState(Bundle bundle) {
+        super.onSaveInstanceState(bundle);
+        Icepick.saveInstanceState(this, bundle);
+    }
+
+    @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        Icepick.restoreInstanceState(this, savedInstanceState);
         ButterKnife.bind(this, view);
 
         if (titleView != null &&!TextUtils.isEmpty(getTitle())) {
