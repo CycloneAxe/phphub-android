@@ -1,4 +1,4 @@
-package org.phphub.app.ui;
+package org.phphub.app.ui.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -54,13 +54,4 @@ public class TopicsFragment extends BaseFragment {
         return new Bundler().putString(TopicFragment.TOPIC_TYPE_KEY, topicType).get();
     }
 
-    public static class TopicFragment extends BaseFragment {
-        public static final String TOPIC_TYPE_KEY = "topic_type";
-
-        @Nullable
-        @Override
-        public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-            return inflater.inflate(R.layout.topic, container, false);
-        }
-    }
 }

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.widget.TextView;
@@ -13,8 +12,10 @@ import org.phphub.app.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import nucleus.presenter.Presenter;
+import nucleus.view.NucleusAppCompatActivity;
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<PresenterType extends Presenter> extends NucleusAppCompatActivity<PresenterType> {
     @Nullable
     @Bind(R.id.toolbar)
     Toolbar toolbarView;

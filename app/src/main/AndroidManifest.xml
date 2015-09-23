@@ -15,7 +15,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.view.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.LoginActivity">
+        <activity android:name=".ui.view.LoginActivity">
             <intent-filter>
                 <action android:name="org.phphub.auth.action.AUTH"/>
                 <category android:name="android.intent.category.DEFAULT"/>

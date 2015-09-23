@@ -1,4 +1,4 @@
-package org.phphub.app.ui;
+package org.phphub.app.ui.view;
 
 import android.os.Bundle;
 

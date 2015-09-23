@@ -2,7 +2,6 @@ package org.phphub.app.common.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
@@ -11,8 +10,10 @@ import org.phphub.app.R;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
+import nucleus.presenter.Presenter;
+import nucleus.view.NucleusSupportFragment;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<PresenterType extends Presenter> extends NucleusSupportFragment<PresenterType> {
     @Nullable
     @Bind(R.id.tv_title)
     TextView titleView;

@@ -1,4 +1,4 @@
-package org.phphub.app.ui;
+package org.phphub.app.ui.view;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,12 +12,11 @@ import com.kennyc.view.MultiStateView;
 import com.orhanobut.logger.Logger;
 
 import org.phphub.app.R;
-import org.phphub.app.api.entity.TopicEntity;
 import org.phphub.app.api.entity.element.Topic;
-import org.phphub.app.common.App;
 import org.phphub.app.common.adapter.TopicItemView;
 import org.phphub.app.common.base.BaseFragment;
 import org.phphub.app.model.TopicModel;
+import org.phphub.app.ui.presenter.RecommendedPresenter;
 
 import java.util.List;
 
@@ -25,12 +24,10 @@ import butterknife.Bind;
 import io.nlopez.smartadapters.SmartAdapter;
 import io.nlopez.smartadapters.adapters.RecyclerMultiAdapter;
 import io.nlopez.smartadapters.utils.ViewEventListener;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Action1;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import nucleus.factory.RequiresPresenter;
 
-public class RecommendedFragment extends BaseFragment implements
+@RequiresPresenter(RecommendedPresenter.class)
+public class RecommendedFragment extends BaseFragment<RecommendedPresenter> implements
         ViewEventListener<Topic>{
     TopicModel topicModel;
 
@@ -42,12 +39,9 @@ public class RecommendedFragment extends BaseFragment implements
     @Bind(R.id.recycler_view)
     RecyclerView topicListView;
 
-    int pageIndex = 1;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        topicModel = new TopicModel(App.getInstance());
     }
 
     @Nullable
@@ -65,33 +59,28 @@ public class RecommendedFragment extends BaseFragment implements
                 .listener(this)
                 .into(topicListView);
 
-        topicModel.getTopicsByExcellent(pageIndex)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(new Func1<TopicEntity, List<Topic>>() {
-                    @Override
-                    public List<Topic> call(TopicEntity topicEntity) {
-                        return topicEntity.getData();
-                    }
-                })
-                .subscribe(new Action1<List<Topic>>() {
-                    @Override
-                    public void call(List<Topic> topics) {
-                        adapter.setItems(topics);
-                        multiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Logger.e(throwable.getMessage());
-                        multiStateView.setViewState(MultiStateView.VIEW_STATE_ERROR);
-                    }
-                });
+        getPresenter().refresh();
     }
 
     @Override
     protected String getTitle() {
         return getString(R.string.recommended);
+    }
+
+    public void onChangeItems(List<Topic> topics, int pageIndex) {
+        if (pageIndex == 1) {
+            adapter.setItems(topics);
+            multiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
+        } else {
+            adapter.addItems(topics);
+        }
+    }
+
+    public void onNetworkError(Throwable throwable, int pageIndex) {
+        Logger.e(throwable.getMessage());
+        if (pageIndex == 1) {
+            multiStateView.setViewState(MultiStateView.VIEW_STATE_ERROR);
+        }
     }
 
     @Override
