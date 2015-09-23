@@ -30,4 +30,8 @@ public class TopicModel extends BaseModel<TopicApi> {
     public Observable<TopicEntity> getTopicsByExcellent(int pageIndex) {
         return getTopics("excellent", pageIndex);
     }
+
+    public Observable<TopicEntity> getTopicsByWiki(int pageIndex) {
+        return getTopics("wiki", pageIndex);
+    }
 }
