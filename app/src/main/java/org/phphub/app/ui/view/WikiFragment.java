@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cjj.MaterialRefreshLayout;
 import com.kennyc.view.MultiStateView;
 import com.orhanobut.logger.Logger;
 
@@ -29,7 +30,7 @@ import rx.functions.Action1;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
-public class WikiFragment  extends BaseFragment implements
+public class WikiFragment  extends BaseFragment<WikiPresenter> implements
         ViewEventListener<Topic> {
     TopicModel topicModel;
 
@@ -37,6 +38,9 @@ public class WikiFragment  extends BaseFragment implements
 
     @Bind(R.id.multiStateView)
     MultiStateView multiStateView;
+
+    @Bind(R.id.refresh)
+    MaterialRefreshLayout refreshView;
 
     @Bind(R.id.recycler_view)
     RecyclerView topicListView;
