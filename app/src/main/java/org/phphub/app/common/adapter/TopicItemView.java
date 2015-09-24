@@ -38,8 +38,13 @@ public class TopicItemView extends BaseAdapterItemView<Topic> {
     public void bind(Topic topic) {
 
         Uri avatarUri = Uri.parse(topic.getUserInfo().getData().getAvatar());
+        String commentCount = String.valueOf(topic.getReplyCount());
 
-        topicContentView.showTextBadge(String.valueOf(topic.getReplyCount()));
+        if (topic.getReplyCount() > 99) {
+            commentCount = "99+";
+        }
+
+        topicContentView.showTextBadge(commentCount);
         titleView.setText(topic.getTitle());
         avatarView.setImageURI(avatarUri);
 
