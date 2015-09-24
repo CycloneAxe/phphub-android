@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.kennyc.view.MultiStateView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.kennyc.view.MultiStateView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/multiStateView"
     android:layout_width="match_parent"
@@ -21,9 +22,8 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:paddingTop="4dp" />
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp" />
     </com.cjj.MaterialRefreshLayout>
 
 </com.kennyc.view.MultiStateView>
