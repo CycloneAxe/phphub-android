@@ -13,13 +13,18 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import org.phphub.app.R;
-import org.phphub.app.common.base.BaseSupportFragment;
+import org.phphub.app.common.base.LazyFragment;
 import org.phphub.app.common.qualified.TopicType;
 
 import butterknife.Bind;
 import static org.phphub.app.common.qualified.TopicType.*;
 
-public class TopicsFragment extends BaseSupportFragment {
+public class TopicsFragment extends LazyFragment {
+
+    private boolean isPrepared;
+
+    private boolean adapterHasCreated;
+
     @Bind(R.id.viewpagertab)
     SmartTabLayout viewpagerTabView;
 
@@ -35,6 +40,14 @@ public class TopicsFragment extends BaseSupportFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        isPrepared = true;
+    }
+
+    @Override
+    protected void lazyLoad() {
+        if (!isPrepared || !isVisible || adapterHasCreated) {
+            return;
+        }
 
         FragmentPagerItems pages = FragmentPagerItems.with(getActivity())
                 .add(R.string.recent, TopicFragment.class, getTopicTypeBundle(TOPIC_TYPE_RECENT))
@@ -48,6 +61,8 @@ public class TopicsFragment extends BaseSupportFragment {
         viewPagerView.setOffscreenPageLimit(pages.size());
         viewPagerView.setAdapter(adapter);
         viewpagerTabView.setViewPager(viewPagerView);
+
+        adapterHasCreated = true;
     }
 
     private Bundle getTopicTypeBundle(@TopicType String topicType) {
