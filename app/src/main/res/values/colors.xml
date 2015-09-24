@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="toolbar_under_line">#CECECE</color>
     <color name="accentColor">#50514F</color>
     <color name="transparent">#00000000</color>
     <color name="icon_enabled">#6392D7</color>
