@@ -17,7 +17,7 @@ import com.orhanobut.logger.Logger;
 import org.phphub.app.R;
 import org.phphub.app.api.entity.element.Topic;
 import org.phphub.app.common.adapter.TopicItemView;
-import org.phphub.app.common.base.BaseSupportFragment;
+import org.phphub.app.common.base.LazyFragment;
 import org.phphub.app.ui.presenter.RecommendedPresenter;
 
 import java.util.List;
@@ -28,10 +28,12 @@ import io.nlopez.smartadapters.adapters.RecyclerMultiAdapter;
 import io.nlopez.smartadapters.utils.ViewEventListener;
 import nucleus.factory.RequiresPresenter;
 import static org.phphub.app.common.qualified.ClickType.*;
+import static com.kennyc.view.MultiStateView.*;
 
 @RequiresPresenter(RecommendedPresenter.class)
-public class RecommendedFragment extends BaseSupportFragment<RecommendedPresenter> implements
+public class RecommendedFragment extends LazyFragment<RecommendedPresenter> implements
         ViewEventListener<Topic>{
+    private boolean isPrepared;
 
     RecyclerMultiAdapter adapter;
 
@@ -77,6 +79,21 @@ public class RecommendedFragment extends BaseSupportFragment<RecommendedPresente
             }
         });
 
+        isPrepared = true;
+        lazyLoad();
+    }
+
+    @Override
+    protected void lazyLoad() {
+        if(!isPrepared || !isVisible) {
+            return;
+        }
+
+        if (!canLoadData(multiStateView, adapter)) {
+            return;
+        }
+
+        multiStateView.setViewState(VIEW_STATE_LOADING);
         refreshView.autoRefresh();
     }
 
@@ -88,7 +105,7 @@ public class RecommendedFragment extends BaseSupportFragment<RecommendedPresente
     public void onChangeItems(List<Topic> topics, int pageIndex) {
         if (pageIndex == 1) {
             adapter.setItems(topics);
-            multiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
+            multiStateView.setViewState(VIEW_STATE_CONTENT);
             refreshView.finishRefresh();
         } else {
             adapter.addItems(topics);
@@ -99,7 +116,7 @@ public class RecommendedFragment extends BaseSupportFragment<RecommendedPresente
     public void onNetworkError(Throwable throwable, int pageIndex) {
         Logger.e(throwable.getMessage());
         if (pageIndex == 1) {
-            multiStateView.setViewState(MultiStateView.VIEW_STATE_ERROR);
+            multiStateView.setViewState(VIEW_STATE_ERROR);
         }
     }
 

@@ -18,7 +18,7 @@ import com.orhanobut.logger.Logger;
 import org.phphub.app.R;
 import org.phphub.app.api.entity.element.Topic;
 import org.phphub.app.common.adapter.TopicItemView;
-import org.phphub.app.common.base.BaseSupportFragment;
+import org.phphub.app.common.base.LazyFragment;
 import org.phphub.app.ui.presenter.TopicPresenter;
 
 import java.util.List;
@@ -30,12 +30,15 @@ import io.nlopez.smartadapters.adapters.RecyclerMultiAdapter;
 import io.nlopez.smartadapters.utils.ViewEventListener;
 import nucleus.factory.RequiresPresenter;
 
+import static com.kennyc.view.MultiStateView.*;
 import static org.phphub.app.common.qualified.ClickType.CLICK_TYPE_TOPIC_CLICKED;
 
 @RequiresPresenter(TopicPresenter.class)
-public class TopicFragment extends BaseSupportFragment<TopicPresenter> implements
+public class TopicFragment extends LazyFragment<TopicPresenter> implements
         ViewEventListener<Topic>{
     public static final String TOPIC_TYPE_KEY = "topic_type";
+
+    private boolean isPrepared;
 
     @State
     protected String topicType = "recent";
@@ -83,13 +86,28 @@ public class TopicFragment extends BaseSupportFragment<TopicPresenter> implement
             }
         });
 
+        isPrepared = true;
+        lazyLoad();
+    }
+
+    @Override
+    protected void lazyLoad() {
+        if(!isPrepared || !isVisible) {
+            return;
+        }
+
+        if (!canLoadData(multiStateView, adapter)) {
+            return;
+        }
+
+        multiStateView.setViewState(VIEW_STATE_LOADING);
         refreshView.autoRefresh();
     }
 
     public void onChangeItems(List<Topic> topics, int pageIndex) {
         if (pageIndex == 1) {
             adapter.setItems(topics);
-            multiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
+            multiStateView.setViewState(VIEW_STATE_CONTENT);
             refreshView.finishRefresh();
         } else {
             adapter.addItems(topics);
@@ -100,7 +118,7 @@ public class TopicFragment extends BaseSupportFragment<TopicPresenter> implement
     public void onNetworkError(Throwable throwable, int pageIndex) {
         Logger.e(throwable.getMessage());
         if (pageIndex == 1) {
-            multiStateView.setViewState(MultiStateView.VIEW_STATE_ERROR);
+            multiStateView.setViewState(VIEW_STATE_ERROR);
         }
     }
 
