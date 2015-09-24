@@ -15,11 +15,9 @@ import com.kennyc.view.MultiStateView;
 import com.orhanobut.logger.Logger;
 
 import org.phphub.app.R;
-import org.phphub.app.api.entity.TopicEntity;
 import org.phphub.app.api.entity.element.Topic;
 import org.phphub.app.common.adapter.TopicItemView;
-import org.phphub.app.common.base.BaseSupportFragment;
-import org.phphub.app.model.TopicModel;
+import org.phphub.app.common.base.LazyFragment;
 import org.phphub.app.ui.presenter.WikiPresenter;
 
 import java.util.List;
@@ -29,12 +27,14 @@ import io.nlopez.smartadapters.SmartAdapter;
 import io.nlopez.smartadapters.adapters.RecyclerMultiAdapter;
 import io.nlopez.smartadapters.utils.ViewEventListener;
 import nucleus.factory.RequiresPresenter;
+
+import static com.kennyc.view.MultiStateView.*;
 import static org.phphub.app.common.qualified.ClickType.*;
 
 @RequiresPresenter(WikiPresenter.class)
-public class WikiFragment  extends BaseSupportFragment<WikiPresenter> implements
+public class WikiFragment  extends LazyFragment<WikiPresenter> implements
         ViewEventListener<Topic> {
-    TopicModel topicModel;
+    private boolean isPrepared;
 
     RecyclerMultiAdapter adapter;
 
@@ -52,7 +52,6 @@ public class WikiFragment  extends BaseSupportFragment<WikiPresenter> implements
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        topicModel = new TopicModel(getActivity());
     }
 
     @Nullable
@@ -84,6 +83,21 @@ public class WikiFragment  extends BaseSupportFragment<WikiPresenter> implements
             }
         });
 
+        isPrepared = true;
+        lazyLoad();
+    }
+
+    @Override
+    protected void lazyLoad() {
+        if(!isPrepared || !isVisible) {
+            return;
+        }
+
+        if (!canLoadData(multiStateView, adapter)) {
+            return;
+        }
+
+        multiStateView.setViewState(VIEW_STATE_LOADING);
         refreshView.autoRefresh();
     }
 
@@ -104,7 +118,7 @@ public class WikiFragment  extends BaseSupportFragment<WikiPresenter> implements
     public void onChangeItems(List<Topic> topics, int pageIndex){
         if (pageIndex == 1) {
             adapter.setItems(topics);
-            multiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
+            multiStateView.setViewState(VIEW_STATE_CONTENT);
             refreshView.finishRefresh();
         } else {
             adapter.addItems(topics);
@@ -116,7 +130,7 @@ public class WikiFragment  extends BaseSupportFragment<WikiPresenter> implements
         Logger.e(throwable.getMessage());
 
         if (pageIndex == 1) {
-            multiStateView.setViewState(MultiStateView.VIEW_STATE_ERROR);
+            multiStateView.setViewState(VIEW_STATE_ERROR);
         }
     }
 }
