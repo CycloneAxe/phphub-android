@@ -14,12 +14,11 @@
         android:gravity="center"
         android:layout_centerInParent="true"
         app:badge_gravity="rightTop">
-        <org.phphub.app.common.widget.TintableImageView
-            android:id="@+id/tiv_icon"
+        <ImageView
+            android:id="@+id/iv_icon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="?attr/selectableItemBackground"
-            android:scaleType="center"
-            app:tint="@color/custom_tab_icon"/>
+            android:background="@drawable/ic_me"
+            android:scaleType="center"/>
     </cn.bingoogolapple.badgeview.BGABadgeLinearLayout>
 </RelativeLayout>
