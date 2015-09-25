@@ -5,8 +5,9 @@ apply plugin: 'com.mutualmobile.gradle.plugins.dexinfo'
 // Hat tip to Jake Wharton for this - found it in the u2020 app
 def gitSha = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
 
+def globalConfiguration = rootProject.extensions.getByName("ext")
+
 android {
-    def globalConfiguration = rootProject.extensions.getByName("ext")
 
     compileSdkVersion globalConfiguration.getAt("ANDROID_COMPILE_SDK_VERSION") as int
     buildToolsVersion globalConfiguration.getAt("ANDROID_BUILD_TOOLS_VERSION")
@@ -86,7 +87,7 @@ android {
     }
 }
 
-def SUPPORT_VERSION = '22.2.1'
+def SUPPORT_VERSION = globalConfiguration.getAt("ANDROID_BUILD_TOOLS_VERSION")
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
 
