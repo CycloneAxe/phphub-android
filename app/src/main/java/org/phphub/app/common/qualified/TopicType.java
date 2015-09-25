@@ -3,13 +3,15 @@ package org.phphub.app.common.qualified;
 import android.support.annotation.StringDef;
 
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 
-@Retention(RetentionPolicy.SOURCE)
+import static java.lang.annotation.RetentionPolicy.SOURCE;
+import static org.phphub.app.common.qualified.TopicType.*;
+
+@Retention(SOURCE)
 @StringDef({
-        TopicType.TOPIC_TYPE_RECENT,
-        TopicType.TOPIC_TYPE_VOTE,
-        TopicType.TOPIC_TYPE_NOBODY
+        TOPIC_TYPE_RECENT,
+        TOPIC_TYPE_VOTE,
+        TOPIC_TYPE_NOBODY
 })
 public @interface TopicType {
     String TOPIC_TYPE_RECENT = "recent";

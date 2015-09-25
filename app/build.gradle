@@ -19,7 +19,7 @@ android {
         versionName globalConfiguration.getAt("VERSION_NAME")
 
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
-        buildConfigField "String", "BASE_URL", "\"https://api.phphub.org\""
+        buildConfigField "String", "BASE_URL", "\"https://api.phphub.org/\""
     }
 
     signingConfigs {

@@ -9,6 +9,10 @@ import android.text.TextUtils;
 import android.widget.TextView;
 
 import org.phphub.app.R;
+import org.phphub.app.common.App;
+import org.phphub.app.common.Navigator;
+import org.phphub.app.common.internal.di.component.AppComponent;
+import org.phphub.app.common.internal.di.module.ActivityModule;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -25,12 +29,15 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
     @Bind(R.id.tv_title)
     TextView titleView;
 
+    Navigator navigator;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Icepick.restoreInstanceState(this, savedInstanceState);
         setContentView(getLayoutResId());
         setupToolbar();
+        navigator = getAppComponent().navigator();
     }
 
     @Override
@@ -49,13 +56,26 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
         if (toolbarView == null) {
             return;
         }
+        toolbarView.setTitle("");
         setSupportActionBar(toolbarView);
         if (titleView != null) {
-            titleView.setText(getTitle());
+            titleView.setText(getTitleName());
         }
         if (!TextUtils.isEmpty(NavUtils.getParentActivityName(this))) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    protected CharSequence getTitleName() {
+        return getTitle();
+    }
+
+    protected AppComponent getAppComponent() {
+        return ((App) getApplication()).getAppComponent();
+    }
+
+    protected ActivityModule getActivityModule() {
+        return new ActivityModule(this);
     }
 
     abstract protected @LayoutRes int getLayoutResId();

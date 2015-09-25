@@ -1,4 +1,4 @@
-package org.phphub.app.ui.view;
+package org.phphub.app.ui.view.topic;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -26,10 +26,10 @@ public class TopicsFragment extends LazyFragment {
     private boolean adapterHasCreated;
 
     @Bind(R.id.viewpagertab)
-    SmartTabLayout viewpagerTabView;
+    SmartTabLayout viewpagerTab;
 
     @Bind(R.id.viewpager)
-    ViewPager viewPagerView;
+    ViewPager viewPager;
 
     @Nullable
     @Override
@@ -58,9 +58,9 @@ public class TopicsFragment extends LazyFragment {
                 getChildFragmentManager(),
                 pages);
 
-        viewPagerView.setOffscreenPageLimit(pages.size());
-        viewPagerView.setAdapter(adapter);
-        viewpagerTabView.setViewPager(viewPagerView);
+        viewPager.setOffscreenPageLimit(pages.size());
+        viewPager.setAdapter(adapter);
+        viewpagerTab.setViewPager(viewPager);
 
         adapterHasCreated = true;
     }

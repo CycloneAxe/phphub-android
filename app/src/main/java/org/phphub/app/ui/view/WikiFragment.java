@@ -7,7 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
@@ -26,6 +25,7 @@ import butterknife.Bind;
 import io.nlopez.smartadapters.SmartAdapter;
 import io.nlopez.smartadapters.adapters.RecyclerMultiAdapter;
 import io.nlopez.smartadapters.utils.ViewEventListener;
+import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
 
 import static com.kennyc.view.MultiStateView.*;
@@ -47,11 +47,18 @@ public class WikiFragment  extends LazyFragment<WikiPresenter> implements
     @Bind(R.id.recycler_view)
     RecyclerView topicListView;
 
-    int pageIndex = 1;
-
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onCreate(Bundle bundle) {
+        final PresenterFactory<WikiPresenter> superFactory = super.getPresenterFactory();
+        setPresenterFactory(new PresenterFactory<WikiPresenter>() {
+            @Override
+            public WikiPresenter createPresenter() {
+                WikiPresenter presenter = superFactory.createPresenter();
+                getApiComponent().inject(presenter);
+                return presenter;
+            }
+        });
+        super.onCreate(bundle);
     }
 
     @Nullable
@@ -106,15 +113,6 @@ public class WikiFragment  extends LazyFragment<WikiPresenter> implements
         return getString(R.string.wiki);
     }
 
-    @Override
-    public void onViewEvent(int actionId, Topic topic, int option, View view) {
-        switch (actionId) {
-            case CLICK_TYPE_TOPIC_CLICKED:
-                Toast.makeText(getActivity(), topic.getTitle(), Toast.LENGTH_SHORT).show();
-                break;
-        }
-    }
-
     public void onChangeItems(List<Topic> topics, int pageIndex){
         if (pageIndex == 1) {
             adapter.setItems(topics);
@@ -131,6 +129,15 @@ public class WikiFragment  extends LazyFragment<WikiPresenter> implements
 
         if (pageIndex == 1) {
             multiStateView.setViewState(VIEW_STATE_ERROR);
+        }
+    }
+
+    @Override
+    public void onViewEvent(int actionId, Topic topic, int option, View view) {
+        switch (actionId) {
+            case CLICK_TYPE_TOPIC_CLICKED:
+                navigator.navigateToTopicDetails(getActivity(), topic.getId());
+                break;
         }
     }
 }

@@ -11,6 +11,8 @@ import org.phphub.app.ui.view.RecommendedFragment;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action2;
@@ -20,15 +22,14 @@ import rx.functions.Func1;
 public class RecommendedPresenter extends BaseRxPresenter<RecommendedFragment> {
     public static final int REQUEST_ID = 1;
 
-    protected TopicModel topicModel;
+    @Inject
+    TopicModel topicModel;
 
     protected int pageIndex = 1;
 
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-
-        topicModel = new TopicModel(App.getInstance());
 
         restartableLatestCache(REQUEST_ID,
                 new Func0<Observable<List<Topic>>>() {

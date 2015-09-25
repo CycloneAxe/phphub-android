@@ -2,9 +2,9 @@ package org.phphub.app.model;
 
 import android.content.Context;
 
-import org.phphub.app.api.BaseApi;
 import org.phphub.app.api.TopicApi;
 import org.phphub.app.api.entity.TopicEntity;
+import org.phphub.app.common.Constant;
 import org.phphub.app.common.base.BaseModel;
 
 import java.util.HashMap;
@@ -20,7 +20,7 @@ public class TopicModel extends BaseModel<TopicApi> {
     Observable<TopicEntity> getTopics(String filter, int pageIndex) {
         Map<String, String> options = new HashMap<String, String>();
         options.put("include", "user,node");
-        options.put("per_page", String.valueOf(BaseApi.PER_PAGE));
+        options.put("per_page", String.valueOf(Constant.PER_PAGE));
         options.put("filter", filter);
         options.put("page", String.valueOf(pageIndex));
 

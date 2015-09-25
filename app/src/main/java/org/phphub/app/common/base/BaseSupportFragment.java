@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.TextView;
 
 import org.phphub.app.R;
+import org.phphub.app.common.App;
+import org.phphub.app.common.Navigator;
+import org.phphub.app.common.internal.di.component.ApiComponent;
+import org.phphub.app.common.internal.di.component.AppComponent;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -17,12 +21,20 @@ import nucleus.view.NucleusSupportFragment;
 public abstract class BaseSupportFragment<PresenterType extends Presenter> extends NucleusSupportFragment<PresenterType> {
     @Nullable
     @Bind(R.id.tv_title)
-    TextView titleView;
+    public TextView titleView;
+
+    public Navigator navigator;
 
     @Override
     public void onSaveInstanceState(Bundle bundle) {
         super.onSaveInstanceState(bundle);
         Icepick.saveInstanceState(this, bundle);
+    }
+
+    @Override
+    public void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
+        navigator = getAppComponent().navigator();
     }
 
     @Override
@@ -38,6 +50,14 @@ public abstract class BaseSupportFragment<PresenterType extends Presenter> exten
 
     protected String getTitle() {
         return "";
+    }
+
+    protected AppComponent getAppComponent() {
+        return ((App) getActivity().getApplication()).getAppComponent();
+    }
+
+    protected ApiComponent getApiComponent() {
+        return ((App) getActivity().getApplication()).getApiComponent();
     }
 
     @Override
