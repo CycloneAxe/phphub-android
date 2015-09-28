@@ -12,4 +12,5 @@
 
     <string name="safe">安全</string>
     <string name="last_for">最后由</string>
+    <string name="please_login">请登录</string>
 </resources>

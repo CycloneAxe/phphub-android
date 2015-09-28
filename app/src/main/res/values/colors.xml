@@ -16,4 +16,12 @@
     <color name="tab_under_line">#387CB2</color>
     <color name="tab_text_enabled">#767676</color>
     <color name="tab_text_disabled">#B3B3B3</color>
+
+
+    <color name="blue">#ff03A9F4</color>
+    <color name="green">#ff4CAF50</color>
+    <color name="red">#ffF44336</color>
+    <color name="yellow">#ffFFEB3B</color>
+    <color name="yellow_20">#EFD296</color>
+    <color name="blue_20">#A5CFE8</color>
 </resources>

@@ -11,4 +11,5 @@
 
     <string name="safe">Safe</string>
     <string name="last_for">Last For</string>
+    <string name="please_login">Please login</string>
 </resources>
