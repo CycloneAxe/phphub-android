@@ -132,5 +132,6 @@ dependencies {
     apt 'com.google.dagger:dagger-compiler:2.0.1'
     provided 'javax.annotation:jsr250-api:1.0'
     compile 'com.zhy:percent-support-extends:1.0.6'
+    compile 'com.ocpsoft:ocpsoft-pretty-time:1.0.7'
 
 }
