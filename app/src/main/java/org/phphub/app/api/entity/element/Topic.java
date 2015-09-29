@@ -22,6 +22,9 @@ public class Topic {
     @SerializedName("user")
     protected UserInfo userInfo;
 
+    @SerializedName("last_reply_user")
+    protected UserInfo lastReplyUser;
+
     public class UserInfo {
         User data;
 
@@ -30,6 +33,21 @@ public class Topic {
         }
 
         public void setData(User data) {
+            this.data = data;
+        }
+    }
+
+    @SerializedName("node")
+    protected NodeInfo nodeInfo;
+
+    public class NodeInfo {
+        Node data;
+
+        public Node getData() {
+            return data;
+        }
+
+        public void setData(Node data) {
             this.data = data;
         }
     }
@@ -88,5 +106,21 @@ public class Topic {
 
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
+    }
+
+    public UserInfo getLastReplyUser() {
+        return lastReplyUser;
+    }
+
+    public void setLastReplyUser(UserInfo lastReplyUser) {
+        this.lastReplyUser = lastReplyUser;
+    }
+
+    public NodeInfo getNodeInfo() {
+        return nodeInfo;
+    }
+
+    public void setNodeInfo(NodeInfo nodeInfo) {
+        this.nodeInfo = nodeInfo;
     }
 }
