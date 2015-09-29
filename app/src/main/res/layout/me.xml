@@ -1,10 +1,304 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <include layout="@layout/common_toolbar" />
+    <include
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_widthPercent="100%w"
+        app:layout_heightPercent=""
+        layout="@layout/common_toolbar" />
 
-</LinearLayout>
+    <com.zhy.android.percent.support.PercentRelativeLayout
+        android:width="0dp"
+        android:height="0dp"
+        app:layout_widthPercent="100%w"
+        app:layout_heightPercent="22.8%w"
+        android:background="@drawable/shap_line_only_bottom"
+        android:layout_width="wrap_content">
+
+        <include
+            android:id="@+id/avatar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_widthPercent="17%w"
+            app:layout_heightPercent="100%w"
+            app:layout_marginLeftPercent="4.9%w"
+            app:layout_marginRightPercent="3.6%w"
+            layout="@layout/common_avatar"/>
+
+        <TextView
+            android:id="@+id/tv_username"
+            android:layout_toRightOf="@id/avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            app:layout_textSizePercent="22.8%h"
+            tools:text="Summer"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center_vertical"
+            android:src="@mipmap/ic_right_arrow"
+            app:layout_paddingRightPercent="5%w"/>
+
+    </com.zhy.android.percent.support.PercentRelativeLayout>
+
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_widthPercent="100%w"
+        app:layout_heightPercent="33.1%w"
+        app:layout_marginTopPercent="5.3%w"
+        android:orientation="vertical"
+        android:background="@drawable/shap_profile_space_divider">
+
+        <cn.bingoogolapple.badgeview.BGABadgeRelativeLayout
+            android:id="@+id/bga_rlyt_messages"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_widthPercent="100%w"
+            app:layout_heightPercent="33.3%h">
+
+            <com.zhy.android.percent.support.PercentRelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_msg_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:src="@mipmap/ic_profile_messages"
+                    android:scaleType="centerInside"
+                    app:layout_paddingLeftPercent="6.5%w"
+                    app:layout_paddingRightPercent="7.6%w"/>
+
+                <TextView
+                    android:layout_toRightOf="@id/iv_msg_icon"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    style="@style/me_list_items"
+                    android:text="@string/my_messages"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical"
+                    android:src="@mipmap/ic_right_arrow"
+                    app:layout_paddingRightPercent="5%w"/>
+
+            </com.zhy.android.percent.support.PercentRelativeLayout>
+
+        </cn.bingoogolapple.badgeview.BGABadgeRelativeLayout>
+
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/percent_rlyt_following"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_widthPercent="100%w"
+            app:layout_heightPercent="33.3%h"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_following_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_profile_following"
+                app:layout_paddingLeftPercent="6.5%w"
+                app:layout_paddingRightPercent="7.6%w"/>
+
+            <TextView
+                android:layout_toRightOf="@id/iv_following_icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                style="@style/me_list_items"
+                android:text="@string/my_following"
+                android:background="@drawable/shap_profile_space_divider"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:src="@mipmap/ic_right_arrow"
+                app:layout_paddingRightPercent="5%w"/>
+
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/percent_rlyt_favorites"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_widthPercent="100%w"
+            app:layout_heightPercent="33.3%h"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_favorite_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_profile_favorite"
+                app:layout_paddingLeftPercent="6.5%w"
+                app:layout_paddingRightPercent="7.6%w"/>
+
+            <TextView
+                android:layout_toRightOf="@id/iv_favorite_icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                style="@style/me_list_items"
+                android:text="@string/my_favorite"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:src="@mipmap/ic_right_arrow"
+                app:layout_paddingRightPercent="5%w"/>
+
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+
+
+    </com.zhy.android.percent.support.PercentLinearLayout>
+
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_widthPercent="100%w"
+        app:layout_heightPercent="33.1%w"
+        app:layout_marginTopPercent="5.3%w"
+        android:orientation="vertical"
+        android:background="@drawable/shap_profile_space_divider">
+
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/percent_rlyt_topics"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_widthPercent="100%w"
+            app:layout_heightPercent="33.3%h"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_topic_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_profile_topic"
+                app:layout_paddingLeftPercent="6.5%w"
+                app:layout_paddingRightPercent="7.6%w"/>
+
+            <TextView
+                android:layout_toRightOf="@id/iv_topic_icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                style="@style/me_list_items"
+                android:text="@string/my_topics"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:src="@mipmap/ic_right_arrow"
+                app:layout_paddingRightPercent="5%w"/>
+
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/percent_rlyt_replys"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_widthPercent="100%w"
+            app:layout_heightPercent="33.3%h"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_replys_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_profile_reply"
+                app:layout_paddingLeftPercent="6.5%w"
+                app:layout_paddingRightPercent="7.6%w"/>
+
+            <TextView
+                android:layout_toRightOf="@id/iv_replys_icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                style="@style/me_list_items"
+                android:text="@string/my_replys"
+                android:background="@drawable/shap_profile_space_divider"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:src="@mipmap/ic_right_arrow"
+                app:layout_paddingRightPercent="5%w"/>
+
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+
+        <com.zhy.android.percent.support.PercentRelativeLayout
+            android:id="@+id/percent_rlyt_settings"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_widthPercent="100%w"
+            app:layout_heightPercent="33.3%h"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_setting_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:scaleType="centerInside"
+                android:src="@mipmap/ic_profile_setting"
+                app:layout_paddingLeftPercent="6.5%w"
+                app:layout_paddingRightPercent="7.6%w"/>
+
+            <TextView
+                android:layout_toRightOf="@id/iv_setting_icon"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                style="@style/me_list_items"
+                android:text="@string/settings"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical"
+                android:src="@mipmap/ic_right_arrow"
+                app:layout_paddingRightPercent="5%w"/>
+
+        </com.zhy.android.percent.support.PercentRelativeLayout>
+
+
+    </com.zhy.android.percent.support.PercentLinearLayout>
+
+
+</com.zhy.android.percent.support.PercentLinearLayout>
