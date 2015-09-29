@@ -19,7 +19,7 @@ public class TopicModel extends BaseModel<TopicApi> {
 
     Observable<TopicEntity> getTopics(String filter, int pageIndex) {
         Map<String, String> options = new HashMap<String, String>();
-        options.put("include", "user,node");
+        options.put("include", "user,node,last_reply_user");
         options.put("per_page", String.valueOf(Constant.PER_PAGE));
         options.put("filter", filter);
         options.put("page", String.valueOf(pageIndex));
