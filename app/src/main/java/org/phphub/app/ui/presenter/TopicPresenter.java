@@ -27,6 +27,8 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
 
     public static final int REQUEST_NOBODY_ID = 3;
 
+    public static final int REQUEST_JOBS_ID = 4;
+
     @Inject
     TopicModel topicModel;
 
@@ -38,6 +40,7 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
         requests.put(TOPIC_TYPE_RECENT, REQUEST_RECENT_ID);
         requests.put(TOPIC_TYPE_VOTE, REQUEST_VOTE_ID);
         requests.put(TOPIC_TYPE_NOBODY, REQUEST_NOBODY_ID);
+        requests.put(TOPIC_TYPE_JOBS, REQUEST_JOBS_ID);
     }
 
     @Override
@@ -93,6 +96,21 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
                     @Override
                     public Observable<List<Topic>> call() {
                         return topicModel.getTopicsByNobody(pageIndex)
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .map(new Func1<TopicEntity, List<Topic>>() {
+                                    @Override
+                                    public List<Topic> call(TopicEntity topicEntity) {
+                                        return topicEntity.getData();
+                                    }
+                                });
+                    }
+                }, onNext, onError);
+
+        restartableLatestCache(REQUEST_JOBS_ID,
+                new Func0<Observable<List<Topic>>>() {
+                    @Override
+                    public Observable<List<Topic>> call() {
+                        return topicModel.getTopicsByJobs(pageIndex)
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .map(new Func1<TopicEntity, List<Topic>>() {
                                     @Override

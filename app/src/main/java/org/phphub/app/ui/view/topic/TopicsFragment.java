@@ -52,7 +52,7 @@ public class TopicsFragment extends LazyFragment {
         FragmentPagerItems pages = FragmentPagerItems.with(getActivity())
                 .add(R.string.recent, TopicFragment.class, getTopicTypeBundle(TOPIC_TYPE_RECENT))
                 .add(R.string.vote, TopicFragment.class, getTopicTypeBundle(TOPIC_TYPE_VOTE))
-                .add(R.string.nobody, TopicFragment.class, getTopicTypeBundle(TOPIC_TYPE_NOBODY))
+                .add(R.string.jobs, TopicFragment.class, getTopicTypeBundle(TOPIC_TYPE_JOBS))
                 .create();
         FragmentPagerItemAdapter adapter = new FragmentPagerItemAdapter(
                 getChildFragmentManager(),
