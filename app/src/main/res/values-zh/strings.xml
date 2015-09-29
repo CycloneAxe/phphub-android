@@ -11,4 +11,11 @@
 
     <string name="safe">安全</string>
     <string name="last_for">最后由</string>
+
+    <string name="my_messages">我的消息</string>
+    <string name="my_following">我的关注</string>
+    <string name="my_favorite">我的收藏</string>
+    <string name="my_topics">我的话题</string>
+    <string name="my_replys">我的回复</string>
+    <string name="settings">设置</string>
 </resources>

@@ -16,4 +16,7 @@
     <color name="tab_under_line">#387CB2</color>
     <color name="tab_text_enabled">#767676</color>
     <color name="tab_text_disabled">#B3B3B3</color>
+
+    <color name="profile_space_divider">#E0E0E0</color>
+    <color name="profile_item_divider">#D6D6D6</color>
 </resources>

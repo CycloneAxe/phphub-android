@@ -10,4 +10,11 @@
 
     <string name="safe">Safe</string>
     <string name="last_for">Last For</string>
+
+    <string name="my_messages">Messages</string>
+    <string name="my_following">Following</string>
+    <string name="my_favorite">Favorites</string>
+    <string name="my_topics">Topics</string>
+    <string name="my_replys">Replys</string>
+    <string name="settings">Settings</string>
 </resources>
