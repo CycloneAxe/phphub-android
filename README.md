@@ -1,6 +1,7 @@
 ## 项目介绍
 
 此项目为 [PHPHub](https://phphub.org/) Android 客户端
+
 项目架构采用 MVP 模式
 
 ## 运行环境
@@ -14,6 +15,8 @@ Gradle version 2.4
 
 项目名称 | 项目信息
 ------- | -------
+[android.support.*](https://developer.android.com/tools/support-library/index.html) | Android Support Library
+[Dagger 2](https://github.com/google/dagger) | Android 依赖注入组件
 [retrofit](https://github.com/square/retrofit) | 网络请求组件
 [retroauth](https://github.com/Unic8/retroauth) | 基于 Retrofit, 用于简化处理账户认证请求
 [butterknife](https://github.com/JakeWharton/butterknife) | View注入框架
@@ -29,3 +32,4 @@ Gradle version 2.4
 [nucleus](https://github.com/konmik/nucleus) | 简化 MVP 的库
 [Android-MaterialRefreshLayout](https://github.com/android-cjj/Android-MaterialRefreshLayout) | 下拉刷新控件
 [LeakCanary](https://github.com/square/leakcanary) | Android 内存泄漏检测工具
+[android-percent-support-extend](https://github.com/hongyangAndroid/android-percent-support-extend) | Google 百分比布局库的扩展

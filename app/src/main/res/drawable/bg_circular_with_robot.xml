@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item >
+        <shape
+            android:shape="oval">
+            <solid android:color="#78A1D9" />
+            <padding android:left="20dp"
+                android:top="20dp"
+                android:right="30dp"
+                android:bottom="20dp" />
+        </shape>
+    </item>
+    <item>
+        <bitmap android:src="@mipmap/robot" />
+    </item>
+</layer-list>

@@ -19,4 +19,11 @@
 
     <color name="profile_space_divider">#E0E0E0</color>
     <color name="profile_item_divider">#D6D6D6</color>
+
+    <color name="blue">#ff03A9F4</color>
+    <color name="green">#ff4CAF50</color>
+    <color name="red">#ffF44336</color>
+    <color name="yellow">#ffFFEB3B</color>
+    <color name="yellow_20">#EFD296</color>
+    <color name="blue_20">#A5CFE8</color>
 </resources>

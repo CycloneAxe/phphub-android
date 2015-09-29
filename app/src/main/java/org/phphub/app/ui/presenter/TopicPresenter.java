@@ -4,13 +4,14 @@ import android.os.Bundle;
 
 import org.phphub.app.api.entity.TopicEntity;
 import org.phphub.app.api.entity.element.Topic;
-import org.phphub.app.common.App;
 import org.phphub.app.common.base.BaseRxPresenter;
 import org.phphub.app.model.TopicModel;
-import org.phphub.app.ui.view.TopicFragment;
+import org.phphub.app.ui.view.topic.TopicFragment;
 
 import java.util.HashMap;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
@@ -26,7 +27,8 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
 
     public static final int REQUEST_NOBODY_ID = 3;
 
-    protected TopicModel topicModel;
+    @Inject
+    TopicModel topicModel;
 
     protected int pageIndex = 1;
 
@@ -41,8 +43,6 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-
-        topicModel = new TopicModel(App.getInstance());
 
         Action2<TopicFragment, List<Topic>> onNext = new Action2<TopicFragment, List<Topic>>() {
             @Override

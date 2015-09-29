@@ -2,7 +2,8 @@ package org.phphub.app.common.base;
 
 import android.content.Context;
 
-import org.phphub.app.api.BaseApi;
+
+import org.phphub.app.common.Constant;
 
 
 import eu.unicate.retroauth.AuthRestAdapter;
@@ -15,7 +16,7 @@ public class BaseModel<T> {
 
     public BaseModel(Context context, Class<T> serviceClass) {
         this.restAdapter = new AuthRestAdapter.Builder()
-                            .setEndpoint(BaseApi.BASE_URL)
+                            .setEndpoint(Constant.BASE_URL)
                             .build();
 
         this.service = restAdapter.create(context, TokenInterceptor.BEARER_TOKENINTERCEPTOR, serviceClass);

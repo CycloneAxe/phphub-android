@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<com.zhy.android.percent.support.PercentRelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center_horizontal">
+    android:gravity="center_vertical">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/sdv_avatar"
-        android:layout_width="45dp"
-        android:layout_height="45dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_widthPercent="100%w"
+        app:layout_heightPercent="100%w"
         app:roundAsCircle="true"
         app:placeholderImage="@color/placeholder_avatar" />
 
-</RelativeLayout>
+</com.zhy.android.percent.support.PercentRelativeLayout>

@@ -1,4 +1,4 @@
-package org.phphub.app.ui.view;
+package org.phphub.app.ui.view.topic;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
@@ -28,6 +27,7 @@ import icepick.State;
 import io.nlopez.smartadapters.SmartAdapter;
 import io.nlopez.smartadapters.adapters.RecyclerMultiAdapter;
 import io.nlopez.smartadapters.utils.ViewEventListener;
+import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
 
 import static com.kennyc.view.MultiStateView.*;
@@ -53,6 +53,20 @@ public class TopicFragment extends LazyFragment<TopicPresenter> implements
     RecyclerView topicListView;
 
     RecyclerMultiAdapter adapter;
+
+    @Override
+    public void onCreate(Bundle bundle) {
+        final PresenterFactory<TopicPresenter> superFactory = super.getPresenterFactory();
+        setPresenterFactory(new PresenterFactory<TopicPresenter>() {
+            @Override
+            public TopicPresenter createPresenter() {
+                TopicPresenter presenter = superFactory.createPresenter();
+                getApiComponent().inject(presenter);
+                return presenter;
+            }
+        });
+        super.onCreate(bundle);
+    }
 
     @Nullable
     @Override
@@ -126,7 +140,7 @@ public class TopicFragment extends LazyFragment<TopicPresenter> implements
     public void onViewEvent(int actionId, Topic topic, int position, View view) {
         switch (actionId) {
             case CLICK_TYPE_TOPIC_CLICKED:
-                Toast.makeText(getActivity(), topic.getTitle(), Toast.LENGTH_SHORT).show();
+                navigator.navigateToTopicDetails(getActivity(), topic.getId());
                 break;
         }
     }
