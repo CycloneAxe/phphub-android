@@ -32,7 +32,7 @@ public class TopicModel extends BaseModel<TopicApi> {
     }
 
     public Observable<TopicEntity> getTopicsByRecent(int pageIndex) {
-        return getTopics("recent", pageIndex);
+        return getTopics("newest", pageIndex);
     }
 
     public Observable<TopicEntity> getTopicsByVote(int pageIndex) {
