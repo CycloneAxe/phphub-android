@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.kennyc.view.MultiStateView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/multiStateView"
     android:layout_width="match_parent"
@@ -22,7 +23,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingLeft="6dp"
-            android:paddingRight="6dp" />
+            android:paddingRight="6dp"
+            tools:listitem="@layout/topic_item"/>
     </com.cjj.MaterialRefreshLayout>
 
 </com.kennyc.view.MultiStateView>

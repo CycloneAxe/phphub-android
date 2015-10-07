@@ -6,8 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import org.phphub.app.R;
 import org.phphub.app.common.base.BaseSupportFragment;
+
+import butterknife.OnClick;
 
 public class MeFragment extends BaseSupportFragment {
     @Nullable
@@ -19,6 +22,11 @@ public class MeFragment extends BaseSupportFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
+
+    @OnClick(R.id.percent_rlyt_settings)
+    public void navigateToSettings() {
+        navigator.navigateToSettings(getActivity());
     }
 
     @Override

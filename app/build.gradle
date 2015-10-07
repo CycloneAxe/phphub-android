@@ -97,6 +97,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:' + SUPPORT_VERSION
     compile 'com.android.support:recyclerview-v7:' + SUPPORT_VERSION
     compile 'com.android.support:design:' + SUPPORT_VERSION
+    compile 'com.android.support:preference-v14:' + SUPPORT_VERSION
 
     // retrofit
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
