@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bga_rlyt_content"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="8dp"
+    android:paddingTop="13dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
+    android:paddingBottom="25dp"
+    android:background="@drawable/topic_item_bg"
+    app:badge_bgColor="@color/item_badge_background"
+    app:badge_textColor="@color/white"
+    app:badge_textSize="10sp"
+    app:badge_padding="6dp"
+    app:badge_horizontalMargin="12dp">
+
+    <include layout="@layout/common_avatar"
+        android:id="@+id/avatar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"/>
+    <LinearLayout
+        android:id="@+id/rlyt_item_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_toRightOf="@id/avatar"
+        android:gravity="center_vertical"
+        android:layout_marginRight="35dp"
+        android:layout_marginLeft="10dp">
+
+        <TextView
+            android:id="@+id/tv_msg_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/list_topic_des"
+            tools:text="goodspb • 4天前"/>
+
+        <TextView
+            android:id="@+id/tv_msg_details"
+            android:layout_marginTop="13dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/text_normal"
+            tools:text="回复了你的主题:  Entrust - Laravel 用户权限系统解决方案"/>
+
+        <TextView
+            android:id="@+id/tv_msg_reply"
+            android:layout_marginTop="6dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            style="@style/text_normal"
+            tools:text="\@xhl Authorization只是授权，Entrust是权限认证（RBAC）"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

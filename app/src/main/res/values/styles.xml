@@ -20,5 +20,13 @@
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">#A7A7A7</item>
     </style>
+    
+    <style name="text_normal">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#444444</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
 
 </resources>

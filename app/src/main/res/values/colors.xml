@@ -25,6 +25,8 @@
     <color name="green">#ff4CAF50</color>
     <color name="red">#ffF44336</color>
     <color name="yellow">#ffFFEB3B</color>
-    <color name="yellow_20">#EFD296</color>
-    <color name="blue_20">#A5CFE8</color>
+    <color name="yellow_20">#FAD394</color>
+    <color name="yellow_border">#E2A440</color>
+    <color name="blue_20">#92D0EA</color>
+    <color name="blue_border">#46B2DF</color>
 </resources>
