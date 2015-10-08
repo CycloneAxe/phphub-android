@@ -15,13 +15,13 @@
         android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center|top"
-        app:layout_paddingTopPercent="10%h">
+        app:layout_paddingTopPercent="15.7%w">
 
         <ImageView
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_widthPercent="50%"
-            app:layout_heightPercent="35%"
+            app:layout_widthPercent="42.8%w"
+            app:layout_heightPercent="42.8%w"
             android:src="@drawable/bg_circular_with_robot"/>
 
         <Button
@@ -29,21 +29,23 @@
             android:layout_height="0dp"
             android:background="@drawable/bg_radius_yellow"
             android:textColor="@android:color/white"
+            android:textSize="16sp"
             android:text="扫码登录"
-            app:layout_widthPercent="80%"
-            app:layout_heightPercent="10%"
-            app:layout_marginTopPercent="7%h"
+            app:layout_widthPercent="77.2%w"
+            app:layout_heightPercent="13.6%w"
+            app:layout_marginTopPercent="13.2%w"
             app:layout_textSizePercent="3%"/>
 
         <Button
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/bg_radius_blue"
+            android:textSize="16sp"
             android:textColor="@android:color/white"
             android:text="傻傻弄不懂？"
-            app:layout_widthPercent="80%"
-            app:layout_heightPercent="10%"
-            app:layout_marginTopPercent="5%h"
+            app:layout_widthPercent="77.2%w"
+            app:layout_heightPercent="13.6%w"
+            app:layout_marginTopPercent="5.4%w"
             app:layout_textSizePercent="3%"/>
     </com.zhy.android.percent.support.PercentLinearLayout>
 
