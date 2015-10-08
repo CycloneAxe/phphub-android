@@ -3,6 +3,7 @@ package org.phphub.app.api.entity.element;
 import com.google.gson.annotations.SerializedName;
 
 public class SupportDate {
+
     public String date;
 
     @SerializedName("timezone_type")

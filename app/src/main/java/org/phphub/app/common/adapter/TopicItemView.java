@@ -46,15 +46,15 @@ public class TopicItemView extends BaseAdapterItemView<Topic> {
     public void bind(Topic topic) {
         String des = "";
 
-        Uri avatarUri = Uri.parse(topic.getUserInfo().getData().getAvatar());
+        Uri avatarUri = Uri.parse(topic.getUser().getData().getAvatar());
         String commentCount = String.valueOf(topic.getReplyCount());
 
         if (topic.getReplyCount() > 99) {
             commentCount = "99+";
         }
 
-        if (topic.getNodeInfo() != null) {
-            des += topic.getNodeInfo().getData().getName();
+        if (topic.getNode() != null) {
+            des += topic.getNode().getData().getName();
         }
 
         if (topic.getLastReplyUser() != null) {
@@ -64,7 +64,7 @@ public class TopicItemView extends BaseAdapterItemView<Topic> {
         if (topic.getUpdatedAt() != null) {
             Locale locale = getResources().getConfiguration().locale;
             PrettyTime prettyTime = new PrettyTime(locale);
-            String dateStr = topic.getUpdatedAt().getDate();
+            String dateStr = topic.getUpdatedAt();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             try {
                 String prettyTimeString = prettyTime.format(sdf.parse(dateStr));
