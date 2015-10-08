@@ -1,11 +1,11 @@
-package org.phphub.app.common.qualified;
+package org.phphub.app.common.qualifier;
 
 import android.support.annotation.IntDef;
 
 import java.lang.annotation.Retention;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
-import static org.phphub.app.common.qualified.ClickType.*;
+import static org.phphub.app.common.qualifier.ClickType.*;
 
 @Retention(SOURCE)
 @IntDef({

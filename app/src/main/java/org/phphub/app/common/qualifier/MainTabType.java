@@ -1,4 +1,4 @@
-package org.phphub.app.common.qualified;
+package org.phphub.app.common.qualifier;
 
 
 import android.support.annotation.StringDef;
@@ -6,7 +6,7 @@ import android.support.annotation.StringDef;
 import java.lang.annotation.Retention;
 
 import static java.lang.annotation.RetentionPolicy.SOURCE;
-import static org.phphub.app.common.qualified.MainTabType.*;
+import static org.phphub.app.common.qualifier.MainTabType.*;
 
 @Retention(SOURCE)
 @StringDef({

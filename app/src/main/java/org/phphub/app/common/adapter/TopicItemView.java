@@ -18,7 +18,7 @@ import java.util.Locale;
 
 import butterknife.Bind;
 import cn.bingoogolapple.badgeview.BGABadgeRelativeLayout;
-import static org.phphub.app.common.qualified.ClickType.*;
+import static org.phphub.app.common.qualifier.ClickType.*;
 
 public class TopicItemView extends BaseAdapterItemView<Topic> {
     @Bind(R.id.bga_rlyt_content)

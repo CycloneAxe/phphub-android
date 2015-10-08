@@ -31,7 +31,7 @@ import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
 
 import static com.kennyc.view.MultiStateView.*;
-import static org.phphub.app.common.qualified.ClickType.CLICK_TYPE_TOPIC_CLICKED;
+import static org.phphub.app.common.qualifier.ClickType.CLICK_TYPE_TOPIC_CLICKED;
 
 @RequiresPresenter(TopicPresenter.class)
 public class TopicFragment extends LazyFragment<TopicPresenter> implements

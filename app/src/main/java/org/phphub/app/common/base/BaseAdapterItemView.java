@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
 
-import org.phphub.app.common.qualified.ClickType;
+import org.phphub.app.common.qualifier.ClickType;
 
 import butterknife.ButterKnife;
 import io.nlopez.smartadapters.views.BindableLayout;

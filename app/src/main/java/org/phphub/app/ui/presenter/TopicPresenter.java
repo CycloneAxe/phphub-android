@@ -18,7 +18,7 @@ import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action2;
 import rx.functions.Func0;
 import rx.functions.Func1;
-import static org.phphub.app.common.qualified.TopicType.*;
+import static org.phphub.app.common.qualifier.TopicType.*;
 
 public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
     public static final int REQUEST_RECENT_ID = 1;

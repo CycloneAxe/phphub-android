@@ -14,10 +14,10 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import org.phphub.app.R;
 import org.phphub.app.common.base.LazyFragment;
-import org.phphub.app.common.qualified.TopicType;
+import org.phphub.app.common.qualifier.TopicType;
 
 import butterknife.Bind;
-import static org.phphub.app.common.qualified.TopicType.*;
+import static org.phphub.app.common.qualifier.TopicType.*;
 
 public class TopicsFragment extends LazyFragment {
 

@@ -29,7 +29,7 @@ import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
 
 import static com.kennyc.view.MultiStateView.*;
-import static org.phphub.app.common.qualified.ClickType.*;
+import static org.phphub.app.common.qualifier.ClickType.*;
 
 @RequiresPresenter(WikiPresenter.class)
 public class WikiFragment  extends LazyFragment<WikiPresenter> implements

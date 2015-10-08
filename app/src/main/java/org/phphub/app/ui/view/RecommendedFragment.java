@@ -27,7 +27,7 @@ import io.nlopez.smartadapters.adapters.RecyclerMultiAdapter;
 import io.nlopez.smartadapters.utils.ViewEventListener;
 import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
-import static org.phphub.app.common.qualified.ClickType.*;
+import static org.phphub.app.common.qualifier.ClickType.*;
 import static com.kennyc.view.MultiStateView.*;
 
 @RequiresPresenter(RecommendedPresenter.class)
