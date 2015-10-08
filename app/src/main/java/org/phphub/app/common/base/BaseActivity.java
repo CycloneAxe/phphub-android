@@ -26,8 +26,8 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
     Toolbar toolbarView;
 
     @Nullable
-    @Bind(R.id.tv_title)
-    TextView titleView;
+    @Bind(R.id.toolbar_title)
+    TextView toolbarTitleView;
 
     Navigator navigator;
 
@@ -36,7 +36,7 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
         super.onCreate(savedInstanceState);
         Icepick.restoreInstanceState(this, savedInstanceState);
         setContentView(getLayoutResId());
-        setupToolbar();
+        initializeToolbar();
         navigator = getAppComponent().navigator();
     }
 
@@ -47,19 +47,36 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
     }
 
     @Override
+    protected void onPostCreate(@Nullable Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        if (!isChild()) {
+            onTitleChanged(getTitleName(), getTitleColor());
+        }
+    }
+
+
+    @Override
+    protected void onTitleChanged(CharSequence title, int color) {
+        super.onTitleChanged(title, color);
+        if (toolbarTitleView == null) {
+            return;
+        }
+        toolbarTitleView.setText(title);
+    }
+
+    @Override
     public void onContentChanged() {
         super.onContentChanged();
         ButterKnife.bind(this);
     }
 
-    protected void setupToolbar() {
+    protected void initializeToolbar() {
         if (toolbarView == null) {
             return;
         }
-        toolbarView.setTitle("");
         setSupportActionBar(toolbarView);
-        if (titleView != null) {
-            titleView.setText(getTitleName());
+        if (toolbarTitleView != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
         if (!TextUtils.isEmpty(NavUtils.getParentActivityName(this))) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

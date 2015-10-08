@@ -20,8 +20,8 @@ import nucleus.view.NucleusSupportFragment;
 
 public abstract class BaseSupportFragment<PresenterType extends Presenter> extends NucleusSupportFragment<PresenterType> {
     @Nullable
-    @Bind(R.id.tv_title)
-    public TextView titleView;
+    @Bind(R.id.toolbar_title)
+    public TextView toolbarTitleView;
 
     public Navigator navigator;
 
@@ -43,8 +43,8 @@ public abstract class BaseSupportFragment<PresenterType extends Presenter> exten
         Icepick.restoreInstanceState(this, savedInstanceState);
         ButterKnife.bind(this, view);
 
-        if (titleView != null &&!TextUtils.isEmpty(getTitle())) {
-            titleView.setText(getTitle());
+        if (toolbarTitleView != null &&!TextUtils.isEmpty(getTitle())) {
+            toolbarTitleView.setText(getTitle());
         }
     }
 

@@ -14,8 +14,8 @@ public class LoginActivity extends AuthenticationActivity {
     @Bind(R.id.toolbar)
     Toolbar toolbarView;
 
-    @Bind(R.id.tv_title)
-    TextView titleView;
+    @Bind(R.id.toolbar_title)
+    TextView toolbarTitleView;
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -23,12 +23,12 @@ public class LoginActivity extends AuthenticationActivity {
         setContentView(R.layout.login);
         ButterKnife.bind(this);
 
-        setupToolbar();
+        initializeToolbar();
     }
 
-    protected void setupToolbar() {
-        titleView.setText(R.string.please_login);
-        toolbarView.setTitle("");
+    protected void initializeToolbar() {
         setSupportActionBar(toolbarView);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        toolbarTitleView.setText(R.string.please_login);
     }
 }
