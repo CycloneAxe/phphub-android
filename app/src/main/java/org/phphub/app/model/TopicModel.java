@@ -10,6 +10,7 @@ import org.phphub.app.common.base.BaseModel;
 import java.util.HashMap;
 import java.util.Map;
 
+import retrofit.ErrorHandler;
 import rx.Observable;
 
 public class TopicModel extends BaseModel<TopicApi> {

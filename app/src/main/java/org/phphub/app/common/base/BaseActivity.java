@@ -11,6 +11,7 @@ import android.widget.TextView;
 import org.phphub.app.R;
 import org.phphub.app.common.App;
 import org.phphub.app.common.Navigator;
+import org.phphub.app.common.internal.di.component.ApiComponent;
 import org.phphub.app.common.internal.di.component.AppComponent;
 import org.phphub.app.common.internal.di.module.ActivityModule;
 
@@ -89,6 +90,10 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
 
     protected AppComponent getAppComponent() {
         return ((App) getApplication()).getAppComponent();
+    }
+
+    protected ApiComponent getApiComponent() {
+        return ((App) getApplication()).getApiComponent();
     }
 
     protected ActivityModule getActivityModule() {

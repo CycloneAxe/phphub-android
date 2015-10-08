@@ -20,7 +20,9 @@ android {
         versionName globalConfiguration.getAt("VERSION_NAME")
 
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
-        buildConfigField "String", "BASE_URL", "\"https://api.phphub.org/\""
+        buildConfigField "String", "CLIENT_ID", "\"kHOugsx4dmcXwvVbmLkd\""
+        buildConfigField "String", "CLIENT_SECRET", "\"PuuFCrF94MloSbSkxpwS\""
+        buildConfigField "String", "ENDPOINT", "\"https://api.phphub.org/\""
     }
 
     signingConfigs {
@@ -133,4 +135,5 @@ dependencies {
     provided 'javax.annotation:jsr250-api:1.0'
     compile 'com.zhy:percent-support-extends:1.0.6'
     compile 'com.ocpsoft:ocpsoft-pretty-time:1.0.7'
+    compile 'com.github.pwittchen:prefser:2.0.1'
 }
