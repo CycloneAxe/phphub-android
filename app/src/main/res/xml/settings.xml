@@ -1,3 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference
+        android:title="意见反馈">
+    </Preference>
+
+    <Preference
+        android:title="选择语言">
+    </Preference>
+
+    <Preference
+        android:title="获取源代码">
+    </Preference>
+
+    <Preference
+        android:title="关于 PHPHub">
+    </Preference>
+
+    <Preference
+        android:title="The EST Group">
+    </Preference>
 </PreferenceScreen>
