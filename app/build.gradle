@@ -97,7 +97,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:' + SUPPORT_VERSION
     compile 'com.android.support:recyclerview-v7:' + SUPPORT_VERSION
     compile 'com.android.support:design:' + SUPPORT_VERSION
-    compile 'com.android.support:preference-v14:' + SUPPORT_VERSION
 
     // retrofit
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
@@ -134,5 +133,4 @@ dependencies {
     provided 'javax.annotation:jsr250-api:1.0'
     compile 'com.zhy:percent-support-extends:1.0.6'
     compile 'com.ocpsoft:ocpsoft-pretty-time:1.0.7'
-
 }

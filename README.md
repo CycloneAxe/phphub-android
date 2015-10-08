@@ -33,3 +33,4 @@ Gradle version 2.4
 [Android-MaterialRefreshLayout](https://github.com/android-cjj/Android-MaterialRefreshLayout) | 下拉刷新控件
 [LeakCanary](https://github.com/square/leakcanary) | Android 内存泄漏检测工具
 [android-percent-support-extend](https://github.com/hongyangAndroid/android-percent-support-extend) | Google 百分比布局库的扩展
+[prettytime](https://github.com/ocpsoft/prettytime) | 时间格式化
