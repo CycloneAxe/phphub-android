@@ -22,5 +22,8 @@
     <string name="settings">设置</string>
 
     <string name="please_login">请登录</string>
+    
+    <string name="report">举报</string>
+    <string name="share">分享</string>
 
 </resources>

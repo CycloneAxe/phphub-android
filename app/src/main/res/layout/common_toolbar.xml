@@ -7,7 +7,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/shap_line_only_bottom"
     app:theme="@style/ThemeOverlay.AppCompat.Light"
-    app:popupTheme="@style/ThemeOverlay.AppCompat.Dark">
+    app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
     <TextView
         android:id="@+id/toolbar_title"

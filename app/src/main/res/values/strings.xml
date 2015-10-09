@@ -21,4 +21,8 @@
     <string name="settings">Settings</string>
 
     <string name="please_login">Please login</string>
+
+    <string name="report">Report</string>
+    <string name="share">Share</string>
+
 </resources>
