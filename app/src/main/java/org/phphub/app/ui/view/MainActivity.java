@@ -65,9 +65,9 @@ public class MainActivity extends BaseActivity<MainPresenter> {
             dialog.setCancelable(false);
             dialog.show();
             getPresenter().request();
-        } else {
-            setupTabView();
         }
+
+        setupTabView();
     }
 
     protected void setupTabView() {
