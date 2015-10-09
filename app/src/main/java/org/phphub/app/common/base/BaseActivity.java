@@ -1,5 +1,7 @@
 package org.phphub.app.common.base;
 
+import android.app.ActivityManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -7,6 +9,8 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.widget.TextView;
+
+import com.orhanobut.logger.Logger;
 
 import org.phphub.app.R;
 import org.phphub.app.common.App;
@@ -81,6 +85,7 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
         }
         if (!TextUtils.isEmpty(NavUtils.getParentActivityName(this))) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_back);
         }
     }
 
