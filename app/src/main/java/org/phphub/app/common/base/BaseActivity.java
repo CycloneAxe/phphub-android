@@ -44,6 +44,7 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        injectorPresenter();
         super.onCreate(savedInstanceState);
         Icepick.restoreInstanceState(this, savedInstanceState);
         setContentView(getLayoutResId());
@@ -120,6 +121,8 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
     protected ActivityModule getActivityModule() {
         return new ActivityModule(this);
     }
+
+    protected void injectorPresenter() {}
 
     abstract protected @LayoutRes int getLayoutResId();
 }

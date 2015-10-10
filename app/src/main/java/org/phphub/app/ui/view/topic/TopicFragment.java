@@ -56,7 +56,8 @@ public class TopicFragment extends LazyFragment<TopicPresenter> implements
     RecyclerMultiAdapter adapter;
 
     @Override
-    public void onCreate(Bundle bundle) {
+    protected void injectorPresenter() {
+        super.injectorPresenter();
         final PresenterFactory<TopicPresenter> superFactory = super.getPresenterFactory();
         setPresenterFactory(new PresenterFactory<TopicPresenter>() {
             @Override
@@ -66,7 +67,6 @@ public class TopicFragment extends LazyFragment<TopicPresenter> implements
                 return presenter;
             }
         });
-        super.onCreate(bundle);
     }
 
     @Nullable

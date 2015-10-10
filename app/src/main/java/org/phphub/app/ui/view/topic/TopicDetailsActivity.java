@@ -12,6 +12,7 @@ import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.kennyc.view.MultiStateView;
+import com.kmshack.topscroll.TopScrollHelper;
 import com.orhanobut.logger.Logger;
 
 import org.phphub.app.R;
@@ -24,6 +25,8 @@ import org.phphub.app.ui.presenter.TopicDetailPresenter;
 import butterknife.Bind;
 import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
+
+import static com.kennyc.view.MultiStateView.*;
 
 @RequiresPresenter(TopicDetailPresenter.class)
 public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
@@ -54,6 +57,33 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        topicId = intent.getIntExtra(INTENT_EXTRA_PARAM_TOPIC_ID, 0);
+
+        refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+                getPresenter().request(topicId);
+            }
+        });
+        refreshLayout.autoRefresh();
+
+        TopScrollHelper.getInstance(getApplicationContext())
+                        .addTargetScrollView(topicContentView);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        TopScrollHelper.getInstance(getApplicationContext())
+                        .removeTargetScrollView(topicContentView);
+    }
+
+    @Override
+    protected void injectorPresenter() {
+        super.injectorPresenter();
         final PresenterFactory<TopicDetailPresenter> superFactory = super.getPresenterFactory();
         setPresenterFactory(new PresenterFactory<TopicDetailPresenter>() {
             @Override
@@ -63,22 +93,6 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
                 return presenter;
             }
         });
-
-        super.onCreate(savedInstanceState);
-
-        Intent intent = getIntent();
-        topicId = intent.getIntExtra(INTENT_EXTRA_PARAM_TOPIC_ID, 0);
-
-        multiStateView.setViewState(MultiStateView.VIEW_STATE_LOADING);
-        refreshLayout.autoRefresh();
-
-        refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
-            @Override
-            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-                getPresenter().request(topicId);
-            }
-        });
-        getPresenter().request(topicId);
     }
 
     public void initView(Topic topic) {
@@ -91,7 +105,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
         replyCountView.setText(String.valueOf(topic.getReplyCount()));
         topicContentView.loadUrl(link.getDetailsWebView(), getHttpHeaderAuth());
 
-        multiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
+        multiStateView.setViewState(VIEW_STATE_CONTENT);
         refreshLayout.finishRefresh();
     }
 
@@ -116,7 +130,6 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
 
     public void onNetworkError(Throwable throwable) {
         Logger.e(throwable.getMessage());
+        multiStateView.setViewState(VIEW_STATE_ERROR);
     }
-
-
 }

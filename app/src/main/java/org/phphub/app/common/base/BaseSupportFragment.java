@@ -33,6 +33,7 @@ public abstract class BaseSupportFragment<PresenterType extends Presenter> exten
 
     @Override
     public void onCreate(Bundle bundle) {
+        injectorPresenter();
         super.onCreate(bundle);
         navigator = getAppComponent().navigator();
     }
@@ -59,6 +60,8 @@ public abstract class BaseSupportFragment<PresenterType extends Presenter> exten
     protected ApiComponent getApiComponent() {
         return ((App) getActivity().getApplication()).getApiComponent();
     }
+
+    protected void injectorPresenter() {}
 
     @Override
     public void onDestroyView() {
