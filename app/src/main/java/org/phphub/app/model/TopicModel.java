@@ -28,6 +28,14 @@ public class TopicModel extends BaseModel<TopicApi> {
         return service.getTopics(options);
     }
 
+    Observable<TopicEntity.TopicObj> getTopic(int topicId) {
+        Map<String, String> options = new HashMap<String, String>();
+        options.put("include", "user,node");
+        options.put("columns", "user(signature)");
+
+        return service.getTopic(topicId, options);
+    }
+
     public Observable<TopicEntity> getTopicsByExcellent(int pageIndex) {
         return getTopics("excellent", pageIndex);
     }
@@ -50,5 +58,9 @@ public class TopicModel extends BaseModel<TopicApi> {
 
     public Observable<TopicEntity> getTopicsByJobs(int pageIndex) {
         return getTopics("jobs", pageIndex);
+    }
+
+    public Observable<TopicEntity.TopicObj> getTopicDetailById(int topicId) {
+        return getTopic(topicId);
     }
 }

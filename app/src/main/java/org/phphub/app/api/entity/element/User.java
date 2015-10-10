@@ -8,6 +8,8 @@ public class User {
 
     String avatar;
 
+    String signature;
+
     public int getId() {
         return id;
     }
@@ -30,5 +32,13 @@ public class User {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 }
