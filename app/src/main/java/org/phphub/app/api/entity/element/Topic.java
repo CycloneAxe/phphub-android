@@ -33,12 +33,12 @@ public class Topic {
     @SerializedName("updated_at")
     protected String updatedAt;
 
-    protected UserEntity.UserObj user;
+    protected UserEntity.AUser user;
 
     @SerializedName("last_reply_user")
-    protected UserEntity.UserObj lastReplyUser;
+    protected UserEntity.AUser lastReplyUser;
 
-    protected NodeEntity.UserObj node;
+    protected NodeEntity.ANode node;
 
     public int getId() {
         return id;
@@ -120,27 +120,27 @@ public class Topic {
         this.updatedAt = updatedAt;
     }
 
-    public UserEntity.UserObj getUser() {
+    public UserEntity.AUser getUser() {
         return user;
     }
 
-    public void setUser(UserEntity.UserObj user) {
+    public void setUser(UserEntity.AUser user) {
         this.user = user;
     }
 
-    public UserEntity.UserObj getLastReplyUser() {
+    public UserEntity.AUser getLastReplyUser() {
         return lastReplyUser;
     }
 
-    public void setLastReplyUser(UserEntity.UserObj lastReplyUser) {
+    public void setLastReplyUser(UserEntity.AUser lastReplyUser) {
         this.lastReplyUser = lastReplyUser;
     }
 
-    public NodeEntity.UserObj getNode() {
+    public NodeEntity.ANode getNode() {
         return node;
     }
 
-    public void setNode(NodeEntity.UserObj node) {
+    public void setNode(NodeEntity.ANode node) {
         this.node = node;
     }
 }

@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MotionEvent;
-import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -14,6 +12,7 @@ import com.cjj.MaterialRefreshLayout;
 import com.cjj.MaterialRefreshListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.kennyc.view.MultiStateView;
+import com.kmshack.topscroll.TopScrollHelper;
 import com.orhanobut.logger.Logger;
 
 import org.phphub.app.R;
@@ -23,14 +22,11 @@ import org.phphub.app.api.entity.element.User;
 import org.phphub.app.common.base.BaseActivity;
 import org.phphub.app.ui.presenter.TopicDetailPresenter;
 
-import java.util.Map;
-
 import butterknife.Bind;
-import io.nlopez.smartadapters.utils.ViewEventListener;
 import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
 
-import static com.kennyc.view.MultiStateView.VIEW_STATE_ERROR;
+import static com.kennyc.view.MultiStateView.*;
 
 @RequiresPresenter(TopicDetailPresenter.class)
 public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
@@ -40,6 +36,9 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
 
     @Bind(R.id.multiStateView)
     MultiStateView multiStateView;
+
+    @Bind(R.id.refresh)
+    MaterialRefreshLayout refreshLayout;
 
     @Bind(R.id.wv_content)
     WebView topicContentView;
@@ -58,6 +57,33 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Intent intent = getIntent();
+        topicId = intent.getIntExtra(INTENT_EXTRA_PARAM_TOPIC_ID, 0);
+
+        refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
+            @Override
+            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
+                getPresenter().request(topicId);
+            }
+        });
+        refreshLayout.autoRefresh();
+
+        TopScrollHelper.getInstance(getApplicationContext())
+                        .addTargetScrollView(topicContentView);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        TopScrollHelper.getInstance(getApplicationContext())
+                        .removeTargetScrollView(topicContentView);
+    }
+
+    @Override
+    protected void injectorPresenter() {
+        super.injectorPresenter();
         final PresenterFactory<TopicDetailPresenter> superFactory = super.getPresenterFactory();
         setPresenterFactory(new PresenterFactory<TopicDetailPresenter>() {
             @Override
@@ -67,14 +93,6 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
                 return presenter;
             }
         });
-
-        super.onCreate(savedInstanceState);
-
-        Intent intent = getIntent();
-        topicId = intent.getIntExtra(INTENT_EXTRA_PARAM_TOPIC_ID, 0);
-
-        multiStateView.setViewState(MultiStateView.VIEW_STATE_LOADING);
-        getPresenter().request(topicId);
     }
 
     public void initView(Topic topic) {
@@ -87,7 +105,8 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
         replyCountView.setText(String.valueOf(topic.getReplyCount()));
         topicContentView.loadUrl(link.getDetailsWebView(), getHttpHeaderAuth());
 
-        multiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
+        multiStateView.setViewState(VIEW_STATE_CONTENT);
+        refreshLayout.finishRefresh();
     }
 
     @Override
@@ -111,7 +130,6 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
 
     public void onNetworkError(Throwable throwable) {
         Logger.e(throwable.getMessage());
+        multiStateView.setViewState(VIEW_STATE_ERROR);
     }
-
-
 }

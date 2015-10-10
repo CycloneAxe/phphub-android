@@ -18,7 +18,7 @@ public class NodeEntity {
         }
     }
 
-    public class UserObj {
+    public class ANode {
         public Node data;
 
         public Node getData() {

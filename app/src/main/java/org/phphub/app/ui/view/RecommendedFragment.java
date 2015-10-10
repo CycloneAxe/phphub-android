@@ -48,7 +48,8 @@ public class RecommendedFragment extends LazyFragment<RecommendedPresenter> impl
     RecyclerView topicListView;
 
     @Override
-    public void onCreate(Bundle bundle) {
+    protected void injectorPresenter() {
+        super.injectorPresenter();
         final PresenterFactory<RecommendedPresenter> superFactory = super.getPresenterFactory();
         setPresenterFactory(new PresenterFactory<RecommendedPresenter>() {
             @Override
@@ -58,7 +59,6 @@ public class RecommendedFragment extends LazyFragment<RecommendedPresenter> impl
                 return presenter;
             }
         });
-        super.onCreate(bundle);
     }
 
     @Nullable

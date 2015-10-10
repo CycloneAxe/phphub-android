@@ -11,7 +11,7 @@ import rx.Observable;
 
 public interface TopicApi {
     @GET("/topics/{topicId}")
-    Observable<TopicEntity.TopicObj> getTopic(@Path("topicId") int topicId,
+    Observable<TopicEntity.ATopic> getTopic(@Path("topicId") int topicId,
                                       @QueryMap Map<String, String> options);
 
     @GET("/topics")

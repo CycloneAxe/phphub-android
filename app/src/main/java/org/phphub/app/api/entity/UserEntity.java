@@ -18,7 +18,7 @@ public class UserEntity {
         }
     }
 
-    public class UserObj {
+    public class AUser {
         public User data;
 
         public User getData() {

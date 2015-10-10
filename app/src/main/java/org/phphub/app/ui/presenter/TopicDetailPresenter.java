@@ -1,6 +1,5 @@
 package org.phphub.app.ui.presenter;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.github.pwittchen.prefser.library.Prefser;
@@ -44,10 +43,10 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                     public Observable<Topic> call() {
                         return topicModel.getTopicDetailById(topicId)
                                 .observeOn(AndroidSchedulers.mainThread())
-                                .map(new Func1<TopicEntity.TopicObj, Topic>() {
+                                .map(new Func1<TopicEntity.ATopic, Topic>() {
                                     @Override
-                                    public Topic call(TopicEntity.TopicObj topicObj) {
-                                        return topicObj.getData();
+                                    public Topic call(TopicEntity.ATopic topic) {
+                                        return topic.getData();
                                     }
                                 })
                                 .compose(TopicDetailPresenter.this.<Topic>applyRetryByGuest(tokenModel, prefser));

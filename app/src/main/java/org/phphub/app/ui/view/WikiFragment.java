@@ -49,7 +49,8 @@ public class WikiFragment  extends LazyFragment<WikiPresenter> implements
     RecyclerView topicListView;
 
     @Override
-    public void onCreate(Bundle bundle) {
+    protected void injectorPresenter() {
+        super.injectorPresenter();
         final PresenterFactory<WikiPresenter> superFactory = super.getPresenterFactory();
         setPresenterFactory(new PresenterFactory<WikiPresenter>() {
             @Override
@@ -59,7 +60,6 @@ public class WikiFragment  extends LazyFragment<WikiPresenter> implements
                 return presenter;
             }
         });
-        super.onCreate(bundle);
     }
 
     @Nullable

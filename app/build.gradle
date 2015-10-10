@@ -136,4 +136,5 @@ dependencies {
     compile 'com.zhy:percent-support-extends:1.0.6'
     compile 'com.ocpsoft:ocpsoft-pretty-time:1.0.7'
     compile 'com.github.pwittchen:prefser:2.0.1'
+    compile 'com.github.kmshack:Android-TopScrollHelper:01bdc4303a'
 }
