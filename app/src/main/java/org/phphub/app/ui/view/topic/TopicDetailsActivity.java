@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
@@ -40,9 +41,6 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
     @Bind(R.id.multiStateView)
     MultiStateView multiStateView;
 
-    @Bind(R.id.refresh)
-    MaterialRefreshLayout refreshLayout;
-
     @Bind(R.id.wv_content)
     WebView topicContentView;
 
@@ -76,14 +74,6 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
         topicId = intent.getIntExtra(INTENT_EXTRA_PARAM_TOPIC_ID, 0);
 
         multiStateView.setViewState(MultiStateView.VIEW_STATE_LOADING);
-        refreshLayout.autoRefresh();
-
-        refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
-            @Override
-            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-                getPresenter().request(topicId);
-            }
-        });
         getPresenter().request(topicId);
     }
 
@@ -98,7 +88,6 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
         topicContentView.loadUrl(link.getDetailsWebView(), getHttpHeaderAuth());
 
         multiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
-        refreshLayout.finishRefresh();
     }
 
     @Override
