@@ -3,9 +3,12 @@ package org.phphub.app.ui.presenter;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.github.pwittchen.prefser.library.Prefser;
+
 import org.phphub.app.api.entity.TopicEntity;
 import org.phphub.app.api.entity.element.Topic;
 import org.phphub.app.common.base.BaseRxPresenter;
+import org.phphub.app.model.TokenModel;
 import org.phphub.app.model.TopicModel;
 import org.phphub.app.ui.view.topic.TopicDetailsActivity;
 
@@ -18,14 +21,18 @@ import rx.functions.Func0;
 import rx.functions.Func1;
 
 public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> {
-    private static final String INTENT_EXTRA_PARAM_TOPIC_ID = "topic_id";
-
     public static final int REQUEST_TOPIC_ID = 1;
 
     int topicId;
 
     @Inject
     TopicModel topicModel;
+
+    @Inject
+    TokenModel tokenModel;
+
+    @Inject
+    Prefser prefser;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -42,7 +49,8 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                                     public Topic call(TopicEntity.TopicObj topicObj) {
                                         return topicObj.getData();
                                     }
-                                });
+                                })
+                                .compose(TopicDetailPresenter.this.<Topic>applyRetryByGuest(tokenModel, prefser));
                     }
                 },
                 new Action2<TopicDetailsActivity, Topic>() {

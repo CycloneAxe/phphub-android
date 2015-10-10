@@ -56,7 +56,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
     SimpleDraweeView avatarView;
 
     @Bind(R.id.tv_reply_count)
-    Text
+    TextView replyCountView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +94,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
         avatarView.setImageURI(Uri.parse(user.getAvatar()));
         userNameView.setText(user.getName());
         signView.setText(user.getSignature());
+        replyCountView.setText(topic.getReplyCount());
         topicContentView.loadUrl(link.getDetailsWebView(), getHttpHeaderAuth());
 
         multiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
