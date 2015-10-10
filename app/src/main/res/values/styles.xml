@@ -29,4 +29,16 @@
         <item name="android:ellipsize">end</item>
     </style>
 
+    <style name="topic_username">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/gray_7b</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="topic_sign">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/gray_9b</item>
+    </style>
+
 </resources>
