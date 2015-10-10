@@ -27,6 +27,15 @@ public class Topic {
     @SerializedName("reply_count")
     protected int replyCount;
 
+    @SerializedName("view_count")
+    protected int viewCount;
+
+    @SerializedName("favorite_count")
+    protected int favoriteCount;
+
+    @SerializedName("vote_count")
+    protected int voteCount;
+
     @SerializedName("created_at")
     protected String createdAt;
 
@@ -102,6 +111,30 @@ public class Topic {
 
     public void setReplyCount(int replyCount) {
         this.replyCount = replyCount;
+    }
+
+    public int getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(int viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public int getFavoriteCount() {
+        return favoriteCount;
+    }
+
+    public void setFavoriteCount(int favoriteCount) {
+        this.favoriteCount = favoriteCount;
+    }
+
+    public int getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
     }
 
     public String getCreatedAt() {
