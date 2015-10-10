@@ -35,3 +35,4 @@ Gradle version 2.4
 [android-percent-support-extend](https://github.com/hongyangAndroid/android-percent-support-extend) | Google 百分比布局库的扩展
 [prettytime](https://github.com/ocpsoft/prettytime) | 时间格式化
 [prefser](https://github.com/pwittchen/prefser) | Shared Preferences Helper
+[Android-TopScrollHelper](https://github.com/kmshack/Android-TopScrollHelper) | 点击系统栏自动滚动到顶部
