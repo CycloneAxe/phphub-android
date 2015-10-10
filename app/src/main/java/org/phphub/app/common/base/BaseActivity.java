@@ -29,7 +29,7 @@ import icepick.Icepick;
 import nucleus.presenter.Presenter;
 import nucleus.view.NucleusAppCompatActivity;
 
-import static org.phphub.app.common.Constant.CLIENT_TOKEN;
+import static org.phphub.app.common.Constant.GUEST_TOKEN;
 
 public abstract class BaseActivity<PresenterType extends Presenter> extends NucleusAppCompatActivity<PresenterType> {
     @Nullable
@@ -97,7 +97,7 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
 
     protected Map<String, String> getHttpHeaderAuth() {
         final Prefser prefser = new Prefser(this);
-        String clientToken = prefser.get(CLIENT_TOKEN, String.class, "");
+        String clientToken = prefser.get(GUEST_TOKEN, String.class, "");
         Map<String, String> map = new HashMap<String, String>();
 
         map.put("Authorization", "Bearer " + clientToken);
