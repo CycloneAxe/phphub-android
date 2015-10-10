@@ -2,10 +2,13 @@ package org.phphub.app.ui.presenter;
 
 import android.os.Bundle;
 
+import com.github.pwittchen.prefser.library.Prefser;
+
 import org.phphub.app.api.entity.TopicEntity;
 import org.phphub.app.api.entity.element.Topic;
 import org.phphub.app.common.App;
 import org.phphub.app.common.base.BaseRxPresenter;
+import org.phphub.app.model.TokenModel;
 import org.phphub.app.model.TopicModel;
 import org.phphub.app.ui.view.WikiFragment;
 
@@ -25,6 +28,12 @@ public class WikiPresenter extends BaseRxPresenter<WikiFragment> {
     @Inject
     TopicModel topicModel;
 
+    @Inject
+    TokenModel tokenModel;
+
+    @Inject
+    Prefser prefser;
+
     protected int pageIndex = 1;
 
     @Override
@@ -42,7 +51,8 @@ public class WikiPresenter extends BaseRxPresenter<WikiFragment> {
                                     public List<Topic> call(TopicEntity topicEntity) {
                                         return topicEntity.getData();
                                     }
-                                });
+                                })
+                                .compose(WikiPresenter.this.<List<Topic>>applyRetryByGuest(tokenModel, prefser));
                     }
                 },
                 new Action2<WikiFragment, List<Topic>>() {

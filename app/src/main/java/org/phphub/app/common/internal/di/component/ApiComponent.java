@@ -1,7 +1,6 @@
 package org.phphub.app.common.internal.di.component;
 
 import org.phphub.app.common.internal.di.module.ApiModule;
-import org.phphub.app.ui.presenter.MainPresenter;
 import org.phphub.app.ui.presenter.RecommendedPresenter;
 import org.phphub.app.ui.presenter.TopicDetailPresenter;
 import org.phphub.app.ui.presenter.TopicPresenter;
@@ -14,8 +13,6 @@ import dagger.Component;
 @Singleton
 @Component(modules = ApiModule.class)
 public interface ApiComponent {
-        void inject(MainPresenter mainPresenter);
-
         void inject(TopicPresenter topicPresenter);
 
         void inject(RecommendedPresenter recommendedPresenter);

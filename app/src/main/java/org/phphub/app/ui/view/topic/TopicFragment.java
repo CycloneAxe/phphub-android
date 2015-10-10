@@ -23,6 +23,7 @@ import org.phphub.app.ui.presenter.TopicPresenter;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import icepick.State;
 import io.nlopez.smartadapters.SmartAdapter;
 import io.nlopez.smartadapters.adapters.RecyclerMultiAdapter;
@@ -143,5 +144,11 @@ public class TopicFragment extends LazyFragment<TopicPresenter> implements
                 navigator.navigateToTopicDetails(getActivity(), topic.getId());
                 break;
         }
+    }
+
+    @OnClick(R.id.retry)
+    public void retry() {
+        multiStateView.setViewState(VIEW_STATE_LOADING);
+        getPresenter().refresh(topicType);
     }
 }

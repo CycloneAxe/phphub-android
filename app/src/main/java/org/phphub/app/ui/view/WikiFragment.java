@@ -22,6 +22,7 @@ import org.phphub.app.ui.presenter.WikiPresenter;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import io.nlopez.smartadapters.SmartAdapter;
 import io.nlopez.smartadapters.adapters.RecyclerMultiAdapter;
 import io.nlopez.smartadapters.utils.ViewEventListener;
@@ -139,5 +140,11 @@ public class WikiFragment  extends LazyFragment<WikiPresenter> implements
                 navigator.navigateToTopicDetails(getActivity(), topic.getId());
                 break;
         }
+    }
+
+    @OnClick(R.id.retry)
+    public void retry() {
+        multiStateView.setViewState(VIEW_STATE_LOADING);
+        getPresenter().refresh();
     }
 }

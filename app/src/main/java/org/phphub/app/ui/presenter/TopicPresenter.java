@@ -2,9 +2,12 @@ package org.phphub.app.ui.presenter;
 
 import android.os.Bundle;
 
+import com.github.pwittchen.prefser.library.Prefser;
+
 import org.phphub.app.api.entity.TopicEntity;
 import org.phphub.app.api.entity.element.Topic;
 import org.phphub.app.common.base.BaseRxPresenter;
+import org.phphub.app.model.TokenModel;
 import org.phphub.app.model.TopicModel;
 import org.phphub.app.ui.view.topic.TopicFragment;
 
@@ -31,6 +34,12 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
 
     @Inject
     TopicModel topicModel;
+
+    @Inject
+    TokenModel tokenModel;
+
+    @Inject
+    Prefser prefser;
 
     protected int pageIndex = 1;
 
@@ -72,7 +81,8 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
                                     public List<Topic> call(TopicEntity topicEntity) {
                                         return topicEntity.getData();
                                     }
-                                });
+                                })
+                                .compose(TopicPresenter.this.<List<Topic>>applyRetryByGuest(tokenModel, prefser));
                     }
                 }, onNext, onError);
 
@@ -87,7 +97,8 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
                                     public List<Topic> call(TopicEntity topicEntity) {
                                         return topicEntity.getData();
                                     }
-                                });
+                                })
+                                .compose(TopicPresenter.this.<List<Topic>>applyRetryByGuest(tokenModel, prefser));
                     }
                 }, onNext, onError);
 
@@ -102,7 +113,8 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
                                     public List<Topic> call(TopicEntity topicEntity) {
                                         return topicEntity.getData();
                                     }
-                                });
+                                })
+                                .compose(TopicPresenter.this.<List<Topic>>applyRetryByGuest(tokenModel, prefser));
                     }
                 }, onNext, onError);
 
@@ -117,7 +129,8 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
                                     public List<Topic> call(TopicEntity topicEntity) {
                                         return topicEntity.getData();
                                     }
-                                });
+                                })
+                                .compose(TopicPresenter.this.<List<Topic>>applyRetryByGuest(tokenModel, prefser));
                     }
                 }, onNext, onError);
     }

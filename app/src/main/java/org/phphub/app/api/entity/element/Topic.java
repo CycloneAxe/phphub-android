@@ -5,8 +5,6 @@ import com.google.gson.annotations.SerializedName;
 import org.phphub.app.api.entity.NodeEntity;
 import org.phphub.app.api.entity.UserEntity;
 
-import java.util.ArrayList;
-
 public class Topic {
     protected int id;
 

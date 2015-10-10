@@ -26,10 +26,10 @@ public class BaseModel<T> {
                             .setRequestInterceptor(new RequestInterceptor() {
                                 @Override
                                 public void intercept(RequestFacade request) {
-                                    String clientToken = prefser.get(CLIENT_TOKEN, String.class, "");
+                                    String guestToken = prefser.get(GUEST_TOKEN, String.class, "");
                                     request.addHeader("Accept", "application/vnd.PHPHub.v1+json");
-                                    if (!TextUtils.isEmpty(clientToken)) {
-                                        request.addHeader("Authorization", "Bearer " + clientToken);
+                                    if (!TextUtils.isEmpty(guestToken)) {
+                                        request.addHeader("Authorization", "Bearer " + guestToken);
                                     }
 
                                     request.addHeader("X-Client-Platform", "Android");
