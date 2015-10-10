@@ -23,6 +23,7 @@ import org.phphub.app.common.base.BaseActivity;
 import org.phphub.app.ui.presenter.TopicDetailPresenter;
 
 import butterknife.Bind;
+import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
 import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
 
@@ -37,9 +38,6 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
     @Bind(R.id.multiStateView)
     MultiStateView multiStateView;
 
-    @Bind(R.id.refresh)
-    MaterialRefreshLayout refreshLayout;
-
     @Bind(R.id.wv_content)
     WebView topicContentView;
 
@@ -52,8 +50,11 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
     @Bind(R.id.sdv_avatar)
     SimpleDraweeView avatarView;
 
-    @Bind(R.id.tv_reply_count)
-    TextView replyCountView;
+    @Bind(R.id.tv_praise_count)
+    TextView PraiseView;
+
+    @Bind(R.id.bga_llyt_reply_count)
+    BGABadgeLinearLayout replyCountView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,13 +63,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
         Intent intent = getIntent();
         topicId = intent.getIntExtra(INTENT_EXTRA_PARAM_TOPIC_ID, 0);
 
-        refreshLayout.setMaterialRefreshListener(new MaterialRefreshListener() {
-            @Override
-            public void onRefresh(MaterialRefreshLayout materialRefreshLayout) {
-                getPresenter().request(topicId);
-            }
-        });
-        refreshLayout.autoRefresh();
+        getPresenter().request(topicId);
 
         TopScrollHelper.getInstance(getApplicationContext())
                         .addTargetScrollView(topicContentView);
@@ -98,15 +93,17 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
     public void initView(Topic topic) {
         Link link = topic.getLinks();
         User user = topic.getUser().getData();
+        String voteCount = topic.getVoteCount() > 99 ? "99+" : String.valueOf(topic.getVoteCount());
+        String replyCount = topic.getReplyCount() > 99 ? "99+" : String.valueOf(topic.getReplyCount());
 
         avatarView.setImageURI(Uri.parse(user.getAvatar()));
         userNameView.setText(user.getName());
         signView.setText(user.getSignature());
-        replyCountView.setText(String.valueOf(topic.getReplyCount()));
+        PraiseView.setText(voteCount);
         topicContentView.loadUrl(link.getDetailsWebView(), getHttpHeaderAuth());
+        replyCountView.showTextBadge(replyCount);
 
         multiStateView.setViewState(VIEW_STATE_CONTENT);
-        refreshLayout.finishRefresh();
     }
 
     @Override

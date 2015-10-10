@@ -17,13 +17,6 @@
         app:msv_errorView="@layout/common_error"
         app:msv_loadingView="@layout/common_loading"
         app:msv_viewState="loading">
-        <com.cjj.MaterialRefreshLayout
-            android:id="@+id/refresh"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:isLoadMore="false"
-            app:overlay="false"
-            app:wave_show="false" >
 
                 <com.zhy.android.percent.support.PercentRelativeLayout
                     android:layout_width="match_parent"
@@ -105,7 +98,7 @@
                             </RelativeLayout>
 
                             <TextView
-                                android:id="@+id/tv_reply_count"
+                                android:id="@+id/tv_praise_count"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 style="@style/topic_detail_reply_count"
@@ -133,7 +126,6 @@
 
                 </com.zhy.android.percent.support.PercentRelativeLayout>
 
-        </com.cjj.MaterialRefreshLayout>
 
     </com.kennyc.view.MultiStateView>
 
