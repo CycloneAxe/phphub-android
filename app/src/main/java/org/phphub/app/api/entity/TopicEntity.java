@@ -15,7 +15,7 @@ public class TopicEntity {
         this.data = data;
     }
 
-    public class TopicObj {
+    public class ATopic {
         protected Topic data;
 
         public Topic getData() {

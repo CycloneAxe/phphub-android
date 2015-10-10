@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
 import android.webkit.WebView;
 import android.widget.TextView;
 
@@ -22,14 +21,9 @@ import org.phphub.app.api.entity.element.User;
 import org.phphub.app.common.base.BaseActivity;
 import org.phphub.app.ui.presenter.TopicDetailPresenter;
 
-import java.util.Map;
-
 import butterknife.Bind;
-import io.nlopez.smartadapters.utils.ViewEventListener;
 import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
-
-import static com.kennyc.view.MultiStateView.VIEW_STATE_ERROR;
 
 @RequiresPresenter(TopicDetailPresenter.class)
 public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
@@ -94,7 +88,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
         avatarView.setImageURI(Uri.parse(user.getAvatar()));
         userNameView.setText(user.getName());
         signView.setText(user.getSignature());
-        replyCountView.setText(topic.getReplyCount());
+        replyCountView.setText(String.valueOf(topic.getReplyCount()));
         topicContentView.loadUrl(link.getDetailsWebView(), getHttpHeaderAuth());
 
         multiStateView.setViewState(MultiStateView.VIEW_STATE_CONTENT);
