@@ -16,11 +16,11 @@ public class TokenModel extends BaseModel<TokenApi> {
     }
 
     public Observable<Token> tokenGenerator() {
-        return service.getToken(AUTH_TYPE_CLIENT, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET);
+        return service.getToken(AUTH_TYPE_GUEST, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET);
     }
 
     public Observable<Token> tokenGenerator(String username, String loginToken) {
-        return service.getToken(AUTH_TYPE_PASSWORD,
+        return service.getToken(AUTH_TYPE_USER,
                 BuildConfig.CLIENT_ID,
                 BuildConfig.CLIENT_SECRET,
                 username,

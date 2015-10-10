@@ -2,10 +2,12 @@ package org.phphub.app.ui.presenter;
 
 import android.os.Bundle;
 
+import com.github.pwittchen.prefser.library.Prefser;
+
 import org.phphub.app.api.entity.TopicEntity;
 import org.phphub.app.api.entity.element.Topic;
-import org.phphub.app.common.App;
 import org.phphub.app.common.base.BaseRxPresenter;
+import org.phphub.app.model.TokenModel;
 import org.phphub.app.model.TopicModel;
 import org.phphub.app.ui.view.RecommendedFragment;
 
@@ -19,11 +21,18 @@ import rx.functions.Action2;
 import rx.functions.Func0;
 import rx.functions.Func1;
 
+
 public class RecommendedPresenter extends BaseRxPresenter<RecommendedFragment> {
     public static final int REQUEST_ID = 1;
 
     @Inject
     TopicModel topicModel;
+
+    @Inject
+    TokenModel tokenModel;
+
+    @Inject
+    Prefser prefser;
 
     protected int pageIndex = 1;
 
@@ -42,7 +51,8 @@ public class RecommendedPresenter extends BaseRxPresenter<RecommendedFragment> {
                                     public List<Topic> call(TopicEntity topicEntity) {
                                         return topicEntity.getData();
                                     }
-                                });
+                                })
+                                .compose(RecommendedPresenter.this.<List<Topic>>applyRetryByGuest(tokenModel, prefser));
                     }
                 },
                 new Action2<RecommendedFragment, List<Topic>>() {

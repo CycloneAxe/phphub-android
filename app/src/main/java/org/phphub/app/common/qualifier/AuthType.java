@@ -9,11 +9,11 @@ import static org.phphub.app.common.qualifier.AuthType.*;
 
 @Retention(SOURCE)
 @StringDef({
-        AUTH_TYPE_CLIENT,
-        AUTH_TYPE_PASSWORD
+        AUTH_TYPE_GUEST,
+        AUTH_TYPE_USER
 })
 public @interface AuthType {
-    String AUTH_TYPE_CLIENT = "client_credentials";
+    String AUTH_TYPE_GUEST = "client_credentials";
 
-    String AUTH_TYPE_PASSWORD = "login_token";
+    String AUTH_TYPE_USER = "login_token";
 }

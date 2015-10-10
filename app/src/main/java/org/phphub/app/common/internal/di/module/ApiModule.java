@@ -2,7 +2,6 @@ package org.phphub.app.common.internal.di.module;
 
 import android.content.Context;
 
-import org.phphub.app.common.handler.ClientGrantHandler;
 import org.phphub.app.common.internal.di.qualifier.ForApplication;
 import org.phphub.app.model.TokenModel;
 import org.phphub.app.model.TopicModel;
