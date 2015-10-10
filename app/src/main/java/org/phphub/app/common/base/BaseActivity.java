@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.widget.TextView;
 
+import com.github.pwittchen.prefser.library.Prefser;
 import com.orhanobut.logger.Logger;
 
 import org.phphub.app.R;
@@ -19,11 +20,16 @@ import org.phphub.app.common.internal.di.component.ApiComponent;
 import org.phphub.app.common.internal.di.component.AppComponent;
 import org.phphub.app.common.internal.di.module.ActivityModule;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import icepick.Icepick;
 import nucleus.presenter.Presenter;
 import nucleus.view.NucleusAppCompatActivity;
+
+import static org.phphub.app.common.Constant.CLIENT_TOKEN;
 
 public abstract class BaseActivity<PresenterType extends Presenter> extends NucleusAppCompatActivity<PresenterType> {
     @Nullable
@@ -87,6 +93,16 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_back);
         }
+    }
+
+    protected Map<String, String> getHttpHeaderAuth() {
+        final Prefser prefser = new Prefser(this);
+        String clientToken = prefser.get(CLIENT_TOKEN, String.class, "");
+        Map<String, String> map = new HashMap<String, String>();
+
+        map.put("Authorization", "Bearer " + clientToken);
+
+        return map;
     }
 
     protected CharSequence getTitleName() {
