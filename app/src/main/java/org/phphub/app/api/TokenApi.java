@@ -22,4 +22,10 @@ public interface TokenApi {
                                @Field("client_secret") String clientSecret,
                                @Field("username") String username,
                                @Field("login_token") String loginToken);
+    @FormUrlEncoded
+    @POST("/oauth/access_token")
+    Observable<Token> refreshToken(@Field("grant_type") @AuthType String authType,
+                                   @Field("client_id") String clientId,
+                                   @Field("client_secret") String clientSecret,
+                                   @Field("refresh_token") String refreshToken);
 }

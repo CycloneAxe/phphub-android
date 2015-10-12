@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.github.pwittchen.prefser.library.Prefser;
-import com.orhanobut.logger.Logger;
 
 import org.phphub.app.api.entity.element.Token;
 import org.phphub.app.model.TokenModel;
@@ -34,6 +33,15 @@ public class BaseRxPresenter<View> extends RxPresenter<View> {
         Icepick.saveInstanceState(this, state);
     }
 
+    protected boolean hasUnauthorized(Throwable throwable) {
+        if (!(throwable instanceof RetrofitError)) {
+            return false;
+        }
+
+        Response r = ((RetrofitError) throwable).getResponse();
+        return r != null && r.getStatus() == 401;
+    }
+
     protected <T> Observable.Transformer<T, T> applyRetryByGuest(@NonNull final TokenModel tokenModel, @NonNull final Prefser prefser) {
         return new Observable.Transformer<T, T>() {
             @Override
@@ -41,35 +49,32 @@ public class BaseRxPresenter<View> extends RxPresenter<View> {
                 return observable.retry(new Func2<Integer, Throwable, Boolean>() {
                     @Override
                     public Boolean call(Integer retryCount, Throwable throwable) {
-                        final boolean[] isRetry = {false};
+                        final boolean[] needRetry = {false};
 
-                        if (retryCount <= 3 && throwable instanceof RetrofitError) {
-                            Response r = ((RetrofitError) throwable).getResponse();
-                            if (r != null && r.getStatus() == 401) {
-                                tokenModel.tokenGenerator()
-                                        .filter(new Func1<Token, Boolean>() {
-                                            @Override
-                                            public Boolean call(Token token) {
-                                                return (token != null && !TextUtils.isEmpty(token.getToken()));
-                                            }
-                                        })
-                                        .doOnNext(new Action1<Token>() {
-                                            @Override
-                                            public void call(Token token) {
-                                                prefser.put(GUEST_TOKEN, token.getToken());
-                                            }
-                                        })
-                                        .toBlocking()
-                                        .forEach(new Action1<Token>() {
-                                            @Override
-                                            public void call(Token token) {
-                                                isRetry[0] = true;
-                                            }
-                                        });
-                            }
+                        if (retryCount <= 1 && hasUnauthorized(throwable)) {
+                            tokenModel.tokenGenerator()
+                                    .filter(new Func1<Token, Boolean>() {
+                                        @Override
+                                        public Boolean call(Token token) {
+                                            return (token != null && !TextUtils.isEmpty(token.getToken()));
+                                        }
+                                    })
+                                    .doOnNext(new Action1<Token>() {
+                                        @Override
+                                        public void call(Token token) {
+                                            prefser.put(GUEST_TOKEN, token.getToken());
+                                        }
+                                    })
+                                    .toBlocking()
+                                    .forEach(new Action1<Token>() {
+                                        @Override
+                                        public void call(Token token) {
+                                            needRetry[0] = true;
+                                        }
+                                    });
                         }
 
-                        return isRetry[0];
+                        return needRetry[0];
                     }
                 });
             }

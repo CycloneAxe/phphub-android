@@ -26,4 +26,11 @@ public class TokenModel extends BaseModel<TokenApi> {
                 username,
                 loginToken);
     }
+
+    public Observable<Token> refreshToken(String refreshToken) {
+        return service.refreshToken(AUTH_TYPE_REFRESH,
+                BuildConfig.CLIENT_ID,
+                BuildConfig.CLIENT_SECRET,
+                refreshToken);
+    }
 }
