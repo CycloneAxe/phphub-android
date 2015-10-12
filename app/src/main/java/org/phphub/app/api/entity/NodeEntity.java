@@ -6,7 +6,7 @@ import java.util.List;
 
 public class NodeEntity {
 
-    public class NodeList {
+    public class Nodes {
         public List<Node> data;
 
         public List<Node> getData() {

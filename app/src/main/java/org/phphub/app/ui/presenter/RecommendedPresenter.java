@@ -23,7 +23,7 @@ import rx.functions.Func1;
 
 
 public class RecommendedPresenter extends BaseRxPresenter<RecommendedFragment> {
-    public static final int REQUEST_ID = 1;
+    private static final int REQUEST_ID = 1;
 
     @Inject
     TopicModel topicModel;

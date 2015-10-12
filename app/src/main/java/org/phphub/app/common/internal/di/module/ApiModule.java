@@ -5,6 +5,7 @@ import android.content.Context;
 import org.phphub.app.common.internal.di.qualifier.ForApplication;
 import org.phphub.app.model.TokenModel;
 import org.phphub.app.model.TopicModel;
+import org.phphub.app.model.UserModel;
 
 import javax.inject.Singleton;
 
@@ -23,5 +24,11 @@ public class ApiModule {
     @Singleton
     TokenModel provideTokenModel(@ForApplication Context context) {
         return new TokenModel(context);
+    }
+
+    @Provides
+    @Singleton
+    UserModel provideUserModel(@ForApplication Context context) {
+        return new UserModel(context);
     }
 }

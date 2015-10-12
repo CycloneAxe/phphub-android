@@ -6,7 +6,7 @@ import java.util.List;
 
 public class UserEntity {
 
-    public class UserList {
+    public class Users {
         public List<User> data;
 
         public List<User> getData() {

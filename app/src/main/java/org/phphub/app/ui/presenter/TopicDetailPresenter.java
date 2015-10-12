@@ -20,7 +20,7 @@ import rx.functions.Func0;
 import rx.functions.Func1;
 
 public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> {
-    public static final int REQUEST_TOPIC_ID = 1;
+    private static final int REQUEST_TOPIC_ID = 1;
 
     int topicId;
 

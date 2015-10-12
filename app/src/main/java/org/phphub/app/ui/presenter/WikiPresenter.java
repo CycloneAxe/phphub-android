@@ -23,7 +23,7 @@ import rx.functions.Func0;
 import rx.functions.Func1;
 
 public class WikiPresenter extends BaseRxPresenter<WikiFragment> {
-    public static final int REQUEST_WIKI_ID = 1;
+    private static final int REQUEST_WIKI_ID = 1;
 
     @Inject
     TopicModel topicModel;

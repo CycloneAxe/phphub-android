@@ -24,13 +24,13 @@ import rx.functions.Func1;
 import static org.phphub.app.common.qualifier.TopicType.*;
 
 public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
-    public static final int REQUEST_RECENT_ID = 1;
+    private static final int REQUEST_RECENT_ID = 1;
 
-    public static final int REQUEST_VOTE_ID = 2;
+    private static final int REQUEST_VOTE_ID = 2;
 
-    public static final int REQUEST_NOBODY_ID = 3;
+    private static final int REQUEST_NOBODY_ID = 3;
 
-    public static final int REQUEST_JOBS_ID = 4;
+    private static final int REQUEST_JOBS_ID = 4;
 
     @Inject
     TopicModel topicModel;
