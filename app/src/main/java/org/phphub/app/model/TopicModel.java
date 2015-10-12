@@ -13,8 +13,8 @@ import java.util.Map;
 import rx.Observable;
 
 public class TopicModel extends BaseModel<TopicApi> {
-    public TopicModel(Context context) {
-        super(context, TopicApi.class);
+    public TopicModel(Context context, boolean injectGuestToken) {
+        super(context, injectGuestToken, TopicApi.class);
     }
 
     Observable<TopicEntity> getTopics(String filter, int pageIndex) {

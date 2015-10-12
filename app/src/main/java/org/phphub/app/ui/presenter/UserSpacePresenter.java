@@ -9,16 +9,19 @@ import org.phphub.app.model.UserModel;
 import org.phphub.app.ui.view.user.UserSpaceActivity;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import rx.Observable;
 import rx.functions.Action2;
 import rx.functions.Func0;
 import rx.functions.Func1;
+import static org.phphub.app.common.qualifier.AuthType.*;
 
 public class UserSpacePresenter extends BaseRxPresenter<UserSpaceActivity> {
     private static final int REQUEST_ID = 1;
 
     @Inject
+    @Named(AUTH_TYPE_GUEST)
     UserModel userModel;
 
     int userId;

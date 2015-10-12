@@ -19,17 +19,19 @@ public class BaseModel<T> {
 
     protected AuthRestAdapter restAdapter;
 
-    public BaseModel(Context context, Class<T> serviceClass) {
+    public BaseModel(Context context, final boolean injectGuestToken, Class<T> serviceClass) {
         final Prefser prefser = new Prefser(context);
         this.restAdapter = new AuthRestAdapter.Builder()
                             .setEndpoint(BuildConfig.ENDPOINT)
                             .setRequestInterceptor(new RequestInterceptor() {
                                 @Override
                                 public void intercept(RequestFacade request) {
-                                    String guestToken = prefser.get(GUEST_TOKEN_KEY, String.class, "");
-                                    request.addHeader("Accept", "application/vnd.PHPHub.v1+json");
-                                    if (!TextUtils.isEmpty(guestToken)) {
-                                        request.addHeader("Authorization", "Bearer " + guestToken);
+                                    if (injectGuestToken) {
+                                        String guestToken = prefser.get(GUEST_TOKEN_KEY, String.class, "");
+                                        request.addHeader("Accept", "application/vnd.PHPHub.v1+json");
+                                        if (!TextUtils.isEmpty(guestToken)) {
+                                            request.addHeader("Authorization", "Bearer " + guestToken);
+                                        }
                                     }
 
                                     request.addHeader("X-Client-Platform", "Android");

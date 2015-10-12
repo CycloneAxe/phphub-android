@@ -11,8 +11,8 @@ import rx.Observable;
 import static org.phphub.app.common.qualifier.AuthType.*;
 
 public class TokenModel extends BaseModel<TokenApi> {
-    public TokenModel(Context context) {
-        super(context, TokenApi.class);
+    public TokenModel(Context context, boolean injectGuestToken) {
+        super(context, injectGuestToken, TokenApi.class);
     }
 
     public Observable<Token> tokenGenerator() {

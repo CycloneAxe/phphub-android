@@ -26,6 +26,7 @@ import org.phphub.app.model.TokenModel;
 import org.phphub.app.model.UserModel;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -35,6 +36,7 @@ import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
+import static org.phphub.app.common.qualifier.AuthType.*;
 
 public class LoginActivity extends AuthenticationActivity {
     private final static int CODE_SCANNER = 100;
@@ -52,6 +54,7 @@ public class LoginActivity extends AuthenticationActivity {
     TokenModel tokenModel;
 
     @Inject
+    @Named(AUTH_TYPE_USER)
     UserModel userModel;
 
     @Override
