@@ -12,14 +12,18 @@ import android.widget.Toast;
 
 import com.levelmoney.velodrome.Velodrome;
 import com.levelmoney.velodrome.annotations.OnActivityResult;
+import com.orhanobut.logger.Logger;
 
 import static org.phphub.app.common.Constant.*;
 
 import org.phphub.app.R;
+import org.phphub.app.api.entity.UserEntity;
 import org.phphub.app.api.entity.element.Token;
+import org.phphub.app.api.entity.element.User;
 import org.phphub.app.common.App;
 import org.phphub.app.common.Navigator;
 import org.phphub.app.model.TokenModel;
+import org.phphub.app.model.UserModel;
 
 import javax.inject.Inject;
 
@@ -27,7 +31,10 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import eu.unicate.retroauth.AuthenticationActivity;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
+import rx.functions.Func1;
 
 public class LoginActivity extends AuthenticationActivity {
     private final static int CODE_SCANNER = 100;
@@ -43,6 +50,9 @@ public class LoginActivity extends AuthenticationActivity {
 
     @Inject
     TokenModel tokenModel;
+
+    @Inject
+    UserModel userModel;
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -93,15 +103,46 @@ public class LoginActivity extends AuthenticationActivity {
         dialog.setCancelable(false);
         dialog.show();
 
-         tokenModel.tokenGenerator(username, loginToken)
-                .subscribe(new Action1<Token>() {
+        final Account account = createOrGetAccount(username);
+        tokenModel.tokenGenerator(username, loginToken)
+                .doOnNext(new Action1<Token>() {
                     @Override
                     public void call(Token token) {
-                        Account account = createOrGetAccount(username);
                         storeToken(account, getString(R.string.auth_token_type), token.getToken());
-                        dialog.dismiss();
-                        finalizeAuthentication(account);
                     }
-                });
+                })
+                .flatMap(new Func1<Token, Observable<User>>() {
+                    @Override
+                    public Observable<User> call(final Token token) {
+                        return userModel.getMyselfInfo()
+                                .map(new Func1<UserEntity.AUser, User>() {
+                                    @Override
+                                    public User call(UserEntity.AUser user) {
+                                        return user.getData();
+                                    }
+                                })
+                                .doOnNext(new Action1<User>() {
+                                    @Override
+                                    public void call(User user) {
+                                        storeUserData(account, USER_ID_KEY, String.valueOf(user.getId()));
+                                        storeUserData(account, USER_AVATAR_KEY, user.getAvatar());
+                                    }
+                                });
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<User>() {
+                               @Override
+                               public void call(User user) {
+                                   dialog.dismiss();
+                                   finalizeAuthentication(account);
+                               }
+                           },
+                        new Action1<Throwable>() {
+                            @Override
+                            public void call(Throwable throwable) {
+                                Logger.e(throwable.toString());
+                            }
+                        });
     }
 }
