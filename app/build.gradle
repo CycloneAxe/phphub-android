@@ -137,4 +137,6 @@ dependencies {
     compile 'com.ocpsoft:ocpsoft-pretty-time:1.0.7'
     compile 'com.github.pwittchen:prefser:2.0.1'
     compile 'com.github.kmshack:Android-TopScrollHelper:01bdc4303a'
+    compile 'me.dm7.barcodescanner:zxing:1.8.3'
+    compile 'com.levelmoney.velodrome:velodrome:1.0'
 }

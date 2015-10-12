@@ -25,6 +25,7 @@
             android:src="@drawable/bg_circular_with_robot"/>
 
         <Button
+            android:id="@+id/btn_scanner"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/bg_radius_yellow"

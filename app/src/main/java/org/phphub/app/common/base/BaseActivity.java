@@ -1,7 +1,6 @@
 package org.phphub.app.common.base;
 
-import android.app.ActivityManager;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -11,7 +10,7 @@ import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.github.pwittchen.prefser.library.Prefser;
-import com.orhanobut.logger.Logger;
+import com.levelmoney.velodrome.Velodrome;
 
 import org.phphub.app.R;
 import org.phphub.app.common.App;
@@ -29,7 +28,7 @@ import icepick.Icepick;
 import nucleus.presenter.Presenter;
 import nucleus.view.NucleusAppCompatActivity;
 
-import static org.phphub.app.common.Constant.GUEST_TOKEN;
+import static org.phphub.app.common.Constant.GUEST_TOKEN_KEY;
 
 public abstract class BaseActivity<PresenterType extends Presenter> extends NucleusAppCompatActivity<PresenterType> {
     @Nullable
@@ -98,12 +97,18 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
 
     protected Map<String, String> getHttpHeaderAuth() {
         final Prefser prefser = new Prefser(this);
-        String clientToken = prefser.get(GUEST_TOKEN, String.class, "");
+        String clientToken = prefser.get(GUEST_TOKEN_KEY, String.class, "");
         Map<String, String> map = new HashMap<String, String>();
 
         map.put("Authorization", "Bearer " + clientToken);
 
         return map;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Velodrome.handleResult(this, requestCode, resultCode, data);
     }
 
     protected CharSequence getTitleName() {

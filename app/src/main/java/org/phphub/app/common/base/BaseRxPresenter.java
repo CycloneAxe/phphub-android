@@ -62,7 +62,7 @@ public class BaseRxPresenter<View> extends RxPresenter<View> {
                                     .doOnNext(new Action1<Token>() {
                                         @Override
                                         public void call(Token token) {
-                                            prefser.put(GUEST_TOKEN, token.getToken());
+                                            prefser.put(GUEST_TOKEN_KEY, token.getToken());
                                         }
                                     })
                                     .toBlocking()
