@@ -29,6 +29,11 @@ public class MeFragment extends BaseSupportFragment {
         navigator.navigateToSettings(getActivity());
     }
 
+    @OnClick(R.id.user_container)
+    public void navigateToUserSpace() {
+        navigator.navigateToUserSpace(getActivity());
+    }
+
     @Override
     protected String getTitle() {
         return getString(R.string.me);

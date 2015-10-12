@@ -49,6 +49,15 @@
                 android:value=".ui.view.MainActivity" />
         </activity>
 
+        <activity android:name=".ui.view.user.UserSpaceActivity"
+            android:parentActivityName=".ui.view.MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.view.MainActivity" />
+
+        </activity>
+
         <service android:name=".common.service.AuthService"
             android:process=":auth"
             android:exported="false">

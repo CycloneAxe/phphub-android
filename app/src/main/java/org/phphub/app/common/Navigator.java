@@ -5,6 +5,7 @@ import android.content.Intent;
 
 import org.phphub.app.ui.view.settings.SettingsActivity;
 import org.phphub.app.ui.view.topic.TopicDetailsActivity;
+import org.phphub.app.ui.view.user.UserSpaceActivity;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -29,6 +30,15 @@ public class Navigator {
         }
 
         Intent intentToLaunch = SettingsActivity.getCallingIntent(context);
+        context.startActivity(intentToLaunch);
+    }
+
+    public void navigateToUserSpace(Context context) {
+        if (context == null) {
+            return;
+        }
+
+        Intent intentToLaunch = UserSpaceActivity.getCallingIntent(context);
         context.startActivity(intentToLaunch);
     }
 }
