@@ -6,6 +6,7 @@ import org.phphub.app.ui.presenter.TopicDetailPresenter;
 import org.phphub.app.ui.presenter.TopicPresenter;
 import org.phphub.app.ui.presenter.UserSpacePresenter;
 import org.phphub.app.ui.presenter.WikiPresenter;
+import org.phphub.app.ui.view.LoginActivity;
 
 import javax.inject.Singleton;
 
@@ -23,4 +24,6 @@ public interface ApiComponent {
         void inject(TopicDetailPresenter topicDetailPresenter);
 
         void inject(UserSpacePresenter userSpacePresenter);
+
+        void inject(LoginActivity loginActivity);
 }
