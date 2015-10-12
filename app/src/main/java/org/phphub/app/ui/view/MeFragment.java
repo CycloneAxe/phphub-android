@@ -31,7 +31,6 @@ public class MeFragment extends BaseSupportFragment {
 
     @OnClick(R.id.user_container)
     public void navigateToUserSpace() {
-        navigator.navigateToUserSpace(getActivity());
     }
 
     @Override

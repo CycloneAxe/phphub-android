@@ -33,12 +33,12 @@ public class Navigator {
         context.startActivity(intentToLaunch);
     }
 
-    public void navigateToUserSpace(Context context) {
+    public void navigateToUserSpace(Context context, int userId) {
         if (context == null) {
             return;
         }
 
-        Intent intentToLaunch = UserSpaceActivity.getCallingIntent(context);
+        Intent intentToLaunch = UserSpaceActivity.getCallingIntent(context, userId);
         context.startActivity(intentToLaunch);
     }
 }
