@@ -83,7 +83,7 @@ public class MeFragment extends BaseSupportFragment<MePersenter>  {
 
     @OnClick(R.id.user_container)
     public void navigateToUserSpace() {
-        navigator.navigateToUserSpace(getContext(), this.userId, this.userName);
+        navigator.navigateToUserSpace(getContext(), this.userId);
     }
 
     public void onNetworkError(Throwable throwable) {

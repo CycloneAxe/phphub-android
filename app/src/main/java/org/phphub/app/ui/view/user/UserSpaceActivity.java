@@ -27,11 +27,11 @@ import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
 
 import static com.kennyc.view.MultiStateView.*;
+import static org.phphub.app.common.Constant.USER_ID_KEY;
 
 @RequiresPresenter(UserSpacePresenter.class)
 public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
     private static final String INTENT_EXTRA_PARAM_USER_ID = "user_id";
-    private static final String INTENT_EXTRA_PARAM_USER_NAME = "user_name";
 
     @Bind(R.id.toolbar)
     Toolbar toolbarView;
@@ -41,9 +41,6 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
 
     @State
     int userId;
-
-    @State
-    String userName;
 
     @Bind(R.id.sdv_avatar)
     SimpleDraweeView avatarView;
@@ -95,13 +92,6 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
         return callingIntent;
     }
 
-    public static Intent getCallingIntent(Context context, int userId, String userName) {
-        Intent callingIntent = new Intent(context, UserSpaceActivity.class);
-        callingIntent.putExtra(INTENT_EXTRA_PARAM_USER_ID, userId);
-        callingIntent.putExtra(INTENT_EXTRA_PARAM_USER_NAME, userName);
-        return callingIntent;
-    }
-
     @Override
     protected void injectorPresenter() {
         super.injectorPresenter();
@@ -121,10 +111,21 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_user_space, menu);
 
-        isMySelf = !TextUtils.isEmpty(getIntent().getStringExtra(INTENT_EXTRA_PARAM_USER_NAME).trim());
+        AccountManager accountManager = AccountManager.get(this);
+        Account[] accounts = accountManager.getAccountsByType(getString(R.string.auth_account_type));
 
-        if (TextUtils.isEmpty(getIntent().getStringExtra(INTENT_EXTRA_PARAM_USER_NAME).trim())) {
-            menu.findItem(R.id.menu_edit).setEnabled(false);
+        String loginUserId = "";
+
+        for (Account account : accounts) {
+            loginUserId = accountManager.getUserData(account, USER_ID_KEY);
+        }
+
+        int userId = getIntent().getIntExtra(INTENT_EXTRA_PARAM_USER_ID, 0);
+
+        isMySelf = loginUserId.equals(String.valueOf(userId));
+
+        if (!isMySelf) {
+            menu.findItem(R.id.menu_edit).setVisible(false);
         }
 
         return true;

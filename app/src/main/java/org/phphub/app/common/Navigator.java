@@ -44,15 +44,6 @@ public class Navigator {
         context.startActivity(intentToLaunch);
     }
 
-    public void navigateToUserSpace(Context context, int userId, String userName) {
-        if (context == null) {
-            return;
-        }
-
-        Intent intentToLaunch = UserSpaceActivity.getCallingIntent(context, userId, userName);
-        context.startActivity(intentToLaunch);
-    }
-
     public void navigateToScanner(Context context, int requestCode) {
         if (context == null) {
             return;

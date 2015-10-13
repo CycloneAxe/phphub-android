@@ -85,5 +85,12 @@ public class TopicItemView extends BaseAdapterItemView<Topic> {
                 notifyItemAction(CLICK_TYPE_TOPIC_CLICKED);
             }
         });
+
+        avatarView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notifyItemAction(CLICK_TYPE_USER_CLICKED);
+            }
+        });
     }
 }
