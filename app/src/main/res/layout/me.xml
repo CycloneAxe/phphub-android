@@ -33,15 +33,38 @@
             app:layout_marginRightPercent="3.6%w"
             layout="@layout/common_avatar"/>
 
-        <TextView
-            android:id="@+id/tv_username"
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_widthPercent="65%w"
+            app:layout_heightPercent="100%w"
             android:layout_toRightOf="@id/avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:textSize="18sp"
             android:gravity="center_vertical"
-            app:layout_textSizePercent="22.8%h"
-            tools:text="Summer"/>
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="#767676"
+                android:gravity="center_vertical"
+                app:layout_textSizePercent="22.8%h"
+                tools:text="Summer"/>
+
+            <TextView
+                android:id="@+id/tv_sign"
+                android:layout_toRightOf="@id/avatar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="#8D8D8D"
+                android:gravity="center_vertical"
+                android:maxLines="2"
+                android:ellipsize="end"
+                tools:text="Summer"/>
+
+        </LinearLayout>
 
         <ImageView
             android:layout_width="wrap_content"
