@@ -1,9 +1,287 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <include layout="@layout/common_toolbar" />
+
+        <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.zhy.android.percent.support.PercentLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:gravity="center"
+                app:layout_widthPercent="100%w"
+                app:layout_heightPercent="47%w"
+                android:orientation="vertical">
+
+                <include
+                    layout="@layout/common_avatar"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    app:layout_widthPercent="26%w"
+                    app:layout_heightPercent="26%w"/>
+
+                <TextView
+                    android:id="@+id/tv_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_marginTopPercent="3.9%w"
+                    style="@style/profile_username"
+                    tools:text="Summer"/>
+
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_marginBottomPercent="4.8%w"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/username"
+                    style="@style/profile_text"
+                    app:layout_paddingLeftPercent="4.8%w"/>
+
+                <com.zhy.android.percent.support.PercentLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/white"
+                    app:layout_marginTopPercent="1.7%w"
+                    app:layout_paddingLeftPercent="4.8%w"
+                    app:layout_paddingTopPercent="3.5%w"
+                    app:layout_paddingBottomPercent="3.6%w">
+
+                    <TextView
+                        android:id="@+id/tv_realname"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/profile_text"
+                        tools:text="李开复"/>
+
+                </com.zhy.android.percent.support.PercentLinearLayout>
+
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_marginBottomPercent="4.8%w"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/profile"
+                    style="@style/profile_text"
+                    app:layout_paddingLeftPercent="4.8%w"/>
+
+                <com.zhy.android.percent.support.PercentLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    app:layout_marginTopPercent="1.7%w"
+                    app:layout_paddingLeftPercent="4.8%w"
+                    app:layout_paddingTopPercent="3.5%w"
+                    app:layout_paddingBottomPercent="3.6%w">
+
+                    <TextView
+                        android:id="@+id/tv_description"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/profile_text"
+                        tools:text="四位友友共同翻译的《和孩子谈谈癌症》，关于「确诊肝癌晚期，怎样将病情告知孩子并减少伤害？」的详细解答 和下载"/>
+
+                </com.zhy.android.percent.support.PercentLinearLayout>
+
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_marginBottomPercent="4.8%w"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/address"
+                    style="@style/profile_text"
+                    app:layout_paddingLeftPercent="4.8%w"/>
+
+                <com.zhy.android.percent.support.PercentLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    app:layout_marginTopPercent="1.7%w"
+                    app:layout_paddingLeftPercent="4.8%w"
+                    app:layout_paddingTopPercent="3.5%w"
+                    app:layout_paddingBottomPercent="3.6%w">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        app:layout_heightPercent="5.2%w"
+                        android:src="@mipmap/ic_location_icon"/>
+
+                    <TextView
+                        android:id="@+id/tv_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        style="@style/profile_text"
+                        app:layout_marginLeftPercent="2.8%w"
+                        tools:text="北京"/>
+
+                </com.zhy.android.percent.support.PercentLinearLayout>
+
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_marginBottomPercent="4.8%w"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/github"
+                    style="@style/profile_text"
+                    app:layout_paddingLeftPercent="4.8%w"/>
+
+                <com.zhy.android.percent.support.PercentLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    app:layout_marginTopPercent="1.7%w"
+                    app:layout_paddingLeftPercent="4.8%w"
+                    app:layout_paddingTopPercent="3.5%w"
+                    app:layout_paddingBottomPercent="3.6%w">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        app:layout_heightPercent="5.2%w"
+                        android:src="@mipmap/ic_github_icon"/>
+
+                    <TextView
+                        android:id="@+id/tv_github"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        style="@style/profile_text"
+                        app:layout_marginLeftPercent="2.8%w"
+                        tools:text="summerblue"/>
+
+                </com.zhy.android.percent.support.PercentLinearLayout>
+
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_marginBottomPercent="4.8%w"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/twitter"
+                    style="@style/profile_text"
+                    app:layout_paddingLeftPercent="4.8%w"/>
+
+                <com.zhy.android.percent.support.PercentLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    app:layout_marginTopPercent="1.7%w"
+                    app:layout_paddingLeftPercent="4.8%w"
+                    app:layout_paddingTopPercent="3.5%w"
+                    app:layout_paddingBottomPercent="3.6%w">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        app:layout_heightPercent="5.2%w"
+                        android:src="@mipmap/ic_twitter_icon"/>
+
+                    <TextView
+                        android:id="@+id/tv_twitter"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        style="@style/profile_text"
+                        app:layout_marginLeftPercent="2.8%w"
+                        tools:text="summerblue"/>
+
+                </com.zhy.android.percent.support.PercentLinearLayout>
+
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+            <com.zhy.android.percent.support.PercentLinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_marginBottomPercent="4.8%w"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/blog"
+                    style="@style/profile_text"
+                    app:layout_paddingLeftPercent="4.8%w"/>
+
+                <com.zhy.android.percent.support.PercentLinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="@color/white"
+                    app:layout_marginTopPercent="1.7%w"
+                    app:layout_paddingLeftPercent="4.8%w"
+                    app:layout_paddingTopPercent="3.5%w"
+                    app:layout_paddingBottomPercent="3.6%w">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="0dp"
+                        app:layout_heightPercent="5.2%w"
+                        android:src="@mipmap/ic_blog_icon"/>
+
+                    <TextView
+                        android:id="@+id/tv_blog"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        style="@style/profile_text"
+                        app:layout_marginLeftPercent="2.8%w"
+                        tools:text="http://summerblue.me"/>
+
+                </com.zhy.android.percent.support.PercentLinearLayout>
+
+            </com.zhy.android.percent.support.PercentLinearLayout>
+
+        </com.zhy.android.percent.support.PercentLinearLayout>
+    </ScrollView>
 
 </LinearLayout>

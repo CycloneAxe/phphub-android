@@ -25,4 +25,14 @@
     <string name="report">Report</string>
     <string name="share">Share</string>
 
+    <string name="username">UserName</string>
+    <string name="profile">Profile</string>
+    <string name="address">Address</string>
+    <string name="github">Github</string>
+    <string name="twitter">Twitter</string>
+    <string name="blog">Blog</string>
+    <string name="his">His</string>
+    <string name="her">Her</string>
+    <string name="since">Since</string>
+
 </resources>

@@ -12,6 +12,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action2;
 import rx.functions.Func0;
 import rx.functions.Func1;
@@ -34,6 +35,7 @@ public class UserSpacePresenter extends BaseRxPresenter<UserSpaceActivity> {
                     @Override
                     public Observable<User> call() {
                         return userModel.getUserInfo(userId)
+                                .observeOn(AndroidSchedulers.mainThread())
                                 .map(new Func1<UserEntity.AUser, User>() {
                                     @Override
                                     public User call(UserEntity.AUser user) {
@@ -45,13 +47,13 @@ public class UserSpacePresenter extends BaseRxPresenter<UserSpaceActivity> {
                 new Action2<UserSpaceActivity, User>() {
                     @Override
                     public void call(UserSpaceActivity userSpaceActivity, User user) {
-
+                        userSpaceActivity.initView(user);
                     }
                 },
                 new Action2<UserSpaceActivity, Throwable>() {
                     @Override
                     public void call(UserSpaceActivity userSpaceActivity, Throwable throwable) {
-
+                        userSpaceActivity.onNetWorkError(throwable);
                     }
                 });
     }
