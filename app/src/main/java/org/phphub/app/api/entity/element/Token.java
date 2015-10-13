@@ -12,6 +12,9 @@ public class Token {
     @SerializedName("expires_in")
     int expires;
 
+    @SerializedName("refresh_token")
+    String refreshToken;
+
     public String getToken() {
         return token;
     }
@@ -34,5 +37,13 @@ public class Token {
 
     public void setExpires(int expires) {
         this.expires = expires;
+    }
+
+    public String getRefreshToken() {
+        return refreshToken;
+    }
+
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
     }
 }

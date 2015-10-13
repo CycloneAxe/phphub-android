@@ -1,5 +1,6 @@
 package org.phphub.app.common.internal.di.module;
 
+import android.accounts.AccountManager;
 import android.content.Context;
 
 import com.github.pwittchen.prefser.library.Prefser;
@@ -31,5 +32,11 @@ public class AppModule {
     @Singleton
     Prefser providePrefser(@ForApplication Context context) {
         return new Prefser(context);
+    }
+
+    @Provides
+    @Singleton
+    AccountManager provideAccountManager(@ForApplication Context context) {
+        return AccountManager.get(context);
     }
 }

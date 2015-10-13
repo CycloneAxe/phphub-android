@@ -112,6 +112,7 @@ public class LoginActivity extends AuthenticationActivity {
                     @Override
                     public void call(Token token) {
                         storeToken(account, getString(R.string.auth_token_type), token.getToken());
+                        storeUserData(account, AUTH_TYPE_REFRESH, token.getRefreshToken());
                     }
                 })
                 .flatMap(new Func1<Token, Observable<User>>() {
