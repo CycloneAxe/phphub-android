@@ -31,9 +31,11 @@
     <color name="blue_border">#46B2DF</color>
     
     <color name="topic_header_bg">#F6F6F6</color>
-    
+
+    <color name="gray_6b">#6B6B6B</color>
     <color name="gray_7b">#7B7676</color>
     <color name="gray_9b">#9B9B9B</color>
+    <color name="gray_91">#91999F</color>
 
     <color name="blue_a4">#A4B3BF</color>
 </resources>

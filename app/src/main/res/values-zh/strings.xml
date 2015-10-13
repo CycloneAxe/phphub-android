@@ -26,4 +26,14 @@
     <string name="report">举报</string>
     <string name="share">分享</string>
 
+    <string name="username">姓名</string>
+    <string name="profile">个人简介</string>
+    <string name="address">居住地</string>
+    <string name="github">Github</string>
+    <string name="twitter">Twitter</string>
+    <string name="blog">Blog</string>
+    <string name="his">Ta的</string>
+    <string name="her">Ta的</string>
+    <string name="since">Since</string>
+
 </resources>
