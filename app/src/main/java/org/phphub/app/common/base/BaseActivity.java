@@ -1,7 +1,5 @@
 package org.phphub.app.common.base;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -26,14 +24,9 @@ import java.util.Map;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import eu.unicate.retroauth.AuthAccountManager;
 import icepick.Icepick;
 import nucleus.presenter.Presenter;
 import nucleus.view.NucleusAppCompatActivity;
-import rx.Observable;
-import rx.Subscriber;
-import rx.functions.Action1;
-import rx.schedulers.Schedulers;
 
 import static org.phphub.app.common.Constant.GUEST_TOKEN_KEY;
 
@@ -103,40 +96,11 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
     }
 
     protected Map<String, String> getHttpHeaderAuth() {
+        Prefser prefser = new Prefser(this);
+        String token = prefser.get(GUEST_TOKEN_KEY, String.class, "");
+
         Map<String, String> map = new HashMap<>();
-        final String[] token = {""};
-
-        AccountManager accountManager = AccountManager.get(this);
-        Account[] accounts = accountManager.getAccountsByType(getString(R.string.auth_account_type));
-        final AuthAccountManager authAccountManager = new AuthAccountManager(this);
-        if (accounts.length > 0) {
-            final Account account = accounts[0];
-            final String accountType = getString(R.string.auth_account_type),
-                    tokenType = getString(R.string.auth_token_type);
-
-            Observable.create(new Observable.OnSubscribe<String>() {
-                @Override
-                public void call(Subscriber<? super String> subscriber) {
-                    subscriber.onNext(authAccountManager.getAuthToken(account, accountType, tokenType));
-                    subscriber.onCompleted();
-                }
-            })
-            .subscribeOn(Schedulers.io())
-            .toBlocking()
-            .forEach(new Action1<String>() {
-                @Override
-                public void call(String s) {
-                    token[0] = s;
-                }
-            });
-        }
-
-        if (TextUtils.isEmpty(token[0])) {
-            Prefser prefser = new Prefser(this);
-            token[0] = prefser.get(GUEST_TOKEN_KEY, String.class, "");
-        }
-
-        map.put("Authorization", "Bearer " + token[0]);
+        map.put("Authorization", "Bearer " + token);
 
         return map;
     }

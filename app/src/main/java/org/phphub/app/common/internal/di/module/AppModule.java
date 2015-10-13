@@ -12,6 +12,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import eu.unicate.retroauth.AuthAccountManager;
 
 @Module
 public class AppModule {
@@ -38,5 +39,11 @@ public class AppModule {
     @Singleton
     AccountManager provideAccountManager(@ForApplication Context context) {
         return AccountManager.get(context);
+    }
+
+    @Provides
+    @Singleton
+    AuthAccountManager provideAuthAccountManager(@ForApplication Context context) {
+        return new AuthAccountManager(context);
     }
 }

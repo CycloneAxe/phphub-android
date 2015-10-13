@@ -3,49 +3,52 @@ package org.phphub.app.common.base;
 import android.content.Context;
 import android.text.TextUtils;
 
-
 import com.github.pwittchen.prefser.library.Prefser;
 
 import org.phphub.app.BuildConfig;
-import static org.phphub.app.common.Constant.*;
+import org.phphub.app.api.RequestInterceptorImpl;
 
+import static org.phphub.app.common.Constant.*;
 
 import eu.unicate.retroauth.AuthRestAdapter;
 import eu.unicate.retroauth.interceptors.TokenInterceptor;
 import retrofit.RequestInterceptor;
+import retrofit.RestAdapter;
 
 public class BaseModel<T> {
     protected T service;
 
-    protected AuthRestAdapter restAdapter;
+    protected Class<T> serviceClass;
+
+    protected AuthRestAdapter authRestAdapter;
 
     public BaseModel(Context context, final boolean injectGuestToken, Class<T> serviceClass) {
         final Prefser prefser = new Prefser(context);
-        this.restAdapter = new AuthRestAdapter.Builder()
+        this.serviceClass = serviceClass;
+        RequestInterceptorImpl requestInterceptor = new RequestInterceptorImpl();
+        if (injectGuestToken) {
+            String guestToken = prefser.get(GUEST_TOKEN_KEY, String.class, "");
+            if (!TextUtils.isEmpty(guestToken)) {
+                requestInterceptor.setToken(guestToken);
+            }
+        }
+        this.authRestAdapter = new AuthRestAdapter.Builder()
                             .setEndpoint(BuildConfig.ENDPOINT)
-                            .setRequestInterceptor(new RequestInterceptor() {
-                                @Override
-                                public void intercept(RequestFacade request) {
-                                    if (injectGuestToken) {
-                                        String guestToken = prefser.get(GUEST_TOKEN_KEY, String.class, "");
-                                        request.addHeader("Accept", "application/vnd.PHPHub.v1+json");
-                                        if (!TextUtils.isEmpty(guestToken)) {
-                                            request.addHeader("Authorization", "Bearer " + guestToken);
-                                        }
-                                    }
-
-                                    request.addHeader("X-Client-Platform", "Android");
-                                    request.addHeader("X-Client-Version", BuildConfig.VERSION_NAME);
-                                    request.addHeader("X-Client-Build", String.valueOf(BuildConfig.VERSION_CODE));
-                                    request.addHeader("X-Client-Git-Sha", BuildConfig.GIT_SHA);
-                                }
-                            })
+                            .setRequestInterceptor(requestInterceptor)
                             .build();
 
-        this.service = restAdapter.create(context, TokenInterceptor.BEARER_TOKENINTERCEPTOR, serviceClass);
+        this.service = authRestAdapter.create(context, TokenInterceptor.BEARER_TOKENINTERCEPTOR, serviceClass);
     }
 
     public T getService() {
         return service;
+    }
+
+    public T getService(RequestInterceptor requestInterceptor) {
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setEndpoint(BuildConfig.ENDPOINT)
+                .setRequestInterceptor(requestInterceptor)
+                .build();
+        return restAdapter.create(serviceClass);
     }
 }
