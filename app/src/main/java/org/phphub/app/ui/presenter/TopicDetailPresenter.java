@@ -60,9 +60,16 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
     @Inject
     AuthAccountManager authAccountManager;
 
+    String accountType, tokenType;
+
+    Account[] accounts;
+
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
+        accountType = context.getString(R.string.auth_account_type);
+        tokenType = context.getString(R.string.auth_token_type);
+        accounts = accountManager.getAccountsByType(accountType);
 
         restartableLatestCache(REQUEST_TOPIC_ID,
                 new Func0<Observable<Topic>>() {
@@ -71,10 +78,6 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                         Observable<RequestInterceptorImpl> observable = Observable.create(new Observable.OnSubscribe<RequestInterceptorImpl>() {
                             @Override
                             public void call(Subscriber<? super RequestInterceptorImpl> subscriber) {
-                                String accountType = context.getString(R.string.auth_account_type),
-                                        tokenType = context.getString(R.string.auth_token_type);
-                                Account[] accounts = accountManager.getAccountsByType(accountType);
-
                                 RequestInterceptorImpl requestInterceptor = new RequestInterceptorImpl();
                                 if (accounts.length > 0) {
                                     requestInterceptor.setToken(authAccountManager.getAuthToken(accounts[0], accountType, tokenType));
@@ -97,7 +100,13 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                                 options.put("columns", "user(signature)");
                                 TopicApi api = topicModel.getService(requestInterceptor);
                                 if (AUTH_TYPE_USER.equals(requestInterceptor.getAuthType())) {
-                                    api.getTopic(topicId, options);
+                                    return api.getTopic(topicId, options)
+                                            .compose(TopicDetailPresenter.this.<TopicEntity.ATopic>applyRetryByUser(tokenModel,
+                                                    authAccountManager,
+                                                    accountManager,
+                                                    (accounts.length > 0 ? accounts[0] : null),
+                                                    accountType,
+                                                    tokenType));
                                 }
                                 return api.getTopic(topicId, options)
                                         .compose(TopicDetailPresenter.this.<TopicEntity.ATopic>applyRetryByGuest(tokenModel, prefser));

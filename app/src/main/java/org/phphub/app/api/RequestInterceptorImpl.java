@@ -12,6 +12,8 @@ public class RequestInterceptorImpl implements RequestInterceptor {
 
     private @AuthType String authType;
 
+    private boolean ignore;
+
     public void setToken(String token) {
         this.token = token;
     }
@@ -24,6 +26,10 @@ public class RequestInterceptorImpl implements RequestInterceptor {
         this.authType = authType;
     }
 
+    public void setIgnore(boolean ignore) {
+        this.ignore = ignore;
+    }
+
     @Override
     public void intercept(RequestFacade request) {
         request.addHeader("Accept", "application/vnd.PHPHub.v1+json");
@@ -32,7 +38,7 @@ public class RequestInterceptorImpl implements RequestInterceptor {
         request.addHeader("X-Client-Build", String.valueOf(BuildConfig.VERSION_CODE));
         request.addHeader("X-Client-Git-Sha", BuildConfig.GIT_SHA);
 
-        if (!TextUtils.isEmpty(token)) {
+        if (!ignore && !TextUtils.isEmpty(token)) {
             request.addHeader("Authorization", "Bearer " + token);
         }
     }

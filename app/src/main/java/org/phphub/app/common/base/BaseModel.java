@@ -22,22 +22,35 @@ public class BaseModel<T> {
 
     protected AuthRestAdapter authRestAdapter;
 
+    protected static RequestInterceptorImpl requestInterceptor;
+
+    static {
+        requestInterceptor = new RequestInterceptorImpl();
+        requestInterceptor.setIgnore(true);
+    }
+
     public BaseModel(Context context, final boolean injectGuestToken, Class<T> serviceClass) {
         final Prefser prefser = new Prefser(context);
         this.serviceClass = serviceClass;
-        RequestInterceptorImpl requestInterceptor = new RequestInterceptorImpl();
+
         if (injectGuestToken) {
             String guestToken = prefser.get(GUEST_TOKEN_KEY, String.class, "");
             if (!TextUtils.isEmpty(guestToken)) {
                 requestInterceptor.setToken(guestToken);
+                requestInterceptor.setIgnore(false);
             }
         }
+
         this.authRestAdapter = new AuthRestAdapter.Builder()
                             .setEndpoint(BuildConfig.ENDPOINT)
                             .setRequestInterceptor(requestInterceptor)
                             .build();
 
         this.service = authRestAdapter.create(context, TokenInterceptor.BEARER_TOKENINTERCEPTOR, serviceClass);
+    }
+
+    public static RequestInterceptorImpl getRequestInterceptor() {
+        return requestInterceptor;
     }
 
     public T getService() {
