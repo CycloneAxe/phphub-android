@@ -20,10 +20,17 @@
     <string name="my_replys">Replys</string>
     <string name="settings">Settings</string>
 
+    <string name="ta_following">Ta 的关注</string>
+    <string name="ta_favorite">Ta 的收藏</string>
+    <string name="ta_topics">Ta 发表的话题</string>
+    <string name="ta_replys">Ta 发表的评论</string>
+
     <string name="please_login">Please login</string>
 
     <string name="report">Report</string>
     <string name="share">Share</string>
+    <string name="edit">Edit</string>
+    <string name="publish">Publish</string>
 
     <string name="username">UserName</string>
     <string name="profile">Profile</string>

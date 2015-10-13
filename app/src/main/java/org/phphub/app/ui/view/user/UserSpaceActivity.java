@@ -1,16 +1,20 @@
 package org.phphub.app.ui.view.user;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.kennyc.view.MultiStateView;
 import com.orhanobut.logger.Logger;
+import com.zhy.android.percent.support.PercentLinearLayout;
 
 import org.phphub.app.R;
 import org.phphub.app.api.entity.element.User;
@@ -27,6 +31,7 @@ import static com.kennyc.view.MultiStateView.*;
 @RequiresPresenter(UserSpacePresenter.class)
 public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
     private static final String INTENT_EXTRA_PARAM_USER_ID = "user_id";
+    private static final String INTENT_EXTRA_PARAM_USER_NAME = "user_name";
 
     @Bind(R.id.toolbar)
     Toolbar toolbarView;
@@ -36,6 +41,9 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
 
     @State
     int userId;
+
+    @State
+    String userName;
 
     @Bind(R.id.sdv_avatar)
     SimpleDraweeView avatarView;
@@ -61,6 +69,14 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
     @Bind(R.id.tv_blog)
     TextView blogView;
 
+    @Bind(R.id.tv_since)
+    TextView sinceView;
+
+    @Bind(R.id.percent_llyt_others)
+    PercentLinearLayout othersView;
+
+    boolean isMySelf;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,7 +85,6 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
         if (userId <= 0) {
             return;
         }
-        toolbarTitleView.setText(" ");
 
         getPresenter().request(userId);
     }
@@ -77,6 +92,13 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
     public static Intent getCallingIntent(Context context, int userId) {
         Intent callingIntent = new Intent(context, UserSpaceActivity.class);
         callingIntent.putExtra(INTENT_EXTRA_PARAM_USER_ID, userId);
+        return callingIntent;
+    }
+
+    public static Intent getCallingIntent(Context context, int userId, String userName) {
+        Intent callingIntent = new Intent(context, UserSpaceActivity.class);
+        callingIntent.putExtra(INTENT_EXTRA_PARAM_USER_ID, userId);
+        callingIntent.putExtra(INTENT_EXTRA_PARAM_USER_NAME, userName);
         return callingIntent;
     }
 
@@ -96,8 +118,16 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_user_space, menu);
 
-        return super.onCreateOptionsMenu(menu);
+        isMySelf = !TextUtils.isEmpty(getIntent().getStringExtra(INTENT_EXTRA_PARAM_USER_NAME).trim());
+
+        if (TextUtils.isEmpty(getIntent().getStringExtra(INTENT_EXTRA_PARAM_USER_NAME).trim())) {
+            menu.findItem(R.id.menu_edit).setEnabled(false);
+        }
+
+        return true;
     }
 
     @Override
@@ -111,6 +141,10 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
 
     public void initView(User userInfo) {
 
+        if (!isMySelf) {
+            othersView.setVisibility(VISIBLE);
+        }
+
         avatarView.setImageURI(Uri.parse(userInfo.getAvatar()));
         userNameView.setText(userInfo.getName());
         realNameView.setText(userInfo.getRealName());
@@ -119,5 +153,6 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
         githubView.setText(userInfo.getGithubName());
         twitterView.setText(userInfo.getTwitterAccount());
         blogView.setText(userInfo.getPersonalWebsite());
+        sinceView.setText(userInfo.getCreatedAt());
     }
 }

@@ -21,10 +21,17 @@
     <string name="my_replys">我的回复</string>
     <string name="settings">设置</string>
 
+    <string name="ta_following">Ta 的关注</string>
+    <string name="ta_favorite">Ta 的收藏</string>
+    <string name="ta_topics">Ta 发表的话题</string>
+    <string name="ta_replys">Ta 发表的评论</string>
+
     <string name="please_login">请登录</string>
     
     <string name="report">举报</string>
     <string name="share">分享</string>
+    <string name="edit">编辑</string>
+    <string name="publish">发布</string>
 
     <string name="username">姓名</string>
     <string name="profile">个人简介</string>
