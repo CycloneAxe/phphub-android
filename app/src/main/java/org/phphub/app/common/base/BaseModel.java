@@ -3,65 +3,57 @@ package org.phphub.app.common.base;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.github.pwittchen.prefser.library.Prefser;
-
 import org.phphub.app.BuildConfig;
-import org.phphub.app.api.RequestInterceptorImpl;
-
-import static org.phphub.app.common.Constant.*;
+import org.phphub.app.common.util.ApiUtils;
 
 import eu.unicate.retroauth.AuthRestAdapter;
 import eu.unicate.retroauth.interceptors.TokenInterceptor;
-import retrofit.RequestInterceptor;
-import retrofit.RestAdapter;
 
 public class BaseModel<T> {
-    protected T service;
+    private T service;
 
     protected Class<T> serviceClass;
 
     protected AuthRestAdapter authRestAdapter;
 
-    protected static RequestInterceptorImpl requestInterceptor;
+    protected boolean ignoreToken = false;
 
-    static {
-        requestInterceptor = new RequestInterceptorImpl();
-        requestInterceptor.setIgnore(true);
-    }
+    protected ThreadLocal<Boolean> localIgnoreToken = new ThreadLocal<>();
 
-    public BaseModel(Context context, final boolean injectGuestToken, Class<T> serviceClass) {
-        final Prefser prefser = new Prefser(context);
+    public BaseModel(Context context, Class<T> serviceClass) {
         this.serviceClass = serviceClass;
-
-        if (injectGuestToken) {
-            String guestToken = prefser.get(GUEST_TOKEN_KEY, String.class, "");
-            if (!TextUtils.isEmpty(guestToken)) {
-                requestInterceptor.setToken(guestToken);
-                requestInterceptor.setIgnore(false);
-            }
-        }
 
         this.authRestAdapter = new AuthRestAdapter.Builder()
                             .setEndpoint(BuildConfig.ENDPOINT)
-                            .setRequestInterceptor(requestInterceptor)
+                            .setRequestInterceptor(ApiUtils.asRequestInterceptor())
                             .build();
 
         this.service = authRestAdapter.create(context, TokenInterceptor.BEARER_TOKENINTERCEPTOR, serviceClass);
     }
 
-    public static RequestInterceptorImpl getRequestInterceptor() {
-        return requestInterceptor;
+    public void ignoreToken(boolean ignoreToken) {
+        this.ignoreToken = ignoreToken;
+    }
+
+    public BaseModel<T> local(boolean ignoreToken) {
+        return local(ignoreToken, null);
+    }
+
+    public BaseModel<T> local(String token) {
+        return local(this.ignoreToken, token);
+    }
+
+    public BaseModel<T> local(boolean ignoreToken, String token) {
+        localIgnoreToken.set(ignoreToken);
+        if (!TextUtils.isEmpty(token)) {
+            ApiUtils.asRequestInterceptor()
+                    .local(token);
+        }
+        return this;
     }
 
     public T getService() {
+        ApiUtils.asRequestInterceptor().ignoreToken(ignoreToken);
         return service;
-    }
-
-    public T getService(RequestInterceptor requestInterceptor) {
-        RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint(BuildConfig.ENDPOINT)
-                .setRequestInterceptor(requestInterceptor)
-                .build();
-        return restAdapter.create(serviceClass);
     }
 }

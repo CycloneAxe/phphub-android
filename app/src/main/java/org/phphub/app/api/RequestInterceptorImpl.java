@@ -3,31 +3,38 @@ package org.phphub.app.api;
 import android.text.TextUtils;
 
 import org.phphub.app.BuildConfig;
-import org.phphub.app.common.qualifier.AuthType;
 
 import retrofit.RequestInterceptor;
 
 public class RequestInterceptorImpl implements RequestInterceptor {
+    private boolean ignoreToken = false;
+
     private String token;
 
-    private @AuthType String authType;
+    private ThreadLocal<String> localToken = new ThreadLocal<>();
 
-    private boolean ignore;
+    private String getToken() {
+        String token = localToken.get();
+        if (token != null) {
+            localToken.remove();
+            return token;
+        }
+        return this.token;
+    }
 
     public void setToken(String token) {
         this.token = token;
     }
 
-    public String getAuthType() {
-        return authType;
+    public void ignoreToken(boolean ignoreToken) {
+        this.ignoreToken = ignoreToken;
     }
 
-    public void setAuthType(String authType) {
-        this.authType = authType;
-    }
-
-    public void setIgnore(boolean ignore) {
-        this.ignore = ignore;
+    public RequestInterceptorImpl local(String token) {
+        if (!TextUtils.isEmpty(token)) {
+            localToken.set(token);
+        }
+        return this;
     }
 
     @Override
@@ -38,8 +45,11 @@ public class RequestInterceptorImpl implements RequestInterceptor {
         request.addHeader("X-Client-Build", String.valueOf(BuildConfig.VERSION_CODE));
         request.addHeader("X-Client-Git-Sha", BuildConfig.GIT_SHA);
 
-        if (!ignore && !TextUtils.isEmpty(token)) {
-            request.addHeader("Authorization", "Bearer " + token);
+        if (!ignoreToken) {
+            String token = getToken();
+            if (!TextUtils.isEmpty(token)) {
+                request.addHeader("Authorization", "Bearer " + token);
+            }
         }
     }
 }

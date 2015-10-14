@@ -3,6 +3,7 @@ package org.phphub.app.common;
 import android.app.Application;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
+import com.github.pwittchen.prefser.library.Prefser;
 import com.squareup.leakcanary.LeakCanary;
 
 import org.phphub.app.common.internal.di.component.ApiComponent;
@@ -10,11 +11,18 @@ import org.phphub.app.common.internal.di.component.AppComponent;
 import org.phphub.app.common.internal.di.component.DaggerApiComponent;
 import org.phphub.app.common.internal.di.component.DaggerAppComponent;
 import org.phphub.app.common.internal.di.module.AppModule;
+import org.phphub.app.common.util.ApiUtils;
+import static org.phphub.app.common.Constant.*;
+
+import javax.inject.Inject;
 
 public class App extends Application {
     private AppComponent appComponent;
 
     private ApiComponent apiComponent;
+
+    @Inject
+    Prefser prefser;
 
     @Override
     public void onCreate() {
@@ -24,6 +32,10 @@ public class App extends Application {
 
         initializeInjector();
         initializeInjectorApi();
+
+        appComponent.inject(this);
+        ApiUtils.asRequestInterceptor()
+                .setToken(prefser.get(GUEST_TOKEN_KEY, String.class, null));
     }
 
     private void initializeInjector() {

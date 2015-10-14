@@ -13,8 +13,8 @@ import java.util.Map;
 import rx.Observable;
 
 public class TopicModel extends BaseModel<TopicApi> {
-    public TopicModel(Context context, boolean injectGuestToken) {
-        super(context, injectGuestToken, TopicApi.class);
+    public TopicModel(Context context) {
+        super(context, TopicApi.class);
     }
 
     Observable<TopicEntity> getTopics(String filter, int pageIndex) {
@@ -24,7 +24,7 @@ public class TopicModel extends BaseModel<TopicApi> {
         options.put("filter", filter);
         options.put("page", String.valueOf(pageIndex));
 
-        return service.getTopics(options);
+        return getService().getTopics(options);
     }
 
     public Observable<TopicEntity> getTopicsByExcellent(int pageIndex) {
@@ -56,6 +56,6 @@ public class TopicModel extends BaseModel<TopicApi> {
         options.put("include", "user,node");
         options.put("columns", "user(signature)");
 
-        return service.getTopic(topicId, options);
+        return getService().getTopic(topicId, options);
     }
 }

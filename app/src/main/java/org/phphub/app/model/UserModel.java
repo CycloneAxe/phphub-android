@@ -9,15 +9,15 @@ import org.phphub.app.common.base.BaseModel;
 import rx.Observable;
 
 public class UserModel extends BaseModel<UserApi> {
-    public UserModel(Context context, boolean injectGuestToken) {
-        super(context, injectGuestToken, UserApi.class);
+    public UserModel(Context context) {
+        super(context, UserApi.class);
     }
 
     public Observable<UserEntity.AUser> getMyselfInfo() {
-        return service.getMyselfInfo();
+        return getService().getMyselfInfo();
     }
 
     public Observable<UserEntity.AUser> getUserInfo(int userId) {
-        return service.getUserInfo(userId);
+        return getService().getUserInfo(userId);
     }
 }

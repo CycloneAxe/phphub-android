@@ -8,19 +8,15 @@ import android.os.Bundle;
 import com.github.pwittchen.prefser.library.Prefser;
 
 import org.phphub.app.R;
-import org.phphub.app.api.RequestInterceptorImpl;
-import org.phphub.app.api.TopicApi;
 import org.phphub.app.api.entity.TopicEntity;
 import org.phphub.app.api.entity.element.Topic;
 import org.phphub.app.common.base.BaseRxPresenter;
 import org.phphub.app.common.internal.di.qualifier.ForApplication;
+import org.phphub.app.common.transformer.RefreshTokenTransformer;
+import org.phphub.app.common.transformer.TokenGeneratorTransformer;
 import org.phphub.app.model.TokenModel;
 import org.phphub.app.model.TopicModel;
 import org.phphub.app.ui.view.topic.TopicDetailsActivity;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -32,9 +28,6 @@ import rx.functions.Action2;
 import rx.functions.Func0;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
-
-import static org.phphub.app.common.Constant.*;
-import static org.phphub.app.common.qualifier.AuthType.*;
 
 public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> {
     private static final int REQUEST_TOPIC_ID = 1;
@@ -75,49 +68,41 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                 new Func0<Observable<Topic>>() {
                     @Override
                     public Observable<Topic> call() {
-                        Observable<RequestInterceptorImpl> observable = Observable.create(new Observable.OnSubscribe<RequestInterceptorImpl>() {
+                        Observable<Boolean> observable = Observable.create(new Observable.OnSubscribe<Boolean>() {
                             @Override
-                            public void call(Subscriber<? super RequestInterceptorImpl> subscriber) {
-                                RequestInterceptorImpl requestInterceptor = new RequestInterceptorImpl();
-                                if (accounts.length > 0) {
-                                    requestInterceptor.setToken(authAccountManager.getAuthToken(accounts[0], accountType, tokenType));
-                                    requestInterceptor.setAuthType(AUTH_TYPE_USER);
-                                } else {
-                                    requestInterceptor.setToken(prefser.get(GUEST_TOKEN_KEY, String.class, ""));
-                                    requestInterceptor.setAuthType(AUTH_TYPE_GUEST);
-                                }
-
-                                subscriber.onNext(requestInterceptor);
+                            public void call(Subscriber<? super Boolean> subscriber) {
+                                subscriber.onNext(accounts.length > 0);
                                 subscriber.onCompleted();
                             }
                         });
 
-                        return observable.flatMap(new Func1<RequestInterceptorImpl, Observable<TopicEntity.ATopic>>() {
+                        return observable.flatMap(new Func1<Boolean, Observable<TopicEntity.ATopic>>() {
                             @Override
-                            public Observable<TopicEntity.ATopic> call(RequestInterceptorImpl requestInterceptor) {
-                                Map<String, String> options = new HashMap<>();
-                                options.put("include", "user,node");
-                                options.put("columns", "user(signature)");
-                                TopicApi api = topicModel.getService(requestInterceptor);
-                                if (AUTH_TYPE_USER.equals(requestInterceptor.getAuthType())) {
-                                    return api.getTopic(topicId, options)
-                                            .compose(TopicDetailPresenter.this.<TopicEntity.ATopic>applyRetryByUser(tokenModel,
-                                                    authAccountManager,
-                                                    accountManager,
-                                                    (accounts.length > 0 ? accounts[0] : null),
-                                                    accountType,
-                                                    tokenType));
+                            public Observable<TopicEntity.ATopic> call(Boolean logined) {
+                                if (logined) {
+                                    return ( (TopicModel) topicModel.local(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)) )
+                                                            .getTopicDetailById(topicId)
+                                                            .compose(new RefreshTokenTransformer<TopicEntity.ATopic>(
+                                                                    tokenModel,
+                                                                    authAccountManager,
+                                                                    accountManager,
+                                                                    (accounts.length > 0 ? accounts[0] : null),
+                                                                    accountType,
+                                                                    tokenType
+
+                                                            ));
+
                                 }
-                                return api.getTopic(topicId, options)
-                                        .compose(TopicDetailPresenter.this.<TopicEntity.ATopic>applyRetryByGuest(tokenModel, prefser));
+                                return topicModel.getTopicDetailById(topicId)
+                                        .compose(new TokenGeneratorTransformer<TopicEntity.ATopic>(tokenModel, prefser));
                             }
                         })
                         .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .map(new Func1<TopicEntity.ATopic, Topic>() {
-                            @Override
-                            public Topic call(TopicEntity.ATopic topic) {
-                                return topic.getData();
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .map(new Func1<TopicEntity.ATopic, Topic>() {
+                                    @Override
+                                    public Topic call(TopicEntity.ATopic topic) {
+                                        return topic.getData();
                             }
                         });
                     }

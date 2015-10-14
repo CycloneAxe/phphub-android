@@ -6,8 +6,8 @@ import com.github.pwittchen.prefser.library.Prefser;
 
 import org.phphub.app.api.entity.TopicEntity;
 import org.phphub.app.api.entity.element.Topic;
-import org.phphub.app.common.App;
 import org.phphub.app.common.base.BaseRxPresenter;
+import org.phphub.app.common.transformer.TokenGeneratorTransformer;
 import org.phphub.app.model.TokenModel;
 import org.phphub.app.model.TopicModel;
 import org.phphub.app.ui.view.WikiFragment;
@@ -52,7 +52,7 @@ public class WikiPresenter extends BaseRxPresenter<WikiFragment> {
                                         return topicEntity.getData();
                                     }
                                 })
-                                .compose(WikiPresenter.this.<List<Topic>>applyRetryByGuest(tokenModel, prefser));
+                                .compose(new TokenGeneratorTransformer<List<Topic>>(tokenModel, prefser));
                     }
                 },
                 new Action2<WikiFragment, List<Topic>>() {

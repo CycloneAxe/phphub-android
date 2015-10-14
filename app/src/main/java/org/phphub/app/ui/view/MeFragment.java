@@ -13,7 +13,6 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.orhanobut.logger.Logger;
 
 import org.phphub.app.R;
-import org.phphub.app.api.entity.UserEntity;
 import org.phphub.app.api.entity.element.User;
 import org.phphub.app.common.base.BaseSupportFragment;
 import org.phphub.app.ui.presenter.MePersenter;
@@ -22,8 +21,6 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
-
-import static com.kennyc.view.MultiStateView.VIEW_STATE_ERROR;
 
 @RequiresPresenter(MePersenter.class)
 public class MeFragment extends BaseSupportFragment<MePersenter>  {
