@@ -26,4 +26,11 @@ public interface TopicApi {
 
     @DELETE("/topics/{topicId}/favorite")
     Observable<JsonObject> delFavorite(@Path("topicId") int topicId);
+
+    @POST("/topics/{topicId}/attention")
+    Observable<JsonObject> isFollow(@Path("topicId") int topicId);
+
+    @DELETE("/topics/{topicId}/attention")
+    Observable<JsonObject> delFollow(@Path("topicId") int topicId);
+
 }

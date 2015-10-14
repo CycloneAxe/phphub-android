@@ -195,11 +195,13 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                 favoriteView.setColorFilter(getResources().getColor(R.color.blue_a4), PorterDuff.Mode.SRC_ATOP);
                 break;
             case TOPIC_DETAIL_TYPE_FOLLOW:
-                Toast.makeText(this, getString(R.string.favorite_success), Toast.LENGTH_SHORT).show();
+                topicInfo.setAttention(true);
+                Toast.makeText(this, getString(R.string.follow_success), Toast.LENGTH_SHORT).show();
                 followView.setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
                 break;
             case TOPIC_DETAIL_TYPE_FOLLOW_DEL:
-                Toast.makeText(this, getString(R.string.favorite_success), Toast.LENGTH_SHORT).show();
+                topicInfo.setAttention(false);
+                Toast.makeText(this, getString(R.string.cancel_success), Toast.LENGTH_SHORT).show();
                 followView.setColorFilter(getResources().getColor(R.color.blue_a4), PorterDuff.Mode.SRC_ATOP);
                 break;
         }
@@ -223,6 +225,17 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                     getPresenter().eventRequest(topicId, TOPIC_DETAIL_TYPE_FAVORITE_DEL);
                 } else {
                     getPresenter().eventRequest(topicId, TOPIC_DETAIL_TYPE_FAVORITE);
+                }
+                break;
+            case R.id.iv_following_icon:
+                if (!isLogin()) {
+                    Toast.makeText(this, getString(R.string.please_login_first), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (topicInfo.isAttention()){
+                    getPresenter().eventRequest(topicId, TOPIC_DETAIL_TYPE_FOLLOW_DEL);
+                } else {
+                    getPresenter().eventRequest(topicId, TOPIC_DETAIL_TYPE_FOLLOW);
                 }
                 break;
         }

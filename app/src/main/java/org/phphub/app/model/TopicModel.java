@@ -68,4 +68,12 @@ public class TopicModel extends BaseModel<TopicApi> {
     public Observable<JsonObject> delFavorite(int topicId) {
         return getService().delFavorite(topicId);
     }
+
+    public Observable<JsonObject> isFollow(int topicId) {
+        return getService().isFollow(topicId);
+    }
+
+    public Observable<JsonObject> delFollow(int topicId) {
+        return getService().delFollow(topicId);
+    }
 }

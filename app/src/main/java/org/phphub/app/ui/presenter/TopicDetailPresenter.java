@@ -243,6 +243,106 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                         Logger.e(throwable.getMessage());
                     }
                 });
+
+        restartableLatestCache(REQUEST_FOLLOWING_TOPIC_ID,
+                new Func0<Observable<JsonObject>>() {
+                    @Override
+                    public Observable<JsonObject> call() {
+                        Observable<Boolean> observable = Observable.create(new Observable.OnSubscribe<Boolean>() {
+                            @Override
+                            public void call(Subscriber<? super Boolean> subscriber) {
+                                subscriber.onNext(accounts.length > 0);
+                                subscriber.onCompleted();
+                            }
+                        });
+
+                        return observable.flatMap(new Func1<Boolean, Observable<JsonObject>>() {
+                            @Override
+                            public Observable<JsonObject> call(Boolean logined) {
+                                return ((TopicModel) topicModel.local(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
+                                        .isFollow(topicId)
+                                        .compose(new RefreshTokenTransformer<JsonObject>(
+                                                tokenModel,
+                                                authAccountManager,
+                                                accountManager,
+                                                (accounts.length > 0 ? accounts[0] : null),
+                                                accountType,
+                                                tokenType
+                                        ));
+                            }
+                        })
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .map(new Func1<JsonObject, JsonObject>() {
+                                    @Override
+                                    public JsonObject call(JsonObject jsonObject) {
+                                        return jsonObject;
+                                    }
+                                });
+                    }
+                },
+                new Action2<TopicDetailsActivity, JsonObject>() {
+                    @Override
+                    public void call(TopicDetailsActivity topicDetailsActivity, JsonObject jsonObject) {
+                        topicDetailsActivity.setOptionState(TOPIC_DETAIL_TYPE_FOLLOW);
+                    }
+                },
+                new Action2<TopicDetailsActivity, Throwable>() {
+                    @Override
+                    public void call(TopicDetailsActivity topicDetailsActivity, Throwable throwable) {
+                        Logger.e(throwable.getMessage());
+                    }
+                });
+
+        restartableLatestCache(REQUEST_FOLLOWING_TOPIC_DELETE_ID,
+                new Func0<Observable<JsonObject>>() {
+                    @Override
+                    public Observable<JsonObject> call() {
+                        Observable<Boolean> observable = Observable.create(new Observable.OnSubscribe<Boolean>() {
+                            @Override
+                            public void call(Subscriber<? super Boolean> subscriber) {
+                                subscriber.onNext(accounts.length > 0);
+                                subscriber.onCompleted();
+                            }
+                        });
+
+                        return observable.flatMap(new Func1<Boolean, Observable<JsonObject>>() {
+                            @Override
+                            public Observable<JsonObject> call(Boolean logined) {
+                                return ((TopicModel) topicModel.local(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
+                                        .delFollow(topicId)
+                                        .compose(new RefreshTokenTransformer<JsonObject>(
+                                                tokenModel,
+                                                authAccountManager,
+                                                accountManager,
+                                                (accounts.length > 0 ? accounts[0] : null),
+                                                accountType,
+                                                tokenType
+                                        ));
+                            }
+                        })
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .map(new Func1<JsonObject, JsonObject>() {
+                                    @Override
+                                    public JsonObject call(JsonObject jsonObject) {
+                                        return jsonObject;
+                                    }
+                                });
+                    }
+                },
+                new Action2<TopicDetailsActivity, JsonObject>() {
+                    @Override
+                    public void call(TopicDetailsActivity topicDetailsActivity, JsonObject jsonObject) {
+                        topicDetailsActivity.setOptionState(TOPIC_DETAIL_TYPE_FOLLOW_DEL);
+                    }
+                },
+                new Action2<TopicDetailsActivity, Throwable>() {
+                    @Override
+                    public void call(TopicDetailsActivity topicDetailsActivity, Throwable throwable) {
+                        Logger.e(throwable.getMessage());
+                    }
+                });
     }
 
     public void request(int topicId) {

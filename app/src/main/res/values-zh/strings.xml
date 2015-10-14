@@ -46,6 +46,8 @@
     <string name="please_login_first">请先登录, 再进行操作.</string>
     <string name="favorite_success">收藏成功!</string>
     <string name="favorite_error">收藏失败!</string>
+    <string name="follow_success">关注成功!</string>
+    <string name="follow_error">关注失败!</string>
     <string name="cancel_success">取消成功!</string>
     <string name="cancel_error">取消失败,请检查网络并重试.</string>
 
