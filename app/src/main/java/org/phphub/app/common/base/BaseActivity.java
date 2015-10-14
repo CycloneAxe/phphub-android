@@ -1,5 +1,7 @@
 package org.phphub.app.common.base;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -22,6 +24,8 @@ import org.phphub.app.common.internal.di.module.ActivityModule;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import icepick.Icepick;
@@ -40,6 +44,13 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
     TextView toolbarTitleView;
 
     Navigator navigator;
+
+    @Inject
+    AccountManager accountManager;
+
+    String accountType, tokenType;
+
+    Account[] accounts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +114,19 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
         map.put("Authorization", "Bearer " + token);
 
         return map;
+    }
+
+    protected boolean isLogin() {
+        accountManager = AccountManager.get(this);
+        accountType = getString(R.string.auth_account_type);
+        tokenType = getString(R.string.auth_token_type);
+        accounts = accountManager.getAccountsByType(accountType);
+
+        if (accounts.length > 0) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override

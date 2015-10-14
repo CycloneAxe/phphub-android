@@ -2,6 +2,8 @@ package org.phphub.app.model;
 
 import android.content.Context;
 
+import com.google.gson.JsonObject;
+
 import org.phphub.app.api.TopicApi;
 import org.phphub.app.api.entity.TopicEntity;
 import org.phphub.app.common.Constant;
@@ -57,5 +59,13 @@ public class TopicModel extends BaseModel<TopicApi> {
         options.put("columns", "user(signature)");
 
         return getService().getTopic(topicId, options);
+    }
+
+    public Observable<JsonObject> isFavorite(int topicId) {
+        return getService().isFavorite(topicId);
+    }
+
+    public Observable<JsonObject> delFavorite(int topicId) {
+        return getService().delFavorite(topicId);
     }
 }

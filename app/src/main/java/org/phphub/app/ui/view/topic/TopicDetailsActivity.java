@@ -8,9 +8,11 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.kennyc.view.MultiStateView;
@@ -32,12 +34,16 @@ import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
 
 import static com.kennyc.view.MultiStateView.*;
+import static org.phphub.app.common.qualifier.TopicDetailType.*;
 
 @RequiresPresenter(TopicDetailPresenter.class)
-public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
+public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> implements
+    OnClickListener {
     private static final String INTENT_EXTRA_PARAM_TOPIC_ID = "topic_id";
 
     int topicId;
+
+    Topic topicInfo;
 
     @Bind(R.id.multiStateView)
     MultiStateView multiStateView;
@@ -113,6 +119,8 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
     }
 
     public void initView(Topic topic) {
+        this.topicInfo = topic;
+
         Link link = topic.getLinks();
         User user = topic.getUser().getData();
         String voteCount = topic.getVoteCount() > 99 ? "99+" : String.valueOf(topic.getVoteCount());
@@ -170,5 +178,53 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
     public void popupVoteView() {
         AlertDialog alertDialog = new AlertDialog(this);
         alertDialog.popupDialog(R.layout.dialog_vote, 0.642f, 0.168f, true);
+    }
+
+    public void setOptionState(String optionType) {
+
+        System.out.println(optionType);
+        switch (optionType) {
+            case TOPIC_DETAIL_TYPE_FAVORITE:
+                topicInfo.setFavorite(true);
+                Toast.makeText(this, getString(R.string.favorite_success), Toast.LENGTH_SHORT).show();
+                favoriteView.setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
+                break;
+            case TOPIC_DETAIL_TYPE_FAVORITE_DEL:
+                topicInfo.setFavorite(false);
+                Toast.makeText(this, getString(R.string.cancel_success), Toast.LENGTH_SHORT).show();
+                favoriteView.setColorFilter(getResources().getColor(R.color.blue_a4), PorterDuff.Mode.SRC_ATOP);
+                break;
+            case TOPIC_DETAIL_TYPE_FOLLOW:
+                Toast.makeText(this, getString(R.string.favorite_success), Toast.LENGTH_SHORT).show();
+                followView.setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
+                break;
+            case TOPIC_DETAIL_TYPE_FOLLOW_DEL:
+                Toast.makeText(this, getString(R.string.favorite_success), Toast.LENGTH_SHORT).show();
+                followView.setColorFilter(getResources().getColor(R.color.blue_a4), PorterDuff.Mode.SRC_ATOP);
+                break;
+        }
+    }
+
+    @OnClick({
+            R.id.iv_favorite_icon,
+            R.id.iv_following_icon,
+            R.id.iv_replys_icon,
+            R.id.iv_count_icon
+    })
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_favorite_icon:
+                if (!isLogin()) {
+                    Toast.makeText(this, getString(R.string.please_login_first), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (topicInfo.isFavorite()){
+                    getPresenter().eventRequest(topicId, TOPIC_DETAIL_TYPE_FAVORITE_DEL);
+                } else {
+                    getPresenter().eventRequest(topicId, TOPIC_DETAIL_TYPE_FAVORITE);
+                }
+                break;
+        }
     }
 }
