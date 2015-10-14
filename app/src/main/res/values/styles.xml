@@ -55,4 +55,8 @@
         <item name="android:textColor">@color/gray_91</item>
     </style>
 
+    <style name="dialogWindow" parent="android:Animation" mce_bogus="1">
+        <item name="android:windowEnterAnimation">@anim/dialog_enter_anim</item>
+        <item name="android:windowExitAnimation">@anim/dialog_exit_anim</item>
+    </style>
 </resources>
