@@ -15,6 +15,7 @@ import com.orhanobut.logger.Logger;
 
 import org.phphub.app.R;
 import org.phphub.app.api.entity.element.Topic;
+import org.phphub.app.api.entity.element.User;
 import org.phphub.app.common.adapter.TopicItemView;
 import org.phphub.app.common.base.LazyFragment;
 import org.phphub.app.ui.presenter.RecommendedPresenter;
@@ -132,9 +133,15 @@ public class RecommendedFragment extends LazyFragment<RecommendedPresenter> impl
 
     @Override
     public void onViewEvent(int actionId, Topic topic, int position, View view) {
+        User userInfo = topic.getUser().getData();
+
         switch (actionId) {
             case CLICK_TYPE_TOPIC_CLICKED:
                 navigator.navigateToTopicDetails(getActivity(), topic.getId());
+                break;
+
+            case CLICK_TYPE_USER_CLICKED:
+                navigator.navigateToUserSpace(getContext(), userInfo.getId());
                 break;
         }
     }

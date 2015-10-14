@@ -36,6 +36,16 @@ public class Topic {
     @SerializedName("vote_count")
     protected int voteCount;
 
+    protected boolean favorite;
+
+    protected boolean attention;
+
+    @SerializedName("vote_up")
+    protected boolean voteUp;
+
+    @SerializedName("vote_down")
+    protected boolean voteDown;
+
     @SerializedName("created_at")
     protected String createdAt;
 
@@ -151,6 +161,38 @@ public class Topic {
 
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public boolean isFavorite() {
+        return favorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        this.favorite = favorite;
+    }
+
+    public boolean isAttention() {
+        return attention;
+    }
+
+    public void setAttention(boolean attention) {
+        this.attention = attention;
+    }
+
+    public boolean isVoteUp() {
+        return voteUp;
+    }
+
+    public void setVoteUp(boolean voteUp) {
+        this.voteUp = voteUp;
+    }
+
+    public boolean isVoteDown() {
+        return voteDown;
+    }
+
+    public void setVoteDown(boolean voteDown) {
+        this.voteDown = voteDown;
     }
 
     public UserEntity.AUser getUser() {

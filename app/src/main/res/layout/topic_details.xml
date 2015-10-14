@@ -70,6 +70,7 @@
                         </LinearLayout>
 
                         <com.zhy.android.percent.support.PercentLinearLayout
+                            android:id="@+id/rlyt_vote_topic"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             app:layout_widthPercent="23.6%w"
