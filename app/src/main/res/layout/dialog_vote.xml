@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.zhy.android.percent.support.PercentLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <ImageView
+        android:id="@+id/iv_vote_up"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_widthPercent="27.8%w"
+        android:src="@mipmap/ic_vote_up_big"/>
+
+    <ImageView
+        android:id="@+id/iv_vote_down"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_widthPercent="27.8%w"
+        app:layout_marginLeftPercent="15%w"
+        android:src="@mipmap/ic_vote_down_big"/>
+
+</com.zhy.android.percent.support.PercentLinearLayout>

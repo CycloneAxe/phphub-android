@@ -4,9 +4,9 @@
     <scale
         android:interpolator="@android:anim/accelerate_interpolator"
         android:fromXScale="1.0"
-        android:toXScale="1.0"
+        android:toXScale="0.0"
         android:fromYScale="1.0"
-        android:toYScale="1.0"
+        android:toYScale="0.0"
         android:pivotX="50%"
         android:pivotY="50%"
         android:fillAfter="false"
