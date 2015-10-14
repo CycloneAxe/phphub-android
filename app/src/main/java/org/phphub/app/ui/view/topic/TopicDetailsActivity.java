@@ -28,7 +28,6 @@ import org.phphub.app.widget.AlertDialog;
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
-import cn.pedant.SweetAlert.SweetAlertDialog;
 import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
 
