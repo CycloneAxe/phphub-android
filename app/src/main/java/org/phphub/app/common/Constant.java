@@ -11,4 +11,5 @@ public final class Constant {
     public static final String USERNAME_KEY = "username";
     public static final String USER_AVATAR_KEY = "user_avatar";
     public static final String USER_REFRESH_TOKEN_KEY = "user_refresh_token";
+    public static final String USER_SIGNATURE = "user_signature";
 }

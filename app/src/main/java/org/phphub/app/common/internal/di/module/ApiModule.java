@@ -19,26 +19,28 @@ public class ApiModule {
     @Provides
     @Singleton
     TopicModel provideTopicModel(@ForApplication Context context) {
-        return new TopicModel(context, true);
+        return new TopicModel(context);
     }
 
     @Provides
     @Singleton
     TokenModel provideTokenModel(@ForApplication Context context) {
-        return new TokenModel(context, true);
+        return new TokenModel(context);
     }
 
     @Provides
     @Singleton
     @Named(AUTH_TYPE_USER)
     UserModel provideUserModelByAuth(@ForApplication Context context) {
-        return new UserModel(context, false);
+        UserModel userModel = new UserModel(context);
+        userModel.ignoreToken(true);
+        return userModel;
     }
 
     @Provides
     @Singleton
     @Named(AUTH_TYPE_GUEST)
     UserModel provideUserModelByGuest(@ForApplication Context context) {
-        return new UserModel(context, true);
+        return new UserModel(context);
     }
 }

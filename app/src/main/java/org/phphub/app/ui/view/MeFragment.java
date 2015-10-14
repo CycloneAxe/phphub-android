@@ -1,44 +1,53 @@
 package org.phphub.app.ui.view;
 
+import android.accounts.Account;
+import android.accounts.AccountManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.orhanobut.logger.Logger;
 
 import org.phphub.app.R;
-import org.phphub.app.api.entity.UserEntity;
-import org.phphub.app.api.entity.element.User;
 import org.phphub.app.common.base.BaseSupportFragment;
-import org.phphub.app.ui.presenter.MePersenter;
 
 import butterknife.Bind;
 import butterknife.OnClick;
-import nucleus.factory.PresenterFactory;
-import nucleus.factory.RequiresPresenter;
+import static org.phphub.app.common.Constant.*;
 
-import static com.kennyc.view.MultiStateView.VIEW_STATE_ERROR;
-
-@RequiresPresenter(MePersenter.class)
-public class MeFragment extends BaseSupportFragment<MePersenter>  {
+public class MeFragment extends BaseSupportFragment {
 
     @Bind(R.id.sdv_avatar)
     SimpleDraweeView avatarView;
 
     @Bind(R.id.tv_username)
-    TextView userNameView;
+    TextView usernameView;
 
     @Bind(R.id.tv_sign)
     TextView signView;
 
+    AccountManager accountManager;
+
+    String accountType, tokenType;
+
+    Account[] accounts;
+
     int userId;
-    String userName;
+
+    String avatarUrl, username, signature;
+
+    @Override
+    public void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
+        accountType = getString(R.string.auth_account_type);
+        tokenType = getString(R.string.auth_token_type);
+        accountManager = AccountManager.get(getActivity());
+    }
 
     @Nullable
     @Override
@@ -47,33 +56,28 @@ public class MeFragment extends BaseSupportFragment<MePersenter>  {
     }
 
     @Override
-    protected void injectorPresenter() {
-        super.injectorPresenter();
-        final PresenterFactory<MePersenter> superFactory = super.getPresenterFactory();
-        setPresenterFactory(new PresenterFactory<MePersenter>() {
-            @Override
-            public MePersenter createPresenter() {
-                MePersenter persenter = superFactory.createPresenter();
-                getApiComponent().inject(persenter);
-                return persenter;
-            }
-        });
+    public void onResume() {
+        super.onResume();
+        accounts = accountManager.getAccountsByType(accountType);
+        if (accounts.length > 0) {
+            userId = Integer.valueOf(accountManager.getUserData(accounts[0], USER_ID_KEY));
+            username = accountManager.getUserData(accounts[0], USERNAME_KEY);
+            signature = accountManager.getUserData(accounts[0], USER_SIGNATURE);
+            avatarUrl = accountManager.getUserData(accounts[0], USER_AVATAR_KEY);
+        }
+        /**
+         * TODO
+         * 需要在用户退出登录的时候还原成未登陆状态
+         */
+        refreshView();
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        getPresenter().request();
-    }
-
-    public void initView(User userInfo) {
-        this.userId = userInfo.getId();
-        this.userName = userInfo.getName();
-
-        avatarView.setImageURI(Uri.parse(userInfo.getAvatar()));
-        userNameView.setText(userInfo.getName());
-        signView.setText(userInfo.getSignature());
+    private void refreshView() {
+        if (!TextUtils.isEmpty(avatarUrl)) {
+            avatarView.setImageURI(Uri.parse(avatarUrl));
+        }
+        usernameView.setText(username != null ? username : "未登陆");
+        signView.setText(signature);
     }
 
     @OnClick(R.id.percent_rlyt_settings)
@@ -83,11 +87,9 @@ public class MeFragment extends BaseSupportFragment<MePersenter>  {
 
     @OnClick(R.id.user_container)
     public void navigateToUserSpace() {
-        navigator.navigateToUserSpace(getContext(), this.userId);
-    }
-
-    public void onNetworkError(Throwable throwable) {
-        Logger.e(throwable.getMessage());
+        if (userId > 0) {
+            navigator.navigateToUserSpace(getContext(), this.userId);
+        }
     }
 
     @Override

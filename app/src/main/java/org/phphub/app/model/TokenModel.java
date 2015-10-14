@@ -11,16 +11,16 @@ import rx.Observable;
 import static org.phphub.app.common.qualifier.AuthType.*;
 
 public class TokenModel extends BaseModel<TokenApi> {
-    public TokenModel(Context context, boolean injectGuestToken) {
-        super(context, injectGuestToken, TokenApi.class);
+    public TokenModel(Context context) {
+        super(context, TokenApi.class);
     }
 
     public Observable<Token> tokenGenerator() {
-        return service.getToken(AUTH_TYPE_GUEST, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET);
+        return getService().getToken(AUTH_TYPE_GUEST, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET);
     }
 
     public Observable<Token> tokenGenerator(String username, String loginToken) {
-        return service.getToken(AUTH_TYPE_USER,
+        return getService().getToken(AUTH_TYPE_USER,
                 BuildConfig.CLIENT_ID,
                 BuildConfig.CLIENT_SECRET,
                 username,
@@ -28,7 +28,7 @@ public class TokenModel extends BaseModel<TokenApi> {
     }
 
     public Observable<Token> refreshToken(String refreshToken) {
-        return service.refreshToken(AUTH_TYPE_REFRESH,
+        return getService().refreshToken(AUTH_TYPE_REFRESH,
                 BuildConfig.CLIENT_ID,
                 BuildConfig.CLIENT_SECRET,
                 refreshToken);

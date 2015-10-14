@@ -128,7 +128,10 @@ public class LoginActivity extends AuthenticationActivity {
                                 .doOnNext(new Action1<User>() {
                                     @Override
                                     public void call(User user) {
+
                                         storeUserData(account, USER_ID_KEY, String.valueOf(user.getId()));
+                                        storeUserData(account, USERNAME_KEY, user.getName());
+                                        storeUserData(account, USER_SIGNATURE, user.getSignature());
                                         storeUserData(account, USER_AVATAR_KEY, user.getAvatar());
                                     }
                                 });

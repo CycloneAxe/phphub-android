@@ -7,6 +7,7 @@ import com.github.pwittchen.prefser.library.Prefser;
 import org.phphub.app.api.entity.TopicEntity;
 import org.phphub.app.api.entity.element.Topic;
 import org.phphub.app.common.base.BaseRxPresenter;
+import org.phphub.app.common.transformer.TokenGeneratorTransformer;
 import org.phphub.app.model.TokenModel;
 import org.phphub.app.model.TopicModel;
 import org.phphub.app.ui.view.topic.TopicFragment;
@@ -82,7 +83,7 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
                                         return topicEntity.getData();
                                     }
                                 })
-                                .compose(TopicPresenter.this.<List<Topic>>applyRetryByGuest(tokenModel, prefser));
+                                .compose(new TokenGeneratorTransformer<List<Topic>>(tokenModel, prefser));
                     }
                 }, onNext, onError);
 
@@ -98,7 +99,7 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
                                         return topicEntity.getData();
                                     }
                                 })
-                                .compose(TopicPresenter.this.<List<Topic>>applyRetryByGuest(tokenModel, prefser));
+                                .compose(new TokenGeneratorTransformer<List<Topic>>(tokenModel, prefser));
                     }
                 }, onNext, onError);
 
@@ -114,7 +115,7 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
                                         return topicEntity.getData();
                                     }
                                 })
-                                .compose(TopicPresenter.this.<List<Topic>>applyRetryByGuest(tokenModel, prefser));
+                                .compose(new TokenGeneratorTransformer<List<Topic>>(tokenModel, prefser));
                     }
                 }, onNext, onError);
 
@@ -130,7 +131,7 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
                                         return topicEntity.getData();
                                     }
                                 })
-                                .compose(TopicPresenter.this.<List<Topic>>applyRetryByGuest(tokenModel, prefser));
+                                .compose(new TokenGeneratorTransformer<List<Topic>>(tokenModel, prefser));
                     }
                 }, onNext, onError);
     }
