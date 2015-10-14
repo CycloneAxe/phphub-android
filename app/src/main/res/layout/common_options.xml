@@ -9,18 +9,21 @@
     android:background="@drawable/shap_line_only_top">
 
     <ImageView
+        android:id="@+id/iv_favorite_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:src="@mipmap/ic_detail_favorite"/>
 
     <ImageView
+        android:id="@+id/iv_following_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:src="@mipmap/ic_detail_following"/>
 
     <ImageView
+        android:id="@+id/iv_replys_icon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -38,6 +41,7 @@
         app:badge_horizontalMargin="10dp">
 
         <ImageView
+            android:id="@+id/iv_count_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/ic_detail_count" />
