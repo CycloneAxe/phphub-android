@@ -148,6 +148,8 @@ public class LoginActivity extends AuthenticationActivity {
                         new Action1<Throwable>() {
                             @Override
                             public void call(Throwable throwable) {
+                                dialog.dismiss();
+                                Toast.makeText(LoginActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
                                 Logger.e(throwable.toString());
                             }
                         });
