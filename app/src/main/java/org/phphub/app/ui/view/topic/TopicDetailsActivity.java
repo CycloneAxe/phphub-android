@@ -1,15 +1,17 @@
 package org.phphub.app.ui.view.topic;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.cjj.MaterialRefreshLayout;
-import com.cjj.MaterialRefreshListener;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.kennyc.view.MultiStateView;
 import com.kmshack.topscroll.TopScrollHelper;
@@ -21,9 +23,12 @@ import org.phphub.app.api.entity.element.Topic;
 import org.phphub.app.api.entity.element.User;
 import org.phphub.app.common.base.BaseActivity;
 import org.phphub.app.ui.presenter.TopicDetailPresenter;
+import org.phphub.app.widget.AlertDialog;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
 
@@ -55,6 +60,24 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
 
     @Bind(R.id.bga_llyt_reply_count)
     BGABadgeLinearLayout replyCountView;
+
+    @Bind(R.id.iv_topic_up)
+    ImageView voteUpView;
+
+    @Bind(R.id.iv_topic_down)
+    ImageView voteDownView;
+
+    @Bind(R.id.iv_favorite_icon)
+    ImageView favoriteView;
+
+    @Bind(R.id.iv_following_icon)
+    ImageView followView;
+
+    @Bind(R.id.iv_replys_icon)
+    ImageView replysView;
+
+    @Bind(R.id.iv_count_icon)
+    ImageView countView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +126,20 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
         topicContentView.loadUrl(link.getDetailsWebView(), getHttpHeaderAuth());
         replyCountView.showTextBadge(replyCount);
 
+        if (topic.isVoteUp()) {
+            voteUpView.setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
+        } else if (topic.isVoteDown()) {
+            voteDownView.setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
+        }
+
+        if (topic.isFavorite()) {
+            favoriteView.setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
+        }
+
+        if (topic.isAttention()) {
+            followView.setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
+        }
+
         multiStateView.setViewState(VIEW_STATE_CONTENT);
     }
 
@@ -128,5 +165,11 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> {
     public void onNetworkError(Throwable throwable) {
         Logger.e(throwable.getMessage());
         multiStateView.setViewState(VIEW_STATE_ERROR);
+    }
+
+    @OnClick(R.id.rlyt_vote_topic)
+    public void popupVoteView() {
+        AlertDialog alertDialog = new AlertDialog(this);
+        alertDialog.popupDialog(R.layout.dialog_vote, 0.642f, 0.168f, true);
     }
 }
