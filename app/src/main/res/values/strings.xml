@@ -42,4 +42,13 @@
     <string name="her">Her</string>
     <string name="since">Since</string>
 
+    <string name="please_login_first">请先登录, 再进行操作.</string>
+    <string name="favorite_success">收藏成功!</string>
+    <string name="follow_success">关注成功!</string>
+    <string name="vote_up_success">点赞成功!</string>
+    <string name="vote_down_success">踩一下!</string>
+    <string name="cancel_success">取消成功!</string>
+    <string name="cancel_error">取消失败,请检查网络并重试.</string>
+
+
 </resources>

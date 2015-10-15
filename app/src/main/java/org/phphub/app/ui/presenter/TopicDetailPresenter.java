@@ -46,6 +46,10 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
 
     private static final int REQUEST_FOLLOWING_TOPIC_DELETE_ID = 5;
 
+    private static final int REQUEST_VOTE_UP_ID = 6;
+
+    private static final int REQUEST_VOTE_DOWN_ID = 7;
+
     int topicId;
 
     @Inject
@@ -78,6 +82,8 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
         requests.put(TOPIC_DETAIL_TYPE_FOLLOW, REQUEST_FOLLOWING_TOPIC_ID);
         requests.put(TOPIC_DETAIL_TYPE_FAVORITE_DEL, REQUEST_FAVOURITE_TOPIC_DELETE_ID);
         requests.put(TOPIC_DETAIL_TYPE_FOLLOW_DEL, REQUEST_FOLLOWING_TOPIC_DELETE_ID);
+        requests.put(TOPIC_DETAIL_TYPE_VOTE_UP, REQUEST_VOTE_UP_ID);
+        requests.put(TOPIC_DETAIL_TYPE_VOTE_DOWN, REQUEST_VOTE_DOWN_ID);
     }
 
     @Override
@@ -184,7 +190,7 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                 new Action2<TopicDetailsActivity, JsonObject>() {
                     @Override
                     public void call(TopicDetailsActivity topicDetailsActivity, JsonObject jsonObject) {
-                        topicDetailsActivity.setOptionState(TOPIC_DETAIL_TYPE_FAVORITE);
+                        topicDetailsActivity.setOptionState(TOPIC_DETAIL_TYPE_FAVORITE, true);
                     }
                 },
                 new Action2<TopicDetailsActivity, Throwable>() {
@@ -234,7 +240,7 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                 new Action2<TopicDetailsActivity, JsonObject>() {
                     @Override
                     public void call(TopicDetailsActivity topicDetailsActivity, JsonObject jsonObject) {
-                        topicDetailsActivity.setOptionState(TOPIC_DETAIL_TYPE_FAVORITE_DEL);
+                        topicDetailsActivity.setOptionState(TOPIC_DETAIL_TYPE_FAVORITE_DEL, true);
                     }
                 },
                 new Action2<TopicDetailsActivity, Throwable>() {
@@ -284,7 +290,7 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                 new Action2<TopicDetailsActivity, JsonObject>() {
                     @Override
                     public void call(TopicDetailsActivity topicDetailsActivity, JsonObject jsonObject) {
-                        topicDetailsActivity.setOptionState(TOPIC_DETAIL_TYPE_FOLLOW);
+                        topicDetailsActivity.setOptionState(TOPIC_DETAIL_TYPE_FOLLOW, true);
                     }
                 },
                 new Action2<TopicDetailsActivity, Throwable>() {
@@ -334,7 +340,107 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                 new Action2<TopicDetailsActivity, JsonObject>() {
                     @Override
                     public void call(TopicDetailsActivity topicDetailsActivity, JsonObject jsonObject) {
-                        topicDetailsActivity.setOptionState(TOPIC_DETAIL_TYPE_FOLLOW_DEL);
+                        topicDetailsActivity.setOptionState(TOPIC_DETAIL_TYPE_FOLLOW_DEL, true);
+                    }
+                },
+                new Action2<TopicDetailsActivity, Throwable>() {
+                    @Override
+                    public void call(TopicDetailsActivity topicDetailsActivity, Throwable throwable) {
+                        Logger.e(throwable.getMessage());
+                    }
+                });
+
+        restartableLatestCache(REQUEST_VOTE_UP_ID,
+                new Func0<Observable<JsonObject>>() {
+                    @Override
+                    public Observable<JsonObject> call() {
+                        Observable<Boolean> observable = Observable.create(new Observable.OnSubscribe<Boolean>() {
+                            @Override
+                            public void call(Subscriber<? super Boolean> subscriber) {
+                                subscriber.onNext(accounts.length > 0);
+                                subscriber.onCompleted();
+                            }
+                        });
+
+                        return observable.flatMap(new Func1<Boolean, Observable<JsonObject>>() {
+                            @Override
+                            public Observable<JsonObject> call(Boolean logined) {
+                                return ((TopicModel) topicModel.local(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
+                                        .voteUp(topicId)
+                                        .compose(new RefreshTokenTransformer<JsonObject>(
+                                                tokenModel,
+                                                authAccountManager,
+                                                accountManager,
+                                                (accounts.length > 0 ? accounts[0] : null),
+                                                accountType,
+                                                tokenType
+                                        ));
+                            }
+                        })
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .map(new Func1<JsonObject, JsonObject>() {
+                                    @Override
+                                    public JsonObject call(JsonObject jsonObject) {
+                                        return jsonObject;
+                                    }
+                                });
+                    }
+                },
+                new Action2<TopicDetailsActivity, JsonObject>() {
+                    @Override
+                    public void call(TopicDetailsActivity topicDetailsActivity, JsonObject jsonObject) {
+                        topicDetailsActivity.setOptionState(TOPIC_DETAIL_TYPE_VOTE_UP, jsonObject.get("vote-up").getAsBoolean());
+                    }
+                },
+                new Action2<TopicDetailsActivity, Throwable>() {
+                    @Override
+                    public void call(TopicDetailsActivity topicDetailsActivity, Throwable throwable) {
+                        Logger.e(throwable.getMessage());
+                    }
+                });
+
+        restartableLatestCache(REQUEST_VOTE_DOWN_ID,
+                new Func0<Observable<JsonObject>>() {
+                    @Override
+                    public Observable<JsonObject> call() {
+                        Observable<Boolean> observable = Observable.create(new Observable.OnSubscribe<Boolean>() {
+                            @Override
+                            public void call(Subscriber<? super Boolean> subscriber) {
+                                subscriber.onNext(accounts.length > 0);
+                                subscriber.onCompleted();
+                            }
+                        });
+
+                        return observable.flatMap(new Func1<Boolean, Observable<JsonObject>>() {
+                            @Override
+                            public Observable<JsonObject> call(Boolean logined) {
+                                return ((TopicModel) topicModel.local(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
+                                        .voteDown(topicId)
+                                        .compose(new RefreshTokenTransformer<JsonObject>(
+                                                tokenModel,
+                                                authAccountManager,
+                                                accountManager,
+                                                (accounts.length > 0 ? accounts[0] : null),
+                                                accountType,
+                                                tokenType
+                                        ));
+                            }
+                        })
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .map(new Func1<JsonObject, JsonObject>() {
+                                    @Override
+                                    public JsonObject call(JsonObject jsonObject) {
+                                        return jsonObject;
+                                    }
+                                });
+                    }
+                },
+                new Action2<TopicDetailsActivity, JsonObject>() {
+                    @Override
+                    public void call(TopicDetailsActivity topicDetailsActivity, JsonObject jsonObject) {
+                        topicDetailsActivity.setOptionState(TOPIC_DETAIL_TYPE_VOTE_DOWN, jsonObject.get("vote-down").getAsBoolean());
                     }
                 },
                 new Action2<TopicDetailsActivity, Throwable>() {

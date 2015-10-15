@@ -33,4 +33,10 @@ public interface TopicApi {
     @DELETE("/topics/{topicId}/attention")
     Observable<JsonObject> delFollow(@Path("topicId") int topicId);
 
+    @POST("/topics/{topicId}/vote-up")
+    Observable<JsonObject> voteUp(@Path("topicId") int topicId);
+
+    @POST("/topics/{topicId}/vote-down")
+    Observable<JsonObject> voteDown(@Path("topicId") int topicId);
+
 }

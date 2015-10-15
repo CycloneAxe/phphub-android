@@ -4,16 +4,24 @@ import android.app.Dialog;
 import android.content.Context;
 import android.view.Display;
 import android.view.Gravity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import org.phphub.app.R;
 
-public class AlertDialog extends Dialog {
+public class AlertDialog extends Dialog implements
+        View.OnClickListener {
     float widthProportion;
     float heightProportion;
 
     private Window window = null;
+
+    public DialogClickListener listener;
+
+    public interface  DialogClickListener {
+        public void onClick(View view);
+    }
 
     public AlertDialog(Context context) {
         super(context);
@@ -27,15 +35,11 @@ public class AlertDialog extends Dialog {
         super(context, cancelable, cancelListener);
     }
 
-    public void popupDialog(int layoutResID, float wp, float hp, boolean noTitle) {
-        if (noTitle) {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-        }
-
+    public void popupDialog(int layoutResID, float wp, float hp, DialogClickListener listener) {
         setContentView(layoutResID);
-
         this.widthProportion = wp;
         this.heightProportion = hp;
+        this.listener = listener;
 
         windowDeploy();
 
@@ -67,5 +71,14 @@ public class AlertDialog extends Dialog {
         params.height = (int) (d.getHeight() * this.heightProportion);
 
         window.setAttributes(params);
+    }
+
+    @Override
+    public void onClick(View v) {
+        listener.onClick(v);
+    }
+
+    public void setListener(DialogClickListener listener) {
+        this.listener = listener;
     }
 }

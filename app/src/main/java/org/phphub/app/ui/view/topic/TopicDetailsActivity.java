@@ -7,8 +7,10 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.Window;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -176,11 +178,61 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
 
     @OnClick(R.id.rlyt_vote_topic)
     public void popupVoteView() {
-        AlertDialog alertDialog = new AlertDialog(this);
-        alertDialog.popupDialog(R.layout.dialog_vote, 0.642f, 0.168f, true);
+
+        final AlertDialog alertDialog = new AlertDialog(this);
+        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        alertDialog.popupDialog(R.layout.dialog_vote, 0.642f, 0.168f, new AlertDialog.DialogClickListener(){
+            @Override
+            public void onClick(View view) {
+                switch (view.getId()) {
+                    case R.id.iv_vote_up:
+                        if (!isLogin()) {
+                            Toast.makeText(TopicDetailsActivity.this, getString(R.string.please_login_first), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (topicInfo.isVoteUp()) {
+                            ((ImageView) view).setColorFilter(getResources().getColor(R.color.blue_a5), PorterDuff.Mode.SRC_ATOP);
+                        } else {
+                            ((ImageView) view).setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
+                        }
+                        getPresenter().eventRequest(topicId, TOPIC_DETAIL_TYPE_VOTE_UP);
+                        alertDialog.dismiss();
+                        break;
+                    case R.id.iv_vote_down:
+                        if (!isLogin()) {
+                            Toast.makeText(TopicDetailsActivity.this, getString(R.string.please_login_first), Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (topicInfo.isVoteUp()) {
+                            ((ImageView) view).setColorFilter(getResources().getColor(R.color.blue_a5), PorterDuff.Mode.SRC_ATOP);
+                        } else {
+                            ((ImageView) view).setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
+                        }
+                        getPresenter().eventRequest(topicId, TOPIC_DETAIL_TYPE_VOTE_DOWN);
+                        alertDialog.dismiss();
+                        break;
+                }
+            }
+        });
+
+        ImageView voteUp = (ImageView) alertDialog.findViewById(R.id.iv_vote_up);
+        ImageView voteDown = (ImageView) alertDialog.findViewById(R.id.iv_vote_down);
+
+        voteUp.setOnClickListener(alertDialog);
+        voteDown.setOnClickListener(alertDialog);
+
+        if (topicInfo.isVoteUp()) {
+            voteUp.setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
+        }
+
+        if (topicInfo.isVoteDown()) {
+            voteDown.setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
+        }
+
+        alertDialog.show();
     }
 
-    public void setOptionState(String optionType) {
+    public void setOptionState(String optionType, boolean isSuccess) {
 
         System.out.println(optionType);
         switch (optionType) {
@@ -203,6 +255,42 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                 topicInfo.setAttention(false);
                 Toast.makeText(this, getString(R.string.cancel_success), Toast.LENGTH_SHORT).show();
                 followView.setColorFilter(getResources().getColor(R.color.blue_a4), PorterDuff.Mode.SRC_ATOP);
+                break;
+            case TOPIC_DETAIL_TYPE_VOTE_UP:
+                topicInfo.setVoteUp(isSuccess);
+                String msg = isSuccess ? getString(R.string.vote_up_success) : getString(R.string.cancel_success);
+                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+                int count = Integer.parseInt(PraiseView.getText().toString());
+
+                if (isSuccess) {
+                    voteUpView.setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
+                    voteDownView.setColorFilter(getResources().getColor(R.color.gray_c9), PorterDuff.Mode.SRC_ATOP);
+                    count += 1;
+                } else {
+                    voteUpView.setColorFilter(getResources().getColor(R.color.gray_c9), PorterDuff.Mode.SRC_ATOP);
+                    count -= 1;
+                }
+
+                PraiseView.setText(String.valueOf(count));
+
+                break;
+            case TOPIC_DETAIL_TYPE_VOTE_DOWN:
+                topicInfo.setVoteDown(isSuccess);
+                String msgDown = isSuccess ? getString(R.string.vote_down_success) : getString(R.string.cancel_success);
+                Toast.makeText(this, msgDown, Toast.LENGTH_SHORT).show();
+                int downCount = Integer.parseInt(PraiseView.getText().toString());
+
+                if (isSuccess) {
+                    voteDownView.setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
+                    voteUpView.setColorFilter(getResources().getColor(R.color.gray_c9), PorterDuff.Mode.SRC_ATOP);
+                    downCount -= 1;
+                } else {
+                    voteDownView.setColorFilter(getResources().getColor(R.color.gray_c9), PorterDuff.Mode.SRC_ATOP);
+                    downCount += 1;
+                }
+
+                PraiseView.setText(String.valueOf(downCount));
+
                 break;
         }
     }
@@ -239,5 +327,9 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                 }
                 break;
         }
+    }
+
+    public void onNetWorkError(Throwable throwable) {
+        Logger.e(throwable.getMessage());
     }
 }

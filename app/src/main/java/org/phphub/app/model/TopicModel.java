@@ -76,4 +76,12 @@ public class TopicModel extends BaseModel<TopicApi> {
     public Observable<JsonObject> delFollow(int topicId) {
         return getService().delFollow(topicId);
     }
+
+    public Observable<JsonObject> voteUp(int topicId) {
+        return getService().voteUp(topicId);
+    }
+
+    public Observable<JsonObject> voteDown(int topicId) {
+        return getService().voteDown(topicId);
+    }
 }

@@ -12,7 +12,9 @@ import static org.phphub.app.common.qualifier.TopicDetailType.*;
         TOPIC_DETAIL_TYPE_FAVORITE,
         TOPIC_DETAIL_TYPE_FAVORITE_DEL,
         TOPIC_DETAIL_TYPE_FOLLOW,
-        TOPIC_DETAIL_TYPE_FOLLOW_DEL
+        TOPIC_DETAIL_TYPE_FOLLOW_DEL,
+        TOPIC_DETAIL_TYPE_VOTE_UP,
+        TOPIC_DETAIL_TYPE_VOTE_DOWN
 })
 public @interface TopicDetailType {
 
@@ -23,4 +25,8 @@ public @interface TopicDetailType {
     String TOPIC_DETAIL_TYPE_FOLLOW = "follow";
 
     String TOPIC_DETAIL_TYPE_FOLLOW_DEL = "delete_follow";
+
+    String TOPIC_DETAIL_TYPE_VOTE_UP = "vote_up";
+
+    String TOPIC_DETAIL_TYPE_VOTE_DOWN = "vote_down";
 }
