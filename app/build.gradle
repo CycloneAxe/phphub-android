@@ -13,7 +13,7 @@ android {
     buildToolsVersion globalConfiguration.getAt("ANDROID_BUILD_TOOLS_VERSION")
 
     defaultConfig {
-        applicationId "org.phphub.app"
+        applicationId "org.estgroup.phphub"
         minSdkVersion globalConfiguration.getAt("ANDROID_BUILD_MIN_SDK_VERSION") as int
         targetSdkVersion globalConfiguration.getAt("ANDROID_TARGET_SDK_VERSION") as int
         versionCode globalConfiguration.getAt("VERSION_CODE") as int
