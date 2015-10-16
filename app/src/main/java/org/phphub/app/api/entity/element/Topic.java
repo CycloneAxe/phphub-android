@@ -10,6 +10,8 @@ public class Topic {
 
     protected String title;
 
+    protected String body;
+
     @SerializedName("user_id")
     protected int userId;
 
@@ -73,6 +75,14 @@ public class Topic {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public int getUserId() {

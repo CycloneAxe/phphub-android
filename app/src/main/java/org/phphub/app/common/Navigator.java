@@ -6,6 +6,7 @@ import android.support.v4.app.FragmentActivity;
 
 import org.phphub.app.ui.view.ScannerActivity;
 import org.phphub.app.ui.view.settings.SettingsActivity;
+import org.phphub.app.ui.view.topic.TopicPublishActivity;
 import org.phphub.app.ui.view.topic.TopicDetailsActivity;
 import org.phphub.app.ui.view.user.UserSpaceActivity;
 
@@ -51,5 +52,14 @@ public class Navigator {
 
         Intent intentToLaunch = ScannerActivity.getCallingIntent(context);
         ((FragmentActivity) context).startActivityForResult(intentToLaunch, requestCode);
+    }
+
+    public void navigateToPublishTopic(Context context) {
+        if (context == null) {
+            return;
+        }
+
+        Intent intentToLaunch = TopicPublishActivity.getCallingIntent(context);
+        context.startActivity(intentToLaunch);
     }
 }

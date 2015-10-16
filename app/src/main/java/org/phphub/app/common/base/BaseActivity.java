@@ -43,7 +43,7 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
     @Bind(R.id.toolbar_title)
     TextView toolbarTitleView;
 
-    Navigator navigator;
+    public Navigator navigator;
 
     @Inject
     AccountManager accountManager;

@@ -1,10 +1,15 @@
 package org.phphub.app.api.entity.element;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Node {
 
     int id;
 
     String name;
+
+    @SerializedName("parent_node")
+    int parentNode;
 
     public int getId() {
         return id;
@@ -20,5 +25,13 @@ public class Node {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getParentNode() {
+        return parentNode;
+    }
+
+    public void setParentNode(int parentNode) {
+        this.parentNode = parentNode;
     }
 }
