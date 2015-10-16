@@ -4,7 +4,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar.OnMenuItemClickListener;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -49,6 +53,11 @@ public class RecommendedFragment extends LazyFragment<RecommendedPresenter> impl
     RecyclerView topicListView;
 
     @Override
+    public void onCreate(Bundle bundle) {
+        super.onCreate(bundle);
+    }
+
+    @Override
     protected void injectorPresenter() {
         super.injectorPresenter();
         final PresenterFactory<RecommendedPresenter> superFactory = super.getPresenterFactory();
@@ -68,9 +77,32 @@ public class RecommendedFragment extends LazyFragment<RecommendedPresenter> impl
         return inflater.inflate(R.layout.topic_normal_list, container, false);
     }
 
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_publish, menu);
+
+        if (!isLogin()) {
+            menu.findItem(R.id.action_publish).setVisible(false);
+        }
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        if (isLogin()) {
+            toolbarView.inflateMenu(R.menu.menu_publish);
+            toolbarView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(MenuItem item) {
+                    navigator.navigateToPublishTopic(getContext());
+                    return true;
+                }
+            });
+        }
+
         topicListView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = SmartAdapter.empty()
                 .map(Topic.class, TopicItemView.class)

@@ -59,4 +59,10 @@
         <item name="android:windowEnterAnimation">@anim/dialog_enter_anim</item>
         <item name="android:windowExitAnimation">@anim/dialog_exit_anim</item>
     </style>
+
+    <style name="publish_style">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/gray_ac</item>
+        <item name="android:textColorHint">@color/gray_ac</item>
+    </style>
 </resources>

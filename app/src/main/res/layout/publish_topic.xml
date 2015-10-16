@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <include layout="@layout/common_toolbar"/>
+
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/et_topic_title"
+            android:inputType="text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_widthPercent="95.5%w"
+            app:layout_paddingTopPercent="4%w"
+            app:layout_paddingBottomPercent="4%w"
+            app:layout_paddingLeftPercent="3%w"
+            app:layout_marginTopPercent="2.4%w"
+            android:background="@drawable/common_publish_bg"
+            android:hint="@string/please_input_title"
+            style="@style/publish_style"/>
+
+        <EditText
+            android:id="@+id/et_topic_body"
+            android:inputType="textMultiLine"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="left|top"
+            app:layout_widthPercent="95.5%w"
+            app:layout_paddingTopPercent="4%w"
+            app:layout_paddingBottomPercent="4%w"
+            app:layout_paddingLeftPercent="3%w"
+            app:layout_marginTopPercent="2.4%w"
+            android:background="@drawable/common_publish_bg"
+            android:hint="@string/content_input"
+            style="@style/publish_style"
+            android:minLines="6" />
+
+        <TextView
+            android:id="@+id/tv_select_node"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/choose_node"
+            app:layout_marginTopPercent="2.4%w"
+            app:layout_marginLeftPercent="3%w"
+            android:layout_gravity="left"/>
+
+    </com.zhy.android.percent.support.PercentLinearLayout>
+
+
+</LinearLayout>

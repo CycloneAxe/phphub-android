@@ -1,6 +1,7 @@
 package org.phphub.app.common.internal.di.component;
 
 import org.phphub.app.common.internal.di.module.ApiModule;
+import org.phphub.app.ui.presenter.TopicPublishPresenter;
 import org.phphub.app.ui.presenter.RecommendedPresenter;
 import org.phphub.app.ui.presenter.TopicDetailPresenter;
 import org.phphub.app.ui.presenter.TopicPresenter;
@@ -26,4 +27,6 @@ public interface ApiComponent {
         void inject(UserSpacePresenter userSpacePresenter);
 
         void inject(LoginActivity loginActivity);
+
+        void inject(TopicPublishPresenter publishTopicPresenter);
 }

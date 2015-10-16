@@ -39,4 +39,7 @@ public interface TopicApi {
     @POST("/topics/{topicId}/vote-down")
     Observable<JsonObject> voteDown(@Path("topicId") int topicId);
 
+    @POST("/topics")
+    Observable<TopicEntity.ATopic> publishTopic(@QueryMap Map<String, String> options);
+
 }

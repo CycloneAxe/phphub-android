@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 
 import org.phphub.app.api.TopicApi;
 import org.phphub.app.api.entity.TopicEntity;
+import org.phphub.app.api.entity.element.Topic;
 import org.phphub.app.common.Constant;
 import org.phphub.app.common.base.BaseModel;
 
@@ -83,5 +84,14 @@ public class TopicModel extends BaseModel<TopicApi> {
 
     public Observable<JsonObject> voteDown(int topicId) {
         return getService().voteDown(topicId);
+    }
+
+    public Observable<TopicEntity.ATopic> publishTopic(Topic topicInfo) {
+        Map<String, String> options = new HashMap<String, String>();
+        options.put("title", topicInfo.getTitle());
+        options.put("body", topicInfo.getBody());
+        options.put("node_id", String.valueOf(topicInfo.getNodeId()));
+
+        return getService().publishTopic(options);
     }
 }
