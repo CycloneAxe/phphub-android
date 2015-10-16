@@ -187,6 +187,18 @@ public class LoopView extends View {
         invalidate();
     }
 
+    public final void setColorUnCheck(int colorGray) {
+        this.colorGray = colorGray;
+    }
+
+    public final void setColorChecked(int colorBlack) {
+        this.colorBlack = colorBlack;
+    }
+
+    public final void setColorLine(int colorGrayLight) {
+        this.colorGrayLight = colorGrayLight;
+    }
+
     public final int b() {
         return F;
     }

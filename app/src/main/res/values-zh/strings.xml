@@ -55,8 +55,13 @@
     <string name="please_input_title">请填写标题</string>
     <string name="content_input">请使用 Markdown 格式书写 ;-)</string>
     <string name="choose_node">请选择节点</string>
-    <string name="node_info">发布到 [s%] 下</string>
+    <string name="node_info">发布到 %s 下</string>
     <string name="publish_success">发布成功!</string>
     <string name="publish_error">发布失败,请检查网络并重试.</string>
+    <string name="title_input_error">标题长度不能少于2个字符!</string>
+    <string name="body_input_error">内容长度不能少于2个字符!</string>
+    <string name="node_input_error">请选择节点!</string>
+    
+    <string name="submitting">请求中...</string>
 
 </resources>

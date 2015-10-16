@@ -5,8 +5,12 @@ import android.accounts.AccountManager;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.orhanobut.logger.Logger;
+
 import org.estgroup.phphub.R;
+import org.estgroup.phphub.api.entity.NodeEntity;
 import org.estgroup.phphub.api.entity.TopicEntity;
+import org.estgroup.phphub.api.entity.element.Node;
 import org.estgroup.phphub.api.entity.element.Topic;
 import org.estgroup.phphub.common.base.BaseRxPresenter;
 import org.estgroup.phphub.common.internal.di.qualifier.ForApplication;
@@ -14,6 +18,9 @@ import org.estgroup.phphub.common.transformer.RefreshTokenTransformer;
 import org.estgroup.phphub.model.TokenModel;
 import org.estgroup.phphub.model.TopicModel;
 import org.estgroup.phphub.ui.view.topic.TopicPublishActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -28,6 +35,8 @@ import rx.schedulers.Schedulers;
 
 public class TopicPublishPresenter extends BaseRxPresenter<TopicPublishActivity> {
     private static final int REQUEST_PUBLISH_TOPIC_ID = 1;
+
+    private static final int REQUEST_GET_NODE_ID = 2;
 
     Topic topicInfo;
 
@@ -109,10 +118,41 @@ public class TopicPublishPresenter extends BaseRxPresenter<TopicPublishActivity>
                     }
                 }
         );
+
+        restartableLatestCache(REQUEST_GET_NODE_ID,
+                new Func0<Observable<List<Node>>>() {
+                    @Override
+                    public Observable<List<Node>> call() {
+                        return topicModel.getAllNodes()
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .map(new Func1<NodeEntity.Nodes, List<Node>>() {
+                                    @Override
+                                    public List<Node> call(NodeEntity.Nodes nodes) {
+                                        return nodes.getData();
+                                    }
+                                });
+                    }
+                },
+                new Action2<TopicPublishActivity, List<Node>>() {
+                    @Override
+                    public void call(TopicPublishActivity topicPublishActivity, List<Node> nodes) {
+                        topicPublishActivity.setNodes(nodes);
+                    }
+                },
+                new Action2<TopicPublishActivity, Throwable>() {
+                    @Override
+                    public void call(TopicPublishActivity topicPublishActivity, Throwable throwable) {
+                        Logger.e(throwable.getMessage());
+                    }
+                });
     }
 
     public void request(Topic topicInfo) {
         this.topicInfo = topicInfo;
         start(REQUEST_PUBLISH_TOPIC_ID);
+    }
+
+    public void nodeRequest() {
+        start(REQUEST_GET_NODE_ID);
     }
 }

@@ -9,7 +9,7 @@ import android.view.WindowManager;
 
 import org.estgroup.phphub.R;
 
-public class AlertDialog extends Dialog implements
+public class AnimateDialog extends Dialog implements
         View.OnClickListener {
     float widthProportion;
     float heightProportion;
@@ -22,16 +22,39 @@ public class AlertDialog extends Dialog implements
         public void onClick(View view);
     }
 
-    public AlertDialog(Context context) {
+    public AnimateDialog(Context context) {
         super(context);
     }
 
-    public AlertDialog(Context context, int themeResId) {
+    public AnimateDialog(Context context, int themeResId) {
         super(context, themeResId);
     }
 
-    protected AlertDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
+    protected AnimateDialog(Context context, boolean cancelable, OnCancelListener cancelListener) {
         super(context, cancelable, cancelListener);
+    }
+    public void popupDialog(int layoutResID, float wp, float hp) {
+        setContentView(layoutResID);
+        this.widthProportion = wp;
+        this.heightProportion = hp;
+
+        windowDeploy();
+
+        setCanceledOnTouchOutside(true);
+
+        show();
+    }
+
+    public void popupDialog(View view, float wp, float hp) {
+        setContentView(view);
+        this.widthProportion = wp;
+        this.heightProportion = hp;
+
+        windowDeploy();
+
+        setCanceledOnTouchOutside(true);
+
+        show();
     }
 
     public void popupDialog(int layoutResID, float wp, float hp, DialogClickListener listener) {

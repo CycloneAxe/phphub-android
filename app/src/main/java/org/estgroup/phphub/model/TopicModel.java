@@ -5,6 +5,7 @@ import android.content.Context;
 import com.google.gson.JsonObject;
 
 import org.estgroup.phphub.api.TopicApi;
+import org.estgroup.phphub.api.entity.NodeEntity;
 import org.estgroup.phphub.api.entity.TopicEntity;
 import org.estgroup.phphub.api.entity.element.Topic;
 import org.estgroup.phphub.common.Constant;
@@ -93,5 +94,9 @@ public class TopicModel extends BaseModel<TopicApi> {
         options.put("node_id", String.valueOf(topicInfo.getNodeId()));
 
         return getService().publishTopic(options);
+    }
+
+    public Observable<NodeEntity.Nodes> getAllNodes() {
+        return getService().getAllNodes();
     }
 }

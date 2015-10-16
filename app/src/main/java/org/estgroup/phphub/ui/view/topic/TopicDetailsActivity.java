@@ -24,7 +24,7 @@ import org.estgroup.phphub.api.entity.element.Topic;
 import org.estgroup.phphub.api.entity.element.User;
 import org.estgroup.phphub.common.base.BaseActivity;
 import org.estgroup.phphub.ui.presenter.TopicDetailPresenter;
-import org.estgroup.phphub.widget.AlertDialog;
+import org.estgroup.phphub.widget.AnimateDialog;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -176,9 +176,9 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
     @OnClick(R.id.rlyt_vote_topic)
     public void popupVoteView() {
 
-        final AlertDialog alertDialog = new AlertDialog(this);
+        final AnimateDialog alertDialog = new AnimateDialog(this);
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        alertDialog.popupDialog(R.layout.dialog_vote, 0.642f, 0.168f, new AlertDialog.DialogClickListener(){
+        alertDialog.popupDialog(R.layout.dialog_vote, 0.642f, 0.168f, new AnimateDialog.DialogClickListener(){
             @Override
             public void onClick(View view) {
                 switch (view.getId()) {
