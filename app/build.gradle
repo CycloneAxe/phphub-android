@@ -139,4 +139,5 @@ dependencies {
     compile 'com.github.kmshack:Android-TopScrollHelper:01bdc4303a'
     compile 'me.dm7.barcodescanner:zxing:1.8.3'
     compile 'com.levelmoney.velodrome:velodrome:1.0'
+    compile 'cn.pedant.sweetalert:library:1.3'
 }
