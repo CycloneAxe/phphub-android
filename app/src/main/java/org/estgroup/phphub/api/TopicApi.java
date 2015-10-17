@@ -3,6 +3,7 @@ package org.estgroup.phphub.api;
 import com.google.gson.JsonObject;
 
 import org.estgroup.phphub.api.entity.NodeEntity;
+import org.estgroup.phphub.api.entity.ReplyEntity;
 import org.estgroup.phphub.api.entity.TopicEntity;
 
 import java.util.Map;
@@ -45,5 +46,8 @@ public interface TopicApi {
 
     @GET("/nodes")
     Observable<NodeEntity.Nodes> getAllNodes();
+
+    @POST("/replies")
+    Observable<ReplyEntity.AReply> publishReply(@QueryMap Map<String, String> options);
 
 }

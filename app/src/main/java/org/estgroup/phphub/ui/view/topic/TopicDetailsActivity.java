@@ -323,6 +323,20 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                     getPresenter().eventRequest(topicId, TOPIC_DETAIL_TYPE_FOLLOW);
                 }
                 break;
+
+            case R.id.iv_replys_icon:
+                if (!isLogin()) {
+                    Toast.makeText(this, getString(R.string.please_login_first), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                navigator.navigateToReplyTopic(this, topicId, topicInfo.getLinks().getRepliesWebView());
+                break;
+            case R.id.iv_count_icon:
+
+                navigator.navigateToUserReply(this, topicInfo.getLinks().getRepliesWebView());
+
+                break;
         }
     }
 

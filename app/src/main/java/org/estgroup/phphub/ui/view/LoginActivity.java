@@ -44,6 +44,8 @@ import static org.estgroup.phphub.common.Constant.USERNAME_KEY;
 import static org.estgroup.phphub.common.Constant.USER_AVATAR_KEY;
 import static org.estgroup.phphub.common.Constant.USER_ID_KEY;
 import static org.estgroup.phphub.common.Constant.USER_SIGNATURE;
+import static org.estgroup.phphub.common.Constant.USER_REPLY_URL_KEY;
+
 import static org.estgroup.phphub.common.qualifier.AuthType.AUTH_TYPE_REFRESH;
 import static org.estgroup.phphub.common.qualifier.AuthType.AUTH_TYPE_USER;
 
@@ -147,6 +149,7 @@ public class LoginActivity extends AuthenticationActivity {
                                         storeUserData(account, USERNAME_KEY, user.getName());
                                         storeUserData(account, USER_SIGNATURE, user.getSignature());
                                         storeUserData(account, USER_AVATAR_KEY, user.getAvatar());
+                                        storeUserData(account, USER_REPLY_URL_KEY, user.getLinks().getRepliesWebView());
                                     }
                                 });
                     }

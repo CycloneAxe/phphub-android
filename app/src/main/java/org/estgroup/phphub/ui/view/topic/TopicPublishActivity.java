@@ -151,7 +151,6 @@ public class TopicPublishActivity extends BaseActivity<TopicPublishPresenter> {
 
 
         ArrayList<String> list = new ArrayList();
-        System.out.println(nodes.size());
         for (Node node : nodes) {
             list.add(node.getName());
         }
