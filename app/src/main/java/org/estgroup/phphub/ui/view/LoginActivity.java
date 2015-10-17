@@ -133,6 +133,7 @@ public class LoginActivity extends AuthenticationActivity {
                                         storeUserData(account, USERNAME_KEY, user.getName());
                                         storeUserData(account, USER_SIGNATURE, user.getSignature());
                                         storeUserData(account, USER_AVATAR_KEY, user.getAvatar());
+                                        storeUserData(account, USER_REPLY_URL_KEY, user.getLinks().getRepliesWebView());
                                     }
                                 });
                     }

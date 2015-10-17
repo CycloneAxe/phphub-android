@@ -52,12 +52,6 @@ public class TopicReplyActivity extends BaseActivity<TopicReplyPresenter> {
     }
 
     @Override
-    protected void onRestart() {
-        super.onRestart();
-
-    }
-
-    @Override
     protected void injectorPresenter() {
         super.injectorPresenter();
         final PresenterFactory<TopicReplyPresenter> superFactory = super.getPresenterFactory();

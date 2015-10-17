@@ -39,7 +39,7 @@ public class MeFragment extends BaseSupportFragment {
 
     int userId;
 
-    String avatarUrl, username, signature;
+    String avatarUrl, username, signature, userReplyUrl;
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -64,6 +64,7 @@ public class MeFragment extends BaseSupportFragment {
             username = accountManager.getUserData(accounts[0], USERNAME_KEY);
             signature = accountManager.getUserData(accounts[0], USER_SIGNATURE);
             avatarUrl = accountManager.getUserData(accounts[0], USER_AVATAR_KEY);
+            userReplyUrl = accountManager.getUserData(accounts[0], USER_REPLY_URL_KEY);
         }
         /**
          * TODO
@@ -89,6 +90,13 @@ public class MeFragment extends BaseSupportFragment {
     public void navigateToUserSpace() {
         if (userId > 0) {
             navigator.navigateToUserSpace(getContext(), this.userId);
+        }
+    }
+
+    @OnClick(R.id.percent_rlyt_replys)
+    public void navigateToUserReplys() {
+        if (userId > 0) {
+            navigator.navigateToUserReply(getContext(), this.userReplyUrl);
         }
     }
 

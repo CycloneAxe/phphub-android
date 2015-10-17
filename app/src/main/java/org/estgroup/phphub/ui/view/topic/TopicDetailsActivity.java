@@ -332,6 +332,11 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
 
                 navigator.navigateToReplyTopic(this, topicId, topicInfo.getLinks().getRepliesWebView());
                 break;
+            case R.id.iv_count_icon:
+
+                navigator.navigateToUserReply(this, topicInfo.getLinks().getRepliesWebView());
+
+                break;
         }
     }
 

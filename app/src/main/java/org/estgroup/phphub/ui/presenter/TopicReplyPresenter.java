@@ -114,7 +114,6 @@ public class TopicReplyPresenter extends BaseRxPresenter<TopicReplyActivity> {
     }
 
     public void request(int topicId, String body) {
-        System.out.println(body);
         if (topicId > 0 && body.trim().length() > 1){
             this.topicId = topicId;
             this.body = body;

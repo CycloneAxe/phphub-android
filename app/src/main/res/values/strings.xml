@@ -61,6 +61,7 @@
     <string name="body_input_error">内容长度不能少于2个字符!</string>
     <string name="node_input_error">请选择节点!</string>
 
+    <string name="reply_list">回复列表</string>
     <string name="publish_reply">发表回复</string>
     <string name="reply_empty">回复内容不能为空!</string>
 

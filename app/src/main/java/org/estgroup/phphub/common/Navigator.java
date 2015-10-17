@@ -9,6 +9,7 @@ import org.estgroup.phphub.ui.view.settings.SettingsActivity;
 import org.estgroup.phphub.ui.view.topic.TopicPublishActivity;
 import org.estgroup.phphub.ui.view.topic.TopicDetailsActivity;
 import org.estgroup.phphub.ui.view.topic.TopicReplyActivity;
+import org.estgroup.phphub.ui.view.ReplyActivity;
 import org.estgroup.phphub.ui.view.user.UserSpaceActivity;
 
 import javax.inject.Inject;
@@ -70,6 +71,15 @@ public class Navigator {
         }
 
         Intent intentToLaunch = TopicReplyActivity.getCallingIntent(context, topicId, replyUrl);
+        context.startActivity(intentToLaunch);
+    }
+
+    public void navigateToUserReply(Context context, String replyUrl){
+        if (context == null) {
+            return;
+        }
+
+        Intent intentToLaunch = ReplyActivity.getCallingIntent(context, replyUrl);
         context.startActivity(intentToLaunch);
     }
 }
