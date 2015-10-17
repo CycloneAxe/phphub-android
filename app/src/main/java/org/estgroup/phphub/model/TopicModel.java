@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 
 import org.estgroup.phphub.api.TopicApi;
 import org.estgroup.phphub.api.entity.NodeEntity;
+import org.estgroup.phphub.api.entity.ReplyEntity;
 import org.estgroup.phphub.api.entity.TopicEntity;
 import org.estgroup.phphub.api.entity.element.Topic;
 import org.estgroup.phphub.common.Constant;
@@ -98,5 +99,13 @@ public class TopicModel extends BaseModel<TopicApi> {
 
     public Observable<NodeEntity.Nodes> getAllNodes() {
         return getService().getAllNodes();
+    }
+
+    public Observable<ReplyEntity.AReply> publishReply(int topicId, String body) {
+        Map<String, String> options = new HashMap<String, String>();
+        options.put("topic_id", String.valueOf(topicId));
+        options.put("body", body);
+
+        return getService().publishReply(options);
     }
 }
