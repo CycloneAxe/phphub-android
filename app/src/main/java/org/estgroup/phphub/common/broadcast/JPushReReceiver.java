@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import org.estgroup.phphub.ui.view.MainActivity;
+import org.estgroup.phphub.ui.view.ReplyActivity;
 import org.estgroup.phphub.ui.view.topic.TopicDetailsActivity;
 import org.json.JSONObject;
 
@@ -43,23 +44,26 @@ public class JPushReReceiver extends BroadcastReceiver {
      * @return boolean
      */
     private boolean handleOpenNotification(Context context, Bundle bundle) {
-        Log.d(TAG, "[MyReceiver] 用户点击打开了通知");
-        Intent i = new Intent();
-
+        Log.d(TAG, "用户点击打开了通知");
         String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
 
+        Intent intent = null;
         try {
             if (extras == null) return false;
 
             JSONObject extraJson = new JSONObject(extras);
 
-            if (extraJson.has("topic_id")) {
+            if (extraJson.has("replies_url")) {
+                String replies_url = extraJson.getString("replies_url");
+                intent = ReplyActivity.getCallingIntent(context, replies_url);
+            } else if (extraJson.has("topic_id")) {
                 int topic_id = extraJson.getInt("topic_id");
-                i.setClass(context, TopicDetailsActivity.class);
-                i.putExtra("topic_id", topic_id);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            } else return false;
-            context.startActivity(i);
+                intent = TopicDetailsActivity.getCallingIntent(context, topic_id);
+            } else {
+                return false;
+            }
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
 
             return true;
         } catch (Exception e) {
