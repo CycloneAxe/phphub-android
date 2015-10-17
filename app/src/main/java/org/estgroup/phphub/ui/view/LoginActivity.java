@@ -14,8 +14,6 @@ import com.levelmoney.velodrome.Velodrome;
 import com.levelmoney.velodrome.annotations.OnActivityResult;
 import com.orhanobut.logger.Logger;
 
-import static org.estgroup.phphub.common.Constant.*;
-
 import org.estgroup.phphub.R;
 import org.estgroup.phphub.api.entity.UserEntity;
 import org.estgroup.phphub.api.entity.element.Token;
@@ -25,18 +23,29 @@ import org.estgroup.phphub.common.Navigator;
 import org.estgroup.phphub.model.TokenModel;
 import org.estgroup.phphub.model.UserModel;
 
+import java.util.Set;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import eu.unicate.retroauth.AuthenticationActivity;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
 import rx.functions.Func1;
-import static org.estgroup.phphub.common.qualifier.AuthType.*;
+
+import static org.estgroup.phphub.common.Constant.LOGIN_TOKEN_KEY;
+import static org.estgroup.phphub.common.Constant.USERNAME_KEY;
+import static org.estgroup.phphub.common.Constant.USER_AVATAR_KEY;
+import static org.estgroup.phphub.common.Constant.USER_ID_KEY;
+import static org.estgroup.phphub.common.Constant.USER_SIGNATURE;
+import static org.estgroup.phphub.common.qualifier.AuthType.AUTH_TYPE_REFRESH;
+import static org.estgroup.phphub.common.qualifier.AuthType.AUTH_TYPE_USER;
 
 public class LoginActivity extends AuthenticationActivity {
     private final static int CODE_SCANNER = 100;
@@ -128,7 +137,12 @@ public class LoginActivity extends AuthenticationActivity {
                                 .doOnNext(new Action1<User>() {
                                     @Override
                                     public void call(User user) {
+                                        JPushInterface.setAlias(getApplicationContext(), "userid_" + user.getId(), new TagAliasCallback() {
+                                            @Override
+                                            public void gotResult(int i, String s, Set<String> set) {
 
+                                            }
+                                        });
                                         storeUserData(account, USER_ID_KEY, String.valueOf(user.getId()));
                                         storeUserData(account, USERNAME_KEY, user.getName());
                                         storeUserData(account, USER_SIGNATURE, user.getSignature());

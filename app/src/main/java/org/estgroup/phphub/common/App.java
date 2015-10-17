@@ -6,6 +6,7 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.github.pwittchen.prefser.library.Prefser;
 import com.squareup.leakcanary.LeakCanary;
 
+import org.estgroup.phphub.BuildConfig;
 import org.estgroup.phphub.common.internal.di.component.ApiComponent;
 import org.estgroup.phphub.common.internal.di.component.AppComponent;
 import org.estgroup.phphub.common.internal.di.component.DaggerApiComponent;
@@ -32,7 +33,7 @@ public class App extends Application {
         super.onCreate();
         Fresco.initialize(this);
         LeakCanary.install(this);
-        JPushInterface.setDebugMode(true);
+        JPushInterface.setDebugMode(BuildConfig.DEBUG);
         JPushInterface.init(this);
 
         initializeInjector();
