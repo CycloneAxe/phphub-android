@@ -87,7 +87,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.view.MainActivity" />
         </activity>
-        <activity android:name=".ui.view.ReplyActivity"
+        <activity android:name=".ui.view.ReplyListActivity"
+            android:parentActivityName=".ui.view.MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.view.MainActivity" />
+        </activity>
+        <activity android:name=".ui.view.user.UserTopicActivity"
             android:parentActivityName=".ui.view.MainActivity">
 
             <meta-data

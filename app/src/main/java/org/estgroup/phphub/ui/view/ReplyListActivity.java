@@ -14,7 +14,7 @@ import org.estgroup.phphub.common.base.BaseActivity;
 
 import butterknife.Bind;
 
-public class ReplyActivity extends BaseActivity {
+public class ReplyListActivity extends BaseActivity {
     private static final String TOPIC_REPLY_URL = "reply_url";
 
     @Bind(R.id.multiStateView)
@@ -51,7 +51,7 @@ public class ReplyActivity extends BaseActivity {
     }
 
     public static Intent getCallingIntent(Context context, String replyUrl) {
-        Intent callingIntent = new Intent(context, ReplyActivity.class);
+        Intent callingIntent = new Intent(context, ReplyListActivity.class);
         callingIntent.putExtra(TOPIC_REPLY_URL, replyUrl);
         return callingIntent;
     }
