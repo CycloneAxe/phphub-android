@@ -24,9 +24,12 @@ android {
         versionName globalConfiguration.getAt("VERSION_NAME")
 
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
-        buildConfigField "String", "CLIENT_ID", "\"kHOugsx4dmcXwvVbmLkd\""
-        buildConfigField "String", "CLIENT_SECRET", "\"PuuFCrF94MloSbSkxpwS\""
-        buildConfigField "String", "ENDPOINT", "\"https://api.phphub.org/\""
+        buildConfigField "String", "CLIENT_ID", APP_CLIENT_ID
+        buildConfigField "String", "CLIENT_SECRET", APP_CLIENT_SECRET
+        buildConfigField "String", "ENDPOINT", API_ENDPOINT
+
+        resValue "string", "jpush_appkey", JPUSH_APPKEY
+        resValue "string", "jpush_channel", JPUSH_CHANNEL
     }
 
     signingConfigs {

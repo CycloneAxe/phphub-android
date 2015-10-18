@@ -185,9 +185,9 @@
         <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
 
         <!-- JPUSH_CHANNEL 是为了方便开发者统计APK分发渠道。-->
-        <meta-data android:name="JPUSH_CHANNEL" android:value="developer-default"/>
+        <meta-data android:name="JPUSH_CHANNEL" android:value="@string/jpush_channel"/>
         <!-- Required. AppKey copied from Portal -->
-        <meta-data android:name="JPUSH_APPKEY" android:value="47e834f8432dba0c1561a9db"/>
+        <meta-data android:name="JPUSH_APPKEY" android:value="@string/jpush_appkey"/>
 
 
     </application>
