@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import org.estgroup.phphub.ui.view.MainActivity;
-import org.estgroup.phphub.ui.view.ReplyActivity;
+import org.estgroup.phphub.ui.view.ReplyListActivity;
 import org.estgroup.phphub.ui.view.topic.TopicDetailsActivity;
 import org.json.JSONObject;
 
@@ -55,7 +55,7 @@ public class JPushReReceiver extends BroadcastReceiver {
 
             if (extraJson.has("replies_url")) {
                 String replies_url = extraJson.getString("replies_url");
-                intent = ReplyActivity.getCallingIntent(context, replies_url);
+                intent = ReplyListActivity.getCallingIntent(context, replies_url);
             } else if (extraJson.has("topic_id")) {
                 int topic_id = extraJson.getInt("topic_id");
                 intent = TopicDetailsActivity.getCallingIntent(context, topic_id);
