@@ -12,6 +12,10 @@ android {
     compileSdkVersion globalConfiguration.getAt("ANDROID_COMPILE_SDK_VERSION") as int
     buildToolsVersion globalConfiguration.getAt("ANDROID_BUILD_TOOLS_VERSION")
 
+    sourceSets.main {
+        jniLibs.srcDirs = ['libs']
+    }
+
     defaultConfig {
         applicationId "org.estgroup.phphub"
         minSdkVersion globalConfiguration.getAt("ANDROID_BUILD_MIN_SDK_VERSION") as int
@@ -20,9 +24,12 @@ android {
         versionName globalConfiguration.getAt("VERSION_NAME")
 
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
-        buildConfigField "String", "CLIENT_ID", "\"kHOugsx4dmcXwvVbmLkd\""
-        buildConfigField "String", "CLIENT_SECRET", "\"PuuFCrF94MloSbSkxpwS\""
-        buildConfigField "String", "ENDPOINT", "\"https://api.phphub.org/\""
+        buildConfigField "String", "CLIENT_ID", APP_CLIENT_ID
+        buildConfigField "String", "CLIENT_SECRET", APP_CLIENT_SECRET
+        buildConfigField "String", "ENDPOINT", API_ENDPOINT
+
+        resValue "string", "jpush_appkey", JPUSH_APPKEY
+        resValue "string", "jpush_channel", JPUSH_CHANNEL
     }
 
     signingConfigs {
@@ -91,29 +98,24 @@ android {
 
 def SUPPORT_VERSION = globalConfiguration.getAt("ANDROID_BUILD_TOOLS_VERSION")
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:support-annotations:' + SUPPORT_VERSION
     compile 'com.android.support:support-v13:' + SUPPORT_VERSION
     compile 'com.android.support:cardview-v7:' + SUPPORT_VERSION
     compile 'com.android.support:appcompat-v7:' + SUPPORT_VERSION
     compile 'com.android.support:recyclerview-v7:' + SUPPORT_VERSION
     compile 'com.android.support:design:' + SUPPORT_VERSION
-
     // retrofit
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'eu.unicate.android:retroauth:1.0.3'
-
     // LeakCanary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3.1'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1'
-
     // fresco
     compile 'com.facebook.fresco:fresco:0.7.0+'
     compile 'com.facebook.fresco:imagepipeline-okhttp:0.7.0+'
-
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.ogaclejapan.smarttablayout:library:1.4.1@aar'
     compile 'com.ogaclejapan.smarttablayout:utils-v4:1.4.1@aar'
