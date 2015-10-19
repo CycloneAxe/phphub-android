@@ -10,6 +10,7 @@ import org.estgroup.phphub.ui.view.topic.TopicPublishActivity;
 import org.estgroup.phphub.ui.view.topic.TopicDetailsActivity;
 import org.estgroup.phphub.ui.view.topic.TopicReplyActivity;
 import org.estgroup.phphub.ui.view.ReplyListActivity;
+import org.estgroup.phphub.ui.view.user.EditUserProfileActivity;
 import org.estgroup.phphub.ui.view.user.UserSpaceActivity;
 import org.estgroup.phphub.ui.view.user.UserTopicActivity;
 
@@ -90,6 +91,15 @@ public class Navigator {
         }
 
         Intent intentToLaunch = UserTopicActivity.getCallingIntent(context, userId, userTopicType);
+        context.startActivity(intentToLaunch);
+    }
+
+    public void navigateToEditUserProfile(Context context, int userId) {
+        if (context == null) {
+            return;
+        }
+
+        Intent intentToLaunch = EditUserProfileActivity.getCallingIntent(context, userId);
         context.startActivity(intentToLaunch);
     }
 }

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -127,6 +128,17 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
         }
 
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_edit:
+                navigator.navigateToEditUserProfile(this, userId);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
