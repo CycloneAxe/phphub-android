@@ -41,6 +41,8 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
     @State
     int userId;
 
+    User userInfo;
+
     @Bind(R.id.sdv_avatar)
     SimpleDraweeView avatarView;
 
@@ -134,7 +136,7 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_edit:
-                navigator.navigateToEditUserProfile(this, userId);
+                navigator.navigateToEditUserProfile(this, userInfo);
                 break;
         }
 
@@ -151,6 +153,7 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
     }
 
     public void initView(User userInfo) {
+        this.userInfo = userInfo;
 
         if (!isMySelf) {
             othersView.setVisibility(VISIBLE);

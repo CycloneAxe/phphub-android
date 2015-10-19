@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 
+import org.estgroup.phphub.api.entity.element.User;
 import org.estgroup.phphub.ui.view.ScannerActivity;
 import org.estgroup.phphub.ui.view.settings.SettingsActivity;
 import org.estgroup.phphub.ui.view.topic.TopicPublishActivity;
@@ -94,12 +95,12 @@ public class Navigator {
         context.startActivity(intentToLaunch);
     }
 
-    public void navigateToEditUserProfile(Context context, int userId) {
+    public void navigateToEditUserProfile(Context context, User userInfo) {
         if (context == null) {
             return;
         }
 
-        Intent intentToLaunch = EditUserProfileActivity.getCallingIntent(context, userId);
+        Intent intentToLaunch = EditUserProfileActivity.getCallingIntent(context, userInfo);
         context.startActivity(intentToLaunch);
     }
 }
