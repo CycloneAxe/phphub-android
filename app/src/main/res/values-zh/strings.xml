@@ -42,6 +42,9 @@
     <string name="his">Ta的</string>
     <string name="her">Ta的</string>
     <string name="since">Since</string>
+    <string name="twitter_hint">Twitter 帐号, 不需要加前缀 https://twitter.com/</string>
+    <string name="github_hint">Github 帐号</string>
+    <string name="blog_hint">你的个人网站, 不需要加前缀 http://</string>
 
     <string name="please_login_first">请先登录, 再进行操作.</string>
     <string name="favorite_success">收藏成功!</string>
