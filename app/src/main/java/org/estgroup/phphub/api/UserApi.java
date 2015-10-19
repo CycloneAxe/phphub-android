@@ -4,12 +4,16 @@ import org.estgroup.phphub.R;
 import org.estgroup.phphub.api.entity.NotificationEntity;
 import org.estgroup.phphub.api.entity.TopicEntity;
 import org.estgroup.phphub.api.entity.UserEntity;
+import org.estgroup.phphub.api.entity.element.User;
 
 import java.util.Map;
 
 import eu.unicate.retroauth.annotations.Authenticated;
 import eu.unicate.retroauth.annotations.Authentication;
+import retrofit.http.Body;
 import retrofit.http.GET;
+import retrofit.http.POST;
+import retrofit.http.PUT;
 import retrofit.http.Path;
 import retrofit.http.QueryMap;
 import rx.Observable;
@@ -39,4 +43,9 @@ public interface UserApi {
     @Authenticated
     @GET("/me/notifications")
     Observable<NotificationEntity> getMyNotifications(@QueryMap Map<String, String> options);
+
+    @Authenticated
+    @PUT("/users/{userId}")
+    Observable<UserEntity.AUser> saveUserProfile(@Path("userId") int userId,
+                                                 @Body User userInfo);
 }

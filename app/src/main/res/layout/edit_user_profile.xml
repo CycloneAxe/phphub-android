@@ -35,7 +35,6 @@
             android:inputType="text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:editable="false"
             app:layout_widthPercent="95.5%w"
             app:layout_paddingTopPercent="4%w"
             app:layout_paddingBottomPercent="4%w"

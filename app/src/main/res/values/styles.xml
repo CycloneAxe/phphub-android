@@ -62,7 +62,7 @@
 
     <style name="publish_style">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/gray_ac</item>
+        <item name="android:textColor">@color/tab_text_enabled</item>
         <item name="android:textColorHint">@color/gray_ac</item>
     </style>
 </resources>
