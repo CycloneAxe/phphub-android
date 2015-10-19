@@ -216,4 +216,5 @@ public class User implements Serializable {
     public void setLinks(Link links) {
         this.links = links;
     }
+
 }
