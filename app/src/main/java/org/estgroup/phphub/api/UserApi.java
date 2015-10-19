@@ -24,17 +24,17 @@ public interface UserApi {
     @GET("/users/{userId}")
     Observable<UserEntity.AUser> getUserInfo(@Path("userId") int userId);
 
-    @Authenticated
     @GET("/user/{userId}/attention/topics")
-    Observable<TopicEntity> getMyAttentions(@Path("userId") int userId);
+    Observable<TopicEntity> getAttentions(@Path("userId") int userId,
+                                          @QueryMap Map<String, String> options);
 
-    @Authenticated
     @GET("/user/{userId}/favorite/topics")
-    Observable<TopicEntity> getMyFavorites(@Path("userId") int userId);
+    Observable<TopicEntity> getFavorites(@Path("userId") int userId,
+                                         @QueryMap Map<String, String> options);
 
-    @Authenticated
     @GET("/user/{userId}/topics")
-    Observable<TopicEntity> getMyTopics(@Path("userId") int userId);
+    Observable<TopicEntity> getTopics(@Path("userId") int userId,
+                                      @QueryMap Map<String, String> options);
 
     @Authenticated
     @GET("/me/notifications")

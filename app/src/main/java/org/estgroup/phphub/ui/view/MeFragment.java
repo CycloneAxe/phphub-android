@@ -19,6 +19,7 @@ import org.estgroup.phphub.common.base.BaseSupportFragment;
 import butterknife.Bind;
 import butterknife.OnClick;
 import static org.estgroup.phphub.common.Constant.*;
+import static org.estgroup.phphub.common.qualifier.UserTopicType.*;
 
 public class MeFragment extends BaseSupportFragment {
 
@@ -97,6 +98,27 @@ public class MeFragment extends BaseSupportFragment {
     public void navigateToUserReplys() {
         if (userId > 0) {
             navigator.navigateToUserReply(getContext(), this.userReplyUrl);
+        }
+    }
+
+    @OnClick(R.id.percent_rlyt_topics)
+    public void navigateToUserTopic() {
+        if (userId > 0) {
+            navigator.navigateToUserTopic(getContext(), this.userId, USER_TOPIC_TYPE);
+        }
+    }
+
+    @OnClick(R.id.percent_rlyt_following)
+    public void navigateToUserFollow() {
+        if (userId > 0) {
+            navigator.navigateToUserTopic(getContext(), this.userId, USER_TOPIC_FOLLOW_TYPE);
+        }
+    }
+
+    @OnClick(R.id.percent_rlyt_favorites)
+    public void navigateToUserFavorite() {
+        if (userId > 0) {
+            navigator.navigateToUserTopic(getContext(), this.userId, USER_TOPIC_FAVORITE_TYPE);
         }
     }
 

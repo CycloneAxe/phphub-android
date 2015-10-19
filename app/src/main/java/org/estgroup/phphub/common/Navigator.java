@@ -9,8 +9,9 @@ import org.estgroup.phphub.ui.view.settings.SettingsActivity;
 import org.estgroup.phphub.ui.view.topic.TopicPublishActivity;
 import org.estgroup.phphub.ui.view.topic.TopicDetailsActivity;
 import org.estgroup.phphub.ui.view.topic.TopicReplyActivity;
-import org.estgroup.phphub.ui.view.ReplyActivity;
+import org.estgroup.phphub.ui.view.ReplyListActivity;
 import org.estgroup.phphub.ui.view.user.UserSpaceActivity;
+import org.estgroup.phphub.ui.view.user.UserTopicActivity;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
@@ -79,7 +80,16 @@ public class Navigator {
             return;
         }
 
-        Intent intentToLaunch = ReplyActivity.getCallingIntent(context, replyUrl);
+        Intent intentToLaunch = ReplyListActivity.getCallingIntent(context, replyUrl);
+        context.startActivity(intentToLaunch);
+    }
+
+    public void navigateToUserTopic(Context context, int userId, String userTopicType) {
+        if (context == null) {
+            return;
+        }
+
+        Intent intentToLaunch = UserTopicActivity.getCallingIntent(context, userId, userTopicType);
         context.startActivity(intentToLaunch);
     }
 }

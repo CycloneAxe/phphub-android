@@ -25,16 +25,25 @@ public class UserModel extends BaseModel<UserApi> {
         return getService().getUserInfo(userId);
     }
 
-    public Observable<TopicEntity> getMyAttentions(int userId) {
-        return getService().getMyAttentions(userId);
+    public Observable<TopicEntity> getAttentions(int userId) {
+        HashMap<String, String> options = new HashMap<>();
+        options.put("include", "user,node,last_reply_user");
+
+        return getService().getAttentions(userId, options);
     }
 
-    public Observable<TopicEntity> getMyFavorites(int userId) {
-        return getService().getMyAttentions(userId);
+    public Observable<TopicEntity> getFavorites(int userId) {
+        HashMap<String, String> options = new HashMap<>();
+        options.put("include", "user,node,last_reply_user");
+
+        return getService().getFavorites(userId, options);
     }
 
-    public Observable<TopicEntity> getMyTopics(int userId) {
-        return getService().getMyAttentions(userId);
+    public Observable<TopicEntity> getTopics(int userId) {
+        HashMap<String, String> options = new HashMap<>();
+        options.put("include", "user,node,last_reply_user");
+
+        return getService().getTopics(userId, options);
     }
 
     public Observable<NotificationEntity> getMyNotifications() {

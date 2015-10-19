@@ -7,6 +7,7 @@ import org.estgroup.phphub.ui.presenter.TopicDetailPresenter;
 import org.estgroup.phphub.ui.presenter.TopicPresenter;
 import org.estgroup.phphub.ui.presenter.TopicReplyPresenter;
 import org.estgroup.phphub.ui.presenter.UserSpacePresenter;
+import org.estgroup.phphub.ui.presenter.UserTopicsPresenter;
 import org.estgroup.phphub.ui.presenter.WikiPresenter;
 import org.estgroup.phphub.ui.view.LoginActivity;
 
@@ -32,4 +33,6 @@ public interface ApiComponent {
         void inject(TopicPublishPresenter publishTopicPresenter);
 
         void inject(TopicReplyPresenter topicReplyPresenter);
+
+        void inject(UserTopicsPresenter userTopicsPresenter);
 }
