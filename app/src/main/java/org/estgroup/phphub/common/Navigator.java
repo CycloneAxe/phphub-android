@@ -2,14 +2,17 @@ package org.estgroup.phphub.common;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 
+import org.estgroup.phphub.api.entity.element.User;
 import org.estgroup.phphub.ui.view.ScannerActivity;
 import org.estgroup.phphub.ui.view.settings.SettingsActivity;
 import org.estgroup.phphub.ui.view.topic.TopicPublishActivity;
 import org.estgroup.phphub.ui.view.topic.TopicDetailsActivity;
 import org.estgroup.phphub.ui.view.topic.TopicReplyActivity;
 import org.estgroup.phphub.ui.view.ReplyListActivity;
+import org.estgroup.phphub.ui.view.user.EditUserProfileActivity;
 import org.estgroup.phphub.ui.view.user.UserSpaceActivity;
 import org.estgroup.phphub.ui.view.user.UserTopicActivity;
 
@@ -21,75 +24,48 @@ public class Navigator {
     @Inject
     public Navigator() {}
 
-    public void navigateToTopicDetails(Context context, int topicId) {
-        if (context == null) {
-            return;
-        }
-
+    public void navigateToTopicDetails(@NonNull Context context, int topicId) {
         Intent intentToLaunch = TopicDetailsActivity.getCallingIntent(context, topicId);
         context.startActivity(intentToLaunch);
     }
 
-    public void navigateToSettings(Context context) {
-        if (context == null) {
-            return;
-        }
-
+    public void navigateToSettings(@NonNull Context context) {
         Intent intentToLaunch = SettingsActivity.getCallingIntent(context);
         context.startActivity(intentToLaunch);
     }
 
-    public void navigateToUserSpace(Context context, int userId) {
-        if (context == null) {
-            return;
-        }
-
+    public void navigateToUserSpace(@NonNull Context context, int userId) {
         Intent intentToLaunch = UserSpaceActivity.getCallingIntent(context, userId);
         context.startActivity(intentToLaunch);
     }
 
-    public void navigateToScanner(Context context, int requestCode) {
-        if (context == null) {
-            return;
-        }
-
+    public void navigateToScanner(@NonNull Context context, int requestCode) {
         Intent intentToLaunch = ScannerActivity.getCallingIntent(context);
         ((FragmentActivity) context).startActivityForResult(intentToLaunch, requestCode);
     }
 
-    public void navigateToPublishTopic(Context context) {
-        if (context == null) {
-            return;
-        }
-
+    public void navigateToPublishTopic(@NonNull Context context) {
         Intent intentToLaunch = TopicPublishActivity.getCallingIntent(context);
         context.startActivity(intentToLaunch);
     }
 
-    public void navigateToReplyTopic(Context context, int topicId, String replyUrl){
-        if (context == null) {
-            return;
-        }
-
+    public void navigateToReplyTopic(@NonNull Context context, int topicId, String replyUrl){
         Intent intentToLaunch = TopicReplyActivity.getCallingIntent(context, topicId, replyUrl);
         context.startActivity(intentToLaunch);
     }
 
-    public void navigateToUserReply(Context context, String replyUrl){
-        if (context == null) {
-            return;
-        }
-
+    public void navigateToUserReply(@NonNull Context context, String replyUrl){
         Intent intentToLaunch = ReplyListActivity.getCallingIntent(context, replyUrl);
         context.startActivity(intentToLaunch);
     }
 
-    public void navigateToUserTopic(Context context, int userId, String userTopicType) {
-        if (context == null) {
-            return;
-        }
-
+    public void navigateToUserTopic(@NonNull Context context, int userId, String userTopicType) {
         Intent intentToLaunch = UserTopicActivity.getCallingIntent(context, userId, userTopicType);
+        context.startActivity(intentToLaunch);
+    }
+
+    public void navigateToEditUserProfile(@NonNull Context context, User userInfo) {
+        Intent intentToLaunch = EditUserProfileActivity.getCallingIntent(context, userInfo);
         context.startActivity(intentToLaunch);
     }
 }

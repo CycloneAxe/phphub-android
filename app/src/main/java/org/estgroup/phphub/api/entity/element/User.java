@@ -2,7 +2,9 @@ package org.estgroup.phphub.api.entity.element;
 
 import com.google.gson.annotations.SerializedName;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
 
     int id;
 
@@ -214,4 +216,5 @@ public class User {
     public void setLinks(Link links) {
         this.links = links;
     }
+
 }

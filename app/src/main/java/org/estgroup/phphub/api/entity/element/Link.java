@@ -2,7 +2,9 @@ package org.estgroup.phphub.api.entity.element;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Link {
+import java.io.Serializable;
+
+public class Link implements Serializable {
     @SerializedName("details_web_view")
     protected String detailsWebView;
 

@@ -8,10 +8,10 @@
         android:icon="@mipmap/ic_edit"
         app:showAsAction="always"/>
 
-    <item
-        android:id="@+id/menu_share"
-        android:title="@string/share" />
+    <!--<item-->
+        <!--android:id="@+id/menu_share"-->
+        <!--android:title="@string/share" />-->
 
-    <item android:id="@+id/menu_report"
-        android:title="@string/report"/>
+    <!--<item android:id="@+id/menu_report"-->
+        <!--android:title="@string/report"/>-->
 </menu>

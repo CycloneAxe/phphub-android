@@ -3,10 +3,13 @@ package org.estgroup.phphub.api;
 import org.estgroup.phphub.api.entity.NotificationEntity;
 import org.estgroup.phphub.api.entity.TopicEntity;
 import org.estgroup.phphub.api.entity.UserEntity;
+import org.estgroup.phphub.api.entity.element.User;
 
 import java.util.Map;
 
+import retrofit.http.Body;
 import retrofit.http.GET;
+import retrofit.http.PUT;
 import retrofit.http.Path;
 import retrofit.http.QueryMap;
 import rx.Observable;
@@ -33,4 +36,8 @@ public interface UserApi {
 
     @GET("/me/notifications")
     Observable<NotificationEntity> getMyNotifications(@QueryMap Map<String, String> options);
+
+    @PUT("/users/{userId}")
+    Observable<UserEntity.AUser> saveUserProfile(@Path("userId") int userId,
+                                                 @Body User userInfo);
 }

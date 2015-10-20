@@ -20,7 +20,7 @@ import rx.functions.Action2;
 import rx.functions.Func0;
 import rx.functions.Func1;
 
-import static org.estgroup.phphub.common.qualifier.AuthType.AUTH_TYPE_GUEST;
+import static org.estgroup.phphub.common.qualifier.AuthType.*;
 import static org.estgroup.phphub.common.qualifier.UserTopicType.*;
 
 public class UserTopicsPresenter extends BaseRxPresenter<UserTopicActivity> {

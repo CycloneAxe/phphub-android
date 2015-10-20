@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -39,6 +40,8 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
 
     @State
     int userId;
+
+    User userInfo;
 
     @Bind(R.id.sdv_avatar)
     SimpleDraweeView avatarView;
@@ -130,6 +133,17 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_edit:
+                navigator.navigateToEditUserProfile(this, userInfo);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected int getLayoutResId() {
         return R.layout.user_space;
     }
@@ -139,6 +153,7 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
     }
 
     public void initView(User userInfo) {
+        this.userInfo = userInfo;
 
         if (!isMySelf) {
             othersView.setVisibility(VISIBLE);

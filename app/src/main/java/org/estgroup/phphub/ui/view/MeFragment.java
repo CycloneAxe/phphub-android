@@ -18,6 +18,8 @@ import org.estgroup.phphub.common.base.BaseSupportFragment;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import eu.unicate.retroauth.AuthAccountManager;
+
 import static org.estgroup.phphub.common.Constant.*;
 import static org.estgroup.phphub.common.qualifier.UserTopicType.*;
 
@@ -34,6 +36,8 @@ public class MeFragment extends BaseSupportFragment {
 
     AccountManager accountManager;
 
+    AuthAccountManager authAccountManager;
+
     String accountType, tokenType;
 
     Account[] accounts;
@@ -47,7 +51,8 @@ public class MeFragment extends BaseSupportFragment {
         super.onCreate(bundle);
         accountType = getString(R.string.auth_account_type);
         tokenType = getString(R.string.auth_token_type);
-        accountManager = AccountManager.get(getActivity());
+        accountManager = AccountManager.get(getContext());
+        authAccountManager = new AuthAccountManager(getContext(), accountManager);
     }
 
     @Nullable
@@ -89,37 +94,51 @@ public class MeFragment extends BaseSupportFragment {
 
     @OnClick(R.id.user_container)
     public void navigateToUserSpace() {
-        if (userId > 0) {
-            navigator.navigateToUserSpace(getContext(), this.userId);
+        if (userId <= 0) {
+            needLogin();
+            return;
         }
+        navigator.navigateToUserSpace(getContext(), this.userId);
     }
 
     @OnClick(R.id.percent_rlyt_replys)
     public void navigateToUserReplys() {
-        if (userId > 0) {
-            navigator.navigateToUserReply(getContext(), this.userReplyUrl);
+        if (userId <= 0) {
+            needLogin();
+            return;
         }
+        navigator.navigateToUserReply(getContext(), this.userReplyUrl);
     }
 
     @OnClick(R.id.percent_rlyt_topics)
     public void navigateToUserTopic() {
-        if (userId > 0) {
-            navigator.navigateToUserTopic(getContext(), this.userId, USER_TOPIC_TYPE);
+        if (userId <= 0) {
+            needLogin();
+            return;
         }
+        navigator.navigateToUserTopic(getContext(), this.userId, USER_TOPIC_TYPE);
     }
 
     @OnClick(R.id.percent_rlyt_following)
     public void navigateToUserFollow() {
-        if (userId > 0) {
-            navigator.navigateToUserTopic(getContext(), this.userId, USER_TOPIC_FOLLOW_TYPE);
+        if (userId <= 0) {
+            needLogin();
+            return;
         }
+        navigator.navigateToUserTopic(getContext(), this.userId, USER_TOPIC_FOLLOW_TYPE);
     }
 
     @OnClick(R.id.percent_rlyt_favorites)
     public void navigateToUserFavorite() {
-        if (userId > 0) {
-            navigator.navigateToUserTopic(getContext(), this.userId, USER_TOPIC_FAVORITE_TYPE);
+        if (userId <= 0) {
+            needLogin();
+            return;
         }
+        navigator.navigateToUserTopic(getContext(), this.userId, USER_TOPIC_FAVORITE_TYPE);
+    }
+
+    private void needLogin() {
+        accountManager.addAccount(accountType, tokenType, null, null, getActivity(), null, null);
     }
 
     @Override

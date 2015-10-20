@@ -3,6 +3,7 @@ package org.estgroup.phphub.ui.view;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -98,6 +99,10 @@ public class LoginActivity extends AuthenticationActivity {
         setSupportActionBar(toolbarView);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         toolbarTitleView.setText(R.string.please_login);
+    }
+
+    public static Intent getCallingIntent(Context context) {
+        return new Intent(context, LoginActivity.class);
     }
 
     @OnClick(R.id.btn_scanner)

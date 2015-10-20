@@ -33,6 +33,7 @@
     <string name="edit">编辑</string>
     <string name="publish">发布</string>
 
+    <string name="edit_profile">编辑个人资料</string>
     <string name="username">姓名</string>
     <string name="profile">个人简介</string>
     <string name="address">居住地</string>
@@ -42,6 +43,10 @@
     <string name="his">Ta的</string>
     <string name="her">Ta的</string>
     <string name="since">Since</string>
+    <string name="twitter_hint">Twitter 帐号, 不需要加前缀 https://twitter.com/</string>
+    <string name="github_hint">Github 帐号</string>
+    <string name="blog_hint">你的个人网站, 不需要加前缀 http://</string>
+    <string name="username_error">用户名不能为空</string>
 
     <string name="please_login_first">请先登录, 再进行操作.</string>
     <string name="favorite_success">收藏成功!</string>

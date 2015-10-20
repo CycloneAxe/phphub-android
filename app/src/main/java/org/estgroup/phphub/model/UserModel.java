@@ -6,6 +6,7 @@ import org.estgroup.phphub.api.UserApi;
 import org.estgroup.phphub.api.entity.NotificationEntity;
 import org.estgroup.phphub.api.entity.TopicEntity;
 import org.estgroup.phphub.api.entity.UserEntity;
+import org.estgroup.phphub.api.entity.element.User;
 import org.estgroup.phphub.common.base.BaseModel;
 import org.estgroup.phphub.common.provider.TokenProvider;
 
@@ -51,5 +52,10 @@ public class UserModel extends BaseModel<UserApi> {
         HashMap<String, String> options = new HashMap<>();
         options.put("include", "from_user,topic");
         return getService().getMyNotifications(options);
+    }
+
+    public Observable<UserEntity.AUser> saveUserProfile(User userInfo) {
+
+        return getService().saveUserProfile(userInfo.getId(), userInfo);
     }
 }

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal">
+
+    <include layout="@layout/common_toolbar"/>
+
+    <com.zhy.android.percent.support.PercentLinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <EditText
+            android:id="@+id/et_username"
+            android:inputType="text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_widthPercent="95.5%w"
+            app:layout_paddingTopPercent="4%w"
+            app:layout_paddingBottomPercent="4%w"
+            app:layout_paddingLeftPercent="3%w"
+            app:layout_marginTopPercent="2.4%w"
+            android:background="@drawable/common_publish_bg"
+            android:hint="@string/username"
+            style="@style/publish_style"/>
+
+        <EditText
+            android:id="@+id/et_address"
+            android:inputType="text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_widthPercent="95.5%w"
+            app:layout_paddingTopPercent="4%w"
+            app:layout_paddingBottomPercent="4%w"
+            app:layout_paddingLeftPercent="3%w"
+            app:layout_marginTopPercent="2.4%w"
+            android:background="@drawable/common_publish_bg"
+            android:hint="@string/address"
+            style="@style/publish_style"/>
+
+        <EditText
+            android:id="@+id/et_twitter"
+            android:inputType="text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_widthPercent="95.5%w"
+            app:layout_paddingTopPercent="4%w"
+            app:layout_paddingBottomPercent="4%w"
+            app:layout_paddingLeftPercent="3%w"
+            app:layout_marginTopPercent="2.4%w"
+            android:background="@drawable/common_publish_bg"
+            android:hint="@string/twitter_hint"
+            style="@style/publish_style"/>
+
+        <EditText
+            android:id="@+id/et_github"
+            android:inputType="text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_widthPercent="95.5%w"
+            app:layout_paddingTopPercent="4%w"
+            app:layout_paddingBottomPercent="4%w"
+            app:layout_paddingLeftPercent="3%w"
+            app:layout_marginTopPercent="2.4%w"
+            android:background="@drawable/common_publish_bg"
+            android:hint="@string/github_hint"
+            style="@style/publish_style"/>
+
+        <EditText
+            android:id="@+id/et_blog"
+            android:inputType="text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_widthPercent="95.5%w"
+            app:layout_paddingTopPercent="4%w"
+            app:layout_paddingBottomPercent="4%w"
+            app:layout_paddingLeftPercent="3%w"
+            app:layout_marginTopPercent="2.4%w"
+            android:background="@drawable/common_publish_bg"
+            android:hint="@string/blog_hint"
+            style="@style/publish_style"/>
+
+        <EditText
+            android:id="@+id/et_description"
+            android:inputType="textMultiLine"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="left|top"
+            android:minLines="4"
+            app:layout_widthPercent="95.5%w"
+            app:layout_paddingTopPercent="4%w"
+            app:layout_paddingBottomPercent="4%w"
+            app:layout_paddingLeftPercent="3%w"
+            app:layout_marginTopPercent="2.4%w"
+            android:background="@drawable/common_publish_bg"
+            android:hint="@string/profile"
+            style="@style/publish_style"/>
+
+
+    </com.zhy.android.percent.support.PercentLinearLayout>
+
+
+</LinearLayout>
