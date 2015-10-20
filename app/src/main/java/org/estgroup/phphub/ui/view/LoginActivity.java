@@ -36,6 +36,7 @@ import cn.jpush.android.api.TagAliasCallback;
 import eu.unicate.retroauth.AuthenticationActivity;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action0;
 import rx.functions.Action1;
 import rx.functions.Func1;
 
@@ -46,8 +47,8 @@ import static org.estgroup.phphub.common.Constant.USER_ID_KEY;
 import static org.estgroup.phphub.common.Constant.USER_SIGNATURE;
 import static org.estgroup.phphub.common.Constant.USER_REPLY_URL_KEY;
 
+import static org.estgroup.phphub.common.qualifier.AuthType.AUTH_TYPE_GUEST;
 import static org.estgroup.phphub.common.qualifier.AuthType.AUTH_TYPE_REFRESH;
-import static org.estgroup.phphub.common.qualifier.AuthType.AUTH_TYPE_USER;
 
 public class LoginActivity extends AuthenticationActivity {
     private final static int CODE_SCANNER = 100;
@@ -65,8 +66,11 @@ public class LoginActivity extends AuthenticationActivity {
     TokenModel tokenModel;
 
     @Inject
-    @Named(AUTH_TYPE_USER)
+    @Named(AUTH_TYPE_GUEST)
     UserModel userModel;
+
+    @Inject
+    AccountManager accountManager;
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -74,15 +78,14 @@ public class LoginActivity extends AuthenticationActivity {
         setContentView(R.layout.login);
         ButterKnife.bind(this);
 
-        AccountManager accountManager = AccountManager.get(this);
+        initializeToolbar();
+        ((App) getApplication()).getApiComponent().inject(this);
+
         if (accountManager.getAccountsByType(getString(R.string.auth_account_type)).length > 0) {
             Toast.makeText(this, "只能有一个账号", Toast.LENGTH_SHORT).show();
             finish();
             return;
         }
-
-        initializeToolbar();
-        ((App) getApplication()).getApiComponent().inject(this);
     }
 
     @Override
@@ -115,21 +118,26 @@ public class LoginActivity extends AuthenticationActivity {
         final ProgressDialog dialog = new ProgressDialog(this);
         dialog.setMessage("登陆中");
         dialog.setCancelable(false);
-        dialog.show();
 
         final Account account = createOrGetAccount(username);
         tokenModel.tokenGenerator(username, loginToken)
+                .doOnSubscribe(new Action0() {
+                    @Override
+                    public void call() {
+                        dialog.show();
+                    }
+                })
                 .doOnNext(new Action1<Token>() {
                     @Override
                     public void call(Token token) {
-                        storeToken(account, getString(R.string.auth_token_type), token.getToken());
-                        storeUserData(account, AUTH_TYPE_REFRESH, token.getRefreshToken());
                     }
                 })
                 .flatMap(new Func1<Token, Observable<User>>() {
                     @Override
                     public Observable<User> call(final Token token) {
-                        return userModel.getMyselfInfo()
+                        return ((UserModel) userModel.once()
+                                .setToken(token.getToken()))
+                                .getMyselfInfo()
                                 .map(new Func1<UserEntity.AUser, User>() {
                                     @Override
                                     public User call(UserEntity.AUser user) {
@@ -139,17 +147,20 @@ public class LoginActivity extends AuthenticationActivity {
                                 .doOnNext(new Action1<User>() {
                                     @Override
                                     public void call(User user) {
+                                        storeToken(account, getString(R.string.auth_token_type), token.getToken());
+                                        storeUserData(account, AUTH_TYPE_REFRESH, token.getRefreshToken());
+                                        storeUserData(account, USER_ID_KEY, String.valueOf(user.getId()));
+                                        storeUserData(account, USERNAME_KEY, user.getName());
+                                        storeUserData(account, USER_SIGNATURE, user.getSignature());
+                                        storeUserData(account, USER_AVATAR_KEY, user.getAvatar());
+                                        storeUserData(account, USER_REPLY_URL_KEY, user.getLinks().getRepliesWebView());
+
                                         JPushInterface.setAlias(getApplicationContext(), "userid_" + user.getId(), new TagAliasCallback() {
                                             @Override
                                             public void gotResult(int i, String s, Set<String> set) {
 
                                             }
                                         });
-                                        storeUserData(account, USER_ID_KEY, String.valueOf(user.getId()));
-                                        storeUserData(account, USERNAME_KEY, user.getName());
-                                        storeUserData(account, USER_SIGNATURE, user.getSignature());
-                                        storeUserData(account, USER_AVATAR_KEY, user.getAvatar());
-                                        storeUserData(account, USER_REPLY_URL_KEY, user.getLinks().getRepliesWebView());
                                     }
                                 });
                     }

@@ -109,7 +109,8 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                             @Override
                             public Observable<TopicEntity.ATopic> call(Boolean logined) {
                                 if (logined) {
-                                    return ( (TopicModel) topicModel.local(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)) )
+                                    return ( (TopicModel) topicModel.once()
+                                                            .setToken(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
                                                             .getTopicDetailById(topicId)
                                                             .compose(new RefreshTokenTransformer<TopicEntity.ATopic>(
                                                                     tokenModel,
@@ -165,7 +166,8 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                         return observable.flatMap(new Func1<Boolean, Observable<JsonObject>>() {
                             @Override
                             public Observable<JsonObject> call(Boolean logined) {
-                                return ((TopicModel) topicModel.local(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
+                                return ((TopicModel) topicModel.once()
+                                        .setToken(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
                                         .isFavorite(topicId)
                                         .compose(new RefreshTokenTransformer<JsonObject>(
                                                 tokenModel,
@@ -215,7 +217,8 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                         return observable.flatMap(new Func1<Boolean, Observable<JsonObject>>() {
                             @Override
                             public Observable<JsonObject> call(Boolean logined) {
-                                return ((TopicModel) topicModel.local(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
+                                return ((TopicModel) topicModel.once()
+                                        .setToken(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
                                         .delFavorite(topicId)
                                         .compose(new RefreshTokenTransformer<JsonObject>(
                                                 tokenModel,
@@ -265,7 +268,8 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                         return observable.flatMap(new Func1<Boolean, Observable<JsonObject>>() {
                             @Override
                             public Observable<JsonObject> call(Boolean logined) {
-                                return ((TopicModel) topicModel.local(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
+                                return ((TopicModel) topicModel.once()
+                                        .setToken(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
                                         .isFollow(topicId)
                                         .compose(new RefreshTokenTransformer<JsonObject>(
                                                 tokenModel,
@@ -315,7 +319,8 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                         return observable.flatMap(new Func1<Boolean, Observable<JsonObject>>() {
                             @Override
                             public Observable<JsonObject> call(Boolean logined) {
-                                return ((TopicModel) topicModel.local(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
+                                return ((TopicModel) topicModel.once()
+                                        .setToken(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
                                         .delFollow(topicId)
                                         .compose(new RefreshTokenTransformer<JsonObject>(
                                                 tokenModel,
@@ -365,7 +370,8 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                         return observable.flatMap(new Func1<Boolean, Observable<JsonObject>>() {
                             @Override
                             public Observable<JsonObject> call(Boolean logined) {
-                                return ((TopicModel) topicModel.local(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
+                                return ((TopicModel) topicModel.once()
+                                        .setToken(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
                                         .voteUp(topicId)
                                         .compose(new RefreshTokenTransformer<JsonObject>(
                                                 tokenModel,
@@ -415,7 +421,8 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                         return observable.flatMap(new Func1<Boolean, Observable<JsonObject>>() {
                             @Override
                             public Observable<JsonObject> call(Boolean logined) {
-                                return ((TopicModel) topicModel.local(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
+                                return ((TopicModel) topicModel.once()
+                                        .setToken(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
                                         .voteDown(topicId)
                                         .compose(new RefreshTokenTransformer<JsonObject>(
                                                 tokenModel,

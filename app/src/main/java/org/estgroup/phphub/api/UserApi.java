@@ -1,23 +1,18 @@
 package org.estgroup.phphub.api;
 
-import org.estgroup.phphub.R;
 import org.estgroup.phphub.api.entity.NotificationEntity;
 import org.estgroup.phphub.api.entity.TopicEntity;
 import org.estgroup.phphub.api.entity.UserEntity;
 
 import java.util.Map;
 
-import eu.unicate.retroauth.annotations.Authenticated;
-import eu.unicate.retroauth.annotations.Authentication;
 import retrofit.http.GET;
 import retrofit.http.Path;
 import retrofit.http.QueryMap;
 import rx.Observable;
 
-@Authentication(accountType = R.string.auth_account_type, tokenType = R.string.auth_token_type)
 public interface UserApi {
 
-    @Authenticated
     @GET("/me")
     Observable<UserEntity.AUser> getMyselfInfo();
 
@@ -36,7 +31,6 @@ public interface UserApi {
     Observable<TopicEntity> getTopics(@Path("userId") int userId,
                                       @QueryMap Map<String, String> options);
 
-    @Authenticated
     @GET("/me/notifications")
     Observable<NotificationEntity> getMyNotifications(@QueryMap Map<String, String> options);
 }

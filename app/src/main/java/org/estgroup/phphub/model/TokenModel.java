@@ -1,18 +1,19 @@
 package org.estgroup.phphub.model;
 
-import android.content.Context;
+import android.support.annotation.Nullable;
 
 import org.estgroup.phphub.BuildConfig;
 import org.estgroup.phphub.api.TokenApi;
 import org.estgroup.phphub.api.entity.element.Token;
 import org.estgroup.phphub.common.base.BaseModel;
+import org.estgroup.phphub.common.provider.TokenProvider;
 
 import rx.Observable;
 import static org.estgroup.phphub.common.qualifier.AuthType.*;
 
 public class TokenModel extends BaseModel<TokenApi> {
-    public TokenModel(Context context) {
-        super(context, TokenApi.class);
+    public TokenModel(@Nullable TokenProvider provider) {
+        super(provider, TokenApi.class);
     }
 
     public Observable<Token> tokenGenerator() {

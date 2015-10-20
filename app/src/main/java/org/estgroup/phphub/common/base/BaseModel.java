@@ -1,59 +1,81 @@
 package org.estgroup.phphub.common.base;
 
-import android.content.Context;
-import android.text.TextUtils;
+import android.support.annotation.NonNull;
 
 import org.estgroup.phphub.BuildConfig;
-import org.estgroup.phphub.common.util.ApiUtils;
+import org.estgroup.phphub.api.RequestInterceptorImpl;
+import org.estgroup.phphub.common.provider.TokenProvider;
 
-import eu.unicate.retroauth.AuthRestAdapter;
-import eu.unicate.retroauth.interceptors.TokenInterceptor;
+import retrofit.RestAdapter;
 
 public class BaseModel<T> {
     private T service;
 
+    private TokenProvider tokenProvider;
+
     protected Class<T> serviceClass;
 
-    protected AuthRestAdapter authRestAdapter;
+    protected RestAdapter restAdapter;
 
-    protected boolean ignoreToken = false;
+    private RequestInterceptorImpl requestInterceptor;
 
-    protected ThreadLocal<Boolean> localIgnoreToken = new ThreadLocal<>();
+    private ThreadLocal<RequestInterceptorImpl> localRequestInterceptor = new ThreadLocal<>();
 
-    public BaseModel(Context context, Class<T> serviceClass) {
+    public BaseModel(@NonNull TokenProvider tokenProvider, Class<T> serviceClass) {
         this.serviceClass = serviceClass;
+        this.tokenProvider = tokenProvider;
+        requestInterceptor = new RequestInterceptorImpl();
 
-        this.authRestAdapter = new AuthRestAdapter.Builder()
+        this.restAdapter = new RestAdapter.Builder()
                             .setEndpoint(BuildConfig.ENDPOINT)
-                            .setRequestInterceptor(ApiUtils.asRequestInterceptor())
+                            .setRequestInterceptor(requestInterceptor)
                             .build();
 
-        this.service = authRestAdapter.create(context, TokenInterceptor.BEARER_TOKENINTERCEPTOR, serviceClass);
+        this.service = restAdapter.create(serviceClass);
     }
 
-    public void ignoreToken(boolean ignoreToken) {
-        this.ignoreToken = ignoreToken;
+    public RequestInterceptorImpl asRequestInterceptor() {
+        return requestInterceptor;
     }
 
-    public BaseModel<T> local(boolean ignoreToken) {
-        return local(ignoreToken, null);
-    }
-
-    public BaseModel<T> local(String token) {
-        return local(this.ignoreToken, token);
-    }
-
-    public BaseModel<T> local(boolean ignoreToken, String token) {
-        localIgnoreToken.set(ignoreToken);
-        if (!TextUtils.isEmpty(token)) {
-            ApiUtils.asRequestInterceptor()
-                    .local(token);
+    public BaseModel<T> once() {
+        RequestInterceptorImpl requestInterceptor = localRequestInterceptor.get();
+        if (requestInterceptor == null) {
+            localRequestInterceptor.set(new RequestInterceptorImpl());
         }
         return this;
     }
 
+    public BaseModel<T> setToken(String token) {
+        RequestInterceptorImpl requestInterceptor = localRequestInterceptor.get();
+        if (requestInterceptor != null) {
+            requestInterceptor.setToken(token);
+        }
+        return this;
+    }
+
+    public BaseModel<T> ignoreToken() {
+        RequestInterceptorImpl requestInterceptor = localRequestInterceptor.get();
+        if (requestInterceptor != null) {
+            requestInterceptor.setToken(null);
+        }
+        return this;
+    }
+
+    private String getToken() {
+        RequestInterceptorImpl requestInterceptor = localRequestInterceptor.get();
+        if (requestInterceptor != null) {
+            return requestInterceptor.getToken();
+        }
+
+        return tokenProvider.getToken();
+    }
+
     public T getService() {
-        ApiUtils.asRequestInterceptor().ignoreToken(ignoreToken);
+        asRequestInterceptor().setToken(getToken());
+        if (localRequestInterceptor.get() != null) {
+            localRequestInterceptor.remove();
+        }
         return service;
     }
 }

@@ -77,7 +77,8 @@ public class TopicReplyPresenter extends BaseRxPresenter<TopicReplyActivity> {
                         return observable.flatMap(new Func1<Boolean, Observable<ReplyEntity.AReply>>() {
                             @Override
                             public Observable<ReplyEntity.AReply> call(Boolean aBoolean) {
-                                return ( (TopicModel) topicModel.local(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)) )
+                                return ( (TopicModel) topicModel.once()
+                                        .setToken(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)) )
                                         .publishReply(topicId, body)
                                         .compose(new RefreshTokenTransformer<ReplyEntity.AReply>(
                                                 tokenModel,

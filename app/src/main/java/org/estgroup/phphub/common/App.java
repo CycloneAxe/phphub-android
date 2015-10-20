@@ -12,13 +12,10 @@ import org.estgroup.phphub.common.internal.di.component.AppComponent;
 import org.estgroup.phphub.common.internal.di.component.DaggerApiComponent;
 import org.estgroup.phphub.common.internal.di.component.DaggerAppComponent;
 import org.estgroup.phphub.common.internal.di.module.AppModule;
-import org.estgroup.phphub.common.util.ApiUtils;
 
 import javax.inject.Inject;
 
 import cn.jpush.android.api.JPushInterface;
-
-import static org.estgroup.phphub.common.Constant.GUEST_TOKEN_KEY;
 
 public class App extends Application {
     private AppComponent appComponent;
@@ -38,10 +35,6 @@ public class App extends Application {
 
         initializeInjector();
         initializeInjectorApi();
-
-        appComponent.inject(this);
-        ApiUtils.asRequestInterceptor()
-                .setToken(prefser.get(GUEST_TOKEN_KEY, String.class, null));
     }
 
     private void initializeInjector() {

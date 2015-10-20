@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.github.pwittchen.prefser.library.Prefser;
 
 import org.estgroup.phphub.api.entity.element.Token;
-import org.estgroup.phphub.common.util.ApiUtils;
+import org.estgroup.phphub.common.util.Utils;
 import org.estgroup.phphub.model.TokenModel;
 
 import rx.Observable;
@@ -32,7 +32,7 @@ public class TokenGeneratorTransformer<T> implements Observable.Transformer<T, T
             public Boolean call(Integer retryCount, Throwable throwable) {
                 final boolean[] needRetry = {false};
 
-                if (retryCount == 1 && ApiUtils.hasUnauthorized(throwable)) {
+                if (retryCount == 1 && Utils.hasUnauthorized(throwable)) {
                     tokenModel.tokenGenerator()
                             .filter(new Func1<Token, Boolean>() {
                                 @Override
@@ -50,8 +50,6 @@ public class TokenGeneratorTransformer<T> implements Observable.Transformer<T, T
                             .forEach(new Action1<Token>() {
                                 @Override
                                 public void call(Token token) {
-                                    ApiUtils.asRequestInterceptor()
-                                            .setToken(token.getToken());
                                     needRetry[0] = true;
                                 }
                             });

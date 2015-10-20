@@ -7,7 +7,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import org.estgroup.phphub.api.entity.element.Token;
-import org.estgroup.phphub.common.util.ApiUtils;
+import org.estgroup.phphub.common.util.Utils;
 import org.estgroup.phphub.model.TokenModel;
 
 import eu.unicate.retroauth.AuthAccountManager;
@@ -52,7 +52,7 @@ public class RefreshTokenTransformer<T> implements Observable.Transformer<T, T> 
             public Boolean call(Integer retryCount, Throwable throwable) {
                 final boolean[] needRetry = {false};
 
-                if (retryCount == 1 && ApiUtils.hasUnauthorized(throwable) && account != null) {
+                if (retryCount == 1 && Utils.hasUnauthorized(throwable) && account != null) {
                     tokenModel.refreshToken(authAccountManager.getUserData(accountType, AUTH_TYPE_REFRESH))
                             .filter(new Func1<Token, Boolean>() {
                                 @Override

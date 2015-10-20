@@ -1,6 +1,6 @@
 package org.estgroup.phphub.model;
 
-import android.content.Context;
+import android.support.annotation.Nullable;
 
 import com.google.gson.JsonObject;
 
@@ -11,6 +11,7 @@ import org.estgroup.phphub.api.entity.TopicEntity;
 import org.estgroup.phphub.api.entity.element.Topic;
 import org.estgroup.phphub.common.Constant;
 import org.estgroup.phphub.common.base.BaseModel;
+import org.estgroup.phphub.common.provider.TokenProvider;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,8 +19,8 @@ import java.util.Map;
 import rx.Observable;
 
 public class TopicModel extends BaseModel<TopicApi> {
-    public TopicModel(Context context) {
-        super(context, TopicApi.class);
+    public TopicModel(@Nullable TokenProvider provider) {
+        super(provider, TopicApi.class);
     }
 
     Observable<TopicEntity> getTopics(String filter, int pageIndex) {

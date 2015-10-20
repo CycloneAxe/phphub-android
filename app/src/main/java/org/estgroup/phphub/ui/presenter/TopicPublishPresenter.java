@@ -83,7 +83,8 @@ public class TopicPublishPresenter extends BaseRxPresenter<TopicPublishActivity>
                                 new Func1<Boolean, Observable<TopicEntity.ATopic>>() {
                                     @Override
                                     public Observable<TopicEntity.ATopic> call(Boolean aBoolean) {
-                                        return ((TopicModel) topicModel.local(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
+                                        return ((TopicModel) topicModel.once()
+                                                .setToken(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
                                                 .publishTopic(topicInfo)
                                                 .compose(new RefreshTokenTransformer<TopicEntity.ATopic>(
                                                         tokenModel,

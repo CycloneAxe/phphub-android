@@ -1,20 +1,21 @@
 package org.estgroup.phphub.model;
 
-import android.content.Context;
+import android.support.annotation.Nullable;
 
 import org.estgroup.phphub.api.UserApi;
 import org.estgroup.phphub.api.entity.NotificationEntity;
 import org.estgroup.phphub.api.entity.TopicEntity;
 import org.estgroup.phphub.api.entity.UserEntity;
 import org.estgroup.phphub.common.base.BaseModel;
+import org.estgroup.phphub.common.provider.TokenProvider;
 
 import java.util.HashMap;
 
 import rx.Observable;
 
 public class UserModel extends BaseModel<UserApi> {
-    public UserModel(Context context) {
-        super(context, UserApi.class);
+    public UserModel(@Nullable TokenProvider provider) {
+        super(provider, UserApi.class);
     }
 
     public Observable<UserEntity.AUser> getMyselfInfo() {
