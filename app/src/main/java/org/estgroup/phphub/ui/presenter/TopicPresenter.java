@@ -7,6 +7,7 @@ import com.github.pwittchen.prefser.library.Prefser;
 import org.estgroup.phphub.api.entity.TopicEntity;
 import org.estgroup.phphub.api.entity.element.Topic;
 import org.estgroup.phphub.common.base.BaseRxPresenter;
+import org.estgroup.phphub.common.transformer.SchedulerTransformer;
 import org.estgroup.phphub.common.transformer.TokenGeneratorTransformer;
 import org.estgroup.phphub.model.TokenModel;
 import org.estgroup.phphub.model.TopicModel;
@@ -83,6 +84,7 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
                                         return topicEntity.getData();
                                     }
                                 })
+                                .compose(new SchedulerTransformer<List<Topic>>())
                                 .compose(new TokenGeneratorTransformer<List<Topic>>(tokenModel, prefser));
                     }
                 }, onNext, onError);
@@ -99,6 +101,7 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
                                         return topicEntity.getData();
                                     }
                                 })
+                                .compose(new SchedulerTransformer<List<Topic>>())
                                 .compose(new TokenGeneratorTransformer<List<Topic>>(tokenModel, prefser));
                     }
                 }, onNext, onError);
@@ -115,6 +118,7 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
                                         return topicEntity.getData();
                                     }
                                 })
+                                .compose(new SchedulerTransformer<List<Topic>>())
                                 .compose(new TokenGeneratorTransformer<List<Topic>>(tokenModel, prefser));
                     }
                 }, onNext, onError);
@@ -131,6 +135,7 @@ public class TopicPresenter extends BaseRxPresenter<TopicFragment> {
                                         return topicEntity.getData();
                                     }
                                 })
+                                .compose(new SchedulerTransformer<List<Topic>>())
                                 .compose(new TokenGeneratorTransformer<List<Topic>>(tokenModel, prefser));
                     }
                 }, onNext, onError);

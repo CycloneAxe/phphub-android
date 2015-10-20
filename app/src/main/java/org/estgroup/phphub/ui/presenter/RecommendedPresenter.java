@@ -7,6 +7,7 @@ import com.github.pwittchen.prefser.library.Prefser;
 import org.estgroup.phphub.api.entity.TopicEntity;
 import org.estgroup.phphub.api.entity.element.Topic;
 import org.estgroup.phphub.common.base.BaseRxPresenter;
+import org.estgroup.phphub.common.transformer.SchedulerTransformer;
 import org.estgroup.phphub.common.transformer.TokenGeneratorTransformer;
 import org.estgroup.phphub.model.TokenModel;
 import org.estgroup.phphub.model.TopicModel;
@@ -17,11 +18,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action2;
 import rx.functions.Func0;
 import rx.functions.Func1;
-
 
 public class RecommendedPresenter extends BaseRxPresenter<RecommendedFragment> {
     private static final int REQUEST_ID = 1;
@@ -46,13 +45,13 @@ public class RecommendedPresenter extends BaseRxPresenter<RecommendedFragment> {
                     @Override
                     public Observable<List<Topic>> call() {
                         return topicModel.getTopicsByExcellent(pageIndex)
-                                .observeOn(AndroidSchedulers.mainThread())
                                 .map(new Func1<TopicEntity, List<Topic>>() {
                                     @Override
                                     public List<Topic> call(TopicEntity topicEntity) {
                                         return topicEntity.getData();
                                     }
                                 })
+                                .compose(new SchedulerTransformer<List<Topic>>())
                                 .compose(new TokenGeneratorTransformer<List<Topic>>(tokenModel, prefser));
                     }
                 },

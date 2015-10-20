@@ -15,11 +15,11 @@ import org.estgroup.phphub.api.entity.element.Topic;
 import org.estgroup.phphub.common.base.BaseRxPresenter;
 import org.estgroup.phphub.common.internal.di.qualifier.ForApplication;
 import org.estgroup.phphub.common.transformer.RefreshTokenTransformer;
+import org.estgroup.phphub.common.transformer.SchedulerTransformer;
 import org.estgroup.phphub.model.TokenModel;
 import org.estgroup.phphub.model.TopicModel;
 import org.estgroup.phphub.ui.view.topic.TopicPublishActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -27,11 +27,9 @@ import javax.inject.Inject;
 import eu.unicate.retroauth.AuthAccountManager;
 import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action2;
 import rx.functions.Func0;
 import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 public class TopicPublishPresenter extends BaseRxPresenter<TopicPublishActivity> {
     private static final int REQUEST_PUBLISH_TOPIC_ID = 1;
@@ -96,8 +94,7 @@ public class TopicPublishPresenter extends BaseRxPresenter<TopicPublishActivity>
                                                 ));
                                     }
                                 })
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
+                                .compose(new SchedulerTransformer<TopicEntity.ATopic>())
                                 .map(new Func1<TopicEntity.ATopic, Topic>() {
                                     @Override
                                     public Topic call(TopicEntity.ATopic aTopic) {
@@ -125,7 +122,7 @@ public class TopicPublishPresenter extends BaseRxPresenter<TopicPublishActivity>
                     @Override
                     public Observable<List<Node>> call() {
                         return topicModel.getAllNodes()
-                                .observeOn(AndroidSchedulers.mainThread())
+                                .compose(new SchedulerTransformer<NodeEntity.Nodes>())
                                 .map(new Func1<NodeEntity.Nodes, List<Node>>() {
                                     @Override
                                     public List<Node> call(NodeEntity.Nodes nodes) {

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import org.estgroup.phphub.api.entity.TopicEntity;
 import org.estgroup.phphub.api.entity.element.Topic;
 import org.estgroup.phphub.common.base.BaseRxPresenter;
+import org.estgroup.phphub.common.transformer.SchedulerTransformer;
 import org.estgroup.phphub.model.UserModel;
 import org.estgroup.phphub.ui.view.user.UserTopicActivity;
 
@@ -15,7 +16,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action2;
 import rx.functions.Func0;
 import rx.functions.Func1;
@@ -68,7 +68,7 @@ public class UserTopicsPresenter extends BaseRxPresenter<UserTopicActivity> {
                     @Override
                     public Observable<List<Topic>> call() {
                         return userModel.getTopics(userId)
-                                .observeOn(AndroidSchedulers.mainThread())
+                                .compose(new SchedulerTransformer<TopicEntity>())
                                 .map(new Func1<TopicEntity, List<Topic>>() {
                                     @Override
                                     public List<Topic> call(TopicEntity topicEntity) {
@@ -83,7 +83,7 @@ public class UserTopicsPresenter extends BaseRxPresenter<UserTopicActivity> {
                     @Override
                     public Observable<List<Topic>> call() {
                         return userModel.getAttentions(userId)
-                                .observeOn(AndroidSchedulers.mainThread())
+                                .compose(new SchedulerTransformer<TopicEntity>())
                                 .map(new Func1<TopicEntity, List<Topic>>() {
                                     @Override
                                     public List<Topic> call(TopicEntity topicEntity) {
@@ -98,7 +98,7 @@ public class UserTopicsPresenter extends BaseRxPresenter<UserTopicActivity> {
                     @Override
                     public Observable<List<Topic>> call() {
                         return userModel.getFavorites(userId)
-                                .observeOn(AndroidSchedulers.mainThread())
+                                .compose(new SchedulerTransformer<TopicEntity>())
                                 .map(new Func1<TopicEntity, List<Topic>>() {
                                     @Override
                                     public List<Topic> call(TopicEntity topicEntity) {
