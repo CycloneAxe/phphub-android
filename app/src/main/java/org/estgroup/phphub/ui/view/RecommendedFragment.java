@@ -1,5 +1,6 @@
 package org.estgroup.phphub.ui.view;
 
+import android.accounts.AccountManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar.OnMenuItemClickListener;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +22,12 @@ import org.estgroup.phphub.api.entity.element.Topic;
 import org.estgroup.phphub.api.entity.element.User;
 import org.estgroup.phphub.common.adapter.TopicItemView;
 import org.estgroup.phphub.common.base.LazyFragment;
+import org.estgroup.phphub.common.util.Utils;
 import org.estgroup.phphub.ui.presenter.RecommendedPresenter;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -52,9 +55,13 @@ public class RecommendedFragment extends LazyFragment<RecommendedPresenter> impl
     @Bind(R.id.recycler_view)
     RecyclerView topicListView;
 
+    @Inject
+    AccountManager accountManager;
+
     @Override
     public void onCreate(Bundle bundle) {
         super.onCreate(bundle);
+        getAppComponent().inject(this);
     }
 
     @Override
@@ -77,22 +84,11 @@ public class RecommendedFragment extends LazyFragment<RecommendedPresenter> impl
         return inflater.inflate(R.layout.topic_normal_list, container, false);
     }
 
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_publish, menu);
-
-        if (!isLogin()) {
-            menu.findItem(R.id.action_publish).setVisible(false);
-        }
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (isLogin()) {
+        if (Utils.logined(getContext(), accountManager)) {
             toolbarView.inflateMenu(R.menu.menu_publish);
             toolbarView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                 @Override
@@ -138,6 +134,18 @@ public class RecommendedFragment extends LazyFragment<RecommendedPresenter> impl
 
         multiStateView.setViewState(VIEW_STATE_LOADING);
         refreshView.autoRefresh();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Menu menu = toolbarView.getMenu();
+        if (menu != null) {
+            MenuItem publishView = menu.findItem(R.id.action_publish);
+            if (publishView != null) {
+                publishView.setVisible(Utils.logined(getContext(), accountManager));
+            }
+        }
     }
 
     @Override

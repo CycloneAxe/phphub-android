@@ -1,6 +1,5 @@
 package org.estgroup.phphub.ui.view.settings;
 
-import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -10,10 +9,9 @@ import android.support.v7.app.AlertDialog;
 
 import org.estgroup.phphub.R;
 import org.estgroup.phphub.common.App;
+import org.estgroup.phphub.common.util.Utils;
 
 import javax.inject.Inject;
-
-import eu.unicate.retroauth.AuthAccountManager;
 
 public class SettingsFragment extends PreferenceFragment implements Preference.OnPreferenceClickListener {
 
@@ -22,29 +20,18 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     @Inject
     AccountManager accountManager;
 
-    @Inject
-    AuthAccountManager authAccountManager;
-
-    Account[] accounts;
-
-    String accountType, tokenType;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
 
         ((App) getActivity().getApplication()).getAppComponent().inject(this);
-
-        accountType = getString(R.string.auth_account_type);
-        tokenType = getString(R.string.auth_token_type);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        accounts = accountManager.getAccountsByType(accountType);
-        if (accounts.length > 0) {
+        if (Utils.logined(getActivity(), accountManager)) {
             Preference logoutPreference = new Preference(getActivity());
             logoutPreference.setKey(LOGOUT_KEY);
             logoutPreference.setLayoutResource(R.layout.common_logout);
@@ -64,7 +51,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                         .setPositiveButton("退出", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                accountManager.removeAccount(accounts[0], null, null);
+                                accountManager.removeAccount(Utils.getAccounts(getActivity(), accountManager)[0], null, null);
                                 getPreferenceScreen().removePreference(findPreference(LOGOUT_KEY));
                             }
                         })

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -183,7 +182,7 @@ public class TopicPublishActivity extends BaseActivity<TopicPublishPresenter> {
     }
 
     public void onNetWorkError(Throwable throwable) {
-        Logger.e(throwable.getMessage());
+        Logger.e(throwable.toString());
         Toast.makeText(this, getString(R.string.publish_error), Toast.LENGTH_SHORT).show();
     }
 
