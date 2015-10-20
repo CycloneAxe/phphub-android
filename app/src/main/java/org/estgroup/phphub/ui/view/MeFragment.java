@@ -44,7 +44,7 @@ public class MeFragment extends BaseSupportFragment {
 
     int userId;
 
-    String avatarUrl, username, signature, userReplyUrl;
+    String userReplyUrl;
 
     @Override
     public void onCreate(Bundle bundle) {
@@ -65,26 +65,38 @@ public class MeFragment extends BaseSupportFragment {
     public void onResume() {
         super.onResume();
         accounts = accountManager.getAccountsByType(accountType);
-        if (accounts.length > 0) {
-            userId = Integer.valueOf(accountManager.getUserData(accounts[0], USER_ID_KEY));
-            username = accountManager.getUserData(accounts[0], USERNAME_KEY);
-            signature = accountManager.getUserData(accounts[0], USER_SIGNATURE);
-            avatarUrl = accountManager.getUserData(accounts[0], USER_AVATAR_KEY);
-            userReplyUrl = accountManager.getUserData(accounts[0], USER_REPLY_URL_KEY);
-        }
-        /**
-         * TODO
-         * 需要在用户退出登录的时候还原成未登陆状态
-         */
         refreshView();
     }
 
     private void refreshView() {
-        if (!TextUtils.isEmpty(avatarUrl)) {
-            avatarView.setImageURI(Uri.parse(avatarUrl));
+        avatarView.setImageURI(null);
+        usernameView.setText("未登陆");
+        signView.setText(null);
+
+        if (accounts.length > 0) {
+            String id = accountManager.getUserData(accounts[0], USER_ID_KEY);
+            if (!TextUtils.isEmpty(id)) {
+                userId = Integer.valueOf(id);
+            }
+
+            String avatarUrl, username, signature;
+            username = accountManager.getUserData(accounts[0], USERNAME_KEY);
+            signature = accountManager.getUserData(accounts[0], USER_SIGNATURE);
+            avatarUrl = accountManager.getUserData(accounts[0], USER_AVATAR_KEY);
+            userReplyUrl = accountManager.getUserData(accounts[0], USER_REPLY_URL_KEY);
+
+            if (!TextUtils.isEmpty(avatarUrl)) {
+                avatarView.setImageURI(Uri.parse(avatarUrl));
+            }
+
+            if (!TextUtils.isEmpty(username)) {
+                usernameView.setText(username);
+            }
+
+            if (!TextUtils.isEmpty(signature)) {
+                signView.setText(signature);
+            }
         }
-        usernameView.setText(username != null ? username : "未登陆");
-        signView.setText(signature);
     }
 
     @OnClick(R.id.percent_rlyt_settings)
