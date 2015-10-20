@@ -67,7 +67,6 @@ public class LoginActivity extends AuthenticationActivity {
     TokenModel tokenModel;
 
     @Inject
-    @Named(AUTH_TYPE_GUEST)
     UserModel userModel;
 
     @Inject

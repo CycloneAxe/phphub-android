@@ -24,6 +24,16 @@ import eu.unicate.retroauth.AuthAccountManager;
 public class ApiModule {
     @Provides
     @Singleton
+    @Named(AUTH_TYPE_USER)
+    TopicModel provideTopicModelByAuth(@ForApplication Context context,
+                                       AccountManager accountManager,
+                                       AuthAccountManager authAccountManager) {
+        return new TopicModel(new UserTokenProvider(context, accountManager, authAccountManager));
+    }
+
+
+    @Provides
+    @Singleton
     TopicModel provideTopicModel(Prefser prefser) {
         return new TopicModel(new GuestTokenProvider(prefser));
     }
@@ -37,13 +47,14 @@ public class ApiModule {
     @Provides
     @Singleton
     @Named(AUTH_TYPE_USER)
-    UserModel provideUserModelByAuth(@ForApplication Context context, AccountManager accountManager, AuthAccountManager authAccountManager) {
+    UserModel provideUserModelByAuth(@ForApplication Context context,
+                                     AccountManager accountManager,
+                                     AuthAccountManager authAccountManager) {
         return new UserModel(new UserTokenProvider(context, accountManager, authAccountManager));
     }
 
     @Provides
     @Singleton
-    @Named(AUTH_TYPE_GUEST)
     UserModel provideUserModelByUser(Prefser prefser) {
         return new UserModel(new GuestTokenProvider(prefser));
     }

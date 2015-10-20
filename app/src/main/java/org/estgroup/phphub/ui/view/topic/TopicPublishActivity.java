@@ -44,22 +44,19 @@ public class TopicPublishActivity extends BaseActivity<TopicPublishPresenter> {
     @Bind(R.id.tv_select_node)
     TextView selectNodeView;
 
-    Topic topicInfo;
+    Topic topic = new Topic();
 
-    List<Node> nodes;
+    List<Node> nodes = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        topicInfo = new Topic();
-        nodes = new ArrayList<Node>();
         getPresenter().nodeRequest();
     }
 
     public static Intent getCallingIntent(Context context) {
-        Intent callingIntent = new Intent(context, TopicPublishActivity.class);
-        return callingIntent;
+        return new Intent(context, TopicPublishActivity.class);
     }
 
     @Override
@@ -127,16 +124,16 @@ public class TopicPublishActivity extends BaseActivity<TopicPublishPresenter> {
             return;
         }
 
-        topicInfo.setTitle(topicTitle);
-        topicInfo.setBody(topicBody);
-        topicInfo.setNodeId(nodeId);
+        topic.setTitle(topicTitle);
+        topic.setBody(topicBody);
+        topic.setNodeId(nodeId);
 
         loadingDialog.getProgressHelper().setBarColor(Color.parseColor("#4394DA"));
         loadingDialog.setContentText(getString(R.string.submitting));
         loadingDialog.setCancelable(false);
         loadingDialog.show();
 
-        getPresenter().request(topicInfo);
+        getPresenter().request(topic);
     }
 
     @OnClick(R.id.tv_select_node)

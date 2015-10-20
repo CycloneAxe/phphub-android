@@ -22,7 +22,6 @@ public class UserSpacePresenter extends BaseRxPresenter<UserSpaceActivity> {
     private static final int REQUEST_ID = 1;
 
     @Inject
-    @Named(AUTH_TYPE_GUEST)
     UserModel userModel;
 
     int userId;

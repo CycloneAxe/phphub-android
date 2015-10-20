@@ -32,7 +32,6 @@ public class UserTopicsPresenter extends BaseRxPresenter<UserTopicActivity> {
     int userId;
 
     @Inject
-    @Named(AUTH_TYPE_GUEST)
     UserModel userModel;
 
     protected int pageIndex = 1;

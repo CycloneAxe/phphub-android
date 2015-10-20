@@ -1,20 +1,16 @@
 package org.estgroup.phphub.ui.presenter;
 
-import android.accounts.Account;
-import android.accounts.AccountManager;
 import android.content.Context;
 import android.os.Bundle;
 
 import com.orhanobut.logger.Logger;
 
-import org.estgroup.phphub.R;
 import org.estgroup.phphub.api.entity.NodeEntity;
 import org.estgroup.phphub.api.entity.TopicEntity;
 import org.estgroup.phphub.api.entity.element.Node;
 import org.estgroup.phphub.api.entity.element.Topic;
 import org.estgroup.phphub.common.base.BaseRxPresenter;
 import org.estgroup.phphub.common.internal.di.qualifier.ForApplication;
-import org.estgroup.phphub.common.transformer.RefreshTokenTransformer;
 import org.estgroup.phphub.common.transformer.SchedulerTransformer;
 import org.estgroup.phphub.model.TokenModel;
 import org.estgroup.phphub.model.TopicModel;
@@ -23,20 +19,20 @@ import org.estgroup.phphub.ui.view.topic.TopicPublishActivity;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
-import eu.unicate.retroauth.AuthAccountManager;
 import rx.Observable;
-import rx.Subscriber;
 import rx.functions.Action2;
 import rx.functions.Func0;
 import rx.functions.Func1;
+import static org.estgroup.phphub.common.qualifier.AuthType.*;
 
 public class TopicPublishPresenter extends BaseRxPresenter<TopicPublishActivity> {
     private static final int REQUEST_PUBLISH_TOPIC_ID = 1;
 
     private static final int REQUEST_GET_NODE_ID = 2;
 
-    Topic topicInfo;
+    Topic topic;
 
     @Inject
     @ForApplication
@@ -46,61 +42,28 @@ public class TopicPublishPresenter extends BaseRxPresenter<TopicPublishActivity>
     TopicModel topicModel;
 
     @Inject
+    @Named(AUTH_TYPE_USER)
+    TopicModel authTopicModel;
+
+    @Inject
     TokenModel tokenModel;
-
-    @Inject
-    AccountManager accountManager;
-
-    @Inject
-    AuthAccountManager authAccountManager;
-
-    String accountType, tokenType;
-
-    Account[] accounts;
 
     @Override
     protected void onCreate(Bundle savedState) {
         super.onCreate(savedState);
-        accountType = context.getString(R.string.auth_account_type);
-        tokenType = context.getString(R.string.auth_token_type);
-        accounts = accountManager.getAccountsByType(accountType);
 
         restartableLatestCache(REQUEST_PUBLISH_TOPIC_ID,
                 new Func0<Observable<Topic>>() {
                     @Override
                     public Observable<Topic> call() {
-                        Observable<Boolean> observable = Observable.create(new Observable.OnSubscribe<Boolean>() {
-                            @Override
-                            public void call(Subscriber<? super Boolean> subscriber) {
-                                subscriber.onNext(accounts.length > 0);
-                                subscriber.onCompleted();
-                            }
-                        });
-
-                        return observable.flatMap(
-                                new Func1<Boolean, Observable<TopicEntity.ATopic>>() {
-                                    @Override
-                                    public Observable<TopicEntity.ATopic> call(Boolean aBoolean) {
-                                        return ((TopicModel) topicModel.once()
-                                                .setToken(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
-                                                .publishTopic(topicInfo)
-                                                .compose(new RefreshTokenTransformer<TopicEntity.ATopic>(
-                                                        tokenModel,
-                                                        authAccountManager,
-                                                        accountManager,
-                                                        (accounts.length > 0 ? accounts[0] : null),
-                                                        accountType,
-                                                        tokenType
-                                                ));
-                                    }
-                                })
-                                .compose(new SchedulerTransformer<TopicEntity.ATopic>())
+                        return authTopicModel.publishTopic(topic)
                                 .map(new Func1<TopicEntity.ATopic, Topic>() {
                                     @Override
-                                    public Topic call(TopicEntity.ATopic aTopic) {
-                                        return aTopic.getData();
+                                    public Topic call(TopicEntity.ATopic topic) {
+                                        return topic.getData();
                                     }
-                                });
+                                })
+                                .compose(new SchedulerTransformer<Topic>());
                     }
                 },
                 new Action2<TopicPublishActivity, Topic>() {
@@ -114,21 +77,20 @@ public class TopicPublishPresenter extends BaseRxPresenter<TopicPublishActivity>
                     public void call(TopicPublishActivity topicPublishActivity, Throwable throwable) {
                         topicPublishActivity.onNetWorkError(throwable);
                     }
-                }
-        );
+                });
 
         restartableLatestCache(REQUEST_GET_NODE_ID,
                 new Func0<Observable<List<Node>>>() {
                     @Override
                     public Observable<List<Node>> call() {
                         return topicModel.getAllNodes()
-                                .compose(new SchedulerTransformer<NodeEntity.Nodes>())
                                 .map(new Func1<NodeEntity.Nodes, List<Node>>() {
                                     @Override
                                     public List<Node> call(NodeEntity.Nodes nodes) {
                                         return nodes.getData();
                                     }
-                                });
+                                })
+                                .compose(new SchedulerTransformer<List<Node>>());
                     }
                 },
                 new Action2<TopicPublishActivity, List<Node>>() {
@@ -145,8 +107,8 @@ public class TopicPublishPresenter extends BaseRxPresenter<TopicPublishActivity>
                 });
     }
 
-    public void request(Topic topicInfo) {
-        this.topicInfo = topicInfo;
+    public void request(Topic topic) {
+        this.topic = topic;
         start(REQUEST_PUBLISH_TOPIC_ID);
     }
 
