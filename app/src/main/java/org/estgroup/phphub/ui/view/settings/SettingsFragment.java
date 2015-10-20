@@ -2,9 +2,11 @@ package org.estgroup.phphub.ui.view.settings;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.support.v7.app.AlertDialog;
 
 import org.estgroup.phphub.R;
 import org.estgroup.phphub.common.App;
@@ -36,6 +38,11 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 
         accountType = getString(R.string.auth_account_type);
         tokenType = getString(R.string.auth_token_type);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
         accounts = accountManager.getAccountsByType(accountType);
         if (accounts.length > 0) {
             Preference logoutPreference = new Preference(getActivity());
@@ -50,8 +57,19 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     public boolean onPreferenceClick(Preference preference) {
         switch (preference.getKey()) {
             case LOGOUT_KEY:
-                accountManager.removeAccount(accounts[0], null, null);
-                getPreferenceScreen().removePreference(findPreference(LOGOUT_KEY));
+                new AlertDialog.Builder(getActivity())
+                        .setMessage("确认退出吗？")
+                        .setCancelable(false
+                        )
+                        .setPositiveButton("退出", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                accountManager.removeAccount(accounts[0], null, null);
+                                getPreferenceScreen().removePreference(findPreference(LOGOUT_KEY));
+                            }
+                        })
+                        .setNegativeButton("容我想想", null)
+                        .show();
                 return true;
         }
         return false;
