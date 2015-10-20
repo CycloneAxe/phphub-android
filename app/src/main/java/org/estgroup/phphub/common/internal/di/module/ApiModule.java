@@ -30,8 +30,8 @@ public class ApiModule {
 
     @Provides
     @Singleton
-    TokenModel provideTokenModel(Prefser prefser) {
-        return new TokenModel(new GuestTokenProvider(prefser));
+    TokenModel provideTokenModel() {
+        return new TokenModel(null);
     }
 
     @Provides

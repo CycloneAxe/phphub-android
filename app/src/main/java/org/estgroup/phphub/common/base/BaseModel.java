@@ -1,6 +1,6 @@
 package org.estgroup.phphub.common.base;
 
-import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import org.estgroup.phphub.BuildConfig;
 import org.estgroup.phphub.api.RequestInterceptorImpl;
@@ -11,6 +11,7 @@ import retrofit.RestAdapter;
 public class BaseModel<T> {
     private T service;
 
+    @Nullable
     private TokenProvider tokenProvider;
 
     protected Class<T> serviceClass;
@@ -21,7 +22,7 @@ public class BaseModel<T> {
 
     private ThreadLocal<RequestInterceptorImpl> localRequestInterceptor = new ThreadLocal<>();
 
-    public BaseModel(@NonNull TokenProvider tokenProvider, Class<T> serviceClass) {
+    public BaseModel(@Nullable TokenProvider tokenProvider, Class<T> serviceClass) {
         this.serviceClass = serviceClass;
         this.tokenProvider = tokenProvider;
         requestInterceptor = new RequestInterceptorImpl();
@@ -68,7 +69,10 @@ public class BaseModel<T> {
             return requestInterceptor.getToken();
         }
 
-        return tokenProvider.getToken();
+        if (tokenProvider != null) {
+            return tokenProvider.getToken();
+        }
+        return null;
     }
 
     public T getService() {
