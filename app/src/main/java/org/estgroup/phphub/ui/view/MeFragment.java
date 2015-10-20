@@ -69,6 +69,8 @@ public class MeFragment extends BaseSupportFragment {
     }
 
     private void refreshView() {
+        userId = -1;
+        userReplyUrl = "";
         avatarView.setImageURI(null);
         usernameView.setText("未登陆");
         signView.setText(null);
