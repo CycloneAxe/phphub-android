@@ -1,5 +1,7 @@
 package org.estgroup.phphub.common.base;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import org.estgroup.phphub.BuildConfig;
@@ -8,13 +10,11 @@ import org.estgroup.phphub.common.provider.TokenProvider;
 
 import retrofit.RestAdapter;
 
-public class BaseModel<T> {
+public abstract class BaseModel<T, R extends BaseModel> {
     private T service;
 
     @Nullable
     private TokenProvider tokenProvider;
-
-    protected Class<T> serviceClass;
 
     protected RestAdapter restAdapter;
 
@@ -22,8 +22,7 @@ public class BaseModel<T> {
 
     private ThreadLocal<RequestInterceptorImpl> localRequestInterceptor = new ThreadLocal<>();
 
-    public BaseModel(@Nullable TokenProvider tokenProvider, Class<T> serviceClass) {
-        this.serviceClass = serviceClass;
+    public BaseModel(@NonNull Context context, @Nullable TokenProvider tokenProvider) {
         this.tokenProvider = tokenProvider;
         requestInterceptor = new RequestInterceptorImpl();
 
@@ -32,51 +31,55 @@ public class BaseModel<T> {
                             .setRequestInterceptor(requestInterceptor)
                             .build();
 
-        this.service = restAdapter.create(serviceClass);
+        this.service = restAdapter.create(getServiceClass());
     }
+
+    protected abstract Class<T> getServiceClass();
 
     public RequestInterceptorImpl asRequestInterceptor() {
         return requestInterceptor;
     }
 
-    public BaseModel<T> once() {
+    public R once() {
         RequestInterceptorImpl requestInterceptor = localRequestInterceptor.get();
         if (requestInterceptor == null) {
             localRequestInterceptor.set(new RequestInterceptorImpl());
         }
-        return this;
+        return (R) this;
     }
 
-    public BaseModel<T> setToken(String token) {
+    public R setToken(final String token) {
         RequestInterceptorImpl requestInterceptor = localRequestInterceptor.get();
         if (requestInterceptor != null) {
-            requestInterceptor.setToken(token);
+            requestInterceptor.setTokenProvider(new TokenProvider() {
+                @Override
+                public String getToken() {
+                    return token;
+                }
+            });
         }
-        return this;
+        return (R) this;
     }
 
-    public BaseModel<T> ignoreToken() {
+    public R ignoreToken() {
         RequestInterceptorImpl requestInterceptor = localRequestInterceptor.get();
         if (requestInterceptor != null) {
-            requestInterceptor.setToken(null);
+            requestInterceptor.setTokenProvider(null);
         }
-        return this;
+        return (R) this;
     }
 
-    private String getToken() {
+    private TokenProvider TokenProvider() {
         RequestInterceptorImpl requestInterceptor = localRequestInterceptor.get();
         if (requestInterceptor != null) {
-            return requestInterceptor.getToken();
+            return requestInterceptor.getTokenProvider();
         }
 
-        if (tokenProvider != null) {
-            return tokenProvider.getToken();
-        }
-        return null;
+        return tokenProvider;
     }
 
     public T getService() {
-        asRequestInterceptor().setToken(getToken());
+        asRequestInterceptor().setTokenProvider(TokenProvider());
         if (localRequestInterceptor.get() != null) {
             localRequestInterceptor.remove();
         }

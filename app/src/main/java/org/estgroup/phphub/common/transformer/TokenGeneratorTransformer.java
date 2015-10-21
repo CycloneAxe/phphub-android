@@ -15,7 +15,7 @@ import rx.functions.Func2;
 
 import static org.estgroup.phphub.common.Constant.*;
 
-public class TokenGeneratorTransformer<T> implements Observable.Transformer<T, T> {
+public class TokenGeneratorTransformer<T> extends RetryTransformer implements Observable.Transformer<T, T> {
     private TokenModel tokenModel;
 
     private Prefser prefser;
@@ -32,7 +32,7 @@ public class TokenGeneratorTransformer<T> implements Observable.Transformer<T, T
             public Boolean call(Integer retryCount, Throwable throwable) {
                 final boolean[] needRetry = {false};
 
-                if (retryCount == 1 && Utils.hasUnauthorized(throwable)) {
+                if (retryCount <= RETRY_COUNT && Utils.hasUnauthorized(throwable)) {
                     tokenModel.tokenGenerator()
                             .filter(new Func1<Token, Boolean>() {
                                 @Override

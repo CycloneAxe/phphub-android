@@ -36,6 +36,7 @@ import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 import eu.unicate.retroauth.AuthenticationActivity;
 import rx.Observable;
+import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action0;
 import rx.functions.Action1;
@@ -67,11 +68,12 @@ public class LoginActivity extends AuthenticationActivity {
     TokenModel tokenModel;
 
     @Inject
-    @Named(AUTH_TYPE_GUEST)
     UserModel userModel;
 
     @Inject
     AccountManager accountManager;
+
+    Subscription subscription;
 
     @Override
     protected void onCreate(Bundle icicle) {
@@ -125,7 +127,7 @@ public class LoginActivity extends AuthenticationActivity {
         dialog.setCancelable(false);
 
         final Account account = createOrGetAccount(username);
-        tokenModel.tokenGenerator(username, loginToken)
+        subscription = tokenModel.tokenGenerator(username, loginToken)
                 .doOnSubscribe(new Action0() {
                     @Override
                     public void call() {
@@ -186,5 +188,13 @@ public class LoginActivity extends AuthenticationActivity {
                                 Logger.e(throwable.toString());
                             }
                         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (subscription != null && !subscription.isUnsubscribed()) {
+            subscription.unsubscribe();
+        }
     }
 }
