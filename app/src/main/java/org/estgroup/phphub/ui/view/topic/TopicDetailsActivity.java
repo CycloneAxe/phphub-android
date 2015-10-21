@@ -6,6 +6,7 @@ import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebView;
@@ -17,7 +18,13 @@ import com.facebook.drawee.view.SimpleDraweeView;
 import com.kennyc.view.MultiStateView;
 import com.kmshack.topscroll.TopScrollHelper;
 import com.orhanobut.logger.Logger;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.common.SocializeConstants;
+import com.umeng.socialize.controller.UMServiceFactory;
+import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.sso.UMQQSsoHandler;
 
+import org.estgroup.phphub.BuildConfig;
 import org.estgroup.phphub.R;
 import org.estgroup.phphub.api.entity.element.Link;
 import org.estgroup.phphub.api.entity.element.Topic;
@@ -32,8 +39,15 @@ import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
 import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
 
-import static com.kennyc.view.MultiStateView.*;
-import static org.estgroup.phphub.common.qualifier.TopicDetailType.*;
+import static com.kennyc.view.MultiStateView.OnClickListener;
+import static com.kennyc.view.MultiStateView.VIEW_STATE_CONTENT;
+import static com.kennyc.view.MultiStateView.VIEW_STATE_ERROR;
+import static org.estgroup.phphub.common.qualifier.TopicDetailType.TOPIC_DETAIL_TYPE_FAVORITE;
+import static org.estgroup.phphub.common.qualifier.TopicDetailType.TOPIC_DETAIL_TYPE_FAVORITE_DEL;
+import static org.estgroup.phphub.common.qualifier.TopicDetailType.TOPIC_DETAIL_TYPE_FOLLOW;
+import static org.estgroup.phphub.common.qualifier.TopicDetailType.TOPIC_DETAIL_TYPE_FOLLOW_DEL;
+import static org.estgroup.phphub.common.qualifier.TopicDetailType.TOPIC_DETAIL_TYPE_VOTE_DOWN;
+import static org.estgroup.phphub.common.qualifier.TopicDetailType.TOPIC_DETAIL_TYPE_VOTE_UP;
 
 @RequiresPresenter(TopicDetailPresenter.class)
 public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> implements
@@ -166,6 +180,48 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
 
         getMenuInflater().inflate(R.menu.menu_topic, menu);
         return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.menu_share:
+                onShareItemSelected();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void onShareItemSelected()
+    {
+        SocializeConstants.APPKEY = BuildConfig.UMENG_APPKEY;
+        final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+        // Remove Tencent Weibo and QZone from share panel.
+        mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT);
+        mController.getConfig().removePlatform(SHARE_MEDIA.QZONE);
+
+        mController.setShareContent(this.topicInfo.getBody());
+
+        // Add QQ
+        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, BuildConfig.QQ_APPID, BuildConfig.QQ_APPKEY);
+        qqSsoHandler.addToSocialSDK();
+
+        //TODO: Waiting for the keys to apply for.
+//        String appID = "";
+//        String appSecret = "";
+//        // Add WeiChat
+//        UMWXHandler wxHandler = new UMWXHandler(this,appID,appSecret);
+//        wxHandler.addToSocialSDK();
+//
+//        // Add WeChat Circle
+//        UMWXHandler wxCircleHandler = new UMWXHandler(this,appID,appSecret);
+//        wxCircleHandler.setToCircle(true);
+//        wxCircleHandler.addToSocialSDK();
+
+        mController.openShare(this, false);
     }
 
     public void onNetworkError(Throwable throwable) {

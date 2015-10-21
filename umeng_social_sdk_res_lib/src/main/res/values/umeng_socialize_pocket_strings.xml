@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="pocket_showword">Pocket</string>
+    <string name="pocket_no_client">未安装pocket客户端</string>
+    <string name="pocket_content">pocket只支持网页链接分享</string>
+
+</resources>

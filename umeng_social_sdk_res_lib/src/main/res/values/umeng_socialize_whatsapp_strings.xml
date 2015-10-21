@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="whatsapp_showword">WhatsApp</string>
+    <string name="whatsapp_no_client">未安装有WhatsApp客户端</string>
+    <string name="whatsapp_content">有道云笔记只支持文本，图片</string>
+    <string name="whatsapp_no_content">请设置分享内容</string>
+
+</resources>

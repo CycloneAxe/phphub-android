@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="kakao_showword">Kakao Talk</string>
+    <string name="kakao_no_client">未安装Kakao Talk客户端</string>
+    <string name="kakao_content">Kakao Talk只支持图片、文本分享</string>
+    <string name="kakao_no_content">请设置分享内容</string>
+
+</resources>
