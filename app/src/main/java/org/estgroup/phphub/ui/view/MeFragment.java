@@ -73,6 +73,7 @@ public class MeFragment extends BaseSupportFragment {
         userId = -1;
         userReplyUrl = "";
         String avatarUrl = null, username = null, signature = null;
+        signView.setVisibility(View.GONE);
 
         if (account != null) {
             String id = accountManager.getUserData(account, USER_ID_KEY);
@@ -85,22 +86,14 @@ public class MeFragment extends BaseSupportFragment {
             avatarUrl = accountManager.getUserData(account, USER_AVATAR_KEY);
             userReplyUrl = accountManager.getUserData(account, USER_REPLY_URL_KEY);
 
-            if (!TextUtils.isEmpty(avatarUrl)) {
-                avatarView.setImageURI(Uri.parse(avatarUrl));
-            }
-
-            if (!TextUtils.isEmpty(username)) {
-                usernameView.setText(username);
-            }
-
             if (!TextUtils.isEmpty(signature)) {
+                signView.setVisibility(View.VISIBLE);
                 signView.setText(signature);
             }
         }
 
         avatarView.setImageURI(!TextUtils.isEmpty(avatarUrl) ? Uri.parse(avatarUrl) : null);
         usernameView.setText(!TextUtils.isEmpty(username) ? username : "未登陆");
-        signView.setText(signature);
     }
 
     @OnClick(R.id.percent_rlyt_settings)
