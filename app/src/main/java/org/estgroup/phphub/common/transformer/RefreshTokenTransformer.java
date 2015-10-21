@@ -30,8 +30,6 @@ public class RefreshTokenTransformer<T> extends RetryTransformer implements Obse
 
     private String accountType, tokenType;
 
-
-
     public RefreshTokenTransformer(@NonNull TokenModel tokenModel,
                                    AuthAccountManager authAccountManager,
                                    AccountManager accountManager,

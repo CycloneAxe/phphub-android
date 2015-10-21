@@ -17,6 +17,7 @@ import org.estgroup.phphub.common.internal.di.qualifier.ForApplication;
 import org.estgroup.phphub.common.transformer.RefreshTokenTransformer;
 import org.estgroup.phphub.common.transformer.SchedulerTransformer;
 import org.estgroup.phphub.common.transformer.TokenGeneratorTransformer;
+import org.estgroup.phphub.common.util.Utils;
 import org.estgroup.phphub.model.TokenModel;
 import org.estgroup.phphub.model.TopicModel;
 import org.estgroup.phphub.ui.view.topic.TopicDetailsActivity;
@@ -96,30 +97,22 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                 new Func0<Observable<Topic>>() {
                     @Override
                     public Observable<Topic> call() {
-                        Observable<Boolean> observable = Observable.create(new Observable.OnSubscribe<Boolean>() {
-                            @Override
-                            public void call(Subscriber<? super Boolean> subscriber) {
-                                subscriber.onNext(accounts.length > 0);
-                                subscriber.onCompleted();
-                            }
-                        });
-
-                        return observable.flatMap(new Func1<Boolean, Observable<TopicEntity.ATopic>>() {
+                        return Observable.just(Utils.logined(context, accountManager)).flatMap(new Func1<Boolean, Observable<TopicEntity.ATopic>>() {
                             @Override
                             public Observable<TopicEntity.ATopic> call(Boolean logined) {
                                 if (logined) {
-                                    return ( (TopicModel) topicModel.once()
-                                                            .setToken(authAccountManager.getAuthToken(accounts[0], accountType, tokenType)))
-                                                            .getTopicDetailById(topicId)
-                                                            .compose(new RefreshTokenTransformer<TopicEntity.ATopic>(
-                                                                    tokenModel,
-                                                                    authAccountManager,
-                                                                    accountManager,
-                                                                    (accounts.length > 0 ? accounts[0] : null),
-                                                                    accountType,
-                                                                    tokenType
+                                    return topicModel.once()
+                                            .setToken(authAccountManager.getAuthToken(accounts[0], accountType, tokenType))
+                                            .getTopicDetailById(topicId)
+                                            .compose(new RefreshTokenTransformer<TopicEntity.ATopic>(
+                                                    tokenModel,
+                                                    authAccountManager,
+                                                    accountManager,
+                                                    Utils.getActiveAccount(context, authAccountManager),
+                                                    accountType,
+                                                    tokenType
 
-                                                            ));
+                                            ));
 
                                 }
                                 return topicModel.getTopicDetailById(topicId)

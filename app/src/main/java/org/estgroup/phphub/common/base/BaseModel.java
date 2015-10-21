@@ -8,8 +8,7 @@ import org.estgroup.phphub.BuildConfig;
 import org.estgroup.phphub.api.RequestInterceptorImpl;
 import org.estgroup.phphub.common.provider.TokenProvider;
 
-import eu.unicate.retroauth.AuthRestAdapter;
-import eu.unicate.retroauth.interceptors.TokenInterceptor;
+import retrofit.RestAdapter;
 
 public abstract class BaseModel<T, R extends BaseModel> {
     private T service;
@@ -17,7 +16,7 @@ public abstract class BaseModel<T, R extends BaseModel> {
     @Nullable
     private TokenProvider tokenProvider;
 
-    protected AuthRestAdapter authRestAdapter;
+    protected RestAdapter restAdapter;
 
     private RequestInterceptorImpl requestInterceptor;
 
@@ -27,12 +26,12 @@ public abstract class BaseModel<T, R extends BaseModel> {
         this.tokenProvider = tokenProvider;
         requestInterceptor = new RequestInterceptorImpl();
 
-        this.authRestAdapter = new AuthRestAdapter.Builder()
+        this.restAdapter = new RestAdapter.Builder()
                             .setEndpoint(BuildConfig.ENDPOINT)
                             .setRequestInterceptor(requestInterceptor)
                             .build();
 
-        this.service = authRestAdapter.create(context, TokenInterceptor.BEARER_TOKENINTERCEPTOR, getServiceClass());
+        this.service = restAdapter.create(getServiceClass());
     }
 
     protected abstract Class<T> getServiceClass();

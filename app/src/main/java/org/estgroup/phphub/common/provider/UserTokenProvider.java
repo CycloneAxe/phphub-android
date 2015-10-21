@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.orhanobut.logger.Logger;
+
 import org.estgroup.phphub.R;
 
 import eu.unicate.retroauth.AuthAccountManager;

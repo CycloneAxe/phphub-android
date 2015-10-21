@@ -41,8 +41,7 @@ public class Utils {
     }
 
     public static Account[] getAccounts(Context context, AccountManager accountManager) {
-        Account[] accounts = accountManager.getAccountsByType(getAccountType(context));
-        return accounts;
+        return accountManager.getAccountsByType(getAccountType(context));
     }
 
     public static boolean logined(Context context, AccountManager accountManager) {
