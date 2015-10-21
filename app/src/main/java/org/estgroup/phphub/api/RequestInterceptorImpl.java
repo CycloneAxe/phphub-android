@@ -1,20 +1,31 @@
 package org.estgroup.phphub.api;
 
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import org.estgroup.phphub.BuildConfig;
+import org.estgroup.phphub.common.provider.TokenProvider;
 
 import retrofit.RequestInterceptor;
 
 public class RequestInterceptorImpl implements RequestInterceptor {
-    private String token;
+    @Nullable
+    private TokenProvider tokenProvider;
 
-    public void setToken(String token) {
-        this.token = token;
+    @Nullable
+    public TokenProvider getTokenProvider() {
+        return tokenProvider;
     }
 
-    public String getToken() {
-        return token;
+    public void setTokenProvider(@Nullable TokenProvider tokenProvider) {
+        this.tokenProvider = tokenProvider;
+    }
+
+    private String getToken() {
+        if (tokenProvider != null) {
+            return tokenProvider.getToken();
+        }
+        return null;
     }
 
     @Override
@@ -25,8 +36,11 @@ public class RequestInterceptorImpl implements RequestInterceptor {
         request.addHeader("X-Client-Build", String.valueOf(BuildConfig.VERSION_CODE));
         request.addHeader("X-Client-Git-Sha", BuildConfig.GIT_SHA);
 
-        if (!TextUtils.isEmpty(token)) {
-            request.addHeader("Authorization", "Bearer " + token);
+        if (tokenProvider != null) {
+            String token = getToken();
+            if (!TextUtils.isEmpty(token)) {
+                request.addHeader("Authorization", "Bearer " + token);
+            }
         }
     }
 }

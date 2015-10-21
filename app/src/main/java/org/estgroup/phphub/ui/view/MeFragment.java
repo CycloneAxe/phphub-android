@@ -15,6 +15,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import org.estgroup.phphub.R;
 import org.estgroup.phphub.common.base.BaseSupportFragment;
+import org.estgroup.phphub.common.util.Utils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -40,7 +41,7 @@ public class MeFragment extends BaseSupportFragment {
 
     String accountType, tokenType;
 
-    Account[] accounts;
+    Account account;
 
     int userId;
 
@@ -64,28 +65,25 @@ public class MeFragment extends BaseSupportFragment {
     @Override
     public void onResume() {
         super.onResume();
-        accounts = accountManager.getAccountsByType(accountType);
+        account = Utils.getActiveAccount(getContext(), authAccountManager);
         refreshView();
     }
 
     private void refreshView() {
         userId = -1;
         userReplyUrl = "";
-        avatarView.setImageURI(null);
-        usernameView.setText("未登陆");
-        signView.setText(null);
+        String avatarUrl = null, username = null, signature = null;
 
-        if (accounts.length > 0) {
-            String id = accountManager.getUserData(accounts[0], USER_ID_KEY);
+        if (account != null) {
+            String id = accountManager.getUserData(account, USER_ID_KEY);
             if (!TextUtils.isEmpty(id)) {
                 userId = Integer.valueOf(id);
             }
 
-            String avatarUrl, username, signature;
-            username = accountManager.getUserData(accounts[0], USERNAME_KEY);
-            signature = accountManager.getUserData(accounts[0], USER_SIGNATURE);
-            avatarUrl = accountManager.getUserData(accounts[0], USER_AVATAR_KEY);
-            userReplyUrl = accountManager.getUserData(accounts[0], USER_REPLY_URL_KEY);
+            username = accountManager.getUserData(account, USERNAME_KEY);
+            signature = accountManager.getUserData(account, USER_SIGNATURE);
+            avatarUrl = accountManager.getUserData(account, USER_AVATAR_KEY);
+            userReplyUrl = accountManager.getUserData(account, USER_REPLY_URL_KEY);
 
             if (!TextUtils.isEmpty(avatarUrl)) {
                 avatarView.setImageURI(Uri.parse(avatarUrl));
@@ -99,6 +97,10 @@ public class MeFragment extends BaseSupportFragment {
                 signView.setText(signature);
             }
         }
+
+        avatarView.setImageURI(!TextUtils.isEmpty(avatarUrl) ? Uri.parse(avatarUrl) : null);
+        usernameView.setText(!TextUtils.isEmpty(username) ? username : "未登陆");
+        signView.setText(signature);
     }
 
     @OnClick(R.id.percent_rlyt_settings)

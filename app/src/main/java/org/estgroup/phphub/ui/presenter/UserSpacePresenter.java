@@ -5,6 +5,7 @@ import android.os.Bundle;
 import org.estgroup.phphub.api.entity.UserEntity;
 import org.estgroup.phphub.api.entity.element.User;
 import org.estgroup.phphub.common.base.BaseRxPresenter;
+import org.estgroup.phphub.common.transformer.SchedulerTransformer;
 import org.estgroup.phphub.model.UserModel;
 import org.estgroup.phphub.ui.view.user.UserSpaceActivity;
 
@@ -12,7 +13,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action2;
 import rx.functions.Func0;
 import rx.functions.Func1;
@@ -22,7 +22,6 @@ public class UserSpacePresenter extends BaseRxPresenter<UserSpaceActivity> {
     private static final int REQUEST_ID = 1;
 
     @Inject
-    @Named(AUTH_TYPE_GUEST)
     UserModel userModel;
 
     int userId;
@@ -35,7 +34,7 @@ public class UserSpacePresenter extends BaseRxPresenter<UserSpaceActivity> {
                     @Override
                     public Observable<User> call() {
                         return userModel.getUserInfo(userId)
-                                .observeOn(AndroidSchedulers.mainThread())
+                                .compose(new SchedulerTransformer<UserEntity.AUser>())
                                 .map(new Func1<UserEntity.AUser, User>() {
                                     @Override
                                     public User call(UserEntity.AUser user) {

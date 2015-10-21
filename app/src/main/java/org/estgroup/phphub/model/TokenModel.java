@@ -1,5 +1,7 @@
 package org.estgroup.phphub.model;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import org.estgroup.phphub.BuildConfig;
@@ -11,9 +13,14 @@ import org.estgroup.phphub.common.provider.TokenProvider;
 import rx.Observable;
 import static org.estgroup.phphub.common.qualifier.AuthType.*;
 
-public class TokenModel extends BaseModel<TokenApi> {
-    public TokenModel(@Nullable TokenProvider provider) {
-        super(provider, TokenApi.class);
+public class TokenModel extends BaseModel<TokenApi, TokenModel> {
+    public TokenModel(@NonNull Context context, @Nullable TokenProvider tokenProvider) {
+        super(context, tokenProvider);
+    }
+
+    @Override
+    protected Class<TokenApi> getServiceClass() {
+        return TokenApi.class;
     }
 
     public Observable<Token> tokenGenerator() {

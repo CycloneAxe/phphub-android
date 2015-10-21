@@ -1,5 +1,7 @@
 package org.estgroup.phphub.model;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.google.gson.JsonObject;
@@ -18,9 +20,14 @@ import java.util.Map;
 
 import rx.Observable;
 
-public class TopicModel extends BaseModel<TopicApi> {
-    public TopicModel(@Nullable TokenProvider provider) {
-        super(provider, TopicApi.class);
+public class TopicModel extends BaseModel<TopicApi, TopicModel> {
+    public TopicModel(@NonNull Context context, @Nullable TokenProvider tokenProvider) {
+        super(context, tokenProvider);
+    }
+
+    @Override
+    protected Class<TopicApi> getServiceClass() {
+        return TopicApi.class;
     }
 
     Observable<TopicEntity> getTopics(String filter, int pageIndex) {

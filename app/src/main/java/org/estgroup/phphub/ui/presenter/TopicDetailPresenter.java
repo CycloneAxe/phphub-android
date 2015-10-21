@@ -15,6 +15,7 @@ import org.estgroup.phphub.api.entity.element.Topic;
 import org.estgroup.phphub.common.base.BaseRxPresenter;
 import org.estgroup.phphub.common.internal.di.qualifier.ForApplication;
 import org.estgroup.phphub.common.transformer.RefreshTokenTransformer;
+import org.estgroup.phphub.common.transformer.SchedulerTransformer;
 import org.estgroup.phphub.common.transformer.TokenGeneratorTransformer;
 import org.estgroup.phphub.model.TokenModel;
 import org.estgroup.phphub.model.TopicModel;
@@ -27,11 +28,9 @@ import javax.inject.Inject;
 import eu.unicate.retroauth.AuthAccountManager;
 import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action2;
 import rx.functions.Func0;
 import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 import static org.estgroup.phphub.common.qualifier.TopicDetailType.*;
 
@@ -127,12 +126,11 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                                         .compose(new TokenGeneratorTransformer<TopicEntity.ATopic>(tokenModel, prefser));
                             }
                         })
-                        .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .map(new Func1<TopicEntity.ATopic, Topic>() {
-                                    @Override
-                                    public Topic call(TopicEntity.ATopic topic) {
-                                        return topic.getData();
+                        .compose(new SchedulerTransformer<TopicEntity.ATopic>())
+                        .map(new Func1<TopicEntity.ATopic, Topic>() {
+                            @Override
+                            public Topic call(TopicEntity.ATopic topic) {
+                                return topic.getData();
                             }
                         });
                     }
@@ -179,8 +177,7 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                                         ));
                             }
                         })
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
+                        .compose(new SchedulerTransformer<JsonObject>())
                         .map(new Func1<JsonObject, JsonObject>() {
                             @Override
                             public JsonObject call(JsonObject jsonObject) {
@@ -230,8 +227,7 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                                         ));
                             }
                         })
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
+                        .compose(new SchedulerTransformer<JsonObject>())
                         .map(new Func1<JsonObject, JsonObject>() {
                             @Override
                             public JsonObject call(JsonObject jsonObject) {
@@ -281,14 +277,13 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                                         ));
                             }
                         })
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .map(new Func1<JsonObject, JsonObject>() {
-                                    @Override
-                                    public JsonObject call(JsonObject jsonObject) {
-                                        return jsonObject;
-                                    }
-                                });
+                        .compose(new SchedulerTransformer<JsonObject>())
+                        .map(new Func1<JsonObject, JsonObject>() {
+                            @Override
+                            public JsonObject call(JsonObject jsonObject) {
+                                return jsonObject;
+                            }
+                        });
                     }
                 },
                 new Action2<TopicDetailsActivity, JsonObject>() {
@@ -332,14 +327,13 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                                         ));
                             }
                         })
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .map(new Func1<JsonObject, JsonObject>() {
-                                    @Override
-                                    public JsonObject call(JsonObject jsonObject) {
-                                        return jsonObject;
-                                    }
-                                });
+                        .compose(new SchedulerTransformer<JsonObject>())
+                        .map(new Func1<JsonObject, JsonObject>() {
+                            @Override
+                            public JsonObject call(JsonObject jsonObject) {
+                                return jsonObject;
+                            }
+                        });
                     }
                 },
                 new Action2<TopicDetailsActivity, JsonObject>() {
@@ -383,14 +377,13 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                                         ));
                             }
                         })
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .map(new Func1<JsonObject, JsonObject>() {
-                                    @Override
-                                    public JsonObject call(JsonObject jsonObject) {
-                                        return jsonObject;
-                                    }
-                                });
+                        .compose(new SchedulerTransformer<JsonObject>())
+                        .map(new Func1<JsonObject, JsonObject>() {
+                            @Override
+                            public JsonObject call(JsonObject jsonObject) {
+                                return jsonObject;
+                            }
+                        });
                     }
                 },
                 new Action2<TopicDetailsActivity, JsonObject>() {
@@ -434,14 +427,13 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                                         ));
                             }
                         })
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .map(new Func1<JsonObject, JsonObject>() {
-                                    @Override
-                                    public JsonObject call(JsonObject jsonObject) {
-                                        return jsonObject;
-                                    }
-                                });
+                        .compose(new SchedulerTransformer<JsonObject>())
+                        .map(new Func1<JsonObject, JsonObject>() {
+                            @Override
+                            public JsonObject call(JsonObject jsonObject) {
+                                return jsonObject;
+                            }
+                        });
                     }
                 },
                 new Action2<TopicDetailsActivity, JsonObject>() {

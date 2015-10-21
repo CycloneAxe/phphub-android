@@ -5,14 +5,13 @@ import android.accounts.AccountManager;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.github.pwittchen.prefser.library.Prefser;
-
 import org.estgroup.phphub.R;
 import org.estgroup.phphub.api.entity.ReplyEntity;
 import org.estgroup.phphub.api.entity.element.Reply;
 import org.estgroup.phphub.common.base.BaseRxPresenter;
 import org.estgroup.phphub.common.internal.di.qualifier.ForApplication;
 import org.estgroup.phphub.common.transformer.RefreshTokenTransformer;
+import org.estgroup.phphub.common.transformer.SchedulerTransformer;
 import org.estgroup.phphub.model.TokenModel;
 import org.estgroup.phphub.model.TopicModel;
 import org.estgroup.phphub.ui.view.topic.TopicReplyActivity;
@@ -22,11 +21,9 @@ import javax.inject.Inject;
 import eu.unicate.retroauth.AuthAccountManager;
 import rx.Observable;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action2;
 import rx.functions.Func0;
 import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 public class TopicReplyPresenter extends BaseRxPresenter<TopicReplyActivity> {
     private static final int REQUEST_REPLY_ID = 1;
@@ -90,14 +87,13 @@ public class TopicReplyPresenter extends BaseRxPresenter<TopicReplyActivity> {
                                         ));
                             }
                         })
-                                .subscribeOn(Schedulers.io())
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .map(new Func1<ReplyEntity.AReply, Reply>() {
-                                    @Override
-                                    public Reply call(ReplyEntity.AReply aReply) {
-                                        return aReply.getData();
-                                    }
-                                });
+                        .compose(new SchedulerTransformer<ReplyEntity.AReply>())
+                        .map(new Func1<ReplyEntity.AReply, Reply>() {
+                            @Override
+                            public Reply call(ReplyEntity.AReply aReply) {
+                                return aReply.getData();
+                            }
+                        });
                     }
                 },
                 new Action2<TopicReplyActivity, Reply>() {

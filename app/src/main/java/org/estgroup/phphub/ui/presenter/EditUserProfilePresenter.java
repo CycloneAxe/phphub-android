@@ -5,6 +5,7 @@ import android.os.Bundle;
 import org.estgroup.phphub.api.entity.UserEntity;
 import org.estgroup.phphub.api.entity.element.User;
 import org.estgroup.phphub.common.base.BaseRxPresenter;
+import org.estgroup.phphub.common.transformer.SchedulerTransformer;
 import org.estgroup.phphub.model.UserModel;
 import org.estgroup.phphub.ui.view.user.EditUserProfileActivity;
 
@@ -12,7 +13,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action2;
 import rx.functions.Func0;
 import rx.functions.Func1;
@@ -37,13 +37,13 @@ public class EditUserProfilePresenter extends BaseRxPresenter<EditUserProfileAct
                     @Override
                     public Observable<User> call() {
                         return userModel.saveUserProfile(userInfo)
-                                .observeOn(AndroidSchedulers.mainThread())
                                 .map(new Func1<UserEntity.AUser, User>() {
                                     @Override
                                     public User call(UserEntity.AUser aUser) {
                                         return aUser.getData();
                                     }
-                                });
+                                })
+                                .compose(new SchedulerTransformer<User>());
                     }
                 },
                 new Action2<EditUserProfileActivity, User>() {

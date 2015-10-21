@@ -11,6 +11,7 @@ import org.estgroup.phphub.common.util.Utils;
 import org.estgroup.phphub.model.TokenModel;
 
 import eu.unicate.retroauth.AuthAccountManager;
+import eu.unicate.retroauth.exceptions.AuthenticationCanceledException;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -18,7 +19,7 @@ import rx.functions.Func2;
 
 import static org.estgroup.phphub.common.qualifier.AuthType.AUTH_TYPE_REFRESH;
 
-public class RefreshTokenTransformer<T> implements Observable.Transformer<T, T> {
+public class RefreshTokenTransformer<T> extends RetryTransformer implements Observable.Transformer<T, T> {
     private TokenModel tokenModel;
 
     private AuthAccountManager authAccountManager;
@@ -45,6 +46,10 @@ public class RefreshTokenTransformer<T> implements Observable.Transformer<T, T> 
         this.tokenType = tokenType;
     }
 
+    private boolean hasAuthentication(Throwable throwable) {
+        return (throwable instanceof AuthenticationCanceledException || Utils.hasUnauthorized(throwable));
+    }
+
     @Override
     public Observable<T> call(Observable<T> observable) {
         return observable.retry(new Func2<Integer, Throwable, Boolean>() {
@@ -52,7 +57,7 @@ public class RefreshTokenTransformer<T> implements Observable.Transformer<T, T> 
             public Boolean call(Integer retryCount, Throwable throwable) {
                 final boolean[] needRetry = {false};
 
-                if (retryCount == 1 && Utils.hasUnauthorized(throwable) && account != null) {
+                if (retryCount <= RETRY_COUNT && hasAuthentication(throwable) && account != null) {
                     tokenModel.refreshToken(authAccountManager.getUserData(accountType, AUTH_TYPE_REFRESH))
                             .filter(new Func1<Token, Boolean>() {
                                 @Override

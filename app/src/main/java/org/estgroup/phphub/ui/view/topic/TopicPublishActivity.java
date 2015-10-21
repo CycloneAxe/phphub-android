@@ -6,12 +6,19 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.mobsandgeeks.saripaar.QuickRule;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Length;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.mobsandgeeks.saripaar.annotation.Order;
 import com.orhanobut.logger.Logger;
 
 import org.estgroup.phphub.R;
@@ -33,33 +40,58 @@ import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
 
 @RequiresPresenter(TopicPublishPresenter.class)
-public class TopicPublishActivity extends BaseActivity<TopicPublishPresenter> {
+public class TopicPublishActivity extends BaseActivity<TopicPublishPresenter> implements
+        Validator.ValidationListener {
+
+    private final static String LEFT_BRACKETS = "[", RIGHT_BRACKETS = "]";
 
     @Bind(R.id.et_topic_title)
+    @NotEmpty
+    @Order(1)
+    @Length(min = 2, trim = true, messageResId = R.string.title_input_error)
     EditText topicTitleView;
 
+    @NotEmpty
+    @Order(2)
+    @Length(min = 2, trim = true, messageResId = R.string.body_input_error)
     @Bind(R.id.et_topic_body)
     EditText topicBodyView;
 
+    int nodeId = 0;
+
+    @Order(3)
     @Bind(R.id.tv_select_node)
     TextView selectNodeView;
 
-    Topic topicInfo;
+    Topic topic = new Topic();
 
-    List<Node> nodes;
+    List<Node> nodes = new ArrayList<>();
+
+    Validator validator;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        topicInfo = new Topic();
-        nodes = new ArrayList<Node>();
-        getPresenter().nodeRequest();
+        validator = new Validator(this);
+        validator.setValidationListener(this);
+        validator.put(selectNodeView, new QuickRule<TextView>() {
+            @Override
+            public boolean isValid(TextView view) {
+                return view.getText().toString().contains(LEFT_BRACKETS);
+            }
+
+            @Override
+            public String getMessage(Context context) {
+                return getString(R.string.node_input_error);
+            }
+        });
+
+        getPresenter().request();
     }
 
     public static Intent getCallingIntent(Context context) {
-        Intent callingIntent = new Intent(context, TopicPublishActivity.class);
-        return callingIntent;
+        return new Intent(context, TopicPublishActivity.class);
     }
 
     @Override
@@ -98,45 +130,10 @@ public class TopicPublishActivity extends BaseActivity<TopicPublishPresenter> {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_publish) {
-            validationContent();
+            nodeId = Integer.parseInt(selectNodeView.getTag().toString());
+            validator.validate();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void validationContent() {
-        SweetAlertDialog errorDialog = new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE);
-        SweetAlertDialog loadingDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
-        String topicTitle = topicTitleView.getText().toString();
-        String topicBody = topicBodyView.getText().toString();
-        int nodeId = Integer.parseInt(selectNodeView.getTag().toString());
-
-        if (topicTitle.trim().length() < 2) {
-            errorDialog.setTitleText("Oops...");
-            errorDialog.setContentText(getString(R.string.title_input_error));
-            errorDialog.show();
-            return;
-        } else if (topicBody.trim().length() < 2) {
-            errorDialog.setTitleText("Oops...");
-            errorDialog.setContentText(getString(R.string.body_input_error));
-            errorDialog.show();
-            return;
-        } else if (nodeId == 0) {
-            errorDialog.setTitleText("Oops...");
-            errorDialog.setContentText(getString(R.string.node_input_error));
-            errorDialog.show();
-            return;
-        }
-
-        topicInfo.setTitle(topicTitle);
-        topicInfo.setBody(topicBody);
-        topicInfo.setNodeId(nodeId);
-
-        loadingDialog.getProgressHelper().setBarColor(Color.parseColor("#4394DA"));
-        loadingDialog.setContentText(getString(R.string.submitting));
-        loadingDialog.setCancelable(false);
-        loadingDialog.show();
-
-        getPresenter().request(topicInfo);
     }
 
     @OnClick(R.id.tv_select_node)
@@ -161,7 +158,7 @@ public class TopicPublishActivity extends BaseActivity<TopicPublishPresenter> {
             @Override
             public void onItemSelect(int item) {
                 selectNodeView.setTag(nodes.get(item).getId());
-                selectNodeView.setText(getString(R.string.node_info, "[" + String.valueOf(nodes.get(item).getName()) + "]"));
+                selectNodeView.setText(getString(R.string.node_info, LEFT_BRACKETS + String.valueOf(nodes.get(item).getName()) + RIGHT_BRACKETS));
             }
         });
         loopView.setArrayList(list);
@@ -174,6 +171,42 @@ public class TopicPublishActivity extends BaseActivity<TopicPublishPresenter> {
         AnimateDialog animateDialog = new AnimateDialog(this);
         animateDialog.setTitle(R.string.choose_node);
         animateDialog.popupDialog(rootview, 0.8f, 0.5f);
+    }
+
+    @Override
+    public void onValidationSucceeded() {
+        SweetAlertDialog loadingDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        String topicTitle = topicTitleView.getText().toString();
+        String topicBody = topicBodyView.getText().toString();
+
+        topic.setTitle(topicTitle);
+        topic.setBody(topicBody);
+        topic.setNodeId(nodeId);
+
+        getPresenter().publish(topic);
+
+        loadingDialog.getProgressHelper().setBarColor(Color.parseColor("#4394DA"));
+        loadingDialog.setContentText(getString(R.string.submitting));
+        loadingDialog.setCancelable(false);
+        loadingDialog.show();
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        final SweetAlertDialog errorDialog = new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE);
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+
+            if (view instanceof EditText) {
+                ((EditText) view).setError(message);
+            } else {
+                errorDialog.setTitleText("Oops...");
+                errorDialog.setContentText(message);
+                errorDialog.show();
+                return;
+            }
+        }
     }
 
     public void onPublishSuccessful(Topic topic) {

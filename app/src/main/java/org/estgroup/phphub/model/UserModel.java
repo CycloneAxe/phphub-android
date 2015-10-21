@@ -1,5 +1,7 @@
 package org.estgroup.phphub.model;
 
+import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import org.estgroup.phphub.api.UserApi;
@@ -14,9 +16,14 @@ import java.util.HashMap;
 
 import rx.Observable;
 
-public class UserModel extends BaseModel<UserApi> {
-    public UserModel(@Nullable TokenProvider provider) {
-        super(provider, UserApi.class);
+public class UserModel extends BaseModel<UserApi, UserModel> {
+    public UserModel(@NonNull Context context, @Nullable TokenProvider tokenProvider) {
+        super(context, tokenProvider);
+    }
+
+    @Override
+    protected Class<UserApi> getServiceClass() {
+        return UserApi.class;
     }
 
     public Observable<UserEntity.AUser> getMyselfInfo() {
