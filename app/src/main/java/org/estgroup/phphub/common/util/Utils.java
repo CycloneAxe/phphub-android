@@ -6,6 +6,7 @@ import android.content.Context;
 
 import org.estgroup.phphub.R;
 
+import eu.unicate.retroauth.AuthAccountManager;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
@@ -20,9 +21,27 @@ public class Utils {
         return r != null && r.getStatus() == 401;
     }
 
+    public static String getTokenType(Context context) {
+        return context.getString(R.string.auth_token_type);
+    }
+
+    public static String getAccountType(Context context) {
+        return context.getString(R.string.auth_account_type);
+    }
+
+    public static String getActiveAccountName(Context context, AuthAccountManager authAccountManager) {
+        return authAccountManager.getActiveAccountName(getAccountType(context), false);
+    }
+
+    public static Account getActiveAccount(Context context, AuthAccountManager authAccountManager) {
+        return authAccountManager.getAccountByName(
+                getActiveAccountName(context, authAccountManager),
+                getAccountType(context)
+        );
+    }
+
     public static Account[] getAccounts(Context context, AccountManager accountManager) {
-        String accountType = context.getString(R.string.auth_account_type);
-        Account[] accounts = accountManager.getAccountsByType(accountType);
+        Account[] accounts = accountManager.getAccountsByType(getAccountType(context));
         return accounts;
     }
 

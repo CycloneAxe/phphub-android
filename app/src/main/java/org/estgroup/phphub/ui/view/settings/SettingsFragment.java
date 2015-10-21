@@ -31,7 +31,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     @Override
     public void onResume() {
         super.onResume();
-        if (Utils.logined(getActivity(), accountManager)) {
+        if (Utils.logined(getActivity(), accountManager) && (findPreference(LOGOUT_KEY) == null)) {
             Preference logoutPreference = new Preference(getActivity());
             logoutPreference.setKey(LOGOUT_KEY);
             logoutPreference.setLayoutResource(R.layout.common_logout);
