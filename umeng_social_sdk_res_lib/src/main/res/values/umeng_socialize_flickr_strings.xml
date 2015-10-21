@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="flickr_showword">Flickr</string>
+    <string name="flickr_no_client">未安装Flickr客户端</string>
+    <string name="flickr_content">Flickr只支持图片分享</string>
+    <string name="flickr_no_content">请设置分享内容</string>
+
+</resources>

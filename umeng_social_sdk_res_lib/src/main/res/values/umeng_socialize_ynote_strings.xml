@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="ynote_showword">有道云笔记</string>
+    <string name="ynote_no_client">未安装有道云笔记客户端</string>
+    <string name="ynote_content">有道云笔记只支持文本，图片，图文分享</string>
+    <string name="ynote_no_content">请设置分享内容</string>
+
+</resources>

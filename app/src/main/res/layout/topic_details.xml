@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -132,4 +132,4 @@
 
     </com.kennyc.view.MultiStateView>
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>

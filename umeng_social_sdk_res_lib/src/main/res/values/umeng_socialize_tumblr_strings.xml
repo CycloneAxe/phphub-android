@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="tumblr_showword">Tumblr</string>
+    <string name="tumblr_no_client">未安装Tumblr客户端</string>
+    <string name="tumblr_content">Tumblr只支持文本，图片，图文分享</string>
+    <string name="tumblr_no_content">请设置分享内容</string>
+
+</resources>

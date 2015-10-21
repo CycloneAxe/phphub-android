@@ -1,0 +1,7 @@
+<resources>
+
+    <string name="linkedin_showword">LinkedIn</string>
+    <string name="linkedin_no_client">未安装LinkedIn客户端</string>
+    <string name="linkedin_content">linked只支持纯文本分享</string>
+
+</resources>

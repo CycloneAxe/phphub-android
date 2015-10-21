@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="line_showword">LINE</string>
+    <string name="line_no_client">未安装Line客户端</string>
+    <string name="line_content">Line只支持文本，图片</string>
+    <string name="line_no_content">请设置分享内容</string>
+
+</resources>
