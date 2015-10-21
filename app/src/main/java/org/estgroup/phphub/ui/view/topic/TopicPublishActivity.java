@@ -19,7 +19,6 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Length;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Order;
-import com.mobsandgeeks.saripaar.annotation.Pattern;
 import com.orhanobut.logger.Logger;
 
 import org.estgroup.phphub.R;
@@ -205,6 +204,7 @@ public class TopicPublishActivity extends BaseActivity<TopicPublishPresenter> im
                 errorDialog.setTitleText("Oops...");
                 errorDialog.setContentText(message);
                 errorDialog.show();
+                return;
             }
         }
     }
