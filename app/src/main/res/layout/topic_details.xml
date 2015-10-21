@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -124,12 +124,11 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         app:layout_widthPercent="100%w"
-                        app:layout_heightPercent="13.1%w"
-                        coord:layout_scrollFlags="scroll|enterAlways"/>
+                        app:layout_heightPercent="13.1%w"/>
 
                 </com.zhy.android.percent.support.PercentRelativeLayout>
 
 
     </com.kennyc.view.MultiStateView>
 
-</android.support.design.widget.CoordinatorLayout>
+</LinearLayout>
