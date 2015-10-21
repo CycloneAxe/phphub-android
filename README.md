@@ -37,3 +37,4 @@ Gradle version 2.4
 [prefser](https://github.com/pwittchen/prefser) | Shared Preferences Helper
 [Android-TopScrollHelper](https://github.com/kmshack/Android-TopScrollHelper) | 点击系统栏自动滚动到顶部
 [sweet-alert-dialog](https://github.com/pedant/sweet-alert-dialog) | A beautiful and clever alert dialog
+[android-saripaar](https://github.com/ragunathjawahar/android-saripaar) | 表单验证
