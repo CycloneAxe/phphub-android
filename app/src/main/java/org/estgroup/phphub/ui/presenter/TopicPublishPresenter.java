@@ -107,12 +107,12 @@ public class TopicPublishPresenter extends BaseRxPresenter<TopicPublishActivity>
                 });
     }
 
-    public void request(Topic topic) {
+    public void publish(Topic topic) {
         this.topic = topic;
         start(REQUEST_PUBLISH_TOPIC_ID);
     }
 
-    public void nodeRequest() {
+    public void request() {
         start(REQUEST_GET_NODE_ID);
     }
 }
