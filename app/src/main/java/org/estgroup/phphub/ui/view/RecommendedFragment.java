@@ -88,7 +88,7 @@ public class RecommendedFragment extends LazyFragment<RecommendedPresenter> impl
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        if (Utils.logined(getContext(), accountManager)) {
+        if (toolbarView != null) {
             toolbarView.inflateMenu(R.menu.menu_publish);
             toolbarView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
                 @Override
