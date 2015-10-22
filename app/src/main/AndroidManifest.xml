@@ -44,7 +44,7 @@
 
         <activity android:name=".ui.view.LoginActivity">
             <intent-filter>
-                <action android:name="@string/authentication_action"/>
+                <action android:name="org.estgroup.phphub.auth.action.AUTH"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
