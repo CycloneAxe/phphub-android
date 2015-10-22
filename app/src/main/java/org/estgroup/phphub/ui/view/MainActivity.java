@@ -1,5 +1,6 @@
 package org.estgroup.phphub.ui.view;
 
+import android.accounts.AccountManager;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
@@ -15,46 +16,73 @@ import android.widget.ImageView;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+import com.orhanobut.logger.Logger;
+import com.squareup.otto.Produce;
+import com.squareup.otto.Subscribe;
 
 import org.estgroup.phphub.R;
+import org.estgroup.phphub.api.entity.element.Notification;
 import org.estgroup.phphub.common.base.BaseActivity;
+import org.estgroup.phphub.common.event.NotificationChangeEvent;
+import org.estgroup.phphub.common.provider.BusProvider;
 import org.estgroup.phphub.common.service.NotificationService;
 import org.estgroup.phphub.ui.view.topic.TopicsFragment;
 
-import butterknife.Bind;
+import java.util.List;
 
-public class MainActivity extends BaseActivity {
+import javax.inject.Inject;
+
+import butterknife.Bind;
+import retrofit.RetrofitError;
+
+public class MainActivity extends BaseActivity  {
     @Bind(R.id.viewpager)
     ViewPager viewPager;
 
     @Bind(R.id.viewpagertab)
     SmartTabLayout viewpagerTab;
 
-    private NotificationService notificationService;
-
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            System.out.println("onServiceConnected()");
-            NotificationService.MyBinder binder = (NotificationService.MyBinder) service;
-            notificationService = binder.getService();
-
-            notificationService.getNotification();
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-
-        }
-    };
+//    List<Notification> notificationList;
+//
+//    private NotificationService notificationService;
+//
+//    private ServiceConnection serviceConnection = new ServiceConnection() {
+//        @Override
+//        public void onServiceConnected(ComponentName name, IBinder service) {
+//            NotificationService.MyBinder binder = (NotificationService.MyBinder) service;
+//            notificationService = binder.getService();
+//
+//            notificationService.setListener(MainActivity.this);
+//            notificationService.getNotification();
+//        }
+//
+//        @Override
+//        public void onServiceDisconnected(ComponentName name) {
+//
+//        }
+//    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupTabView();
 
-        Intent bindIntent = new Intent(MainActivity.this, NotificationService.class);
-        bindService(bindIntent, serviceConnection, BIND_AUTO_CREATE);
+//        Intent bindIntent = new Intent(MainActivity.this, NotificationService.class);
+//        bindService(bindIntent, serviceConnection, BIND_AUTO_CREATE);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        BusProvider.getInstance().register(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        BusProvider.getInstance().unregister(this);
     }
 
     protected void setupTabView() {
@@ -88,4 +116,20 @@ public class MainActivity extends BaseActivity {
     protected int getLayoutResId() {
         return R.layout.main;
     }
+
+//    @Override
+//    public void onNotificationServiceSuccess(List<Notification> notificationList) {
+//        this.notificationList = notificationList;
+//        Logger.d(notificationList.toString());
+//    }
+//
+//    @Override
+//    public void onNotificationServiceError(RetrofitError error) {
+//        Logger.e(error.getMessage());
+//    }
+//
+//
+//    @Produce public NotificationChangeEvent notificationChangeEvent() {
+//        return new NotificationChangeEvent(notificationList);
+//    }
 }
