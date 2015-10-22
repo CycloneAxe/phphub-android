@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.deeplinkdispatch.DeepLink;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.kennyc.view.MultiStateView;
 import com.kmshack.topscroll.TopScrollHelper;
@@ -49,10 +51,13 @@ import static org.estgroup.phphub.common.qualifier.TopicDetailType.TOPIC_DETAIL_
 import static org.estgroup.phphub.common.qualifier.TopicDetailType.TOPIC_DETAIL_TYPE_VOTE_DOWN;
 import static org.estgroup.phphub.common.qualifier.TopicDetailType.TOPIC_DETAIL_TYPE_VOTE_UP;
 
+@DeepLink("phphub://topics")
 @RequiresPresenter(TopicDetailPresenter.class)
 public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> implements
     OnClickListener {
     private static final String INTENT_EXTRA_PARAM_TOPIC_ID = "topic_id";
+
+    private static final String INTENT_EXTRA_DEEPLINK_PARAM_ID = "id";
 
     int topicId;
 
@@ -102,12 +107,26 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        topicId = intent.getIntExtra(INTENT_EXTRA_PARAM_TOPIC_ID, 0);
+        if (getIntent().getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
+            Bundle params = intent.getExtras();
+            if (params != null && params.getString(INTENT_EXTRA_DEEPLINK_PARAM_ID) != null) {
+                String value = params.getString(INTENT_EXTRA_DEEPLINK_PARAM_ID);
+                if (!TextUtils.isEmpty(value)) {
+                    topicId = Integer.valueOf(value);
+                }
+            }
+        } else {
+            topicId = intent.getIntExtra(INTENT_EXTRA_PARAM_TOPIC_ID, 0);
+        }
 
-        getPresenter().request(topicId);
+        Logger.d("topic id : %d", topicId);
+
+        if (topicId > 0) {
+            getPresenter().request(topicId);
+        }
 
         TopScrollHelper.getInstance(getApplicationContext())
-                        .addTargetScrollView(topicContentView);
+                .addTargetScrollView(topicContentView);
     }
 
     @Override

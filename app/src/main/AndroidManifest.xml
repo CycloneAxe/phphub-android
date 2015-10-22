@@ -124,6 +124,19 @@
                 android:value=".ui.view.MainActivity" />
         </activity>
 
+        <!-- Deep Link Patch -->
+        <activity
+            android:name="com.airbnb.deeplinkdispatch.DeepLinkActivity"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="phphub" android:host="topics"/>
+                <data android:scheme="phphub" android:host="users"/>
+            </intent-filter>
+        </activity>
 
         <!--+++++++++++++++++++ JPush +++++++++++++++++++++-->
 

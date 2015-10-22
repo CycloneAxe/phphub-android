@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 
+import com.airbnb.deeplinkdispatch.DeepLink;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.orhanobut.logger.Logger;
 import com.zhy.android.percent.support.PercentLinearLayout;
@@ -18,9 +20,11 @@ import com.zhy.android.percent.support.PercentLinearLayout;
 import org.estgroup.phphub.R;
 import org.estgroup.phphub.api.entity.element.User;
 import org.estgroup.phphub.common.base.BaseActivity;
+import org.estgroup.phphub.common.util.Utils;
 import org.estgroup.phphub.ui.presenter.UserSpacePresenter;
 
 import butterknife.Bind;
+import eu.unicate.retroauth.AuthAccountManager;
 import icepick.State;
 import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
@@ -28,9 +32,12 @@ import nucleus.factory.RequiresPresenter;
 import static com.kennyc.view.MultiStateView.*;
 import static org.estgroup.phphub.common.Constant.USER_ID_KEY;
 
+@DeepLink("phphub://users")
 @RequiresPresenter(UserSpacePresenter.class)
 public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
     private static final String INTENT_EXTRA_PARAM_USER_ID = "user_id";
+
+    private static final String INTENT_EXTRA_DEEPLINK_PARAM_ID = "id";
 
     @Bind(R.id.toolbar)
     Toolbar toolbarView;
@@ -79,12 +86,24 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        userId = getIntent().getIntExtra(INTENT_EXTRA_PARAM_USER_ID, 0);
-        if (userId <= 0) {
-            return;
+        Intent intent = getIntent();
+        if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
+            Bundle params = intent.getExtras();
+            if (params != null && params.getString(INTENT_EXTRA_DEEPLINK_PARAM_ID) != null) {
+                String value = params.getString(INTENT_EXTRA_DEEPLINK_PARAM_ID);
+                if (!TextUtils.isEmpty(value)) {
+                    userId = Integer.valueOf(value);
+                }
+            }
+        } else {
+            userId = intent.getIntExtra(INTENT_EXTRA_PARAM_USER_ID, 0);
         }
 
-        getPresenter().request(userId);
+        Logger.d("user id : %d", userId);
+
+        if (userId >0) {
+            getPresenter().request(userId);
+        }
     }
 
     public static Intent getCallingIntent(Context context, int userId) {
@@ -113,17 +132,13 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
         getMenuInflater().inflate(R.menu.menu_user_space, menu);
 
         AccountManager accountManager = AccountManager.get(this);
-        Account[] accounts = accountManager.getAccountsByType(getString(R.string.auth_account_type));
-
-        String loginUserId = "";
-
-        for (Account account : accounts) {
-            loginUserId = accountManager.getUserData(account, USER_ID_KEY);
+        if (Utils.logined(this, accountManager)) {
+            Account account = Utils.getActiveAccount(this, new AuthAccountManager(this));
+            String loginUserId = accountManager.getUserData(account, USER_ID_KEY);
+            if (!TextUtils.isEmpty(loginUserId) && userId > 0) {
+                isMySelf = loginUserId.equals(String.valueOf(userId));
+            }
         }
-
-        int userId = getIntent().getIntExtra(INTENT_EXTRA_PARAM_USER_ID, 0);
-
-        isMySelf = loginUserId.equals(String.valueOf(userId));
 
         if (!isMySelf) {
             menu.findItem(R.id.menu_edit).setVisible(false);
