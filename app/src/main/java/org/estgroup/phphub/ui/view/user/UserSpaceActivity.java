@@ -23,6 +23,8 @@ import org.estgroup.phphub.common.base.BaseActivity;
 import org.estgroup.phphub.common.util.Utils;
 import org.estgroup.phphub.ui.presenter.UserSpacePresenter;
 
+import javax.inject.Inject;
+
 import butterknife.Bind;
 import eu.unicate.retroauth.AuthAccountManager;
 import icepick.State;
@@ -82,9 +84,16 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
 
     boolean isMySelf;
 
+    @Inject
+    AccountManager accountManager;
+
+    @Inject
+    AuthAccountManager authAccountManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getAppComponent().inject(this);
 
         Intent intent = getIntent();
         if (intent.getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
@@ -131,9 +140,8 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_user_space, menu);
 
-        AccountManager accountManager = AccountManager.get(this);
         if (Utils.logined(this, accountManager)) {
-            Account account = Utils.getActiveAccount(this, new AuthAccountManager(this));
+            Account account = Utils.getActiveAccount(this, authAccountManager);
             String loginUserId = accountManager.getUserData(account, USER_ID_KEY);
             if (!TextUtils.isEmpty(loginUserId) && userId > 0) {
                 isMySelf = loginUserId.equals(String.valueOf(userId));
