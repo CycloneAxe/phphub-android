@@ -57,8 +57,6 @@ public class TopicPublishActivity extends BaseActivity<TopicPublishPresenter> im
     @Bind(R.id.et_topic_body)
     EditText topicBodyView;
 
-    int nodeId = 0;
-
     @Order(3)
     @Bind(R.id.tv_select_node)
     TextView selectNodeView;
@@ -130,7 +128,6 @@ public class TopicPublishActivity extends BaseActivity<TopicPublishPresenter> im
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_publish) {
-            nodeId = Integer.parseInt(selectNodeView.getTag().toString());
             validator.validate();
         }
         return super.onOptionsItemSelected(item);
@@ -178,6 +175,7 @@ public class TopicPublishActivity extends BaseActivity<TopicPublishPresenter> im
         SweetAlertDialog loadingDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         String topicTitle = topicTitleView.getText().toString();
         String topicBody = topicBodyView.getText().toString();
+        int nodeId = Integer.parseInt(selectNodeView.getTag().toString());
 
         topic.setTitle(topicTitle);
         topic.setBody(topicBody);
