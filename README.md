@@ -38,3 +38,4 @@ Gradle version 2.4
 [Android-TopScrollHelper](https://github.com/kmshack/Android-TopScrollHelper) | 点击系统栏自动滚动到顶部
 [sweet-alert-dialog](https://github.com/pedant/sweet-alert-dialog) | A beautiful and clever alert dialog
 [android-saripaar](https://github.com/ragunathjawahar/android-saripaar) | 表单验证
+[DeepLinkDispatch](https://github.com/airbnb/DeepLinkDispatch) | 一个简单的、基于注解的 Deep Link 处理库
