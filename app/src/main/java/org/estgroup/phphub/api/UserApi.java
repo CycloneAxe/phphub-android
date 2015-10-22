@@ -8,6 +8,7 @@ import org.estgroup.phphub.api.entity.element.User;
 
 import java.util.Map;
 
+import eu.unicate.retroauth.annotations.Authenticated;
 import eu.unicate.retroauth.annotations.Authentication;
 import retrofit.http.Body;
 import retrofit.http.GET;
@@ -19,6 +20,7 @@ import rx.Observable;
 @Authentication(accountType = R.string.auth_account_type, tokenType = R.string.auth_token_type)
 public interface UserApi {
 
+    @Authenticated
     @GET("/me")
     Observable<UserEntity.AUser> getMyselfInfo();
 
