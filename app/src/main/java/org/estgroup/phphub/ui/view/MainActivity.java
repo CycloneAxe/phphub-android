@@ -35,40 +35,41 @@ import javax.inject.Inject;
 import butterknife.Bind;
 import retrofit.RetrofitError;
 
-public class MainActivity extends BaseActivity  {
+public class MainActivity extends BaseActivity implements
+        NotificationService.NotificationListener {
     @Bind(R.id.viewpager)
     ViewPager viewPager;
 
     @Bind(R.id.viewpagertab)
     SmartTabLayout viewpagerTab;
 
-//    List<Notification> notificationList;
-//
-//    private NotificationService notificationService;
-//
-//    private ServiceConnection serviceConnection = new ServiceConnection() {
-//        @Override
-//        public void onServiceConnected(ComponentName name, IBinder service) {
-//            NotificationService.MyBinder binder = (NotificationService.MyBinder) service;
-//            notificationService = binder.getService();
-//
-//            notificationService.setListener(MainActivity.this);
-//            notificationService.getNotification();
-//        }
-//
-//        @Override
-//        public void onServiceDisconnected(ComponentName name) {
-//
-//        }
-//    };
+    private static int notificationLength;
+
+    private NotificationService notificationService;
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            NotificationService.MyBinder binder = (NotificationService.MyBinder) service;
+            notificationService = binder.getService();
+
+            notificationService.setListener(MainActivity.this);
+            notificationService.getNotification();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupTabView();
 
-//        Intent bindIntent = new Intent(MainActivity.this, NotificationService.class);
-//        bindService(bindIntent, serviceConnection, BIND_AUTO_CREATE);
+        Intent bindIntent = new Intent(MainActivity.this, NotificationService.class);
+        bindService(bindIntent, serviceConnection, BIND_AUTO_CREATE);
     }
 
     @Override
@@ -117,19 +118,20 @@ public class MainActivity extends BaseActivity  {
         return R.layout.main;
     }
 
-//    @Override
-//    public void onNotificationServiceSuccess(List<Notification> notificationList) {
-//        this.notificationList = notificationList;
-//        Logger.d(notificationList.toString());
-//    }
-//
-//    @Override
-//    public void onNotificationServiceError(RetrofitError error) {
-//        Logger.e(error.getMessage());
-//    }
-//
-//
-//    @Produce public NotificationChangeEvent notificationChangeEvent() {
-//        return new NotificationChangeEvent(notificationList);
-//    }
+    @Override
+    public void onNotificationServiceSuccess(List<Notification> notificationList) {
+        this.notificationLength = notificationList.size();
+
+        BusProvider.getInstance().post(notificationChangeEvent());
+    }
+
+    @Override
+    public void onNotificationServiceError(RetrofitError error) {
+        Logger.e(error.getMessage());
+    }
+
+
+    @Produce public NotificationChangeEvent notificationChangeEvent() {
+        return new NotificationChangeEvent(notificationLength);
+    }
 }

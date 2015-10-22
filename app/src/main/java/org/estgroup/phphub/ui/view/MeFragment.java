@@ -12,13 +12,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.squareup.otto.Subscribe;
 
 import org.estgroup.phphub.R;
 import org.estgroup.phphub.common.base.BaseSupportFragment;
+import org.estgroup.phphub.common.event.NotificationChangeEvent;
+import org.estgroup.phphub.common.provider.BusProvider;
 import org.estgroup.phphub.common.util.Utils;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import cn.bingoogolapple.badgeview.BGABadgeRelativeLayout;
 import eu.unicate.retroauth.AuthAccountManager;
 
 import static org.estgroup.phphub.common.Constant.*;
@@ -34,6 +38,9 @@ public class MeFragment extends BaseSupportFragment {
 
     @Bind(R.id.tv_sign)
     TextView signView;
+
+    @Bind(R.id.bga_rlyt_messages)
+    BGABadgeRelativeLayout messagesView;
 
     AccountManager accountManager;
 
@@ -67,6 +74,15 @@ public class MeFragment extends BaseSupportFragment {
         super.onResume();
         account = Utils.getActiveAccount(getContext(), authAccountManager);
         refreshView();
+
+        BusProvider.getInstance().register(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        BusProvider.getInstance().unregister(this);
     }
 
     private void refreshView() {
@@ -153,5 +169,9 @@ public class MeFragment extends BaseSupportFragment {
     @Override
     protected String getTitle() {
         return getString(R.string.me);
+    }
+
+    @Subscribe public void onNotificationChange(NotificationChangeEvent event) {
+        messagesView.showTextBadge(event.getNotificationLenght());
     }
 }

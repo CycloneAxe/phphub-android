@@ -1,21 +1,15 @@
 package org.estgroup.phphub.common.event;
 
-import org.estgroup.phphub.api.entity.element.Notification;
-
-import java.util.List;
-
 public class NotificationChangeEvent {
 
-    public final List<Notification> notificationList;
+    public final int notificationLength;
 
-    public NotificationChangeEvent(List<Notification> notificationList) {
-        this.notificationList = notificationList;
+    public NotificationChangeEvent(int notificationLength) {
+        this.notificationLength = notificationLength;
     }
 
     public String getNotificationLenght(){
-
-        return String.valueOf(notificationList.size());
-
+        return String.valueOf(notificationLength);
     }
 
 

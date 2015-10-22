@@ -1,11 +1,13 @@
 package org.estgroup.phphub.common.service;
 
+import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 
+import org.estgroup.phphub.R;
 import org.estgroup.phphub.api.entity.NotificationEntity;
 import org.estgroup.phphub.api.entity.element.Notification;
 import org.estgroup.phphub.common.App;
@@ -19,6 +21,7 @@ import java.util.TimerTask;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import eu.unicate.retroauth.AuthAccountManager;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 import rx.Observable;
@@ -36,15 +39,19 @@ public class NotificationService extends Service {
     private Timer timer = new Timer();
 
     @Inject
+    AuthAccountManager authAccountManager;
+
+    @Inject
     AccountManager accountManager;
 
     @Inject
-    @Named(AUTH_TYPE_USER)
     UserModel userModel;
 
-    Subscriber subscriber;
-
     NotificationListener listener;
+
+    String tokenType, accountType;
+
+    Account[] accounts;
 
     public static interface NotificationListener {
         void onNotificationServiceSuccess(List<Notification> notificationList);
@@ -56,6 +63,10 @@ public class NotificationService extends Service {
     public void onCreate() {
         super.onCreate();
         ((App) getApplication()).getApiComponent().inject(this);
+
+        accountType = getString(R.string.auth_account_type);
+        tokenType = getString(R.string.auth_token_type);
+        accounts = accountManager.getAccountsByType(accountType);
     }
 
     public void setListener(NotificationListener listener) {
@@ -82,7 +93,9 @@ public class NotificationService extends Service {
             @Override
             public void run() {
                 if (Utils.logined(NotificationService.this, accountManager)) {
-                    userModel.getMyNotifications()
+                    userModel.once()
+                            .setToken(authAccountManager.getAuthToken(accounts[0], accountType, tokenType))
+                            .getMyNotifications()
                             .map(new Func1<NotificationEntity, List<Notification>>() {
                                 @Override
                                 public List<Notification> call(NotificationEntity notificationEntity) {
