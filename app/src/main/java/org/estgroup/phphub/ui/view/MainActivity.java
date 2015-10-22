@@ -1,6 +1,10 @@
 package org.estgroup.phphub.ui.view;
 
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -14,6 +18,7 @@ import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 
 import org.estgroup.phphub.R;
 import org.estgroup.phphub.common.base.BaseActivity;
+import org.estgroup.phphub.common.service.NotificationService;
 import org.estgroup.phphub.ui.view.topic.TopicsFragment;
 
 import butterknife.Bind;
@@ -25,10 +30,31 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.viewpagertab)
     SmartTabLayout viewpagerTab;
 
+    private NotificationService notificationService;
+
+    private ServiceConnection serviceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            System.out.println("onServiceConnected()");
+            NotificationService.MyBinder binder = (NotificationService.MyBinder) service;
+            notificationService = binder.getService();
+
+            notificationService.getNotification();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setupTabView();
+
+        Intent bindIntent = new Intent(MainActivity.this, NotificationService.class);
+        bindService(bindIntent, serviceConnection, BIND_AUTO_CREATE);
     }
 
     protected void setupTabView() {

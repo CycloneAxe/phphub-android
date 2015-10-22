@@ -87,6 +87,9 @@
                 android:resource="@xml/authenticator"/>
         </service>
 
+        <service android:name=".common.service.NotificationService"
+            android:enabled="true" />
+
         <activity android:name=".ui.view.topic.TopicPublishActivity"
             android:parentActivityName=".ui.view.MainActivity">
 
