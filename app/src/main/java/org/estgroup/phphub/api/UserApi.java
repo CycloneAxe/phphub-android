@@ -20,7 +20,6 @@ import rx.Observable;
 @Authentication(accountType = R.string.auth_account_type, tokenType = R.string.auth_token_type)
 public interface UserApi {
 
-    @Authenticated
     @GET("/me")
     Observable<UserEntity.AUser> getMyselfInfo();
 
