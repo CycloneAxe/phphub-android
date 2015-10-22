@@ -1,6 +1,7 @@
 package org.estgroup.phphub.common.internal.di.component;
 
 import org.estgroup.phphub.common.internal.di.module.ApiModule;
+import org.estgroup.phphub.common.service.NotificationService;
 import org.estgroup.phphub.ui.presenter.EditUserProfilePresenter;
 import org.estgroup.phphub.ui.presenter.TopicPublishPresenter;
 import org.estgroup.phphub.ui.presenter.RecommendedPresenter;
@@ -38,4 +39,6 @@ public interface ApiComponent {
         void inject(UserTopicsPresenter userTopicsPresenter);
 
         void inject(EditUserProfilePresenter editUserProfilePresenter);
+
+        void inject(NotificationService notificationService);
 }
