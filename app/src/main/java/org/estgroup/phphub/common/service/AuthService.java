@@ -9,6 +9,6 @@ import eu.unicate.retroauth.AuthenticationService;
 public class AuthService extends AuthenticationService {
     @Override
     public String getLoginAction(Context context) {
-        return context.getString(R.string.authentication_action);
+        return getString(R.string.authentication_action);
     }
 }

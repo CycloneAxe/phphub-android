@@ -147,7 +147,7 @@ public class MeFragment extends BaseSupportFragment {
     }
 
     private void needLogin() {
-        accountManager.addAccount(accountType, tokenType, null, null, getActivity(), null, null);
+        authAccountManager.addAccount(getActivity(), accountType, tokenType);
     }
 
     @Override

@@ -5,5 +5,5 @@
     <!-- String for the type of token you're using. -->
     <string name="auth_token_type">org.estgroup.phphub.token</string>
     <!-- String for the Action to open the activity to login if necessary -->
-    <string name="authentication_action">org.phphub.auth.action.AUTH</string>
+    <string name="authentication_action">org.estgroup.phphub.auth.action.AUTH</string>
 </resources>

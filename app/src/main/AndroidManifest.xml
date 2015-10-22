@@ -44,7 +44,7 @@
 
         <activity android:name=".ui.view.LoginActivity">
             <intent-filter>
-                <action android:name="org.phphub.auth.action.AUTH"/>
+                <action android:name="@string/authentication_action"/>
                 <category android:name="android.intent.category.DEFAULT"/>
             </intent-filter>
         </activity>
@@ -74,7 +74,7 @@
                 android:value=".ui.view.MainActivity" />
 
         </activity>
-        <activity android:name=".ui.view.ScannerActivity"></activity>
+        <activity android:name=".ui.view.ScannerActivity"/>
 
         <service android:name=".common.service.AuthService"
             android:process=":auth"
