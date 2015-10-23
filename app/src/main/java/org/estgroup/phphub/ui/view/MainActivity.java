@@ -31,8 +31,6 @@ import org.estgroup.phphub.ui.view.topic.TopicsFragment;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.Bind;
 import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
 import retrofit.RetrofitError;

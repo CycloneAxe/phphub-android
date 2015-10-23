@@ -38,6 +38,7 @@
             app:layout_textSizePercent="3%"/>
 
         <Button
+            android:id="@+id/btn_login_guide"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/bg_radius_blue"
