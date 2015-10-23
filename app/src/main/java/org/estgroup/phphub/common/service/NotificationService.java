@@ -33,6 +33,8 @@ public class NotificationService extends Service {
 
     private Timer timer = new Timer();
 
+    public static int notificationLength;
+
     @Inject
     AuthAccountManager authAccountManager;
 
@@ -110,5 +112,9 @@ public class NotificationService extends Service {
     @Override
     public IBinder onBind(Intent intent) {
         return null;
+    }
+
+    @Produce public NotificationChangeEvent notificationChangeEvent() {
+        return new NotificationChangeEvent(notificationLength);
     }
 }

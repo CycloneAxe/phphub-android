@@ -20,10 +20,11 @@ import org.estgroup.phphub.common.event.NotificationChangeEvent;
 import org.estgroup.phphub.common.provider.BusProvider;
 import org.estgroup.phphub.common.service.NotificationService;
 import org.estgroup.phphub.ui.view.topic.TopicsFragment;
+
 import butterknife.Bind;
 import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity  {
     @Bind(R.id.viewpager)
     ViewPager viewPager;
 
@@ -35,11 +36,9 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        BusProvider.getInstance().register(this);
         setupTabView();
 
-        meIconView = (BGABadgeLinearLayout) viewpagerTab.getTabAt(3).findViewById(R.id.badgeView);
+        BusProvider.getInstance().register(this);
         startService(new Intent(this, NotificationService.class));
     }
 
@@ -81,7 +80,8 @@ public class MainActivity extends BaseActivity {
         return R.layout.main;
     }
 
-    @Subscribe public void onNotificationChange(NotificationChangeEvent event) {
+    @Subscribe public void onNotificationChangeMe(NotificationChangeEvent event) {
+        meIconView = (BGABadgeLinearLayout) viewpagerTab.getTabAt(3).findViewById(R.id.badgeView);
         int lenght = event.getNotificationLength();
 
         if (lenght > 0) {
@@ -90,4 +90,5 @@ public class MainActivity extends BaseActivity {
             meIconView.hiddenBadge();
         }
     }
+
 }
