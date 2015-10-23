@@ -30,11 +30,11 @@ public class TopicModel extends BaseModel<TopicApi, TopicModel> {
         return TopicApi.class;
     }
 
-    Observable<TopicEntity> getTopics(String filter, int pageIndex) {
+    Observable<TopicEntity> getTopics(String filters, int pageIndex) {
         Map<String, String> options = new HashMap<String, String>();
         options.put("include", "user,node,last_reply_user");
         options.put("per_page", String.valueOf(Constant.PER_PAGE));
-        options.put("filter", filter);
+        options.put("filters", filters);
         options.put("page", String.valueOf(pageIndex));
 
         return getService().getTopics(options);
