@@ -1,30 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.kennyc.view.MultiStateView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/multiStateView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:msv_emptyView="@layout/common_empty"
-    app:msv_errorView="@layout/common_error"
-    app:msv_loadingView="@layout/common_loading">
+    android:orientation="vertical">
 
-    <com.cjj.MaterialRefreshLayout
-        android:id="@+id/refresh"
+    <include layout="@layout/common_toolbar"/>
+
+    <com.kennyc.view.MultiStateView
+        android:id="@+id/multiStateView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:isLoadMore="true"
-        app:overlay="false"
-        app:wave_show="false">
+        app:msv_emptyView="@layout/common_empty"
+        app:msv_errorView="@layout/common_error"
+        app:msv_loadingView="@layout/common_loading">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_view"
+        <com.cjj.MaterialRefreshLayout
+            android:id="@+id/refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="6dp"
-            android:paddingRight="6dp"
-            tools:listitem="@layout/message_item"/>
-    </com.cjj.MaterialRefreshLayout>
+            app:isLoadMore="true"
+            app:overlay="false"
+            app:wave_show="false">
 
-</com.kennyc.view.MultiStateView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                tools:listitem="@layout/message_item"/>
+        </com.cjj.MaterialRefreshLayout>
+
+    </com.kennyc.view.MultiStateView>
+
+</LinearLayout>
+

@@ -84,7 +84,7 @@ public class NotificationService extends Service {
                                     accountType,
                                     tokenType
                             ))
-                            .getMyNotifications()
+                            .getUnreadNotifications()
                             .compose(new SchedulerTransformer<NotificationEntity>())
                             .map(new Func1<NotificationEntity, List<Notification>>() {
                                 @Override
@@ -95,7 +95,9 @@ public class NotificationService extends Service {
                             .subscribe(new Action1<List<Notification>>() {
                                 @Override
                                 public void call(List<Notification> notifications) {
-                                    BusProvider.getInstance().post(new NotificationChangeEvent(notifications.size()));
+                                    if (notifications != null) {
+                                        BusProvider.getInstance().post(new NotificationChangeEvent(notifications.size()));
+                                    }
                                 }
                             }, new Action1<Throwable>() {
                                 @Override

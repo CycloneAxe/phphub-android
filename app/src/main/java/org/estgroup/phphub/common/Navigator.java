@@ -13,6 +13,7 @@ import org.estgroup.phphub.ui.view.topic.TopicDetailsActivity;
 import org.estgroup.phphub.ui.view.topic.TopicReplyActivity;
 import org.estgroup.phphub.ui.view.ReplyListActivity;
 import org.estgroup.phphub.ui.view.user.EditUserProfileActivity;
+import org.estgroup.phphub.ui.view.user.UserNotificationsActivity;
 import org.estgroup.phphub.ui.view.user.UserSpaceActivity;
 import org.estgroup.phphub.ui.view.user.UserTopicActivity;
 
@@ -66,6 +67,11 @@ public class Navigator {
 
     public void navigateToEditUserProfile(@NonNull Context context, User userInfo) {
         Intent intentToLaunch = EditUserProfileActivity.getCallingIntent(context, userInfo);
+        context.startActivity(intentToLaunch);
+    }
+
+    public void navigateToUserNotification(@NonNull Context context) {
+        Intent intentToLaunch = UserNotificationsActivity.getCallingIntent(context);
         context.startActivity(intentToLaunch);
     }
 }

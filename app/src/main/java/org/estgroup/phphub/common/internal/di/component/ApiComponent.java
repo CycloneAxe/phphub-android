@@ -8,6 +8,7 @@ import org.estgroup.phphub.ui.presenter.RecommendedPresenter;
 import org.estgroup.phphub.ui.presenter.TopicDetailPresenter;
 import org.estgroup.phphub.ui.presenter.TopicPresenter;
 import org.estgroup.phphub.ui.presenter.TopicReplyPresenter;
+import org.estgroup.phphub.ui.presenter.UserNotificationsPresenter;
 import org.estgroup.phphub.ui.presenter.UserSpacePresenter;
 import org.estgroup.phphub.ui.presenter.UserTopicsPresenter;
 import org.estgroup.phphub.ui.presenter.WikiPresenter;
@@ -41,4 +42,6 @@ public interface ApiComponent {
         void inject(EditUserProfilePresenter editUserProfilePresenter);
 
         void inject(NotificationService notificationService);
+
+        void inject(UserNotificationsPresenter userNotificationsPresenter);
 }

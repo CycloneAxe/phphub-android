@@ -167,6 +167,13 @@ public class MeFragment extends BaseSupportFragment {
         navigator.navigateToUserTopic(getContext(), this.userId, USER_TOPIC_FAVORITE_TYPE);
     }
 
+    @OnClick(R.id.bga_rlyt_messages)
+    public void navigateToUserNotification() {
+        if (Utils.logined(getActivity(), accountManager)) {
+            navigator.navigateToUserNotification(getActivity());
+        }
+    }
+
     private void needLogin() {
         authAccountManager.addAccount(getActivity(), accountType, tokenType);
     }

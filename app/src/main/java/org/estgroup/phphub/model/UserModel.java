@@ -9,6 +9,7 @@ import org.estgroup.phphub.api.entity.NotificationEntity;
 import org.estgroup.phphub.api.entity.TopicEntity;
 import org.estgroup.phphub.api.entity.UserEntity;
 import org.estgroup.phphub.api.entity.element.User;
+import org.estgroup.phphub.common.Constant;
 import org.estgroup.phphub.common.base.BaseModel;
 import org.estgroup.phphub.common.provider.TokenProvider;
 
@@ -55,10 +56,18 @@ public class UserModel extends BaseModel<UserApi, UserModel> {
         return getService().getTopics(userId, options);
     }
 
-    public Observable<NotificationEntity> getMyNotifications() {
+    public Observable<NotificationEntity> getMyNotifications(int pageIndex) {
+        HashMap<String, String> options = new HashMap<>();
+        options.put("per_page", String.valueOf(Constant.PER_PAGE));
+        options.put("include", "from_user,topic");
+        options.put("page", String.valueOf(pageIndex));
+        return getService().getMyNotifications(options);
+    }
+
+    public Observable<NotificationEntity> getUnreadNotifications() {
         HashMap<String, String> options = new HashMap<>();
         options.put("include", "from_user,topic");
-        return getService().getMyNotifications(options);
+        return getService().getUnreadNotifications(options);
     }
 
     public Observable<UserEntity.AUser> saveUserProfile(User userInfo) {

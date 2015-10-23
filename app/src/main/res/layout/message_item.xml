@@ -11,7 +11,7 @@
     android:paddingTop="13dp"
     android:paddingLeft="12dp"
     android:paddingRight="12dp"
-    android:paddingBottom="25dp"
+    android:paddingBottom="13dp"
     android:background="@drawable/topic_item_bg"
     app:badge_bgColor="@color/item_badge_background"
     app:badge_textColor="@color/white"
@@ -42,7 +42,7 @@
 
         <TextView
             android:id="@+id/tv_msg_details"
-            android:layout_marginTop="13dp"
+            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/text_normal"
@@ -50,7 +50,7 @@
 
         <TextView
             android:id="@+id/tv_msg_reply"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="gone"

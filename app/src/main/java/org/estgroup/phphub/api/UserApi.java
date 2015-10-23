@@ -41,6 +41,9 @@ public interface UserApi {
     @GET("/me/notifications")
     Observable<NotificationEntity> getMyNotifications(@QueryMap Map<String, String> options);
 
+    @GET("/me/notifications/count")
+    Observable<NotificationEntity> getUnreadNotifications(@QueryMap Map<String, String> options);
+
     @PUT("/users/{userId}")
     Observable<UserEntity.AUser> saveUserProfile(@Path("userId") int userId,
                                                  @Body User userInfo);
