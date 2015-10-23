@@ -30,8 +30,6 @@ import org.estgroup.phphub.ui.view.topic.TopicsFragment;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.Bind;
 import retrofit.RetrofitError;
 

@@ -5,6 +5,7 @@ import android.accounts.AccountManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -105,6 +106,19 @@ public class LoginActivity extends AuthenticationActivity {
 
     public static Intent getCallingIntent(Context context) {
         return new Intent(context, LoginActivity.class);
+    }
+
+    @OnClick(R.id.btn_login_guide)
+    public void loginGuide() {
+        Uri uri = Uri.parse("https://phphub.org/helps/qr-login-guide");
+        Intent intent = new Intent();
+        intent.setAction("android.intent.action.VIEW");
+        intent.setData(uri);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            startActivity(Intent.createChooser(intent, "请选择浏览器"));
+        }
     }
 
     @OnClick(R.id.btn_scanner)
