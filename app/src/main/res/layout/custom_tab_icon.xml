@@ -6,20 +6,24 @@
     android:layout_height="match_parent"
     android:background="@drawable/shap_line_only_top">
     <cn.bingoogolapple.badgeview.BGABadgeLinearLayout
-        android:id="@+id/badgeView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_centerInParent="true"
-        app:badge_gravity="rightTop"
-        app:badge_horizontalMargin="15dp">
-        <ImageView
-            android:id="@+id/iv_icon"
+        android:layout_centerInParent="true">
+        <cn.bingoogolapple.badgeview.BGABadgeFrameLayout
+            android:id="@+id/badgeView"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:background="@drawable/ic_me"
-            android:scaleType="center"/>
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            app:badge_gravity="rightTop">
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/ic_me"
+                android:scaleType="center"/>
+        </cn.bingoogolapple.badgeview.BGABadgeFrameLayout>
     </cn.bingoogolapple.badgeview.BGABadgeLinearLayout>
 </RelativeLayout>

@@ -22,7 +22,7 @@ import org.estgroup.phphub.common.service.NotificationService;
 import org.estgroup.phphub.ui.view.topic.TopicsFragment;
 
 import butterknife.Bind;
-import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
+import cn.bingoogolapple.badgeview.BGABadgeFrameLayout;
 
 public class MainActivity extends BaseActivity  {
     @Bind(R.id.viewpager)
@@ -31,7 +31,7 @@ public class MainActivity extends BaseActivity  {
     @Bind(R.id.viewpagertab)
     SmartTabLayout viewpagerTab;
 
-    private BGABadgeLinearLayout meIconView;
+    private BGABadgeFrameLayout meIconView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +39,7 @@ public class MainActivity extends BaseActivity  {
         BusProvider.getInstance().register(this);
         setupTabView();
 
-        meIconView = (BGABadgeLinearLayout) viewpagerTab.getTabAt(3).findViewById(R.id.badgeView);
+        meIconView = (BGABadgeFrameLayout) viewpagerTab.getTabAt(3).findViewById(R.id.badgeView);
         startService(new Intent(this, NotificationService.class));
     }
 
