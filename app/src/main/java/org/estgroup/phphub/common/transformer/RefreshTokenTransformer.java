@@ -12,6 +12,7 @@ import org.estgroup.phphub.model.TokenModel;
 
 import eu.unicate.retroauth.AuthAccountManager;
 import eu.unicate.retroauth.exceptions.AuthenticationCanceledException;
+import rx.Notification;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -57,23 +58,32 @@ public class RefreshTokenTransformer<T> extends RetryTransformer implements Obse
 
                 if (retryCount <= RETRY_COUNT && hasAuthentication(throwable) && account != null) {
                     tokenModel.refreshToken(authAccountManager.getUserData(accountType, AUTH_TYPE_REFRESH))
-                            .filter(new Func1<Token, Boolean>() {
+                            .materialize()
+                            .filter(new Func1<Notification<Token>, Boolean>() {
                                 @Override
-                                public Boolean call(Token token) {
+                                public Boolean call(Notification<Token> notification) {
+                                    return !notification.isOnCompleted();
+                                }
+                            })
+                            .filter(new Func1<Notification<Token>, Boolean>() {
+                                @Override
+                                public Boolean call(Notification<Token> notification) {
+                                    Token token = notification.getValue();
                                     return (token != null && !TextUtils.isEmpty(token.getToken()));
                                 }
                             })
-                            .doOnNext(new Action1<Token>() {
+                            .doOnNext(new Action1<Notification<Token>>() {
                                 @Override
-                                public void call(Token token) {
+                                public void call(Notification<Token> notification) {
+                                    Token token = notification.getValue();
                                     accountManager.setAuthToken(account, tokenType, token.getToken());
                                     accountManager.setUserData(account, AUTH_TYPE_REFRESH, token.getRefreshToken());
                                 }
                             })
                             .toBlocking()
-                            .forEach(new Action1<Token>() {
+                            .forEach(new Action1<Notification<Token>>() {
                                 @Override
-                                public void call(Token token) {
+                                public void call(Notification<Token> notification) {
                                     needRetry[0] = true;
                                 }
                             });

@@ -8,6 +8,7 @@ import org.estgroup.phphub.api.entity.element.Token;
 import org.estgroup.phphub.common.util.Utils;
 import org.estgroup.phphub.model.TokenModel;
 
+import rx.Notification;
 import rx.Observable;
 import rx.functions.Action1;
 import rx.functions.Func1;
@@ -34,22 +35,30 @@ public class TokenGeneratorTransformer<T> extends RetryTransformer implements Ob
 
                 if (retryCount <= RETRY_COUNT && Utils.hasUnauthorized(throwable)) {
                     tokenModel.tokenGenerator()
-                            .filter(new Func1<Token, Boolean>() {
+                            .materialize()
+                            .filter(new Func1<Notification<Token>, Boolean>() {
                                 @Override
-                                public Boolean call(Token token) {
+                                public Boolean call(Notification<Token> notification) {
+                                    return !notification.isOnCompleted();
+                                }
+                            })
+                            .filter(new Func1<Notification<Token>, Boolean>() {
+                                @Override
+                                public Boolean call(Notification<Token> notification) {
+                                    Token token = notification.getValue();
                                     return (token != null && !TextUtils.isEmpty(token.getToken()));
                                 }
                             })
-                            .doOnNext(new Action1<Token>() {
+                            .doOnNext(new Action1<Notification<Token>>() {
                                 @Override
-                                public void call(Token token) {
-                                    prefser.put(GUEST_TOKEN_KEY, token.getToken());
+                                public void call(Notification<Token> notification) {
+                                    prefser.put(GUEST_TOKEN_KEY, notification.getValue().getToken());
                                 }
                             })
                             .toBlocking()
-                            .forEach(new Action1<Token>() {
+                            .forEach(new Action1<Notification<Token>>() {
                                 @Override
-                                public void call(Token token) {
+                                public void call(Notification<Token> notification) {
                                     needRetry[0] = true;
                                 }
                             });
