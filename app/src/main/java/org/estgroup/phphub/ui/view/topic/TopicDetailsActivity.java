@@ -340,7 +340,9 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                     count += 1;
                 } else {
                     voteUpView.setColorFilter(getResources().getColor(R.color.gray_c9), PorterDuff.Mode.SRC_ATOP);
-                    count -= 1;
+                    if (count > 0) {
+                        count -= 1;
+                    }
                 }
 
                 PraiseView.setText(String.valueOf(count));
@@ -355,7 +357,9 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                 if (isSuccess) {
                     voteDownView.setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
                     voteUpView.setColorFilter(getResources().getColor(R.color.gray_c9), PorterDuff.Mode.SRC_ATOP);
-                    downCount -= 1;
+                    if (downCount > 0) {
+                        downCount -= 1;
+                    }
                 } else {
                     voteDownView.setColorFilter(getResources().getColor(R.color.gray_c9), PorterDuff.Mode.SRC_ATOP);
                     downCount += 1;
