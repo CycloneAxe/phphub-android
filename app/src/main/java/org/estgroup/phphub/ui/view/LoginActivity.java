@@ -28,7 +28,6 @@ import org.estgroup.phphub.model.UserModel;
 import java.util.Set;
 
 import javax.inject.Inject;
-import javax.inject.Named;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;

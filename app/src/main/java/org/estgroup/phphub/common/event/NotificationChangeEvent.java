@@ -8,9 +8,7 @@ public class NotificationChangeEvent {
         this.notificationLength = notificationLength;
     }
 
-    public String getNotificationLenght(){
-        return String.valueOf(notificationLength);
+    public int getNotificationLength() {
+        return notificationLength;
     }
-
-
 }

@@ -62,6 +62,7 @@ public class MeFragment extends BaseSupportFragment {
         accountManager = AccountManager.get(getContext());
         authAccountManager = new AuthAccountManager(getContext(), accountManager);
 
+        BusProvider.getInstance().register(this);
     }
 
     @Nullable
@@ -71,19 +72,17 @@ public class MeFragment extends BaseSupportFragment {
     }
 
     @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        BusProvider.getInstance().unregister(this);
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         account = Utils.getActiveAccount(getContext(), authAccountManager);
         refreshView();
-
-        BusProvider.getInstance().register(this);
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-
-        BusProvider.getInstance().unregister(this);
     }
 
     private void refreshView() {
@@ -173,6 +172,12 @@ public class MeFragment extends BaseSupportFragment {
     }
 
     @Subscribe public void onNotificationChange(NotificationChangeEvent event) {
-        messagesView.showTextBadge(event.getNotificationLenght());
+        int lenght = event.getNotificationLength();
+
+        if (lenght > 0) {
+            messagesView.showTextBadge(String.valueOf(lenght));
+        } else {
+            messagesView.hiddenBadge();
+        }
     }
 }
