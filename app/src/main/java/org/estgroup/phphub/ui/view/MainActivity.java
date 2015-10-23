@@ -36,9 +36,10 @@ public class MainActivity extends BaseActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        BusProvider.getInstance().register(this);
         setupTabView();
 
-        BusProvider.getInstance().register(this);
+        meIconView = (BGABadgeLinearLayout) viewpagerTab.getTabAt(3).findViewById(R.id.badgeView);
         startService(new Intent(this, NotificationService.class));
     }
 
@@ -81,7 +82,10 @@ public class MainActivity extends BaseActivity  {
     }
 
     @Subscribe public void onNotificationChangeMe(NotificationChangeEvent event) {
-        meIconView = (BGABadgeLinearLayout) viewpagerTab.getTabAt(3).findViewById(R.id.badgeView);
+        if (meIconView == null) {
+            return;
+        }
+
         int lenght = event.getNotificationLength();
 
         if (lenght > 0) {

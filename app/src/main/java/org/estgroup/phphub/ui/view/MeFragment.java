@@ -61,14 +61,19 @@ public class MeFragment extends BaseSupportFragment {
         tokenType = getString(R.string.auth_token_type);
         accountManager = AccountManager.get(getContext());
         authAccountManager = new AuthAccountManager(getContext(), accountManager);
-
-        BusProvider.getInstance().register(this);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.me, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        BusProvider.getInstance().register(this);
     }
 
     @Override
@@ -171,7 +176,12 @@ public class MeFragment extends BaseSupportFragment {
         return getString(R.string.me);
     }
 
-    @Subscribe public void onNotificationChange(NotificationChangeEvent event) {
+    @Subscribe
+    public void onNotificationChange(NotificationChangeEvent event) {
+        if (messagesView == null) {
+            return;
+        }
+
         int lenght = event.getNotificationLength();
 
         if (lenght > 0) {
