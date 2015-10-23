@@ -176,7 +176,6 @@ public class MeFragment extends BaseSupportFragment {
 
         if (lenght > 0) {
             messagesView.showTextBadge(String.valueOf(lenght));
-            // messagesView.showTextBadge(String.valueOf(lenght));
         } else {
             messagesView.hiddenBadge();
         }
