@@ -3,6 +3,7 @@ package org.estgroup.phphub.common.adapter;
 import android.content.Context;
 import android.net.Uri;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -20,6 +21,7 @@ import java.util.Locale;
 
 import butterknife.Bind;
 
+import static org.estgroup.phphub.common.qualifier.ClickType.CLICK_TYPE_TOPIC_CLICKED;
 import static org.estgroup.phphub.common.qualifier.ClickType.CLICK_TYPE_USER_CLICKED;
 
 public class NotificationItemView extends BaseAdapterItemView<Notification> {
@@ -35,6 +37,9 @@ public class NotificationItemView extends BaseAdapterItemView<Notification> {
 
     @Bind(R.id.tv_msg_reply)
     TextView msgReplyView;
+
+    @Bind(R.id.bga_rlyt_content)
+    RelativeLayout topicContentView;
 
     public NotificationItemView(Context context) {
         super(context);
@@ -77,6 +82,13 @@ public class NotificationItemView extends BaseAdapterItemView<Notification> {
         } else {
             msgReplyView.setVisibility(GONE);
         }
+
+        topicContentView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notifyItemAction(CLICK_TYPE_TOPIC_CLICKED);
+            }
+        });
 
         avatarView.setOnClickListener(new OnClickListener() {
             @Override

@@ -15,6 +15,7 @@ import com.orhanobut.logger.Logger;
 import org.estgroup.phphub.R;
 import org.estgroup.phphub.api.entity.element.Notification;
 import org.estgroup.phphub.api.entity.element.Topic;
+import org.estgroup.phphub.api.entity.element.User;
 import org.estgroup.phphub.common.adapter.NotificationItemView;
 import org.estgroup.phphub.common.base.BaseActivity;
 import org.estgroup.phphub.ui.presenter.UserNotificationsPresenter;
@@ -33,6 +34,7 @@ import static com.kennyc.view.MultiStateView.VIEW_STATE_CONTENT;
 import static com.kennyc.view.MultiStateView.VIEW_STATE_ERROR;
 import static com.kennyc.view.MultiStateView.VIEW_STATE_LOADING;
 import static org.estgroup.phphub.common.qualifier.ClickType.CLICK_TYPE_TOPIC_CLICKED;
+import static org.estgroup.phphub.common.qualifier.ClickType.CLICK_TYPE_USER_CLICKED;
 
 @RequiresPresenter(UserNotificationsPresenter.class)
 public class UserNotificationsActivity extends BaseActivity<UserNotificationsPresenter> implements
@@ -131,13 +133,18 @@ public class UserNotificationsActivity extends BaseActivity<UserNotificationsPre
     @Override
     public void onViewEvent(int actionId, Notification notification, int postion, View view) {
         Topic topic = notification.getTopic().getData();
+        User user = notification.getFromUser().getData();
 
         switch (actionId) {
             case CLICK_TYPE_TOPIC_CLICKED:
                 if (topic != null) {
                     navigator.navigateToTopicDetails(this, topic.getId());
                 }
-
+                break;
+            case CLICK_TYPE_USER_CLICKED:
+                if (user != null) {
+                    navigator.navigateToUserSpace(this, user.getId());
+                }
                 break;
         }
     }
