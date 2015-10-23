@@ -7,10 +7,15 @@ import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
 
+import com.squareup.otto.Bus;
+import com.squareup.otto.Produce;
+
 import org.estgroup.phphub.R;
 import org.estgroup.phphub.api.entity.NotificationEntity;
 import org.estgroup.phphub.api.entity.element.Notification;
 import org.estgroup.phphub.common.App;
+import org.estgroup.phphub.common.event.NotificationChangeEvent;
+import org.estgroup.phphub.common.provider.BusProvider;
 import org.estgroup.phphub.common.util.Utils;
 import org.estgroup.phphub.model.UserModel;
 
@@ -38,6 +43,8 @@ public class NotificationService extends Service {
     public static int UPDATE_INTERVAL = 3000;
     private Timer timer = new Timer();
 
+    public static int notificationLength;
+
     @Inject
     AuthAccountManager authAccountManager;
 
@@ -47,36 +54,26 @@ public class NotificationService extends Service {
     @Inject
     UserModel userModel;
 
-    NotificationListener listener;
-
     String tokenType, accountType;
 
     Account[] accounts;
-
-    public static interface NotificationListener {
-        void onNotificationServiceSuccess(List<Notification> notificationList);
-
-        void onNotificationServiceError(RetrofitError error);
-    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         ((App) getApplication()).getApiComponent().inject(this);
+        BusProvider.getInstance().register(this);
 
         accountType = getString(R.string.auth_account_type);
         tokenType = getString(R.string.auth_token_type);
         accounts = accountManager.getAccountsByType(accountType);
     }
 
-    public void setListener(NotificationListener listener) {
-        this.listener = listener;
-    }
-
     @Override
     public void onDestroy() {
         super.onDestroy();
 
+        BusProvider.getInstance().unregister(this);
         timer.cancel();
     }
 
@@ -105,7 +102,8 @@ public class NotificationService extends Service {
                             .subscribe(new Action1<List<Notification>>() {
                                 @Override
                                 public void call(List<Notification> notificationList) {
-                                    listener.onNotificationServiceSuccess(notificationList);
+                                    notificationLength = notificationList.size();
+                                    BusProvider.getInstance().post(notificationChangeEvent());
                                 }
                             });
                 }
@@ -122,5 +120,9 @@ public class NotificationService extends Service {
         public NotificationService getService() {
             return NotificationService.this;
         }
+    }
+
+    @Produce public NotificationChangeEvent notificationChangeEvent() {
+        return new NotificationChangeEvent(notificationLength);
     }
 }

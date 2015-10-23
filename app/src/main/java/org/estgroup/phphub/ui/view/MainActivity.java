@@ -11,6 +11,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -36,8 +37,7 @@ import butterknife.Bind;
 import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
 import retrofit.RetrofitError;
 
-public class MainActivity extends BaseActivity implements
-        NotificationService.NotificationListener {
+public class MainActivity extends BaseActivity  {
     @Bind(R.id.viewpager)
     ViewPager viewPager;
 
@@ -54,7 +54,6 @@ public class MainActivity extends BaseActivity implements
             NotificationService.MyBinder binder = (NotificationService.MyBinder) service;
             notificationService = binder.getService();
 
-            notificationService.setListener(MainActivity.this);
             notificationService.getNotification();
         }
 
@@ -71,6 +70,7 @@ public class MainActivity extends BaseActivity implements
 
         Intent bindIntent = new Intent(MainActivity.this, NotificationService.class);
         bindService(bindIntent, serviceConnection, BIND_AUTO_CREATE);
+
     }
 
     @Override
@@ -119,24 +119,10 @@ public class MainActivity extends BaseActivity implements
         return R.layout.main;
     }
 
-    @Override
-    public void onNotificationServiceSuccess(List<Notification> notificationList) {
-        this.notificationLength = notificationList.size();
-        BusProvider.getInstance().post(new NotificationChangeEvent(notificationLength));
-    }
-
-    @Override
-    public void onNotificationServiceError(RetrofitError error) {
-        Logger.e(error.getMessage());
-    }
-
     @Subscribe public void onNotificationChangeMe(NotificationChangeEvent event) {
         BGABadgeLinearLayout meIconView = (BGABadgeLinearLayout) viewpagerTab.getTabAt(3).findViewById(R.id.badgeView);
 
         meIconView.showTextBadge(event.getNotificationLenght());
     }
 
-    @Produce public NotificationChangeEvent notificationChangeEvent() {
-        return new NotificationChangeEvent(notificationLength);
-    }
 }
