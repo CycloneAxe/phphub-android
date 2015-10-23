@@ -31,6 +31,7 @@ import org.estgroup.phphub.ui.view.topic.TopicsFragment;
 import java.util.List;
 
 import butterknife.Bind;
+import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
 import retrofit.RetrofitError;
 
 public class MainActivity extends BaseActivity implements
@@ -119,8 +120,7 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void onNotificationServiceSuccess(List<Notification> notificationList) {
         this.notificationLength = notificationList.size();
-
-        BusProvider.getInstance().post(notificationChangeEvent());
+        BusProvider.getInstance().post(new NotificationChangeEvent(notificationLength));
     }
 
     @Override
@@ -128,6 +128,11 @@ public class MainActivity extends BaseActivity implements
         Logger.e(error.getMessage());
     }
 
+    @Subscribe public void onNotificationChangeMe(NotificationChangeEvent event) {
+        BGABadgeLinearLayout meIconView = (BGABadgeLinearLayout) viewpagerTab.getTabAt(3).findViewById(R.id.badgeView);
+
+        meIconView.showTextBadge(event.getNotificationLenght());
+    }
 
     @Produce public NotificationChangeEvent notificationChangeEvent() {
         return new NotificationChangeEvent(notificationLength);
