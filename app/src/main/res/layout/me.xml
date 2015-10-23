@@ -94,7 +94,8 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             app:layout_widthPercent="100%w"
-            app:layout_heightPercent="33.3%h">
+            app:layout_heightPercent="33.3%h"
+            app:badge_horizontalMargin="50dp">
 
             <com.zhy.android.percent.support.PercentRelativeLayout
                 android:layout_width="match_parent"

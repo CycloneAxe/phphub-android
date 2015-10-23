@@ -61,6 +61,7 @@ public class MeFragment extends BaseSupportFragment {
         tokenType = getString(R.string.auth_token_type);
         accountManager = AccountManager.get(getContext());
         authAccountManager = new AuthAccountManager(getContext(), accountManager);
+
     }
 
     @Nullable
