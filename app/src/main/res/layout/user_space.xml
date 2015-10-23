@@ -313,7 +313,8 @@
                         app:layout_paddingBottomPercent="3.6%w">
 
                         <com.zhy.android.percent.support.PercentRelativeLayout
-                            android:layout_width="wrap_content"
+                            android:id="@+id/percent_rlyt_topics"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/shap_line_only_bottom"
                             app:layout_paddingBottomPercent="2.7%w">
@@ -327,16 +328,11 @@
                                 style="@style/profile_text"
                                 app:layout_marginLeftPercent="2.8%w"/>
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentRight="true"
-                                android:src="@mipmap/ic_right_arrow"/>
-
                         </com.zhy.android.percent.support.PercentRelativeLayout>
 
                         <com.zhy.android.percent.support.PercentRelativeLayout
-                            android:layout_width="wrap_content"
+                            android:id="@+id/percent_rlyt_replys"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/shap_line_only_bottom"
                             app:layout_paddingBottomPercent="2.7%w"
@@ -351,16 +347,11 @@
                                 style="@style/profile_text"
                                 app:layout_marginLeftPercent="2.8%w"/>
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentRight="true"
-                                android:src="@mipmap/ic_right_arrow"/>
-
                         </com.zhy.android.percent.support.PercentRelativeLayout>
 
                         <com.zhy.android.percent.support.PercentRelativeLayout
-                            android:layout_width="wrap_content"
+                            android:id="@+id/percent_rlyt_following"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/shap_line_only_bottom"
                             app:layout_paddingBottomPercent="2.7%w"
@@ -375,16 +366,11 @@
                                 style="@style/profile_text"
                                 app:layout_marginLeftPercent="2.8%w"/>
 
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentRight="true"
-                                android:src="@mipmap/ic_right_arrow"/>
-
                         </com.zhy.android.percent.support.PercentRelativeLayout>
 
                         <com.zhy.android.percent.support.PercentRelativeLayout
-                            android:layout_width="wrap_content"
+                            android:id="@+id/percent_rlyt_favorites"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:layout_paddingTopPercent="2.7%w">
 
@@ -396,12 +382,6 @@
                                 android:text="@string/ta_favorite"
                                 style="@style/profile_text"
                                 app:layout_marginLeftPercent="2.8%w"/>
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:layout_alignParentRight="true"
-                                android:src="@mipmap/ic_right_arrow"/>
 
                         </com.zhy.android.percent.support.PercentRelativeLayout>
 

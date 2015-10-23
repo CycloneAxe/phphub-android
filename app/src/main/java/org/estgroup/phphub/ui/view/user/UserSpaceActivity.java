@@ -16,6 +16,7 @@ import com.airbnb.deeplinkdispatch.DeepLink;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.orhanobut.logger.Logger;
 import com.zhy.android.percent.support.PercentLinearLayout;
+import com.zhy.android.percent.support.PercentRelativeLayout;
 
 import org.estgroup.phphub.R;
 import org.estgroup.phphub.api.entity.element.User;
@@ -26,6 +27,7 @@ import org.estgroup.phphub.ui.presenter.UserSpacePresenter;
 import javax.inject.Inject;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import eu.unicate.retroauth.AuthAccountManager;
 import icepick.State;
 import nucleus.factory.PresenterFactory;
@@ -33,6 +35,7 @@ import nucleus.factory.RequiresPresenter;
 
 import static com.kennyc.view.MultiStateView.*;
 import static org.estgroup.phphub.common.Constant.USER_ID_KEY;
+import static org.estgroup.phphub.common.qualifier.UserTopicType.*;
 
 @DeepLink("phphub://users")
 @RequiresPresenter(UserSpacePresenter.class)
@@ -81,6 +84,18 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
 
     @Bind(R.id.percent_llyt_others)
     PercentLinearLayout othersView;
+
+    @Bind(R.id.percent_rlyt_topics)
+    PercentRelativeLayout topicsView;
+
+    @Bind(R.id.percent_rlyt_following)
+    PercentRelativeLayout followView;
+
+    @Bind(R.id.percent_rlyt_replys)
+    PercentRelativeLayout replysView;
+
+    @Bind(R.id.percent_rlyt_favorites)
+    PercentRelativeLayout favoritesView;
 
     boolean isMySelf;
 
@@ -191,5 +206,25 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
         twitterView.setText(userInfo.getTwitterAccount());
         blogView.setText(userInfo.getPersonalWebsite());
         sinceView.setText(userInfo.getCreatedAt());
+    }
+
+    @OnClick(R.id.percent_rlyt_topics)
+    public void navigateToTopics() {
+        navigator.navigateToUserTopic(this, userId, USER_TOPIC_TYPE);
+    }
+
+    @OnClick(R.id.percent_rlyt_favorites)
+    public void navigateToFavorites() {
+        navigator.navigateToUserTopic(this, userId, USER_TOPIC_FAVORITE_TYPE);
+    }
+
+    @OnClick(R.id.percent_rlyt_following)
+    public void navigateToFollow() {
+        navigator.navigateToUserTopic(this, userId, USER_TOPIC_FOLLOW_TYPE);
+    }
+
+    @OnClick(R.id.percent_rlyt_replys)
+    public void navigateToReplys() {
+        navigator.navigateToUserReply(this, userInfo.getLinks().getRepliesWebView());
     }
 }
