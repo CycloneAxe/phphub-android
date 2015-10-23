@@ -70,14 +70,6 @@
 
         </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:gravity="center_vertical"
-            android:src="@mipmap/ic_right_arrow"
-            app:layout_paddingRightPercent="5%w"/>
-
     </com.zhy.android.percent.support.PercentRelativeLayout>
 
     <com.zhy.android.percent.support.PercentLinearLayout
@@ -120,14 +112,6 @@
                     style="@style/me_list_items"
                     android:text="@string/my_messages"/>
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentRight="true"
-                    android:gravity="center_vertical"
-                    android:src="@mipmap/ic_right_arrow"
-                    app:layout_paddingRightPercent="5%w"/>
-
             </com.zhy.android.percent.support.PercentRelativeLayout>
 
         </cn.bingoogolapple.badgeview.BGABadgeRelativeLayout>
@@ -159,14 +143,6 @@
                 android:text="@string/my_following"
                 android:background="@drawable/shap_profile_space_divider"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:gravity="center_vertical"
-                android:src="@mipmap/ic_right_arrow"
-                app:layout_paddingRightPercent="5%w"/>
-
         </com.zhy.android.percent.support.PercentRelativeLayout>
 
         <com.zhy.android.percent.support.PercentRelativeLayout
@@ -194,14 +170,6 @@
                 android:gravity="center_vertical"
                 style="@style/me_list_items"
                 android:text="@string/my_favorite"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:gravity="center_vertical"
-                android:src="@mipmap/ic_right_arrow"
-                app:layout_paddingRightPercent="5%w"/>
 
         </com.zhy.android.percent.support.PercentRelativeLayout>
 
@@ -243,14 +211,6 @@
                 style="@style/me_list_items"
                 android:text="@string/my_topics"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:gravity="center_vertical"
-                android:src="@mipmap/ic_right_arrow"
-                app:layout_paddingRightPercent="5%w"/>
-
         </com.zhy.android.percent.support.PercentRelativeLayout>
 
         <com.zhy.android.percent.support.PercentRelativeLayout
@@ -280,14 +240,6 @@
                 android:text="@string/my_replys"
                 android:background="@drawable/shap_profile_space_divider"/>
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:gravity="center_vertical"
-                android:src="@mipmap/ic_right_arrow"
-                app:layout_paddingRightPercent="5%w"/>
-
         </com.zhy.android.percent.support.PercentRelativeLayout>
 
         <com.zhy.android.percent.support.PercentRelativeLayout
@@ -315,14 +267,6 @@
                 android:gravity="center_vertical"
                 style="@style/me_list_items"
                 android:text="@string/settings"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:gravity="center_vertical"
-                android:src="@mipmap/ic_right_arrow"
-                app:layout_paddingRightPercent="5%w"/>
 
         </com.zhy.android.percent.support.PercentRelativeLayout>
 
