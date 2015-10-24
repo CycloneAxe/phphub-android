@@ -24,7 +24,11 @@ import com.umeng.socialize.bean.SHARE_MEDIA;
 import com.umeng.socialize.common.SocializeConstants;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
+import com.umeng.socialize.media.QQShareContent;
 import com.umeng.socialize.sso.UMQQSsoHandler;
+import com.umeng.socialize.weixin.controller.UMWXHandler;
+import com.umeng.socialize.weixin.media.CircleShareContent;
+import com.umeng.socialize.weixin.media.WeiXinShareContent;
 
 import org.estgroup.phphub.BuildConfig;
 import org.estgroup.phphub.R;
@@ -54,7 +58,7 @@ import static org.estgroup.phphub.common.qualifier.TopicDetailType.TOPIC_DETAIL_
 @DeepLink("phphub://topics")
 @RequiresPresenter(TopicDetailPresenter.class)
 public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> implements
-    OnClickListener {
+        OnClickListener {
     private static final String INTENT_EXTRA_PARAM_TOPIC_ID = "topic_id";
 
     private static final String INTENT_EXTRA_DEEPLINK_PARAM_ID = "id";
@@ -133,7 +137,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
     protected void onDestroy() {
         super.onDestroy();
         TopScrollHelper.getInstance(getApplicationContext())
-                        .removeTargetScrollView(topicContentView);
+                .removeTargetScrollView(topicContentView);
     }
 
     @Override
@@ -206,7 +210,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        switch (id){
+        switch (id) {
             case R.id.menu_share:
                 onShareItemSelected();
                 break;
@@ -214,31 +218,59 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
         return super.onOptionsItemSelected(item);
     }
 
-    public void onShareItemSelected()
-    {
+    public void onShareItemSelected() {
         SocializeConstants.APPKEY = BuildConfig.UMENG_APPKEY;
         final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
         // Remove Tencent Weibo and QZone from share panel.
         mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT);
         mController.getConfig().removePlatform(SHARE_MEDIA.QZONE);
 
-        mController.setShareContent(this.topicInfo.getBody());
+        String webLink = this.topicInfo.getLinks().getWebURL();
+        String shareContent = this.topicInfo.getExcerpt().substring(0, 140 - webLink.length()) + " " + webLink;
 
-        // Add QQ
-        UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, BuildConfig.QQ_APPID, BuildConfig.QQ_APPKEY);
-        qqSsoHandler.addToSocialSDK();
+        mController.setShareContent(shareContent);
 
-        //TODO: Waiting for the keys to apply for.
-//        String appID = "";
-//        String appSecret = "";
-//        // Add WeiChat
-//        UMWXHandler wxHandler = new UMWXHandler(this,appID,appSecret);
-//        wxHandler.addToSocialSDK();
-//
-//        // Add WeChat Circle
-//        UMWXHandler wxCircleHandler = new UMWXHandler(this,appID,appSecret);
-//        wxCircleHandler.setToCircle(true);
-//        wxCircleHandler.addToSocialSDK();
+        if (!BuildConfig.QQ_APPID.isEmpty() && !BuildConfig.QQ_APPKEY.isEmpty()) {
+            // Add QQ
+            UMQQSsoHandler qqSsoHandler = new UMQQSsoHandler(this, BuildConfig.QQ_APPID, BuildConfig.QQ_APPKEY);
+            qqSsoHandler.addToSocialSDK();
+
+            QQShareContent qqShareContent = new QQShareContent();
+            qqShareContent.setShareContent(this.topicInfo.getExcerpt());
+            qqShareContent.setTitle(this.topicInfo.getTitle());
+            qqShareContent.setTargetUrl(this.topicInfo.getLinks().getWebURL());
+
+            mController.setShareMedia(qqShareContent);
+        } else {
+            mController.getConfig().removePlatform(SHARE_MEDIA.QQ);
+        }
+
+        if (!BuildConfig.WX_APPKEY.isEmpty() && !BuildConfig.WX_SECRET.isEmpty()) {
+            // Add WeiChat
+            UMWXHandler wxHandler = new UMWXHandler(this, BuildConfig.WX_APPKEY, BuildConfig.WX_SECRET);
+            wxHandler.addToSocialSDK();
+
+            // Add WeChat Circle
+            UMWXHandler wxCircleHandler = new UMWXHandler(this, BuildConfig.WX_APPKEY, BuildConfig.WX_SECRET);
+            wxCircleHandler.setToCircle(true);
+            wxCircleHandler.addToSocialSDK();
+
+            //设置微信分享内容
+            WeiXinShareContent weixinContent = new WeiXinShareContent();
+            weixinContent.setShareContent(this.topicInfo.getExcerpt());
+            weixinContent.setTitle(this.topicInfo.getTitle());
+            weixinContent.setTargetUrl(this.topicInfo.getLinks().getWebURL());
+            mController.setShareMedia(weixinContent);
+
+            //设置微信朋友圈分享内容
+            CircleShareContent circleMedia = new CircleShareContent();
+            circleMedia.setShareContent(this.topicInfo.getExcerpt());
+            circleMedia.setTitle(this.topicInfo.getTitle());
+            circleMedia.setTargetUrl(this.topicInfo.getLinks().getWebURL());
+            mController.setShareMedia(circleMedia);
+        }else{
+            mController.getConfig().removePlatform(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE);
+        }
 
         mController.openShare(this, false);
     }
@@ -253,7 +285,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
 
         final AnimateDialog alertDialog = new AnimateDialog(this);
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        alertDialog.popupDialog(R.layout.dialog_vote, 0.642f, 0.168f, new AnimateDialog.DialogClickListener(){
+        alertDialog.popupDialog(R.layout.dialog_vote, 0.642f, 0.168f, new AnimateDialog.DialogClickListener() {
             @Override
             public void onClick(View view) {
                 switch (view.getId()) {
@@ -385,7 +417,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                     Toast.makeText(this, getString(R.string.please_login_first), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (topicInfo.isFavorite()){
+                if (topicInfo.isFavorite()) {
                     getPresenter().eventRequest(topicId, TOPIC_DETAIL_TYPE_FAVORITE_DEL);
                 } else {
                     getPresenter().eventRequest(topicId, TOPIC_DETAIL_TYPE_FAVORITE);
@@ -396,7 +428,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                     Toast.makeText(this, getString(R.string.please_login_first), Toast.LENGTH_SHORT).show();
                     return;
                 }
-                if (topicInfo.isAttention()){
+                if (topicInfo.isAttention()) {
                     getPresenter().eventRequest(topicId, TOPIC_DETAIL_TYPE_FOLLOW_DEL);
                 } else {
                     getPresenter().eventRequest(topicId, TOPIC_DETAIL_TYPE_FOLLOW);

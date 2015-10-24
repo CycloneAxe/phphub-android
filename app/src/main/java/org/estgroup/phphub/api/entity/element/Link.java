@@ -11,6 +11,17 @@ public class Link implements Serializable {
     @SerializedName("replies_web_view")
     protected String repliesWebView;
 
+    @SerializedName("web_url")
+    protected String webURL;
+
+    public String getWebURL() {
+        return webURL;
+    }
+
+    public void setWebURL(String webURL) {
+        this.webURL = webURL;
+    }
+
     public String getDetailsWebView() {
         return detailsWebView;
     }
