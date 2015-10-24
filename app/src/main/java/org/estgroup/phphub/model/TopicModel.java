@@ -67,7 +67,7 @@ public class TopicModel extends BaseModel<TopicApi, TopicModel> {
     public Observable<TopicEntity.ATopic> getTopicDetailById(int topicId) {
         Map<String, String> options = new HashMap<>();
         options.put("include", "user,node");
-        options.put("columns", "user(signature)");
+        options.put("columns", "root(excerpt),user(signature)");
 
         return getService().getTopic(topicId, options);
     }

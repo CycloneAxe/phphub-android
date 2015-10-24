@@ -30,6 +30,8 @@ android {
         buildConfigField "String", "UMENG_APPKEY", UMENG_APPKEY
         buildConfigField "String", "QQ_APPID", QQ_APPID
         buildConfigField "String", "QQ_APPKEY", QQ_APPKEY
+        buildConfigField "String", "WX_APPKEY", WX_APPKEY
+        buildConfigField "String", "WX_SECRET", WX_SECRET
 
         resValue "string", "jpush_appkey", JPUSH_APPKEY
         resValue "string", "jpush_channel", JPUSH_CHANNEL
