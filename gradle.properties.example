@@ -1,0 +1,14 @@
+APP_CLIENT_ID=""
+APP_CLIENT_SECRET=""
+API_ENDPOINT="https://staging_api.phphub.org"
+
+JPUSH_CHANNEL="develop"
+JPUSH_APPKEY=""
+
+UMENG_APPKEY=""
+
+QQ_APPID=""
+QQ_APPKEY=""
+
+WX_APPKEY=""
+WX_SECRET=""
