@@ -38,6 +38,7 @@ import org.estgroup.phphub.widget.AnimateDialog;
 import butterknife.Bind;
 import butterknife.OnClick;
 import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
 
@@ -209,6 +210,15 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
         switch (id){
             case R.id.menu_share:
                 onShareItemSelected();
+                break;
+
+            case R.id.menu_report:
+                SweetAlertDialog successDialog = new SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE);
+
+                successDialog.setTitleText(getString(R.string.success_title));
+                successDialog.setContentText(getString(R.string.report_success));
+                successDialog.show();
+
                 break;
         }
         return super.onOptionsItemSelected(item);
