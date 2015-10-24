@@ -230,15 +230,15 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
 
     public void onShareItemSelected() {
         SocializeConstants.APPKEY = BuildConfig.UMENG_APPKEY;
-        final UMSocialService mController = UMServiceFactory.getUMSocialService("com.umeng.share");
+        final UMSocialService socialService = UMServiceFactory.getUMSocialService("com.umeng.share");
         // Remove Tencent Weibo and QZone from share panel.
-        mController.getConfig().removePlatform(SHARE_MEDIA.TENCENT);
-        mController.getConfig().removePlatform(SHARE_MEDIA.QZONE);
+        socialService.getConfig().removePlatform(SHARE_MEDIA.TENCENT);
+        socialService.getConfig().removePlatform(SHARE_MEDIA.QZONE);
 
         String webLink = this.topicInfo.getLinks().getWebURL();
         String shareContent = this.topicInfo.getExcerpt().substring(0, 140 - webLink.length()) + " " + webLink;
 
-        mController.setShareContent(shareContent);
+        socialService.setShareContent(shareContent);
 
         if (!BuildConfig.QQ_APPID.isEmpty() && !BuildConfig.QQ_APPKEY.isEmpty()) {
             // Add QQ
@@ -250,18 +250,18 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
             qqShareContent.setTitle(this.topicInfo.getTitle());
             qqShareContent.setTargetUrl(this.topicInfo.getLinks().getWebURL());
 
-            mController.setShareMedia(qqShareContent);
+            socialService.setShareMedia(qqShareContent);
         } else {
-            mController.getConfig().removePlatform(SHARE_MEDIA.QQ);
+            socialService.getConfig().removePlatform(SHARE_MEDIA.QQ);
         }
 
-        if (!BuildConfig.WX_APPKEY.isEmpty() && !BuildConfig.WX_SECRET.isEmpty()) {
+        if (!BuildConfig.WX_APPID.isEmpty() && !BuildConfig.WX_SECRET.isEmpty()) {
             // Add WeiChat
-            UMWXHandler wxHandler = new UMWXHandler(this, BuildConfig.WX_APPKEY, BuildConfig.WX_SECRET);
+            UMWXHandler wxHandler = new UMWXHandler(this, BuildConfig.WX_APPID, BuildConfig.WX_SECRET);
             wxHandler.addToSocialSDK();
 
             // Add WeChat Circle
-            UMWXHandler wxCircleHandler = new UMWXHandler(this, BuildConfig.WX_APPKEY, BuildConfig.WX_SECRET);
+            UMWXHandler wxCircleHandler = new UMWXHandler(this, BuildConfig.WX_APPID, BuildConfig.WX_SECRET);
             wxCircleHandler.setToCircle(true);
             wxCircleHandler.addToSocialSDK();
 
@@ -270,19 +270,19 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
             weixinContent.setShareContent(this.topicInfo.getExcerpt());
             weixinContent.setTitle(this.topicInfo.getTitle());
             weixinContent.setTargetUrl(this.topicInfo.getLinks().getWebURL());
-            mController.setShareMedia(weixinContent);
+            socialService.setShareMedia(weixinContent);
 
             //设置微信朋友圈分享内容
             CircleShareContent circleMedia = new CircleShareContent();
             circleMedia.setShareContent(this.topicInfo.getExcerpt());
             circleMedia.setTitle(this.topicInfo.getTitle());
             circleMedia.setTargetUrl(this.topicInfo.getLinks().getWebURL());
-            mController.setShareMedia(circleMedia);
+            socialService.setShareMedia(circleMedia);
         }else{
-            mController.getConfig().removePlatform(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE);
+            socialService.getConfig().removePlatform(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE);
         }
 
-        mController.openShare(this, false);
+        socialService.openShare(this, false);
     }
 
     public void onNetworkError(Throwable throwable) {
