@@ -117,8 +117,9 @@ public class TopicReplyActivity extends BaseActivity<TopicReplyPresenter> {
         loadingDialog.setCancelable(false);
         loadingDialog.show();
 
-        System.out.println(String.valueOf(topicId));
         getPresenter().request(topicId, reply);
+
+        loadingDialog.dismiss();
     }
 
     public void onPublicSuccessful(Reply reply) {
@@ -127,5 +128,11 @@ public class TopicReplyActivity extends BaseActivity<TopicReplyPresenter> {
 
     public void onNetWorkError(Throwable throwable) {
         Logger.e(throwable.getMessage());
+
+        SweetAlertDialog errorDialog = new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE);
+        errorDialog.setTitleText("Oops...");
+        errorDialog.setContentText(getString(R.string.publish_error));
+        errorDialog.show();
+
     }
 }

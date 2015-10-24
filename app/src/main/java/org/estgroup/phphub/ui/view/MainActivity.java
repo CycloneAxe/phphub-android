@@ -1,6 +1,5 @@
 package org.estgroup.phphub.ui.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -18,7 +17,6 @@ import org.estgroup.phphub.R;
 import org.estgroup.phphub.common.base.BaseActivity;
 import org.estgroup.phphub.common.event.NotificationChangeEvent;
 import org.estgroup.phphub.common.provider.BusProvider;
-import org.estgroup.phphub.common.service.NotificationService;
 import org.estgroup.phphub.ui.view.topic.TopicsFragment;
 
 import butterknife.Bind;
@@ -40,7 +38,6 @@ public class MainActivity extends BaseActivity  {
         setupTabView();
 
         meIconView = (BGABadgeFrameLayout) viewpagerTab.getTabAt(3).findViewById(R.id.badgeView);
-        startService(new Intent(this, NotificationService.class));
     }
 
     @Override
