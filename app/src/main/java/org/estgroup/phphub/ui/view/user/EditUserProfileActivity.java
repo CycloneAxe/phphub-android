@@ -129,6 +129,8 @@ public class EditUserProfileActivity extends BaseActivity<EditUserProfilePresent
         loadingDialog.show();
 
         getPresenter().request(userInfo);
+
+        loadingDialog.dismiss();
     }
 
     @Override

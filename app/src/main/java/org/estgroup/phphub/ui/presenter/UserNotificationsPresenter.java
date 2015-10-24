@@ -35,7 +35,6 @@ import static org.estgroup.phphub.common.qualifier.AuthType.AUTH_TYPE_USER;
 public class UserNotificationsPresenter extends BaseRxPresenter<UserNotificationsActivity> {
 
     @Inject
-    @Named(AUTH_TYPE_USER)
     UserModel userModel;
 
     @Inject
