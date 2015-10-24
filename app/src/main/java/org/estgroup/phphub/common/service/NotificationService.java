@@ -105,6 +105,8 @@ public class NotificationService extends Service {
                                     Logger.e(throwable.toString());
                                 }
                             });
+                } else {
+                    stopSelf();
                 }
             }
         }, 0, UPDATE_INTERVAL);

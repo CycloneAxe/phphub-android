@@ -22,6 +22,7 @@ import org.estgroup.phphub.api.entity.element.Token;
 import org.estgroup.phphub.api.entity.element.User;
 import org.estgroup.phphub.common.App;
 import org.estgroup.phphub.common.Navigator;
+import org.estgroup.phphub.common.service.NotificationService;
 import org.estgroup.phphub.model.TokenModel;
 import org.estgroup.phphub.model.UserModel;
 
@@ -190,6 +191,7 @@ public class LoginActivity extends AuthenticationActivity {
                                @Override
                                public void call(User user) {
                                    dialog.dismiss();
+                                   startService(new Intent(LoginActivity.this, NotificationService.class));
                                    finalizeAuthentication(account);
                                }
                            },
