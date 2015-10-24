@@ -34,7 +34,8 @@
         <activity
             android:name=".ui.view.MainActivity"
             android:label="@string/app_name"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -42,7 +43,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.view.LoginActivity">
+        <activity android:name=".ui.view.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="org.estgroup.phphub.auth.action.AUTH"/>
                 <category android:name="android.intent.category.DEFAULT"/>
@@ -50,7 +52,8 @@
         </activity>
 
         <activity android:name=".ui.view.topic.TopicDetailsActivity"
-            android:parentActivityName=".ui.view.MainActivity">
+            android:parentActivityName=".ui.view.MainActivity"
+            android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -59,7 +62,8 @@
 
         <activity android:name=".ui.view.settings.SettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:parentActivityName=".ui.view.MainActivity">
+            android:parentActivityName=".ui.view.MainActivity"
+            android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -67,7 +71,8 @@
         </activity>
 
         <activity android:name=".ui.view.user.UserSpaceActivity"
-            android:parentActivityName=".ui.view.MainActivity">
+            android:parentActivityName=".ui.view.MainActivity"
+            android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -76,7 +81,8 @@
         </activity>
 
         <activity android:name=".ui.view.user.UserNotificationsActivity"
-            android:parentActivityName=".ui.view.MainActivity">
+            android:parentActivityName=".ui.view.MainActivity"
+            android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -84,7 +90,8 @@
 
         </activity>
 
-        <activity android:name=".ui.view.ScannerActivity"/>
+        <activity android:name=".ui.view.ScannerActivity"
+            android:screenOrientation="portrait"/>
 
         <service android:name=".common.service.AuthService"
             android:process=":auth"
@@ -101,7 +108,8 @@
             android:enabled="true" />
 
         <activity android:name=".ui.view.topic.TopicPublishActivity"
-            android:parentActivityName=".ui.view.MainActivity">
+            android:parentActivityName=".ui.view.MainActivity"
+            android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -109,28 +117,32 @@
         </activity>
 
         <activity android:name=".ui.view.topic.TopicReplyActivity"
-            android:parentActivityName=".ui.view.MainActivity">
+            android:parentActivityName=".ui.view.MainActivity"
+            android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.view.MainActivity" />
         </activity>
         <activity android:name=".ui.view.ReplyListActivity"
-            android:parentActivityName=".ui.view.MainActivity">
+            android:parentActivityName=".ui.view.MainActivity"
+            android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.view.MainActivity" />
         </activity>
         <activity android:name=".ui.view.user.UserTopicActivity"
-            android:parentActivityName=".ui.view.MainActivity">
+            android:parentActivityName=".ui.view.MainActivity"
+            android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ui.view.MainActivity" />
         </activity>
         <activity android:name=".ui.view.user.EditUserProfileActivity"
-            android:parentActivityName=".ui.view.MainActivity">
+            android:parentActivityName=".ui.view.MainActivity"
+            android:screenOrientation="portrait">
 
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
