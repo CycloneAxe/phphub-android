@@ -43,4 +43,3 @@ Gradle version 2.4
 [DeepLinkDispatch](https://github.com/airbnb/DeepLinkDispatch) | 一个简单的、基于注解的 Deep Link 处理库
 [otto](https://github.com/square/otto) | Event Bus, 用来简化应用组件之间的通信
 [android-iconify](https://github.com/JoanZapata/android-iconify) | 一个将 AweomeICON 和 Android 结合起来的项目
-[SimpleToast](https://github.com/Pierry/SimpleToast) | Notifications for Android (like a Toast)
