@@ -14,11 +14,15 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <TextView
+    <com.joanzapata.iconify.widget.IconTextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:text="Made with love by The EST Group"/>
+        android:text="{fa-heart #DC5E46} Made with love by The EST Group"
+        android:shadowColor="#22000000"
+        android:shadowDx="3"
+        android:shadowDy="3"
+        android:shadowRadius="1" />
 
 </LinearLayout>

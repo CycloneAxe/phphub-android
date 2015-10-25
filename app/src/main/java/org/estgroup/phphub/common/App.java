@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.github.pwittchen.prefser.library.Prefser;
+import com.joanzapata.iconify.Iconify;
+import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.squareup.leakcanary.LeakCanary;
 
 import org.estgroup.phphub.BuildConfig;
@@ -35,6 +37,8 @@ public class App extends Application {
 
         initializeInjector();
         initializeInjectorApi();
+
+        Iconify.with(new FontAwesomeModule());
     }
 
     private void initializeInjector() {
