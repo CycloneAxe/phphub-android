@@ -41,3 +41,6 @@ Gradle version 2.4
 [sweet-alert-dialog](https://github.com/pedant/sweet-alert-dialog) | A beautiful and clever alert dialog
 [android-saripaar](https://github.com/ragunathjawahar/android-saripaar) | 表单验证
 [DeepLinkDispatch](https://github.com/airbnb/DeepLinkDispatch) | 一个简单的、基于注解的 Deep Link 处理库
+[otto](https://github.com/square/otto) | Event Bus, 用来简化应用组件之间的通信
+[android-iconify](https://github.com/JoanZapata/android-iconify) | 一个将 AweomeICON 和 Android 结合起来的项目
+[SimpleToast](https://github.com/Pierry/SimpleToast) | Notifications for Android (like a Toast)

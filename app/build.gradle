@@ -163,6 +163,8 @@ dependencies {
     compile 'com.mobsandgeeks:android-saripaar:2.0.3'
     compile 'com.airbnb:deeplinkdispatch:1.4.0'
     apt 'com.airbnb:deeplinkdispatch-processor:1.4.0'
+    compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.0'
+    compile 'com.github.Pierry:SimpleToast:v1.6'
 
     compile project(':umeng_social_sdk_res_lib')
 }
