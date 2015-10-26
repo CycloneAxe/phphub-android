@@ -47,8 +47,7 @@
     <string name="github_hint">Github 帐号</string>
     <string name="blog_hint">你的个人网站, 不需要加前缀 http://</string>
     <string name="username_error">用户名不能为空</string>
-
-    <string name="please_login_first">请先登录, 再进行操作.</string>
+    
     <string name="favorite_success">收藏成功!</string>
     <string name="follow_success">关注成功!</string>
     <string name="vote_up_success">点赞成功!</string>

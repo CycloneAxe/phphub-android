@@ -1,5 +1,6 @@
 package org.estgroup.phphub.ui.view.topic;
 
+import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
@@ -43,6 +44,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import cn.bingoogolapple.badgeview.BGABadgeLinearLayout;
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import eu.unicate.retroauth.AuthAccountManager;
 import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
 
@@ -107,9 +109,20 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
     @Bind(R.id.iv_count_icon)
     ImageView countView;
 
+    AccountManager accountManager;
+
+    AuthAccountManager authAccountManager;
+
+    String accountType, tokenType;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        accountType = getString(R.string.auth_account_type);
+        tokenType = getString(R.string.auth_token_type);
+        accountManager = AccountManager.get(this);
+        authAccountManager = new AuthAccountManager(this, accountManager);
 
         Intent intent = getIntent();
         if (getIntent().getBooleanExtra(DeepLink.IS_DEEP_LINK, false)) {
@@ -301,7 +314,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                 switch (view.getId()) {
                     case R.id.iv_vote_up:
                         if (!isLogin()) {
-                            Toast.makeText(TopicDetailsActivity.this, getString(R.string.please_login_first), Toast.LENGTH_SHORT).show();
+                            needLogin();
                             return;
                         }
                         if (topicInfo.isVoteUp()) {
@@ -314,7 +327,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                         break;
                     case R.id.iv_vote_down:
                         if (!isLogin()) {
-                            Toast.makeText(TopicDetailsActivity.this, getString(R.string.please_login_first), Toast.LENGTH_SHORT).show();
+                            needLogin();
                             return;
                         }
                         if (topicInfo.isVoteUp()) {
@@ -428,7 +441,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                 break;
             case R.id.iv_favorite_icon:
                 if (!isLogin()) {
-                    Toast.makeText(this, getString(R.string.please_login_first), Toast.LENGTH_SHORT).show();
+                    needLogin();
                     return;
                 }
                 if (topicInfo.isFavorite()) {
@@ -439,7 +452,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                 break;
             case R.id.iv_following_icon:
                 if (!isLogin()) {
-                    Toast.makeText(this, getString(R.string.please_login_first), Toast.LENGTH_SHORT).show();
+                    needLogin();
                     return;
                 }
                 if (topicInfo.isAttention()) {
@@ -451,7 +464,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
 
             case R.id.iv_replys_icon:
                 if (!isLogin()) {
-                    Toast.makeText(this, getString(R.string.please_login_first), Toast.LENGTH_SHORT).show();
+                    needLogin();
                     return;
                 }
 
@@ -467,5 +480,9 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
 
     public void onNetWorkError(Throwable throwable) {
         Logger.e(throwable.getMessage());
+    }
+
+    private void needLogin() {
+        authAccountManager.addAccount(this, accountType, tokenType);
     }
 }
