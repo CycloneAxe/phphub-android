@@ -414,6 +414,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
     }
 
     @OnClick({
+            R.id.sdv_avatar,
             R.id.iv_favorite_icon,
             R.id.iv_following_icon,
             R.id.iv_replys_icon,
@@ -422,6 +423,9 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.sdv_avatar:
+                navigator.navigateToUserSpace(this, topicInfo.getUserId());
+                break;
             case R.id.iv_favorite_icon:
                 if (!isLogin()) {
                     Toast.makeText(this, getString(R.string.please_login_first), Toast.LENGTH_SHORT).show();
