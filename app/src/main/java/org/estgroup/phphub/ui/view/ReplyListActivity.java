@@ -3,6 +3,7 @@ package org.estgroup.phphub.ui.view;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -10,6 +11,7 @@ import android.webkit.WebViewClient;
 import com.kennyc.view.MultiStateView;
 
 import org.estgroup.phphub.R;
+import org.estgroup.phphub.common.Constant;
 import org.estgroup.phphub.common.base.BaseActivity;
 
 import butterknife.Bind;
@@ -33,6 +35,20 @@ public class ReplyListActivity extends BaseActivity {
         contentView.loadUrl(replyUrl, getHttpHeaderAuth());
 
         contentView.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url.contains(Constant.DEEP_LINK_PREFIX)) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    } else {
+                        startActivity(Intent.createChooser(intent, "请选择浏览器"));
+                    }
+                }
+                return true;
+            }
+
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);

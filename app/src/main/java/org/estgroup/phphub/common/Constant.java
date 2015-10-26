@@ -13,4 +13,6 @@ public final class Constant {
     public static final String USER_REFRESH_TOKEN_KEY = "user_refresh_token";
     public static final String USER_SIGNATURE = "user_signature";
     public static final String USER_REPLY_URL_KEY = "user_reply_url";
+
+    public static final String DEEP_LINK_PREFIX = "phphub://";
 }
