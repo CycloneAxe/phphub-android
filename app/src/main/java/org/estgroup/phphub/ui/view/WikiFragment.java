@@ -139,6 +139,9 @@ public class WikiFragment  extends LazyFragment<WikiPresenter> implements
             case CLICK_TYPE_TOPIC_CLICKED:
                 navigator.navigateToTopicDetails(getActivity(), topic.getId());
                 break;
+            case CLICK_TYPE_USER_CLICKED:
+                navigator.navigateToUserSpace(getActivity(), topic.getUserId());
+                break;
         }
     }
 

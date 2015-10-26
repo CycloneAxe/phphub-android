@@ -33,6 +33,7 @@ import nucleus.factory.RequiresPresenter;
 
 import static com.kennyc.view.MultiStateView.*;
 import static org.estgroup.phphub.common.qualifier.ClickType.CLICK_TYPE_TOPIC_CLICKED;
+import static org.estgroup.phphub.common.qualifier.ClickType.CLICK_TYPE_USER_CLICKED;
 
 @RequiresPresenter(TopicPresenter.class)
 public class TopicFragment extends LazyFragment<TopicPresenter> implements
@@ -142,6 +143,10 @@ public class TopicFragment extends LazyFragment<TopicPresenter> implements
         switch (actionId) {
             case CLICK_TYPE_TOPIC_CLICKED:
                 navigator.navigateToTopicDetails(getActivity(), topic.getId());
+                break;
+
+            case CLICK_TYPE_USER_CLICKED:
+                navigator.navigateToUserSpace(getActivity(), topic.getUserId());
                 break;
         }
     }
