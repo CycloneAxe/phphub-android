@@ -110,7 +110,7 @@ public class LoginActivity extends AuthenticationActivity {
 
     @OnClick(R.id.btn_login_guide)
     public void loginGuide() {
-        Uri uri = Uri.parse("https://phphub.org/helps/qr-login-guide");
+        Uri uri = Uri.parse("http://7xnqwn.com1.z0.glb.clouddn.com/index.html");
         Intent intent = new Intent();
         intent.setAction("android.intent.action.VIEW");
         intent.setData(uri);
