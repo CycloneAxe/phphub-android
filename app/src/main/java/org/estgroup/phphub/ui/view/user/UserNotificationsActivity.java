@@ -31,6 +31,7 @@ import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
 
 import static com.kennyc.view.MultiStateView.VIEW_STATE_CONTENT;
+import static com.kennyc.view.MultiStateView.VIEW_STATE_EMPTY;
 import static com.kennyc.view.MultiStateView.VIEW_STATE_ERROR;
 import static com.kennyc.view.MultiStateView.VIEW_STATE_LOADING;
 import static org.estgroup.phphub.common.qualifier.ClickType.CLICK_TYPE_TOPIC_CLICKED;
@@ -94,6 +95,10 @@ public class UserNotificationsActivity extends BaseActivity<UserNotificationsPre
         } else {
             adapter.addItems(notifications);
             refreshView.finishRefreshLoadMore();
+        }
+
+        if (notifications.size() == 0) {
+            multiStateView.setViewState(VIEW_STATE_EMPTY);
         }
     }
 

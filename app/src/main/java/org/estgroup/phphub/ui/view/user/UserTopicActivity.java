@@ -24,15 +24,14 @@ import org.estgroup.phphub.ui.presenter.UserTopicsPresenter;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.OnClick;
 import io.nlopez.smartadapters.SmartAdapter;
 import io.nlopez.smartadapters.adapters.RecyclerMultiAdapter;
 import io.nlopez.smartadapters.utils.ViewEventListener;
 import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
 
-import static com.kennyc.view.MultiStateView.VIEW_STATE_CONTENT;
-import static com.kennyc.view.MultiStateView.VIEW_STATE_ERROR;
-import static com.kennyc.view.MultiStateView.VIEW_STATE_LOADING;
+import static com.kennyc.view.MultiStateView.*;
 import static org.estgroup.phphub.common.Constant.USER_ID_KEY;
 import static org.estgroup.phphub.common.qualifier.ClickType.*;
 import static org.estgroup.phphub.common.qualifier.UserTopicType.*;
@@ -190,6 +189,10 @@ public class UserTopicActivity extends BaseActivity<UserTopicsPresenter> impleme
             adapter.addItems(topics);
             refreshView.finishRefreshLoadMore();
         }
+
+        if (topics.size() == 0) {
+            multiStateView.setViewState(VIEW_STATE_EMPTY);
+        }
     }
 
     public void onNetworkError(Throwable throwable, int pageIndex) {
@@ -198,5 +201,11 @@ public class UserTopicActivity extends BaseActivity<UserTopicsPresenter> impleme
         if (pageIndex == 1) {
             multiStateView.setViewState(VIEW_STATE_ERROR);
         }
+    }
+
+    @OnClick(R.id.retry)
+    public void retry() {
+        multiStateView.setViewState(VIEW_STATE_LOADING);
+        getPresenter().refresh(userTopicType, userId);
     }
 }
