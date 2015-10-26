@@ -32,6 +32,7 @@
     <string name="edit">Edit</string>
     <string name="publish">Publish</string>
 
+    <string name="edit_profile">Edit Profile</string>
     <string name="username">UserName</string>
     <string name="profile">Profile</string>
     <string name="address">Address</string>
@@ -41,6 +42,9 @@
     <string name="his">His</string>
     <string name="her">Her</string>
     <string name="since">Since</string>
+    <string name="twitter_hint">Twitter 帐号, 不需要加前缀 https://twitter.com/</string>
+    <string name="github_hint">Github 帐号</string>
+    <string name="blog_hint">你的个人网站, 不需要加前缀 http://</string>
 
     <string name="please_login_first">请先登录, 再进行操作.</string>
     <string name="favorite_success">收藏成功!</string>
@@ -61,6 +65,8 @@
     <string name="body_input_error">内容长度不能少于2个字符!</string>
     <string name="node_input_error">请选择节点!</string>
     <string name="username_error">用户名不能为空</string>
+    <string name="success_title">提交成功!</string>
+    <string name="report_success">举报已提交</string>
 
     <string name="reply_list">回复列表</string>
     <string name="publish_reply">发表回复</string>
