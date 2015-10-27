@@ -45,6 +45,7 @@
                             app:layout_heightPercent="10.1%w"/>
 
                         <LinearLayout
+                            android:id="@+id/llyt_userInfo"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             app:layout_widthPercent="63%w"

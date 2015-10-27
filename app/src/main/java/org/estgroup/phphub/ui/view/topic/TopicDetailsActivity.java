@@ -434,6 +434,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
 
     @OnClick({
             R.id.sdv_avatar,
+            R.id.llyt_userInfo,
             R.id.iv_favorite_icon,
             R.id.iv_following_icon,
             R.id.iv_replys_icon,
@@ -443,6 +444,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sdv_avatar:
+            case R.id.llyt_userInfo:
                 navigator.navigateToUserSpace(this, topicInfo.getUserId());
                 break;
             case R.id.iv_favorite_icon:
