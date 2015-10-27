@@ -105,9 +105,9 @@ public class TopicReplyActivity extends BaseActivity<TopicReplyPresenter> {
         SweetAlertDialog loadingDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         String reply = topicBodyView.getText().toString();
 
-        if (reply.trim().length() < 1) {
+        if (reply.trim().length() < 2) {
             errorDialog.setTitleText("Oops...");
-            errorDialog.setContentText(getString(R.string.reply_empty));
+            errorDialog.setContentText(getString(R.string.body_input_error));
             errorDialog.show();
             return;
         }

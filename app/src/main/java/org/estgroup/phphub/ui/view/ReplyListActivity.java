@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -17,6 +19,7 @@ import org.estgroup.phphub.common.base.BaseActivity;
 import butterknife.Bind;
 
 public class ReplyListActivity extends BaseActivity {
+    private static final String TOPIC_ID = "topic_id";
     private static final String TOPIC_REPLY_URL = "reply_url";
 
     @Bind(R.id.multiStateView)
@@ -25,6 +28,8 @@ public class ReplyListActivity extends BaseActivity {
     @Bind(R.id.wv_content)
     WebView contentView;
 
+    int topicId;
+
     String replyUrl;
 
     @Override
@@ -32,10 +37,11 @@ public class ReplyListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         this.replyUrl = getIntent().getStringExtra(TOPIC_REPLY_URL);
+        this.topicId = getIntent().getIntExtra(TOPIC_ID, 0);
         contentView.loadUrl(replyUrl, getHttpHeaderAuth());
         contentView.getSettings().setJavaScriptEnabled(true);
 
-        contentView.setWebViewClient(new WebViewClient(){
+        contentView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.contains(Constant.DEEP_LINK_PREFIX)) {
@@ -67,8 +73,40 @@ public class ReplyListActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.menu_publish, menu);
+
+        if (getIntent().getIntExtra(TOPIC_ID, 0) == 0) {
+            menu.findItem(R.id.action_publish).setVisible(false);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_publish:
+
+                navigator.navigateToReplyTopic(this, topicId, replyUrl);
+
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
     public static Intent getCallingIntent(Context context, String replyUrl) {
         Intent callingIntent = new Intent(context, ReplyListActivity.class);
+        callingIntent.putExtra(TOPIC_ID, 0);
+        callingIntent.putExtra(TOPIC_REPLY_URL, replyUrl);
+        return callingIntent;
+    }
+
+    public static Intent getCallingIntent(Context context, int topicId, String replyUrl) {
+        Intent callingIntent = new Intent(context, ReplyListActivity.class);
+        callingIntent.putExtra(TOPIC_ID, topicId);
         callingIntent.putExtra(TOPIC_REPLY_URL, replyUrl);
         return callingIntent;
     }

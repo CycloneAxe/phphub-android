@@ -480,7 +480,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                 break;
             case R.id.iv_count_icon:
 
-                navigator.navigateToUserReply(this, topicInfo.getLinks().getRepliesWebView());
+                navigator.navigateToUserReply(this, topicId, topicInfo.getLinks().getRepliesWebView());
 
                 break;
         }

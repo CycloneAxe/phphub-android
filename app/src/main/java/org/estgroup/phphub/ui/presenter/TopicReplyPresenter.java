@@ -111,7 +111,7 @@ public class TopicReplyPresenter extends BaseRxPresenter<TopicReplyActivity> {
     }
 
     public void request(int topicId, String body) {
-        if (topicId > 0 && body.trim().length() > 1){
+        if (topicId > 0 && body.trim().length() > 2){
             this.topicId = topicId;
             this.body = body;
 

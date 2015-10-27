@@ -60,6 +60,11 @@ public class Navigator {
         context.startActivity(intentToLaunch);
     }
 
+    public void navigateToUserReply(@NonNull Context context, int topicId, String replyUrl){
+        Intent intentToLaunch = ReplyListActivity.getCallingIntent(context, topicId, replyUrl);
+        context.startActivity(intentToLaunch);
+    }
+
     public void navigateToUserTopic(@NonNull Context context, int userId, String userTopicType) {
         Intent intentToLaunch = UserTopicActivity.getCallingIntent(context, userId, userTopicType);
         context.startActivity(intentToLaunch);
