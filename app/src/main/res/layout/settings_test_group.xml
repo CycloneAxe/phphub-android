@@ -13,7 +13,7 @@
 
         android:layout_marginBottom="12dp"
 
-        android:background="@drawable/shap_line_top_and_bottom"
+        android:background="@color/white"
 
         style="@style/settings_list_style"
 

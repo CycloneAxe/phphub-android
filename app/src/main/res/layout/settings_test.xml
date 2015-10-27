@@ -9,7 +9,7 @@
 
         android:layout_height="41dp"
 
-        android:background="@drawable/shap_line_only_top"
+        android:background="@drawable/shap_settings_only_bottom"
 
         style="@style/settings_list_style"/>
 

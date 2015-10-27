@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:top="-2dp"
+        android:right="-2dp"
+        android:left="-2dp">
+        <shape>
+            <solid android:color="@android:color/white" />
+            <stroke android:width="0.5dp" android:color="@color/profile_space_divider" />
+        </shape>
+    </item>
+</layer-list>

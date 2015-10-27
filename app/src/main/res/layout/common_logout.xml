@@ -2,7 +2,7 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="41dp"
-    android:background="@drawable/shap_line_top_and_bottom"
+    android:background="@color/white"
     android:gravity="center"
     android:text="退出当前登录"
     android:textSize="16sp"
