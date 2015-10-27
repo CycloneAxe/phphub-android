@@ -438,7 +438,8 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
             R.id.iv_favorite_icon,
             R.id.iv_following_icon,
             R.id.iv_replys_icon,
-            R.id.iv_count_icon
+            R.id.iv_count_icon,
+            R.id.bga_llyt_reply_count
     })
     @Override
     public void onClick(View v) {
@@ -479,7 +480,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                 navigator.navigateToReplyTopic(this, topicId, topicInfo.getLinks().getRepliesWebView());
                 break;
             case R.id.iv_count_icon:
-
+            case R.id.bga_llyt_reply_count:
                 navigator.navigateToUserReply(this, topicId, topicInfo.getLinks().getRepliesWebView());
 
                 break;
