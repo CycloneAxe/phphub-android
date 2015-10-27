@@ -7,5 +7,13 @@
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorAccent">@color/accentColor</item>
         <item name="android:windowBackground">@color/backgroundGray</item>
+        <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
+    </style>
+
+    <style name="ActivityAnimation">
+        <item name="android:activityOpenEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:activityOpenExitAnimation">@android:anim/fade_in</item>
+        <item name="android:activityCloseEnterAnimation">@android:anim/fade_out</item>
+        <item name="android:activityCloseExitAnimation">@android:anim/fade_out</item>
     </style>
 </resources>
