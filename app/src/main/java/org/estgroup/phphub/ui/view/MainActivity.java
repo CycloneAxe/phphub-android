@@ -12,6 +12,7 @@ import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 import com.squareup.otto.Subscribe;
+import com.umeng.update.UmengUpdateAgent;
 
 import org.estgroup.phphub.R;
 import org.estgroup.phphub.common.base.BaseActivity;
@@ -38,6 +39,8 @@ public class MainActivity extends BaseActivity  {
         setupTabView();
 
         meIconView = (BGABadgeFrameLayout) viewpagerTab.getTabAt(3).findViewById(R.id.badgeView);
+
+        UmengUpdateAgent.update(this);
     }
 
     @Override
