@@ -73,4 +73,6 @@
 
     <string name="submitting">请求中...</string>
 
+    <string name="share_topic">分享 %s 的文章</string>
+
 </resources>

@@ -26,6 +26,7 @@ import com.umeng.socialize.common.SocializeConstants;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.media.QQShareContent;
+import com.umeng.socialize.media.UMImage;
 import com.umeng.socialize.sso.UMQQSsoHandler;
 import com.umeng.socialize.weixin.controller.UMWXHandler;
 import com.umeng.socialize.weixin.media.CircleShareContent;
@@ -249,7 +250,8 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
         socialService.getConfig().removePlatform(SHARE_MEDIA.QZONE);
 
         String webLink = this.topicInfo.getLinks().getWebURL();
-        String shareContent = this.topicInfo.getExcerpt().substring(0, 140 - webLink.length()) + " " + webLink;
+        String shareContent = this.topicInfo.getTitle() + " " + webLink;
+        String title = getString(R.string.share_topic, this.topicInfo.getUser().getData().getName());
 
         socialService.setShareContent(shareContent);
 
@@ -259,8 +261,8 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
             qqSsoHandler.addToSocialSDK();
 
             QQShareContent qqShareContent = new QQShareContent();
-            qqShareContent.setShareContent(this.topicInfo.getExcerpt());
-            qqShareContent.setTitle(this.topicInfo.getTitle());
+            qqShareContent.setShareContent(shareContent);
+            qqShareContent.setTitle(title);
             qqShareContent.setTargetUrl(this.topicInfo.getLinks().getWebURL());
 
             socialService.setShareMedia(qqShareContent);
@@ -280,16 +282,19 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
 
             //设置微信分享内容
             WeiXinShareContent weixinContent = new WeiXinShareContent();
-            weixinContent.setShareContent(this.topicInfo.getExcerpt());
-            weixinContent.setTitle(this.topicInfo.getTitle());
+            weixinContent.setShareContent(shareContent);
+            weixinContent.setTitle(title);
             weixinContent.setTargetUrl(this.topicInfo.getLinks().getWebURL());
+            weixinContent.setShareImage(new UMImage(this, topicInfo.getUser().getData().getAvatar()));
             socialService.setShareMedia(weixinContent);
 
+            Logger.d(topicInfo.getUser().getData().getAvatar());
             //设置微信朋友圈分享内容
             CircleShareContent circleMedia = new CircleShareContent();
-            circleMedia.setShareContent(this.topicInfo.getExcerpt());
-            circleMedia.setTitle(this.topicInfo.getTitle());
+            circleMedia.setShareContent(shareContent);
+            circleMedia.setTitle(title);
             circleMedia.setTargetUrl(this.topicInfo.getLinks().getWebURL());
+            circleMedia.setShareImage(new UMImage(this, topicInfo.getUser().getData().getAvatar()));
             socialService.setShareMedia(circleMedia);
         }else{
             socialService.getConfig().removePlatform(SHARE_MEDIA.WEIXIN, SHARE_MEDIA.WEIXIN_CIRCLE);

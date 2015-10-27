@@ -74,7 +74,7 @@ public class User implements Serializable {
     }
 
     public String getAvatar() {
-        return avatar;
+        return avatar + "?imageView2/1/w/100/h/100";
     }
 
     public void setAvatar(String avatar) {
