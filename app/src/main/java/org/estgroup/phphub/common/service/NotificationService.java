@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
+import com.google.gson.JsonObject;
 import com.orhanobut.logger.Logger;
 import com.squareup.otto.Produce;
 
@@ -85,19 +86,18 @@ public class NotificationService extends Service {
                                     tokenType
                             ))
                             .getUnreadNotifications()
-                            .compose(new SchedulerTransformer<NotificationEntity>())
-                            .map(new Func1<NotificationEntity, List<Notification>>() {
+                            .compose(new SchedulerTransformer<JsonObject>())
+                            .map(new Func1<JsonObject, JsonObject>() {
                                 @Override
-                                public List<Notification> call(NotificationEntity notificationEntity) {
-                                    return notificationEntity.getData();
+                                public JsonObject call(JsonObject jsonObj) {
+                                    return jsonObj;
                                 }
                             })
-                            .subscribe(new Action1<List<Notification>>() {
+                            .subscribe(new Action1<JsonObject>() {
                                 @Override
-                                public void call(List<Notification> notifications) {
-                                    if (notifications != null) {
-                                        BusProvider.getInstance().post(new NotificationChangeEvent(notifications.size()));
-                                    }
+                                public void call(JsonObject jsonObj) {
+                                    int count = jsonObj.get("count").getAsInt();
+                                    BusProvider.getInstance().post(new NotificationChangeEvent(count));
                                 }
                             }, new Action1<Throwable>() {
                                 @Override

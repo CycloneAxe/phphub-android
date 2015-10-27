@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.google.gson.JsonObject;
+
 import org.estgroup.phphub.api.UserApi;
 import org.estgroup.phphub.api.entity.NotificationEntity;
 import org.estgroup.phphub.api.entity.TopicEntity;
@@ -64,10 +66,8 @@ public class UserModel extends BaseModel<UserApi, UserModel> {
         return getService().getMyNotifications(options);
     }
 
-    public Observable<NotificationEntity> getUnreadNotifications() {
-        HashMap<String, String> options = new HashMap<>();
-        options.put("include", "from_user,topic");
-        return getService().getUnreadNotifications(options);
+    public Observable<JsonObject> getUnreadNotifications() {
+        return getService().getUnreadNotifications();
     }
 
     public Observable<UserEntity.AUser> saveUserProfile(User userInfo) {

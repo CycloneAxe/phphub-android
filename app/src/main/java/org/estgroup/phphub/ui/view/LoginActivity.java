@@ -191,7 +191,6 @@ public class LoginActivity extends AuthenticationActivity {
                                @Override
                                public void call(User user) {
                                    dialog.dismiss();
-                                   startService(new Intent(LoginActivity.this, NotificationService.class));
                                    finalizeAuthentication(account);
                                }
                            },

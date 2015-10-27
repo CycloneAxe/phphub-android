@@ -1,5 +1,7 @@
 package org.estgroup.phphub.api;
 
+import com.google.gson.JsonObject;
+
 import org.estgroup.phphub.R;
 import org.estgroup.phphub.api.entity.NotificationEntity;
 import org.estgroup.phphub.api.entity.TopicEntity;
@@ -42,7 +44,7 @@ public interface UserApi {
     Observable<NotificationEntity> getMyNotifications(@QueryMap Map<String, String> options);
 
     @GET("/me/notifications/count")
-    Observable<NotificationEntity> getUnreadNotifications(@QueryMap Map<String, String> options);
+    Observable<JsonObject> getUnreadNotifications();
 
     @PUT("/users/{userId}")
     Observable<UserEntity.AUser> saveUserProfile(@Path("userId") int userId,
