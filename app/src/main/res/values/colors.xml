@@ -38,7 +38,10 @@
     <color name="gray_91">#91999F</color>
     <color name="gray_c9">#C9C8C8</color>
     <color name="gray_ac">#ACACAC</color>
+    <color name="gray_e0">#E0E0E0</color>
 
     <color name="blue_a4">#A4B3BF</color>
     <color name="blue_a5">#A5B3C0</color>
+
+    <color name="red_DE">#DE7676</color>
 </resources>

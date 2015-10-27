@@ -8,6 +8,7 @@
         <item name="colorAccent">@color/accentColor</item>
         <item name="android:windowBackground">@color/backgroundGray</item>
         <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
+        <item name="android:listDivider">@null</item>
     </style>
 
     <style name="ActivityAnimation">

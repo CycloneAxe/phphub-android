@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <Preference
-        android:title="获取源代码">
+        android:title="意见反馈"
+        android:key="feedback"
+        android:layout="@layout/settings_test_group">
+    </Preference>
+
+    <Preference
+        android:title="获取源代码"
+        android:layout="@layout/settings_test">
         <intent android:action="android.intent.action.VIEW"
             android:data="https://github.com/phphub/phphub-android"/>
     </Preference>
 
     <Preference
-        android:title="关于 PHPHub">
+        android:title="关于 PHPHub"
+        android:layout="@layout/settings_test">
         <intent android:action="android.intent.action.VIEW"
             android:data="https://phphub.org/about"/>
     </Preference>
 
     <Preference
-        android:title="The EST Group">
+        android:title="The EST Group"
+        android:layout="@layout/settings_test_group">
         <intent android:action="android.intent.action.VIEW"
             android:data="http://est-group.org"/>
     </Preference>
+
 </PreferenceScreen>

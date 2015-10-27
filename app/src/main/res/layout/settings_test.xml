@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView android:id="@+android:id/title"
+
+        android:layout_width="match_parent"
+
+        android:layout_height="41dp"
+
+        android:background="@drawable/shap_line_only_top"
+
+        style="@style/settings_list_style"/>
+
+</LinearLayout>

@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/white">
+    android:layout_height="match_parent">
 
     <include layout="@layout/common_toolbar" />
 
     <fragment
         android:id="@+id/settings"
-        android:name="org.estgroup.phphub.ui.view.settings.SettingsFragment"
+        android:layout_marginTop="12dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:name="org.estgroup.phphub.ui.view.settings.SettingsFragment"
+        tools:layout="@layout/common_logout" />
 
     <com.joanzapata.iconify.widget.IconTextView
         android:layout_width="match_parent"
