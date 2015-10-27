@@ -33,6 +33,7 @@ public class ReplyListActivity extends BaseActivity {
 
         this.replyUrl = getIntent().getStringExtra(TOPIC_REPLY_URL);
         contentView.loadUrl(replyUrl, getHttpHeaderAuth());
+        contentView.getSettings().setJavaScriptEnabled(true);
 
         contentView.setWebViewClient(new WebViewClient(){
             @Override

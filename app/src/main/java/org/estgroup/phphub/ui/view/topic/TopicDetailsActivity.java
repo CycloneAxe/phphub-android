@@ -182,6 +182,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
         signView.setText(user.getSignature());
         PraiseView.setText(voteCount);
         topicContentView.loadUrl(link.getDetailsWebView(), getHttpHeaderAuth());
+        topicContentView.getSettings().setJavaScriptEnabled(true);
         replyCountView.showTextBadge(replyCount);
 
         if (topic.isVoteUp()) {
