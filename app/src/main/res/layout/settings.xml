@@ -21,10 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:text="{fa-heart #DC5E46} Made with love by The EST Group"
-        android:shadowColor="#22000000"
-        android:shadowDx="3"
-        android:shadowDy="3"
-        android:shadowRadius="1" />
+        android:text="{fa-heart #E48282} Made with love by The EST Group"
+        android:textColor="#A7A7A7" />
 
 </LinearLayout>
