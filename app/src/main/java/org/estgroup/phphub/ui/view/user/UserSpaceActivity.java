@@ -200,11 +200,11 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
         avatarView.setImageURI(Uri.parse(userInfo.getAvatar()));
         userNameView.setText(userInfo.getName());
         realNameView.setText(userInfo.getRealName());
-        descriptionView.setText(userInfo.getIntroduction());
-        addressView.setText(userInfo.getCity());
-        githubView.setText(userInfo.getGithubName());
-        twitterView.setText(userInfo.getTwitterAccount());
-        blogView.setText(userInfo.getPersonalWebsite());
+        descriptionView.setText(TextUtils.isEmpty(userInfo.getIntroduction()) ? getString(R.string.empty_content) : userInfo.getIntroduction());
+        addressView.setText(TextUtils.isEmpty(userInfo.getCity()) ? getString(R.string.empty_content) : userInfo.getCity());
+        githubView.setText(TextUtils.isEmpty(userInfo.getGithubName()) ? getString(R.string.empty_content) : userInfo.getGithubName());
+        twitterView.setText(TextUtils.isEmpty(userInfo.getTwitterAccount()) ? getString(R.string.empty_content) : userInfo.getTwitterAccount());
+        blogView.setText(TextUtils.isEmpty(userInfo.getPersonalWebsite()) ? getString(R.string.empty_content) : userInfo.getPersonalWebsite());
         sinceView.setText(userInfo.getCreatedAt());
     }
 
