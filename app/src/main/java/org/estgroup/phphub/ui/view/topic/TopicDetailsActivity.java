@@ -3,6 +3,7 @@ package org.estgroup.phphub.ui.view.topic;
 import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
@@ -75,6 +76,9 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
 
     @Bind(R.id.multiStateView)
     MultiStateView multiStateView;
+
+    @Bind(R.id.multiStateWebView)
+    MultiStateView multiStateWebView;
 
     @Bind(R.id.wv_content)
     WebView topicContentView;
@@ -164,6 +168,18 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                     navigator.navigateToWebView(TopicDetailsActivity.this, url);
                 }
                 return true;
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+                multiStateWebView.setViewState(MultiStateView.VIEW_STATE_LOADING);
+            }
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                multiStateWebView.setViewState(VIEW_STATE_CONTENT);
             }
         });
     }
