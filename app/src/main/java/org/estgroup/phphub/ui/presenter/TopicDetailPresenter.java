@@ -183,12 +183,14 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                     @Override
                     public void call(TopicDetailsActivity topicDetailsActivity, JsonObject jsonObject) {
                         topicDetailsActivity.setOptionState(TOPIC_DETAIL_TYPE_FAVORITE, true);
+                        stop(REQUEST_FAVOURITE_TOPIC_ID);
                     }
                 },
                 new Action2<TopicDetailsActivity, Throwable>() {
                     @Override
                     public void call(TopicDetailsActivity topicDetailsActivity, Throwable throwable) {
                         Logger.e(throwable.getMessage());
+                        stop(REQUEST_FAVOURITE_TOPIC_ID);
                     }
                 });
 
@@ -233,12 +235,14 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                     @Override
                     public void call(TopicDetailsActivity topicDetailsActivity, JsonObject jsonObject) {
                         topicDetailsActivity.setOptionState(TOPIC_DETAIL_TYPE_FAVORITE_DEL, true);
+                        stop(REQUEST_FAVOURITE_TOPIC_DELETE_ID);
                     }
                 },
                 new Action2<TopicDetailsActivity, Throwable>() {
                     @Override
                     public void call(TopicDetailsActivity topicDetailsActivity, Throwable throwable) {
                         Logger.e(throwable.getMessage());
+                        stop(REQUEST_FAVOURITE_TOPIC_DELETE_ID);
                     }
                 });
 
@@ -282,13 +286,16 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                 new Action2<TopicDetailsActivity, JsonObject>() {
                     @Override
                     public void call(TopicDetailsActivity topicDetailsActivity, JsonObject jsonObject) {
+                        System.out.println("REQUEST_FOLLOWING_TOPIC_ID");
                         topicDetailsActivity.setOptionState(TOPIC_DETAIL_TYPE_FOLLOW, true);
+                        stop(REQUEST_FOLLOWING_TOPIC_ID);
                     }
                 },
                 new Action2<TopicDetailsActivity, Throwable>() {
                     @Override
                     public void call(TopicDetailsActivity topicDetailsActivity, Throwable throwable) {
                         Logger.e(throwable.getMessage());
+                        stop(REQUEST_FOLLOWING_TOPIC_ID);
                     }
                 });
 
@@ -333,12 +340,14 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                     @Override
                     public void call(TopicDetailsActivity topicDetailsActivity, JsonObject jsonObject) {
                         topicDetailsActivity.setOptionState(TOPIC_DETAIL_TYPE_FOLLOW_DEL, true);
+                        stop(REQUEST_FOLLOWING_TOPIC_DELETE_ID);
                     }
                 },
                 new Action2<TopicDetailsActivity, Throwable>() {
                     @Override
                     public void call(TopicDetailsActivity topicDetailsActivity, Throwable throwable) {
                         Logger.e(throwable.getMessage());
+                        stop(REQUEST_FOLLOWING_TOPIC_DELETE_ID);
                     }
                 });
 
