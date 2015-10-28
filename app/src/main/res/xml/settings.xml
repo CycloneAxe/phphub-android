@@ -3,26 +3,26 @@
     <Preference
         android:title="意见反馈"
         android:key="feedback"
-        android:layout="@layout/settings_test_group">
+        android:layout="@layout/settings_group">
     </Preference>
 
     <Preference
         android:title="获取源代码"
-        android:layout="@layout/settings_test">
+        android:layout="@layout/settings_item">
         <intent android:action="android.intent.action.VIEW"
             android:data="https://github.com/phphub/phphub-android"/>
     </Preference>
 
     <Preference
         android:title="关于 PHPHub"
-        android:layout="@layout/settings_test">
+        android:layout="@layout/settings_item">
         <intent android:action="android.intent.action.VIEW"
             android:data="https://phphub.org/about"/>
     </Preference>
 
     <Preference
         android:title="The EST Group"
-        android:layout="@layout/settings_test_group">
+        android:layout="@layout/settings_group">
         <intent android:action="android.intent.action.VIEW"
             android:data="http://est-group.org"/>
     </Preference>
