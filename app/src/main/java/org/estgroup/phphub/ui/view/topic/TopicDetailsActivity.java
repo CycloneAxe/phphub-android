@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,6 +41,9 @@ import org.estgroup.phphub.api.entity.element.User;
 import org.estgroup.phphub.common.base.BaseActivity;
 import org.estgroup.phphub.ui.presenter.TopicDetailPresenter;
 import org.estgroup.phphub.widget.AnimateDialog;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -146,6 +150,30 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
 
         TopScrollHelper.getInstance(getApplicationContext())
                 .addTargetScrollView(topicContentView);
+
+        topicContentView.setWebViewClient(new WebViewClient(){
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                try {
+                    URL webUrl = new URL(url);
+                    if (webUrl.getHost().equals("phphub.org")) {
+                        String[] strings = webUrl.getPath().split("/");
+                        if (strings[1].equals("topics") && Integer.parseInt(strings[2]) > 0) {
+                            navigator.navigateToTopicDetails(TopicDetailsActivity.this, Integer.parseInt(strings[2]));
+                        } else if (strings[1].equals("users") && Integer.parseInt(strings[2]) > 0) {
+                            navigator.navigateToUserSpace(TopicDetailsActivity.this, Integer.parseInt(strings[2]));
+                        }
+
+                    } else {
+                        navigator.navigateToWebView(TopicDetailsActivity.this, url);
+                    }
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+
+                return true;
+            }
+        });
     }
 
     @Override

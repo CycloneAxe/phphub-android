@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 
 import org.estgroup.phphub.api.entity.element.User;
 import org.estgroup.phphub.ui.view.ScannerActivity;
+import org.estgroup.phphub.ui.view.WebViewPageActivity;
 import org.estgroup.phphub.ui.view.settings.SettingsActivity;
 import org.estgroup.phphub.ui.view.topic.TopicPublishActivity;
 import org.estgroup.phphub.ui.view.topic.TopicDetailsActivity;
@@ -77,6 +78,11 @@ public class Navigator {
 
     public void navigateToUserNotification(@NonNull Context context) {
         Intent intentToLaunch = UserNotificationsActivity.getCallingIntent(context);
+        context.startActivity(intentToLaunch);
+    }
+
+    public void navigateToWebView(@NonNull Context context, String webUrl) {
+        Intent intentToLaunch = WebViewPageActivity.getCallingIntent(context, webUrl);
         context.startActivity(intentToLaunch);
     }
 }

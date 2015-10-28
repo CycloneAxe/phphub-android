@@ -41,7 +41,7 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
 
     @Nullable
     @Bind(R.id.toolbar_title)
-    TextView toolbarTitleView;
+    public TextView toolbarTitleView;
 
     public Navigator navigator;
 

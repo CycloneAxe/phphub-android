@@ -73,6 +73,7 @@
     <string name="reply_empty">回复内容不能为空!</string>
     
     <string name="submitting">请求中...</string>
+    <string name="loading">加载中...</string>
 
     <string name="share_topic">分享 %s 的文章</string>
     <string name="empty_content">无</string>

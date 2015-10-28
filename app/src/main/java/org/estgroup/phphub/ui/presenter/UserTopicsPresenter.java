@@ -66,7 +66,7 @@ public class UserTopicsPresenter extends BaseRxPresenter<UserTopicActivity> {
                 new Func0<Observable<List<Topic>>>() {
                     @Override
                     public Observable<List<Topic>> call() {
-                        return userModel.getTopics(userId)
+                        return userModel.getTopics(userId, pageIndex)
                                 .compose(new SchedulerTransformer<TopicEntity>())
                                 .map(new Func1<TopicEntity, List<Topic>>() {
                                     @Override
@@ -81,7 +81,7 @@ public class UserTopicsPresenter extends BaseRxPresenter<UserTopicActivity> {
                 new Func0<Observable<List<Topic>>>() {
                     @Override
                     public Observable<List<Topic>> call() {
-                        return userModel.getAttentions(userId)
+                        return userModel.getAttentions(userId, pageIndex)
                                 .compose(new SchedulerTransformer<TopicEntity>())
                                 .map(new Func1<TopicEntity, List<Topic>>() {
                                     @Override
@@ -96,7 +96,7 @@ public class UserTopicsPresenter extends BaseRxPresenter<UserTopicActivity> {
                 new Func0<Observable<List<Topic>>>() {
                     @Override
                     public Observable<List<Topic>> call() {
-                        return userModel.getFavorites(userId)
+                        return userModel.getFavorites(userId, pageIndex)
                                 .compose(new SchedulerTransformer<TopicEntity>())
                                 .map(new Func1<TopicEntity, List<Topic>>() {
                                     @Override
