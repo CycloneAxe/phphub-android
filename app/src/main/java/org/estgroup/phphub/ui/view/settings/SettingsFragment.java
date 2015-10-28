@@ -3,6 +3,7 @@ package org.estgroup.phphub.ui.view.settings;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
@@ -15,6 +16,7 @@ import com.umeng.message.PushAgent;
 import org.estgroup.phphub.R;
 import org.estgroup.phphub.common.App;
 import org.estgroup.phphub.common.util.Utils;
+import org.estgroup.phphub.ui.view.WebViewPageActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -46,6 +48,9 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
         account = Utils.getActiveAccount(getActivity(), authAccountManager);
 
         ((Preference) findPreference("feedback")).setOnPreferenceClickListener(this);
+        ((Preference) findPreference("source_code")).setOnPreferenceClickListener(this);
+        ((Preference) findPreference("about_phphub")).setOnPreferenceClickListener(this);
+        ((Preference) findPreference("about_our_group")).setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -98,7 +103,21 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                     }
                 }).start();
                 return true;
+            case "source_code":
+                Intent intentCode = WebViewPageActivity.getCallingIntent(getActivity(), "https://github.com/phphub/phphub-android");
+                getActivity().startActivity(intentCode);
 
+                return true;
+            case "about_phphub":
+                Intent intentPhphub = WebViewPageActivity.getCallingIntent(getActivity(), "https://phphub.org/about");
+                getActivity().startActivity(intentPhphub);
+
+                return true;
+            case "about_our_group":
+                Intent intentGroup = WebViewPageActivity.getCallingIntent(getActivity(), "http://est-group.org");
+                getActivity().startActivity(intentGroup);
+
+                return true;
             case LOGOUT_KEY:
                 new AlertDialog.Builder(getActivity())
                         .setMessage("确认退出吗？")

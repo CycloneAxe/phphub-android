@@ -7,24 +7,21 @@
     </Preference>
 
     <Preference
+        android:key="source_code"
         android:title="获取源代码"
         android:layout="@layout/settings_item">
-        <intent android:action="android.intent.action.VIEW"
-            android:data="https://github.com/phphub/phphub-android"/>
     </Preference>
 
     <Preference
+        android:key="about_phphub"
         android:title="关于 PHPHub"
         android:layout="@layout/settings_item">
-        <intent android:action="android.intent.action.VIEW"
-            android:data="https://phphub.org/about"/>
     </Preference>
 
     <Preference
+        android:key="about_our_group"
         android:title="The EST Group"
         android:layout="@layout/settings_group">
-        <intent android:action="android.intent.action.VIEW"
-            android:data="http://est-group.org"/>
     </Preference>
 
 </PreferenceScreen>
