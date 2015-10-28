@@ -181,7 +181,7 @@ public class TopicPublishActivity extends BaseActivity<TopicPublishPresenter> im
         topic.setBody(topicBody);
         topic.setNodeId(nodeId);
 
-        getPresenter().publish(topic);
+        getPresenter().publish(topic, loadingDialog);
 
         loadingDialog.getProgressHelper().setBarColor(Color.parseColor("#4394DA"));
         loadingDialog.setContentText(getString(R.string.submitting));
@@ -207,7 +207,8 @@ public class TopicPublishActivity extends BaseActivity<TopicPublishPresenter> im
         }
     }
 
-    public void onPublishSuccessful(Topic topic) {
+    public void onPublishSuccessful(Topic topic, SweetAlertDialog loadingDialog) {
+        loadingDialog.dismiss();
         finish();
         navigator.navigateToTopicDetails(this, topic.getId());
     }

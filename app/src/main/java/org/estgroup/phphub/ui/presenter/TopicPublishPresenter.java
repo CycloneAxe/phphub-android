@@ -25,6 +25,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import eu.unicate.retroauth.AuthAccountManager;
 import rx.Observable;
 import rx.Subscriber;
@@ -62,6 +63,8 @@ public class TopicPublishPresenter extends BaseRxPresenter<TopicPublishActivity>
     String tokenType, accountType;
 
     Account[] accounts;
+
+    SweetAlertDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -110,7 +113,7 @@ public class TopicPublishPresenter extends BaseRxPresenter<TopicPublishActivity>
                 new Action2<TopicPublishActivity, Topic>() {
                     @Override
                     public void call(TopicPublishActivity topicPublishActivity, Topic topic) {
-                        topicPublishActivity.onPublishSuccessful(topic);
+                        topicPublishActivity.onPublishSuccessful(topic, loadingDialog);
                     }
                 },
                 new Action2<TopicPublishActivity, Throwable>() {
@@ -148,8 +151,9 @@ public class TopicPublishPresenter extends BaseRxPresenter<TopicPublishActivity>
                 });
     }
 
-    public void publish(Topic topic) {
+    public void publish(Topic topic, SweetAlertDialog loadingDialog) {
         this.topic = topic;
+        this.loadingDialog = loadingDialog;
         start(REQUEST_PUBLISH_TOPIC_ID);
     }
 
