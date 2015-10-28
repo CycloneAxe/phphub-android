@@ -181,17 +181,20 @@ public class UserTopicActivity extends BaseActivity<UserTopicsPresenter> impleme
     }
 
     public void onChangeItems(List<Topic> topics, int pageIndex) {
+        System.out.println(pageIndex);
+
         if (pageIndex == 1) {
             adapter.setItems(topics);
             multiStateView.setViewState(VIEW_STATE_CONTENT);
             refreshView.finishRefresh();
+
+            if (topics.size() == 0) {
+                multiStateView.setViewState(VIEW_STATE_EMPTY);
+            }
+
         } else {
             adapter.addItems(topics);
             refreshView.finishRefreshLoadMore();
-        }
-
-        if (topics.size() == 0) {
-            multiStateView.setViewState(VIEW_STATE_EMPTY);
         }
     }
 
