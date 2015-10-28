@@ -307,8 +307,6 @@
                         android:orientation="vertical"
                         android:background="@color/white"
                         app:layout_marginTopPercent="1.7%w"
-                        app:layout_paddingLeftPercent="4.8%w"
-                        app:layout_paddingRightPercent="4.8%w"
                         app:layout_paddingTopPercent="3.5%w"
                         app:layout_paddingBottomPercent="3.6%w">
 
@@ -316,7 +314,9 @@
                             android:id="@+id/percent_rlyt_topics"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/shap_line_only_bottom"
+                            android:background="@drawable/shap_settings_only_bottom"
+                            app:layout_paddingLeftPercent="4.8%w"
+                            app:layout_paddingRightPercent="4.8%w"
                             app:layout_paddingBottomPercent="2.7%w">
 
                             <TextView
@@ -334,7 +334,9 @@
                             android:id="@+id/percent_rlyt_replys"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/shap_line_only_bottom"
+                            android:background="@drawable/shap_settings_only_bottom"
+                            app:layout_paddingLeftPercent="4.8%w"
+                            app:layout_paddingRightPercent="4.8%w"
                             app:layout_paddingBottomPercent="2.7%w"
                             app:layout_paddingTopPercent="2.7%w">
 
@@ -353,7 +355,9 @@
                             android:id="@+id/percent_rlyt_following"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/shap_line_only_bottom"
+                            android:background="@drawable/shap_settings_only_bottom"
+                            app:layout_paddingLeftPercent="4.8%w"
+                            app:layout_paddingRightPercent="4.8%w"
                             app:layout_paddingBottomPercent="2.7%w"
                             app:layout_paddingTopPercent="2.7%w">
 
@@ -372,6 +376,8 @@
                             android:id="@+id/percent_rlyt_favorites"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            app:layout_paddingLeftPercent="4.8%w"
+                            app:layout_paddingRightPercent="4.8%w"
                             app:layout_paddingTopPercent="2.7%w">
 
                             <TextView
