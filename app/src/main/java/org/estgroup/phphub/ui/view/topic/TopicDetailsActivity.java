@@ -38,12 +38,10 @@ import org.estgroup.phphub.R;
 import org.estgroup.phphub.api.entity.element.Link;
 import org.estgroup.phphub.api.entity.element.Topic;
 import org.estgroup.phphub.api.entity.element.User;
+import org.estgroup.phphub.common.Constant;
 import org.estgroup.phphub.common.base.BaseActivity;
 import org.estgroup.phphub.ui.presenter.TopicDetailPresenter;
 import org.estgroup.phphub.widget.AnimateDialog;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -154,23 +152,17 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
         topicContentView.setWebViewClient(new WebViewClient(){
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                try {
-                    URL webUrl = new URL(url);
-                    if (webUrl.getHost().equals("phphub.org")) {
-                        String[] strings = webUrl.getPath().split("/");
-                        if (strings[1].equals("topics") && Integer.parseInt(strings[2]) > 0) {
-                            navigator.navigateToTopicDetails(TopicDetailsActivity.this, Integer.parseInt(strings[2]));
-                        } else if (strings[1].equals("users") && Integer.parseInt(strings[2]) > 0) {
-                            navigator.navigateToUserSpace(TopicDetailsActivity.this, Integer.parseInt(strings[2]));
-                        }
-
+                if (url.contains(Constant.DEEP_LINK_PREFIX)) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
                     } else {
-                        navigator.navigateToWebView(TopicDetailsActivity.this, url);
+                        startActivity(Intent.createChooser(intent, "请选择浏览器"));
                     }
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
+                } else {
+                    navigator.navigateToWebView(TopicDetailsActivity.this, url);
                 }
-
                 return true;
             }
         });
