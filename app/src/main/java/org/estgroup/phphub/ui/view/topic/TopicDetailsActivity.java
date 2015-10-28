@@ -149,7 +149,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
         TopScrollHelper.getInstance(getApplicationContext())
                 .addTargetScrollView(topicContentView);
 
-        topicContentView.setWebViewClient(new WebViewClient(){
+        topicContentView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.contains(Constant.DEEP_LINK_PREFIX)) {
@@ -376,10 +376,14 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
 
         if (topicInfo.isVoteUp()) {
             voteUp.setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
+        } else {
+            voteUp.setColorFilter(getResources().getColor(R.color.blue_a5), PorterDuff.Mode.SRC_ATOP);
         }
 
         if (topicInfo.isVoteDown()) {
             voteDown.setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
+        } else {
+            voteDown.setColorFilter(getResources().getColor(R.color.blue_a5), PorterDuff.Mode.SRC_ATOP);
         }
 
         alertDialog.show();
@@ -411,6 +415,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                 break;
             case TOPIC_DETAIL_TYPE_VOTE_UP:
                 topicInfo.setVoteUp(isSuccess);
+                topicInfo.setVoteDown(false);
                 String msg = isSuccess ? getString(R.string.vote_up_success) : getString(R.string.cancel_success);
                 Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
                 int count = Integer.parseInt(PraiseView.getText().toString());
@@ -431,6 +436,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                 break;
             case TOPIC_DETAIL_TYPE_VOTE_DOWN:
                 topicInfo.setVoteDown(isSuccess);
+                topicInfo.setVoteUp(false);
                 String msgDown = isSuccess ? getString(R.string.vote_down_success) : getString(R.string.cancel_success);
                 Toast.makeText(this, msgDown, Toast.LENGTH_SHORT).show();
                 int downCount = Integer.parseInt(PraiseView.getText().toString());
