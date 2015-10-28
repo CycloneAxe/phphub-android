@@ -11,10 +11,10 @@
         <item name="android:listDivider">@null</item>
     </style>
 
-    <style name="ActivityAnimation">
-        <item name="android:activityOpenEnterAnimation">@android:anim/fade_in</item>
-        <item name="android:activityOpenExitAnimation">@android:anim/fade_in</item>
-        <item name="android:activityCloseEnterAnimation">@android:anim/fade_out</item>
-        <item name="android:activityCloseExitAnimation">@android:anim/fade_out</item>
+    <style name="ActivityAnimation" parent="@android:style/Animation">
+        <item name="android:activityOpenEnterAnimation">@anim/slide_right_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/slide_left_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/slide_left_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_right_out</item>
     </style>
 </resources>
