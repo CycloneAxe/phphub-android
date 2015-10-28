@@ -117,17 +117,17 @@ public class TopicReplyActivity extends BaseActivity<TopicReplyPresenter> {
         loadingDialog.setCancelable(false);
         loadingDialog.show();
 
-        getPresenter().request(topicId, reply);
-
-        loadingDialog.dismiss();
+        getPresenter().request(topicId, reply, loadingDialog);
     }
 
-    public void onPublicSuccessful(Reply reply) {
+    public void onPublicSuccessful(Reply reply, SweetAlertDialog loadingDialog) {
+        loadingDialog.dismiss();
         finish();
     }
 
-    public void onNetWorkError(Throwable throwable) {
+    public void onNetWorkError(Throwable throwable, SweetAlertDialog loadingDialog) {
         Logger.e(throwable.getMessage());
+        loadingDialog.dismiss();
 
         SweetAlertDialog errorDialog = new SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE);
         errorDialog.setTitleText("Oops...");

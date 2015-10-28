@@ -18,6 +18,7 @@ import org.estgroup.phphub.ui.view.topic.TopicReplyActivity;
 
 import javax.inject.Inject;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import eu.unicate.retroauth.AuthAccountManager;
 import rx.Observable;
 import rx.Subscriber;
@@ -51,6 +52,8 @@ public class TopicReplyPresenter extends BaseRxPresenter<TopicReplyActivity> {
     String accountType, tokenType;
 
     Account[] accounts;
+
+    SweetAlertDialog loadingDialog;
 
     @Override
     protected void onCreate(Bundle savedState) {
@@ -99,21 +102,22 @@ public class TopicReplyPresenter extends BaseRxPresenter<TopicReplyActivity> {
                 new Action2<TopicReplyActivity, Reply>() {
                     @Override
                     public void call(TopicReplyActivity topicReplyActivity, Reply reply) {
-                        topicReplyActivity.onPublicSuccessful(reply);
+                        topicReplyActivity.onPublicSuccessful(reply, loadingDialog);
                     }
                 },
                 new Action2<TopicReplyActivity, Throwable>() {
                     @Override
                     public void call(TopicReplyActivity topicReplyActivity, Throwable throwable) {
-                        topicReplyActivity.onNetWorkError(throwable);
+                        topicReplyActivity.onNetWorkError(throwable, loadingDialog);
                     }
                 });
     }
 
-    public void request(int topicId, String body) {
+    public void request(int topicId, String body, SweetAlertDialog loadingDialog) {
         if (topicId > 0 && body.trim().length() > 2){
             this.topicId = topicId;
             this.body = body;
+            this.loadingDialog = loadingDialog;
 
             start(REQUEST_REPLY_ID);
         }
