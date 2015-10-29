@@ -10,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.NavUtils;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.TextView;
 
 import com.github.pwittchen.prefser.library.Prefser;
@@ -109,6 +110,12 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
         if (!TextUtils.isEmpty(NavUtils.getParentActivityName(this))) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeAsUpIndicator(R.mipmap.ic_back);
+            toolbarView.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
         }
     }
 

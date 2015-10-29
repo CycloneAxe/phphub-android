@@ -11,7 +11,6 @@ import android.support.v7.app.AlertDialog;
 
 import com.umeng.fb.FeedbackAgent;
 import com.umeng.fb.model.UserInfo;
-import com.umeng.message.PushAgent;
 
 import org.estgroup.phphub.R;
 import org.estgroup.phphub.common.App;
@@ -40,12 +39,16 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 
     Account account;
 
+    FeedbackAgent agent;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
         ((App) getActivity().getApplication()).getAppComponent().inject(this);
         account = Utils.getActiveAccount(getActivity(), authAccountManager);
+        agent = new FeedbackAgent(getActivity());
+        agent.sync();
 
         ((Preference) findPreference("feedback")).setOnPreferenceClickListener(this);
         ((Preference) findPreference("source_code")).setOnPreferenceClickListener(this);
@@ -69,7 +72,6 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     public boolean onPreferenceClick(Preference preference) {
         switch (preference.getKey()) {
             case "feedback":
-                final FeedbackAgent agent = new FeedbackAgent(getActivity());
                 agent.startFeedbackActivity();
 
                 com.umeng.fb.model.UserInfo info = agent.getUserInfo();
@@ -79,7 +81,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 
                 Map<String, String> contact = info.getContact();
                 if (contact == null) {
-                    contact = new HashMap<String, String>();
+                    contact = new HashMap<>();
                 }
 
                 if (Utils.logined(getActivity(), accountManager)) {
@@ -88,20 +90,14 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                     info.setContact(contact);
 
                     agent.setUserInfo(info);
+
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            boolean result = agent.updateUserInfo();
+                        }
+                    }).start();
                 }
-
-                agent.sync();
-                agent.openAudioFeedback();
-                agent.openFeedbackPush();
-                PushAgent.getInstance(getActivity()).setDebugMode(true);
-                PushAgent.getInstance(getActivity()).enable();
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        boolean result = agent.updateUserInfo();
-                    }
-                }).start();
                 return true;
             case "source_code":
                 Intent intentCode = WebViewPageActivity.getCallingIntent(getActivity(), "https://github.com/phphub/phphub-android");
