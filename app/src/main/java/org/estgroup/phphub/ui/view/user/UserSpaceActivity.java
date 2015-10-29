@@ -218,7 +218,11 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
     @OnClick(R.id.percent_llyt_blog)
     public void navigateToBlogView(){
         if (!TextUtils.isEmpty(userInfo.getPersonalWebsite())) {
-            navigator.navigateToWebView(this, "http://" + userInfo.getPersonalWebsite());
+            if (!userInfo.getPersonalWebsite().contains("http") && !userInfo.getPersonalWebsite().contains("https")) {
+                navigator.navigateToWebView(this, "http://" + userInfo.getPersonalWebsite());
+            } else {
+                navigator.navigateToWebView(this, userInfo.getPersonalWebsite());
+            }
         }
     }
 
