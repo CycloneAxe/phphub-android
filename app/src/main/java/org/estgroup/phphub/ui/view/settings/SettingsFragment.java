@@ -39,16 +39,12 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
 
     Account account;
 
-    FeedbackAgent agent;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.settings);
         ((App) getActivity().getApplication()).getAppComponent().inject(this);
         account = Utils.getActiveAccount(getActivity(), authAccountManager);
-        agent = new FeedbackAgent(getActivity());
-        agent.sync();
 
         ((Preference) findPreference("feedback")).setOnPreferenceClickListener(this);
         ((Preference) findPreference("source_code")).setOnPreferenceClickListener(this);
@@ -72,6 +68,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     public boolean onPreferenceClick(Preference preference) {
         switch (preference.getKey()) {
             case "feedback":
+                final FeedbackAgent agent = new FeedbackAgent(getActivity());
                 agent.startFeedbackActivity();
 
                 com.umeng.fb.model.UserInfo info = agent.getUserInfo();

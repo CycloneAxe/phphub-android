@@ -5,7 +5,6 @@ import android.accounts.AccountManager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -22,7 +21,6 @@ import org.estgroup.phphub.api.entity.element.Token;
 import org.estgroup.phphub.api.entity.element.User;
 import org.estgroup.phphub.common.App;
 import org.estgroup.phphub.common.Navigator;
-import org.estgroup.phphub.common.service.NotificationService;
 import org.estgroup.phphub.model.TokenModel;
 import org.estgroup.phphub.model.UserModel;
 
@@ -50,7 +48,6 @@ import static org.estgroup.phphub.common.Constant.USER_ID_KEY;
 import static org.estgroup.phphub.common.Constant.USER_SIGNATURE;
 import static org.estgroup.phphub.common.Constant.USER_REPLY_URL_KEY;
 
-import static org.estgroup.phphub.common.qualifier.AuthType.AUTH_TYPE_GUEST;
 import static org.estgroup.phphub.common.qualifier.AuthType.AUTH_TYPE_REFRESH;
 
 public class LoginActivity extends AuthenticationActivity {
@@ -110,15 +107,7 @@ public class LoginActivity extends AuthenticationActivity {
 
     @OnClick(R.id.btn_login_guide)
     public void loginGuide() {
-        Uri uri = Uri.parse("http://7xnqwn.com1.z0.glb.clouddn.com/index.html");
-        Intent intent = new Intent();
-        intent.setAction("android.intent.action.VIEW");
-        intent.setData(uri);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        } else {
-            startActivity(Intent.createChooser(intent, "请选择浏览器"));
-        }
+        navigator.navigateToWebView(this, "http://7xnqwn.com1.z0.glb.clouddn.com/index.html");
     }
 
     @OnClick(R.id.btn_scanner)
