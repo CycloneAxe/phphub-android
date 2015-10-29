@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.webkit.JavascriptInterface;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
@@ -160,6 +161,7 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
         TopScrollHelper.getInstance(getApplicationContext())
                 .addTargetScrollView(topicContentView);
 
+        topicContentView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
         topicContentView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -175,12 +177,6 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                     navigator.navigateToWebView(TopicDetailsActivity.this, url);
                 }
                 return true;
-            }
-
-            @Override
-            public void onPageStarted(WebView view, String url, Bitmap favicon) {
-                super.onPageStarted(view, url, favicon);
-                multiStateWebView.setViewState(MultiStateView.VIEW_STATE_LOADING);
             }
 
             @Override
