@@ -34,6 +34,7 @@ android {
 
         resValue "string", "jpush_appkey", JPUSH_APPKEY
         resValue "string", "jpush_channel", JPUSH_CHANNEL
+        resValue "string", "umeng_appkey", UMENG_APPKEY
     }
 
     signingConfigs {
@@ -108,36 +109,6 @@ android {
         exclude 'META-INF/services/javax.annotation.processing.Processor'
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/LICENSE.txt'
-    }
-
-
-    productFlavors {
-        development {}
-        Fir {}
-        Website {}
-    }
-
-    productFlavors.all { flavor ->
-        flavor.manifestPlaceholders = [UMENG_APPKEY: UMENG_APPKEY]
-    }
-
-    variantFilter { variant ->
-        def buildType = variant.buildType.name
-        def flavorName = variant.getFlavors().get(0).name
-        // 根据构建类型，自动过滤渠道
-        if (buildType.equals('debug')) {
-            if (flavorName.equals('development')) {
-                variant.setIgnore(false)
-            } else {
-                variant.setIgnore(true)
-            }
-        } else {
-            if (flavorName.equals('development')) {
-                variant.setIgnore(true)
-            } else {
-                variant.setIgnore(false)
-            }
-        }
     }
 
     applicationVariants.all { variant ->

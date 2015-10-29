@@ -33,7 +33,7 @@
         android:theme="@style/AppTheme" >
 
         <meta-data
-            android:value="${UMENG_APPKEY}"
+            android:value="@string/umeng_appkey"
             android:name="UMENG_APPKEY"/>
         <meta-data
             android:value="PHPHub"
@@ -270,7 +270,6 @@
         <meta-data android:name="JPUSH_CHANNEL" android:value="@string/jpush_channel"/>
         <!-- Required. AppKey copied from Portal -->
         <meta-data android:name="JPUSH_APPKEY" android:value="@string/jpush_appkey"/>
-
 
     </application>
 
