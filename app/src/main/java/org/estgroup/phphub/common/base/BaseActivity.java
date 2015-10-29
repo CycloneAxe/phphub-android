@@ -3,6 +3,7 @@ package org.estgroup.phphub.common.base;
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
@@ -57,6 +58,11 @@ public abstract class BaseActivity<PresenterType extends Presenter> extends Nucl
         injectorPresenter();
         super.onCreate(savedInstanceState);
         Icepick.restoreInstanceState(this, savedInstanceState);
+
+        if(getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT){
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        }
+
         setContentView(getLayoutResId());
         initializeToolbar();
         navigator = getAppComponent().navigator();
