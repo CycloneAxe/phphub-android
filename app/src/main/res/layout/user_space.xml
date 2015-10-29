@@ -169,6 +169,7 @@
                     app:layout_paddingLeftPercent="4.8%w"/>
 
                 <com.zhy.android.percent.support.PercentLinearLayout
+                    android:id="@+id/percent_llyt_github"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -211,6 +212,7 @@
                     app:layout_paddingLeftPercent="4.8%w"/>
 
                 <com.zhy.android.percent.support.PercentLinearLayout
+                    android:id="@+id/percent_llyt_twitter"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -253,6 +255,7 @@
                     app:layout_paddingLeftPercent="4.8%w"/>
 
                 <com.zhy.android.percent.support.PercentLinearLayout
+                    android:id="@+id/percent_llyt_blog"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
