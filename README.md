@@ -42,4 +42,6 @@ Gradle version 2.4
 [android-saripaar](https://github.com/ragunathjawahar/android-saripaar) | 表单验证
 [DeepLinkDispatch](https://github.com/airbnb/DeepLinkDispatch) | 一个简单的、基于注解的 Deep Link 处理库
 [otto](https://github.com/square/otto) | Event Bus, 用来简化应用组件之间的通信
-[android-iconify](https://github.com/JoanZapata/android-iconify) | 一个将 AweomeICON 和 Android 结合起来的项目
+[android-iconify](https://github.com/JoanZapata/android-iconify) | 一个将 Aweome ICON 和 Android 结合起来的项目
+[Localify](https://github.com/polok/localify) | 从文件中加载内容的Android类库
+[PhotoView](https://github.com/chrisbanes/PhotoView) | 图片缩放控件
