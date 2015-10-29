@@ -7,6 +7,7 @@ import com.github.pwittchen.prefser.library.Prefser;
 import com.joanzapata.iconify.Iconify;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.squareup.leakcanary.LeakCanary;
+import com.umeng.socialize.common.SocializeConstants;
 
 import org.estgroup.phphub.BuildConfig;
 import org.estgroup.phphub.common.internal.di.component.ApiComponent;
@@ -39,6 +40,7 @@ public class App extends Application {
         initializeInjectorApi();
 
         Iconify.with(new FontAwesomeModule());
+        SocializeConstants.APPKEY = BuildConfig.UMENG_APPKEY;
     }
 
     private void initializeInjector() {

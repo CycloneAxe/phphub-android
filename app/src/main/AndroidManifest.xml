@@ -33,9 +33,6 @@
         android:theme="@style/AppTheme" >
 
         <meta-data
-            android:value="561f481967e58ec287000b1e"
-            android:name="UMENG_APPKEY"/>
-        <meta-data
             android:value="PHPHub"
             android:name="UMENG_CHANNEL"/>
 

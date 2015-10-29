@@ -24,7 +24,6 @@ import com.kennyc.view.MultiStateView;
 import com.kmshack.topscroll.TopScrollHelper;
 import com.orhanobut.logger.Logger;
 import com.umeng.socialize.bean.SHARE_MEDIA;
-import com.umeng.socialize.common.SocializeConstants;
 import com.umeng.socialize.controller.UMServiceFactory;
 import com.umeng.socialize.controller.UMSocialService;
 import com.umeng.socialize.media.QQShareContent;
@@ -280,7 +279,6 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
     }
 
     public void onShareItemSelected() {
-        SocializeConstants.APPKEY = BuildConfig.UMENG_APPKEY;
         final UMSocialService socialService = UMServiceFactory.getUMSocialService("com.umeng.share");
         // Remove Tencent Weibo and QZone from share panel.
         socialService.getConfig().removePlatform(SHARE_MEDIA.TENCENT);
