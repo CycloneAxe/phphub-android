@@ -44,4 +44,4 @@ Gradle version 2.4
 [otto](https://github.com/square/otto) | Event Bus, 用来简化应用组件之间的通信
 [android-iconify](https://github.com/JoanZapata/android-iconify) | 一个将 Aweome ICON 和 Android 结合起来的项目
 [Localify](https://github.com/polok/localify) | 从文件中加载内容的Android类库
-[PhotoView](https://github.com/chrisbanes/PhotoView) | 图片缩放控件
+[PhotoDraweeView](https://github.com/ongakuer/PhotoDraweeView) | 基于 Fresco 的图片缩放控件

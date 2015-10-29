@@ -217,7 +217,7 @@ dependencies {
     apt 'com.airbnb:deeplinkdispatch-processor:1.4.0'
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.0'
     compile 'com.github.polok.localify:localify:1.0.0'
-    compile 'com.commit451:PhotoView:1.2.4'
+    compile 'com.github.ongakuer:PhotoDraweeView:a14f105aaa'
 
     compile project(':umeng_social_sdk_res_lib')
 }
