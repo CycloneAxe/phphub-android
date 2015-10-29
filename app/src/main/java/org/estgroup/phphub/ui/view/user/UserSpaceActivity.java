@@ -208,6 +208,20 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
         sinceView.setText(userInfo.getCreatedAt());
     }
 
+    @OnClick(R.id.percent_llyt_github)
+    public void navigateToGitHubView(){
+        if (!TextUtils.isEmpty(userInfo.getGithubName())) {
+            navigator.navigateToWebView(this, userInfo.getGithubUrl());
+        }
+    }
+
+    @OnClick(R.id.percent_llyt_blog)
+    public void navigateToBlogView(){
+        if (!TextUtils.isEmpty(userInfo.getPersonalWebsite())) {
+            navigator.navigateToWebView(this, "http://" + userInfo.getPersonalWebsite());
+        }
+    }
+
     @OnClick(R.id.percent_rlyt_topics)
     public void navigateToTopics() {
         navigator.navigateToUserTopic(this, userId, USER_TOPIC_TYPE);
