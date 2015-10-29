@@ -461,7 +461,6 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                 break;
             case TOPIC_DETAIL_TYPE_VOTE_UP:
                 topicInfo.setVoteUp(isSuccess);
-                topicInfo.setVoteDown(false);
                 String msg = isSuccess ? getString(R.string.vote_up_success) : getString(R.string.cancel_success);
                 Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
                 int count = Integer.parseInt(PraiseView.getText().toString());
@@ -469,20 +468,22 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                 if (isSuccess) {
                     voteUpView.setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
                     voteDownView.setColorFilter(getResources().getColor(R.color.gray_c9), PorterDuff.Mode.SRC_ATOP);
-                    count += 1;
+                    if (topicInfo.isVoteDown()) {
+                        count += 2;
+                    } else {
+                        count += 1;
+                    }
                 } else {
                     voteUpView.setColorFilter(getResources().getColor(R.color.gray_c9), PorterDuff.Mode.SRC_ATOP);
-                    if (count > 0) {
-                        count -= 1;
-                    }
+                    count -= 1;
                 }
-
+                topicInfo.setVoteDown(false);
                 PraiseView.setText(String.valueOf(count));
 
                 break;
             case TOPIC_DETAIL_TYPE_VOTE_DOWN:
                 topicInfo.setVoteDown(isSuccess);
-                topicInfo.setVoteUp(false);
+
                 String msgDown = isSuccess ? getString(R.string.vote_down_success) : getString(R.string.cancel_success);
                 Toast.makeText(this, msgDown, Toast.LENGTH_SHORT).show();
                 int downCount = Integer.parseInt(PraiseView.getText().toString());
@@ -490,14 +491,16 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                 if (isSuccess) {
                     voteDownView.setColorFilter(getResources().getColor(R.color.icon_enabled), PorterDuff.Mode.SRC_ATOP);
                     voteUpView.setColorFilter(getResources().getColor(R.color.gray_c9), PorterDuff.Mode.SRC_ATOP);
-                    if (downCount > 0) {
+                    if (topicInfo.isVoteUp()) {
+                        downCount -= 2;
+                    } else {
                         downCount -= 1;
                     }
                 } else {
                     voteDownView.setColorFilter(getResources().getColor(R.color.gray_c9), PorterDuff.Mode.SRC_ATOP);
                     downCount += 1;
                 }
-
+                topicInfo.setVoteUp(false);
                 PraiseView.setText(String.valueOf(downCount));
 
                 break;
