@@ -52,6 +52,8 @@ public class ReplyListActivity extends BaseActivity {
                     } else {
                         startActivity(Intent.createChooser(intent, "请选择浏览器"));
                     }
+                } else {
+                    navigator.navigateToWebView(ReplyListActivity.this, url);
                 }
                 return true;
             }
