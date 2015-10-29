@@ -27,7 +27,6 @@ android {
         buildConfigField "String", "CLIENT_ID", APP_CLIENT_ID
         buildConfigField "String", "CLIENT_SECRET", APP_CLIENT_SECRET
         buildConfigField "String", "ENDPOINT", API_ENDPOINT
-        buildConfigField "String", "UMENG_APPKEY", UMENG_APPKEY
         buildConfigField "String", "QQ_APPID", QQ_APPID
         buildConfigField "String", "QQ_APPKEY", QQ_APPKEY
         buildConfigField "String", "WX_APPID", WX_APPID
@@ -170,7 +169,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:' + SUPPORT_VERSION
     compile 'com.android.support:design:' + SUPPORT_VERSION
 
-    compile 'com.umeng:message:2.4.1'
     compile 'com.umeng:fb:5.4.0'
 
     // retrofit
