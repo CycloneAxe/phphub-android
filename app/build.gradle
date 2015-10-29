@@ -169,8 +169,6 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:' + SUPPORT_VERSION
     compile 'com.android.support:design:' + SUPPORT_VERSION
 
-    compile 'com.umeng:fb:5.4.0'
-
     // retrofit
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
     compile 'com.squareup.okhttp:okhttp:2.0.0'
@@ -216,11 +214,7 @@ dependencies {
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.0'
     compile 'com.github.polok.localify:localify:1.0.0'
     compile 'com.github.ongakuer:PhotoDraweeView:a14f105aaa'
+    compile 'com.umeng:fb:latest.integration'
 
     compile project(':umeng_social_sdk_res_lib')
-}
-
-repositories {
-    jcenter()
-    maven { url "https://raw.githubusercontent.com/umeng/mvn-repo-umeng/master/repository" }
 }
