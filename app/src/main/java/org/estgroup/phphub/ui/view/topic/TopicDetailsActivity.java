@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 
 import com.airbnb.deeplinkdispatch.DeepLink;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.github.polok.localify.LocalifyClient;
+import com.github.polok.localify.module.LocalifyModule;
 import com.kennyc.view.MultiStateView;
 import com.kmshack.topscroll.TopScrollHelper;
 import com.orhanobut.logger.Logger;
@@ -39,7 +42,9 @@ import org.estgroup.phphub.api.entity.element.Link;
 import org.estgroup.phphub.api.entity.element.Topic;
 import org.estgroup.phphub.api.entity.element.User;
 import org.estgroup.phphub.common.Constant;
+import org.estgroup.phphub.common.Navigator;
 import org.estgroup.phphub.common.base.BaseActivity;
+import org.estgroup.phphub.common.transformer.SchedulerTransformer;
 import org.estgroup.phphub.ui.presenter.TopicDetailPresenter;
 import org.estgroup.phphub.widget.AnimateDialog;
 
@@ -50,6 +55,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import eu.unicate.retroauth.AuthAccountManager;
 import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
+import rx.functions.Action1;
 
 import static com.kennyc.view.MultiStateView.OnClickListener;
 import static com.kennyc.view.MultiStateView.VIEW_STATE_CONTENT;
@@ -121,6 +127,8 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
 
     String accountType, tokenType;
 
+    private final static String  PLATFORM = "Android";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -179,8 +187,31 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 multiStateWebView.setViewState(VIEW_STATE_CONTENT);
+                addImageClickEvent();
             }
         });
+    }
+
+    private void addImageClickEvent() {
+        LocalifyModule localify = new LocalifyClient.Builder()
+                                        .withAssetManager(getAssets())
+                                        .withResources(getResources())
+                                        .build()
+                                        .localify();
+        localify.rx()
+                .loadAssetsFile("js/ImageClickEvent.js")
+                .compose(new SchedulerTransformer<String>())
+                .subscribe(new Action1<String>() {
+                    @Override
+                    public void call(String javascript) {
+                        topicContentView.loadUrl(javascript.replace("{platform}", PLATFORM));
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        Logger.e(throwable.toString());
+                    }
+                });
     }
 
     @Override
@@ -216,8 +247,9 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
         userNameView.setText(user.getName());
         signView.setText(user.getSignature());
         PraiseView.setText(voteCount);
-        topicContentView.loadUrl(link.getDetailsWebView(), getHttpHeaderAuth());
         topicContentView.getSettings().setJavaScriptEnabled(true);
+        topicContentView.loadUrl(link.getDetailsWebView(), getHttpHeaderAuth());
+        topicContentView.addJavascriptInterface(new WebAppInterface(this, navigator), PLATFORM);
         replyCountView.showTextBadge(replyCount);
 
         if (topic.isVoteUp()) {
@@ -524,6 +556,22 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                 navigator.navigateToUserReply(this, topicId, topicInfo.getLinks().getRepliesWebView());
 
                 break;
+        }
+    }
+
+    private static class WebAppInterface {
+        private Context context;
+
+        private Navigator navigator;
+
+        public WebAppInterface(Context context, Navigator navigator) {
+            this.context = context;
+            this.navigator = navigator;
+        }
+
+        @JavascriptInterface
+        public void openImage(String url) {
+            navigator.navigateToGallery(context, url);
         }
     }
 

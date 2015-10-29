@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 
 import org.estgroup.phphub.api.entity.element.User;
+import org.estgroup.phphub.ui.view.GalleryActivity;
 import org.estgroup.phphub.ui.view.ScannerActivity;
 import org.estgroup.phphub.ui.view.WebViewPageActivity;
 import org.estgroup.phphub.ui.view.settings.SettingsActivity;
@@ -83,6 +84,11 @@ public class Navigator {
 
     public void navigateToWebView(@NonNull Context context, String webUrl) {
         Intent intentToLaunch = WebViewPageActivity.getCallingIntent(context, webUrl);
+        context.startActivity(intentToLaunch);
+    }
+
+    public void navigateToGallery(@NonNull Context context, String imageUrl) {
+        Intent intentToLaunch = GalleryActivity.getCallingIntent(context, imageUrl);
         context.startActivity(intentToLaunch);
     }
 }

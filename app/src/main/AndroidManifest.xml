@@ -153,6 +153,14 @@
                 android:value=".ui.view.MainActivity" />
         </activity>
 
+        <activity android:name=".ui.view.GalleryActivity"
+            android:parentActivityName=".ui.view.MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ui.view.MainActivity" />
+        </activity>
+
         <!-- Deep Link Patch -->
         <activity
             android:name="com.airbnb.deeplinkdispatch.DeepLinkActivity"
