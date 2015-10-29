@@ -111,6 +111,36 @@ android {
         exclude 'META-INF/LICENSE.txt'
     }
 
+
+    productFlavors {
+        development {}
+        Fir {}
+        Website {}
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [UMENG_APPKEY: UMENG_APPKEY]
+    }
+
+    variantFilter { variant ->
+        def buildType = variant.buildType.name
+        def flavorName = variant.getFlavors().get(0).name
+        // 根据构建类型，自动过滤渠道
+        if (buildType.equals('debug')) {
+            if (flavorName.equals('development')) {
+                variant.setIgnore(false)
+            } else {
+                variant.setIgnore(true)
+            }
+        } else {
+            if (flavorName.equals('development')) {
+                variant.setIgnore(true)
+            } else {
+                variant.setIgnore(false)
+            }
+        }
+    }
+
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def outputFile = output.outputFile
@@ -140,8 +170,8 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:' + SUPPORT_VERSION
     compile 'com.android.support:design:' + SUPPORT_VERSION
 
-    compile 'com.umeng:message:2.4.1@aar'
-    compile 'com.umeng:fb:latest.integration'
+    compile 'com.umeng:message:2.4.1'
+    compile 'com.umeng:fb:5.4.0'
 
     // retrofit
     compile 'com.squareup.okhttp:okhttp-urlconnection:2.0.0'
