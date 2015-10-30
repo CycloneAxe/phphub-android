@@ -3,7 +3,6 @@ package org.estgroup.phphub.ui.view.topic;
 import android.accounts.AccountManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.PorterDuff;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,18 +11,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.webkit.JavascriptInterface;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.airbnb.deeplinkdispatch.DeepLink;
 import com.facebook.drawee.view.SimpleDraweeView;
-import com.github.polok.localify.LocalifyClient;
-import com.github.polok.localify.module.LocalifyModule;
 import com.kennyc.view.MultiStateView;
 import com.kmshack.topscroll.TopScrollHelper;
 import com.orhanobut.logger.Logger;
@@ -42,10 +35,7 @@ import org.estgroup.phphub.R;
 import org.estgroup.phphub.api.entity.element.Link;
 import org.estgroup.phphub.api.entity.element.Topic;
 import org.estgroup.phphub.api.entity.element.User;
-import org.estgroup.phphub.common.Constant;
-import org.estgroup.phphub.common.Navigator;
-import org.estgroup.phphub.common.base.BaseActivity;
-import org.estgroup.phphub.common.transformer.SchedulerTransformer;
+import org.estgroup.phphub.common.base.BaseWebViewActivity;
 import org.estgroup.phphub.ui.presenter.TopicDetailPresenter;
 import org.estgroup.phphub.widget.AnimateDialog;
 
@@ -56,7 +46,6 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import eu.unicate.retroauth.AuthAccountManager;
 import nucleus.factory.PresenterFactory;
 import nucleus.factory.RequiresPresenter;
-import rx.functions.Action1;
 
 import static com.kennyc.view.MultiStateView.OnClickListener;
 import static com.kennyc.view.MultiStateView.VIEW_STATE_CONTENT;
@@ -70,7 +59,7 @@ import static org.estgroup.phphub.common.qualifier.TopicDetailType.TOPIC_DETAIL_
 
 @DeepLink("phphub://topics")
 @RequiresPresenter(TopicDetailPresenter.class)
-public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> implements
+public class TopicDetailsActivity extends BaseWebViewActivity<TopicDetailPresenter> implements
         OnClickListener {
     private static final String INTENT_EXTRA_PARAM_TOPIC_ID = "topic_id";
 
@@ -85,9 +74,6 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
 
     @Bind(R.id.multiStateWebView)
     MultiStateView multiStateWebView;
-
-    @Bind(R.id.wv_content)
-    WebView topicContentView;
 
     @Bind(R.id.tv_username)
     TextView userNameView;
@@ -128,8 +114,6 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
 
     String accountType, tokenType;
 
-    private final static String  PLATFORM = "Android";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -159,62 +143,16 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
         }
 
         TopScrollHelper.getInstance(getApplicationContext())
-                .addTargetScrollView(topicContentView);
+                .addTargetScrollView(contentView);
 
-        topicContentView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-        topicContentView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                if (url.contains(Constant.DEEP_LINK_PREFIX)) {
-                    Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse(url));
-                    if (intent.resolveActivity(getPackageManager()) != null) {
-                        startActivity(intent);
-                    } else {
-                        startActivity(Intent.createChooser(intent, "请选择浏览器"));
-                    }
-                } else {
-                    navigator.navigateToWebView(TopicDetailsActivity.this, url);
-                }
-                return true;
-            }
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                multiStateWebView.setViewState(VIEW_STATE_CONTENT);
-                addImageClickEvent();
-            }
-        });
-    }
-
-    private void addImageClickEvent() {
-        LocalifyModule localify = new LocalifyClient.Builder()
-                                        .withAssetManager(getAssets())
-                                        .withResources(getResources())
-                                        .build()
-                                        .localify();
-        localify.rx()
-                .loadAssetsFile("js/ImageClickEvent.js")
-                .compose(new SchedulerTransformer<String>())
-                .subscribe(new Action1<String>() {
-                    @Override
-                    public void call(String javascript) {
-                        topicContentView.loadUrl(javascript.replace("{platform}", PLATFORM));
-                    }
-                }, new Action1<Throwable>() {
-                    @Override
-                    public void call(Throwable throwable) {
-                        Logger.e(throwable.toString());
-                    }
-                });
+        contentView.setWebViewClient(new WebAppClient(this, navigator, multiStateWebView, contentView));
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         TopScrollHelper.getInstance(getApplicationContext())
-                .removeTargetScrollView(topicContentView);
+                .removeTargetScrollView(contentView);
     }
 
     @Override
@@ -243,9 +181,10 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
         userNameView.setText(user.getName());
         signView.setText(user.getSignature());
         PraiseView.setText(voteCount);
-        topicContentView.getSettings().setJavaScriptEnabled(true);
-        topicContentView.loadUrl(link.getDetailsWebView(), getHttpHeaderAuth());
-        topicContentView.addJavascriptInterface(new WebAppInterface(this, navigator), PLATFORM);
+
+        settings.setJavaScriptEnabled(true);
+        contentView.loadUrl(link.getDetailsWebView(), getHttpHeaderAuth());
+        contentView.addJavascriptInterface(new WebAppInterface(this, navigator), PLATFORM);
         replyCountView.showTextBadge(replyCount);
 
         if (topic.isVoteUp()) {
@@ -555,22 +494,6 @@ public class TopicDetailsActivity extends BaseActivity<TopicDetailPresenter> imp
                 navigator.navigateToUserReply(this, topicId, topicInfo.getLinks().getRepliesWebView());
 
                 break;
-        }
-    }
-
-    private static class WebAppInterface {
-        private Context context;
-
-        private Navigator navigator;
-
-        public WebAppInterface(Context context, Navigator navigator) {
-            this.context = context;
-            this.navigator = navigator;
-        }
-
-        @JavascriptInterface
-        public void openImage(String url) {
-            navigator.navigateToGallery(context, url);
         }
     }
 

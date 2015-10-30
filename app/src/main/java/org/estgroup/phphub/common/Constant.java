@@ -15,4 +15,10 @@ public final class Constant {
     public static final String USER_REPLY_URL_KEY = "user_reply_url";
 
     public static final String DEEP_LINK_PREFIX = "phphub://";
+
+    public static final String PHPHUB_HOST = "phphub.org";
+
+    public static final String PHPHUB_USER_PATH = "users";
+
+    public static final String PHPHUB_TOPIC_PATH = "topics";
 }
