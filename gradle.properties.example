@@ -1,14 +1,14 @@
-APP_CLIENT_ID="kHOugsx4dmcXwvVbmLkd"
-APP_CLIENT_SECRET="PuuFCrF94MloSbSkxpwS"
-API_ENDPOINT="https://staging_api.phphub.org/v1"
+APP_CLIENT_ID=kHOugsx4dmcXwvVbmLkd
+APP_CLIENT_SECRET=PuuFCrF94MloSbSkxpwS
+API_ENDPOINT=https://staging_api.phphub.org/v1
 
-JPUSH_CHANNEL="develop"
-JPUSH_APPKEY=""
+JPUSH_CHANNEL=develop
+JPUSH_APPKEY=
 
-UMENG_APPKEY=""
+UMENG_APPKEY=
 
-QQ_APPID=""
-QQ_APPKEY=""
+QQ_APPID=
+QQ_APPKEY=
 
-WX_APPID=""
-WX_SECRET=""
+WX_APPID=
+WX_SECRET=

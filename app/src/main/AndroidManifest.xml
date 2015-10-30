@@ -33,10 +33,10 @@
         android:theme="@style/AppTheme" >
 
         <meta-data
-            android:value="@string/umeng_appkey"
+            android:value="${UMENG_APPKEY}"
             android:name="UMENG_APPKEY"/>
         <meta-data
-            android:value="${channel}"
+            android:value="${UMENG_CHANNEL}"
             android:name="UMENG_CHANNEL"/>
 
         <activity
