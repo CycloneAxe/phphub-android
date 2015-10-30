@@ -36,7 +36,7 @@
             android:value="@string/umeng_appkey"
             android:name="UMENG_APPKEY"/>
         <meta-data
-            android:value="PHPHub"
+            android:value="${channel}"
             android:name="UMENG_CHANNEL"/>
 
         <activity

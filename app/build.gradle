@@ -111,6 +111,33 @@ android {
         exclude 'META-INF/LICENSE.txt'
     }
 
+    productFlavors {
+        development {}
+        Fir {}
+    }
+
+    productFlavors.all { flavor ->
+        flavor.manifestPlaceholders = [channel: name]
+    }
+
+    variantFilter { variant ->
+        def buildType = variant.buildType.name
+        def flavorName = variant.getFlavors().get(0).name
+        if (buildType.equals('debug')) {
+            if (flavorName.equals('development')) {
+                variant.setIgnore(false)
+            } else {
+                variant.setIgnore(true)
+            }
+        } else {
+            if (flavorName.equals('development')) {
+                variant.setIgnore(true)
+            } else {
+                variant.setIgnore(false)
+            }
+        }
+    }
+
     applicationVariants.all { variant ->
         variant.outputs.each { output ->
             def outputFile = output.outputFile
@@ -120,7 +147,7 @@ android {
                 fileName = fileName.replace("app", "phphub-${globalConfiguration.getAt("VERSION_CODE") as int}")
                 println "[FileName]: ${fileName}"
                 if (variant.buildType.name.equals('release')) {
-                    output.outputFile = file("${outputFile.parent}/release/${fileName}")
+                    output.outputFile = file("${outputFile.parent}/release/${defaultConfig.versionName}/${fileName}")
                 } else {
                     output.outputFile = file("${outputFile.parent}/${fileName}")
                 }
