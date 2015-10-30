@@ -13,6 +13,13 @@ Android Studio version 1.3.2
 
 Gradle version 2.4
 
+## 相关项目
+[PHPHub-UI](https://github.com/phphub/phphub-ui)
+
+[PHPHub-Server](https://github.com/NauxLiu/phphub-server)
+
+[PHPHub-iOS](https://github.com/Aufree/phphub-ios)
+
 ## 项目依赖
 
 项目名称 | 项目信息
@@ -45,3 +52,20 @@ Gradle version 2.4
 [android-iconify](https://github.com/JoanZapata/android-iconify) | 一个将 Aweome ICON 和 Android 结合起来的项目
 [Localify](https://github.com/polok/localify) | 从文件中加载内容的Android类库
 [PhotoDraweeView](https://github.com/ongakuer/PhotoDraweeView) | 基于 Fresco 的图片缩放控件
+
+###License
+<pre>
+Copyright 2015 EST Group
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+</pre>
