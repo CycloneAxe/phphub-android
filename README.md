@@ -13,12 +13,25 @@ Android Studio version 1.3.2
 
 Gradle version 2.4
 
-## 相关项目
-[PHPHub-UI](https://github.com/phphub/phphub-ui)
+## 安装方式
+1、在指定的目录下执行
 
-[PHPHub-Server](https://github.com/NauxLiu/phphub-server)
+> git clone https://github.com/CycloneAxe/phphub-android.git
 
-[PHPHub-iOS](https://github.com/Aufree/phphub-ios)
+2、复制 gradle.properties.example 为 gradle.properties 并编辑里面的相关信息
+
+3、将项目导入 Android Studio 运行即可
+
+## 目录结构简述
+
+```
+├── README.md
+├── app
+├── buildsystem                 // 构建信息配置
+│   ├── debug.keystore          // debug 签名文件
+│   ├── dependencies.gradle     // 定义项目依赖仓库与构建信息
+└── umeng_social_sdk_res_lib    // 友盟分享 module
+```
 
 ## 项目依赖
 
@@ -52,6 +65,18 @@ Gradle version 2.4
 [android-iconify](https://github.com/JoanZapata/android-iconify) | 一个将 Aweome ICON 和 Android 结合起来的项目
 [Localify](https://github.com/polok/localify) | 从文件中加载内容的Android类库
 [PhotoDraweeView](https://github.com/ongakuer/PhotoDraweeView) | 基于 Fresco 的图片缩放控件
+
+## 相关项目
+[PHPHub-UI](https://github.com/phphub/phphub-ui)
+
+[PHPHub-Server](https://github.com/NauxLiu/phphub-server)
+
+[PHPHub-iOS](https://github.com/Aufree/phphub-ios)
+
+## 参与贡献
+[晓晓鱼](https://github.com/xiaoxiaoyu)
+
+[刘相轩](https://github.com/NauxLiu)
 
 ###License
 <pre>
