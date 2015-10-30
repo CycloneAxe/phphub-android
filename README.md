@@ -13,6 +13,13 @@ Android Studio version 1.3.2
 
 Gradle version 2.4
 
+## 相关项目
+[PHPHub-UI](https://github.com/phphub/phphub-ui)
+
+[PHPHub-Server](https://github.com/NauxLiu/phphub-server)
+
+[PHPHub-iOS](https://github.com/Aufree/phphub-ios)
+
 ## 项目依赖
 
 项目名称 | 项目信息
