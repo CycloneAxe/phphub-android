@@ -28,6 +28,7 @@ Gradle version 2.4
 * 使用 [nucleus](https://github.com/konmik/nucleus) 简化 MVP 架构
 * 使用 [RxJava](https://github.com/ReactiveX/RxJava) 处理 API 请求返回数据
 * 使用 [SmartTabLayout](https://github.com/ogaclejapan/SmartTabLayout) 实现带 Icon 的选项卡切换
+* 消息提醒
 * 使用 [Account Manager](http://developer.android.com/reference/android/accounts/AccountManager.html) 存储登陆用户信息
 * WebView 图片点击事件注入
 * 二维码扫描登陆
