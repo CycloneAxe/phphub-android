@@ -22,16 +22,16 @@ Gradle version 2.4
 
 3、将项目导入 Android Studio 运行即可
 
-## 目录结构简述
+## 功能简述
 
-```
-├── README.md
-├── app
-├── buildsystem                 // 构建信息配置
-│   ├── debug.keystore          // debug 签名文件
-│   ├── dependencies.gradle     // 定义项目依赖仓库与构建信息
-└── umeng_social_sdk_res_lib    // 友盟分享 module
-```
+* 渠道包构建
+* 使用 [nucleus](https://github.com/konmik/nucleus) 简化 MVP 架构
+* 使用 [RxJava](https://github.com/ReactiveX/RxJava) 处理 API 请求返回数据
+* 使用 [SmartTabLayout](https://github.com/ogaclejapan/SmartTabLayout) 实现带 Icon 的选项卡切换
+* 使用 [Account Manager](http://developer.android.com/reference/android/accounts/AccountManager.html) 存储登陆用户信息
+* WebView 图片点击事件注入
+* 二维码扫描登陆
+* Deep Link 实现
 
 ## 项目依赖
 
@@ -55,6 +55,7 @@ Gradle version 2.4
 [Android-MaterialRefreshLayout](https://github.com/android-cjj/Android-MaterialRefreshLayout) | 下拉刷新控件
 [LeakCanary](https://github.com/square/leakcanary) | Android 内存泄漏检测工具
 [android-percent-support-extend](https://github.com/hongyangAndroid/android-percent-support-extend) | Google 百分比布局库的扩展
+[Barcode Scanner](https://github.com/dm77/barcodescanner) | 二维码扫描
 [prettytime](https://github.com/ocpsoft/prettytime) | 时间格式化
 [prefser](https://github.com/pwittchen/prefser) | Shared Preferences Helper
 [Android-TopScrollHelper](https://github.com/kmshack/Android-TopScrollHelper) | 点击系统栏自动滚动到顶部
