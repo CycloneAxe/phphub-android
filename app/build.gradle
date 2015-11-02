@@ -24,13 +24,13 @@ android {
         versionName globalConfiguration.getAt("VERSION_NAME")
 
         buildConfigField "String", "GIT_SHA", "\"${gitSha}\""
-        buildConfigField "String", "CLIENT_ID", "\"APP_CLIENT_ID\""
-        buildConfigField "String", "CLIENT_SECRET", "\"APP_CLIENT_SECRET\""
-        buildConfigField "String", "ENDPOINT", "\"API_ENDPOINT\""
-        buildConfigField "String", "QQ_APPID", "\"QQ_APPID\""
-        buildConfigField "String", "QQ_APPKEY", "\"QQ_APPKEY\""
-        buildConfigField "String", "WX_APPID", "\"WX_APPID\""
-        buildConfigField "String", "WX_SECRET", "\"WX_SECRET\""
+        buildConfigField "String", "CLIENT_ID", "\"${APP_CLIENT_ID}\""
+        buildConfigField "String", "CLIENT_SECRET", "\"${APP_CLIENT_SECRET}\""
+        buildConfigField "String", "ENDPOINT", "\"${API_ENDPOINT}\""
+        buildConfigField "String", "QQ_APPID", "\"${QQ_APPID}\""
+        buildConfigField "String", "QQ_APPKEY", "\"${QQ_APPKEY}\""
+        buildConfigField "String", "WX_APPID", "\"${WX_APPID}\""
+        buildConfigField "String", "WX_SECRET", "\"${WX_SECRET}\""
 
         resValue "string", "jpush_channel", JPUSH_CHANNEL
     }
