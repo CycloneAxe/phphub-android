@@ -21,6 +21,7 @@ import org.estgroup.phphub.api.entity.element.Token;
 import org.estgroup.phphub.api.entity.element.User;
 import org.estgroup.phphub.common.App;
 import org.estgroup.phphub.common.Navigator;
+import org.estgroup.phphub.common.util.Utils;
 import org.estgroup.phphub.model.TokenModel;
 import org.estgroup.phphub.model.UserModel;
 
@@ -186,6 +187,10 @@ public class LoginActivity extends AuthenticationActivity {
                         new Action1<Throwable>() {
                             @Override
                             public void call(Throwable throwable) {
+                                Account[] accounts = Utils.getAccounts(LoginActivity.this, accountManager);
+                                if (accounts.length > 0) {
+                                    accountManager.removeAccount(Utils.getAccounts(LoginActivity.this, accountManager)[0], null, null);
+                                }
                                 dialog.dismiss();
                                 Toast.makeText(LoginActivity.this, throwable.getMessage(), Toast.LENGTH_SHORT).show();
                                 Logger.e(throwable.toString());

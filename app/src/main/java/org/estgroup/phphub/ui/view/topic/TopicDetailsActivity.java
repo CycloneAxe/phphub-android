@@ -50,6 +50,7 @@ import nucleus.factory.RequiresPresenter;
 import static com.kennyc.view.MultiStateView.OnClickListener;
 import static com.kennyc.view.MultiStateView.VIEW_STATE_CONTENT;
 import static com.kennyc.view.MultiStateView.VIEW_STATE_ERROR;
+import static com.kennyc.view.MultiStateView.VIEW_STATE_LOADING;
 import static org.estgroup.phphub.common.qualifier.TopicDetailType.TOPIC_DETAIL_TYPE_FAVORITE;
 import static org.estgroup.phphub.common.qualifier.TopicDetailType.TOPIC_DETAIL_TYPE_FAVORITE_DEL;
 import static org.estgroup.phphub.common.qualifier.TopicDetailType.TOPIC_DETAIL_TYPE_FOLLOW;
@@ -495,6 +496,12 @@ public class TopicDetailsActivity extends BaseWebViewActivity<TopicDetailPresent
 
                 break;
         }
+    }
+
+    @OnClick(R.id.retry)
+    public void retry() {
+        multiStateView.setViewState(VIEW_STATE_LOADING);
+        getPresenter().request(topicId);
     }
 
     public void onNetWorkError(Throwable throwable) {
