@@ -97,7 +97,7 @@ public class TopicDetailPresenter extends BaseRxPresenter<TopicDetailsActivity> 
                 new Func0<Observable<Topic>>() {
                     @Override
                     public Observable<Topic> call() {
-                        return Observable.just(Utils.logined(context, accountManager)).flatMap(new Func1<Boolean, Observable<TopicEntity.ATopic>>() {
+                        return Observable.just(Utils.hasLoggedIn(context, accountManager)).flatMap(new Func1<Boolean, Observable<TopicEntity.ATopic>>() {
                             @Override
                             public Observable<TopicEntity.ATopic> call(Boolean logined) {
                                 if (logined) {

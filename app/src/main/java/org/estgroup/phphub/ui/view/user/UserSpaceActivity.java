@@ -155,7 +155,7 @@ public class UserSpaceActivity extends BaseActivity<UserSpacePresenter> {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_user_space, menu);
 
-        if (Utils.logined(this, accountManager)) {
+        if (Utils.hasLoggedIn(this, accountManager)) {
             Account account = Utils.getActiveAccount(this, authAccountManager);
             String loginUserId = accountManager.getUserData(account, USER_ID_KEY);
             if (!TextUtils.isEmpty(loginUserId) && userId > 0) {

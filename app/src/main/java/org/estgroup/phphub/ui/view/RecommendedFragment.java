@@ -143,7 +143,7 @@ public class RecommendedFragment extends LazyFragment<RecommendedPresenter> impl
         if (menu != null) {
             MenuItem publishView = menu.findItem(R.id.action_publish);
             if (publishView != null) {
-                publishView.setVisible(Utils.logined(getContext(), accountManager));
+                publishView.setVisible(Utils.hasLoggedIn(getContext(), accountManager));
             }
         }
     }

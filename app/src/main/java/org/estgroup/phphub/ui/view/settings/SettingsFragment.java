@@ -22,6 +22,7 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
+import cn.jpush.android.api.JPushInterface;
 import eu.unicate.retroauth.AuthAccountManager;
 
 import static org.estgroup.phphub.common.Constant.USERNAME_KEY;
@@ -55,7 +56,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
     @Override
     public void onResume() {
         super.onResume();
-        if (Utils.logined(getActivity(), accountManager) && (findPreference(LOGOUT_KEY) == null)) {
+        if (Utils.hasLoggedIn(getActivity(), accountManager) && (findPreference(LOGOUT_KEY) == null)) {
             Preference logoutPreference = new Preference(getActivity());
             logoutPreference.setKey(LOGOUT_KEY);
             logoutPreference.setLayoutResource(R.layout.common_logout);
@@ -81,7 +82,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                     contact = new HashMap<>();
                 }
 
-                if (Utils.logined(getActivity(), accountManager)) {
+                if (Utils.hasLoggedIn(getActivity(), accountManager)) {
                     contact.put("plain", "uid: "+ accountManager.getUserData(account, USER_ID_KEY) + " uname: "+accountManager.getUserData(account, USERNAME_KEY));
 
                     info.setContact(contact);
@@ -119,6 +120,7 @@ public class SettingsFragment extends PreferenceFragment implements Preference.O
                         .setPositiveButton("退出", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                JPushInterface.setAlias(getActivity().getApplicationContext(), "", null);
                                 accountManager.removeAccount(Utils.getAccounts(getActivity(), accountManager)[0], null, null);
                                 getPreferenceScreen().removePreference(findPreference(LOGOUT_KEY));
                             }

@@ -10,8 +10,6 @@ import com.google.gson.JsonObject;
 import com.orhanobut.logger.Logger;
 import com.squareup.otto.Produce;
 
-import org.estgroup.phphub.api.entity.NotificationEntity;
-import org.estgroup.phphub.api.entity.element.Notification;
 import org.estgroup.phphub.common.App;
 import org.estgroup.phphub.common.event.NotificationChangeEvent;
 import org.estgroup.phphub.common.provider.BusProvider;
@@ -19,7 +17,6 @@ import org.estgroup.phphub.common.transformer.SchedulerTransformer;
 import org.estgroup.phphub.common.util.Utils;
 import org.estgroup.phphub.model.UserModel;
 
-import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -78,7 +75,7 @@ public class NotificationService extends Service {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if (Utils.logined(NotificationService.this, accountManager)) {
+                if (Utils.hasLoggedIn(NotificationService.this, accountManager)) {
                     userModel.once()
                             .setToken(authAccountManager.getAuthToken(
                                     Utils.getActiveAccount(NotificationService.this, authAccountManager),

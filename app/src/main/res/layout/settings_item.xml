@@ -4,13 +4,9 @@
     android:layout_height="match_parent">
 
     <TextView android:id="@+android:id/title"
-
         android:layout_width="match_parent"
-
         android:layout_height="41dp"
-
         android:background="@drawable/shap_settings_only_bottom"
-
         style="@style/settings_list_style"/>
 
 </LinearLayout>

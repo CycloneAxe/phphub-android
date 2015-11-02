@@ -32,7 +32,6 @@ android {
         buildConfigField "String", "WX_APPID", "\"WX_APPID\""
         buildConfigField "String", "WX_SECRET", "\"WX_SECRET\""
 
-        resValue "string", "jpush_appkey", JPUSH_APPKEY
         resValue "string", "jpush_channel", JPUSH_CHANNEL
     }
 
@@ -80,15 +79,15 @@ android {
                 println "RELEASE_BUILD: load release.properties..."
 
                 if (props.containsKey('APP_CLIENT_ID')) {
-                    buildConfigField "String", "CLIENT_ID", "\"props['APP_CLIENT_ID']\""
+                    buildConfigField "String", "CLIENT_ID", "\"${props['APP_CLIENT_ID']}\""
                 }
 
                 if (props.containsKey('APP_CLIENT_SECRET')) {
-                    buildConfigField "String", "CLIENT_SECRET", "\"props['APP_CLIENT_SECRET']\""
+                    buildConfigField "String", "CLIENT_SECRET", "\"${props['APP_CLIENT_SECRET']}\""
                 }
 
                 if (props.containsKey('API_ENDPOINT')) {
-                    buildConfigField "String", "ENDPOINT", "\"props['API_ENDPOINT']\""
+                    buildConfigField "String", "ENDPOINT", "\"${props['API_ENDPOINT']}\""
                 }
             }
             signingConfig signingConfigs.release
@@ -116,7 +115,7 @@ android {
     }
 
     productFlavors.all { flavor ->
-        flavor.manifestPlaceholders = [UMENG_APPKEY: UMENG_APPKEY, UMENG_CHANNEL: name]
+        flavor.manifestPlaceholders = [UMENG_APPKEY: UMENG_APPKEY, UMENG_CHANNEL: name, JPUSH_APPKEY: JPUSH_APPKEY]
     }
 
     variantFilter { variant ->

@@ -44,7 +44,7 @@ public class Utils {
         return accountManager.getAccountsByType(getAccountType(context));
     }
 
-    public static boolean logined(Context context, AccountManager accountManager) {
+    public static boolean hasLoggedIn(Context context, AccountManager accountManager) {
         Account[] accounts = getAccounts(context, accountManager);
         return accounts.length > 0;
     }

@@ -6,17 +6,11 @@
     android:layout_height="match_parent">
 
     <TextView android:id="@+android:id/title"
-
         android:layout_width="match_parent"
-
         android:layout_height="41dp"
-
         android:layout_marginBottom="12dp"
-
         android:background="@color/white"
-
         style="@style/settings_list_style"
-
         tools:text="fjdisoa"/>
 
 </LinearLayout>

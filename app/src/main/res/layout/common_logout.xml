@@ -7,5 +7,4 @@
     android:text="退出当前登录"
     android:textSize="16sp"
     android:textColor="@color/red_DE">
-
 </TextView>

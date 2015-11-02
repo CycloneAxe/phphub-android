@@ -169,7 +169,7 @@ public class MeFragment extends BaseSupportFragment {
 
     @OnClick(R.id.bga_rlyt_messages)
     public void navigateToUserNotification() {
-        if (Utils.logined(getActivity(), accountManager)) {
+        if (Utils.hasLoggedIn(getActivity(), accountManager)) {
             navigator.navigateToUserNotification(getActivity());
         }
     }
