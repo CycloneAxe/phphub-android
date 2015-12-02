@@ -15,6 +15,8 @@ You can checkout the others open source projects of PHPHub in the following list
 
 项目架构采用 MVP 模式
 
+[PHPHub Android APK 下载](http://fir.im/phphub)
+
 ![](https://cloud.githubusercontent.com/assets/324764/10683969/448b0cda-797a-11e5-8f93-3e51ad7144df.png)
 
 ## 运行环境
