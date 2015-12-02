@@ -79,13 +79,6 @@ Gradle version 2.4
 [Localify](https://github.com/polok/localify) | 从文件中加载内容的Android类库
 [PhotoDraweeView](https://github.com/ongakuer/PhotoDraweeView) | 基于 Fresco 的图片缩放控件
 
-## 相关项目
-[PHPHub-UI](https://github.com/phphub/phphub-ui)
-
-[PHPHub-Server](https://github.com/NauxLiu/phphub-server)
-
-[PHPHub-iOS](https://github.com/Aufree/phphub-ios)
-
 ## 参与贡献
 [晓晓鱼](https://github.com/xiaoxiaoyu)
 
