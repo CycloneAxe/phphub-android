@@ -1,7 +1,5 @@
 
-## PHPHub related projects
-
-You can checkout the others open source projects of PHPHub in the following list.
+## 相关项目
 
 * [PHPHub-iOS](https://github.com/Aufree/phphub-ios) by [@Aufree](https://github.com/Aufree)
 * [PHPHub-Server](https://github.com/NauxLiu/phphub-server) by [@NauxLiu](https://github.com/NauxLiu)
@@ -17,7 +15,11 @@ You can checkout the others open source projects of PHPHub in the following list
 
 [PHPHub Android APK 下载](http://fir.im/phphub)
 
-![](https://cloud.githubusercontent.com/assets/324764/10683969/448b0cda-797a-11e5-8f93-3e51ad7144df.png)
+## 项目截图
+
+![](https://cloud.githubusercontent.com/assets/6268176/11550463/14918ab2-99ab-11e5-8910-247651082bed.png)
+![](https://cloud.githubusercontent.com/assets/6268176/11550464/1b9ef218-99ab-11e5-8d71-a03e3ae05f44.png)
+![](https://cloud.githubusercontent.com/assets/6268176/11550453/08f41b02-99ab-11e5-9bc1-4c94e1fb76a4.png)
 
 ## 运行环境
 Min SDK verison 4.0+
