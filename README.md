@@ -54,7 +54,7 @@ Gradle version 2.4
 [android.support.*](https://developer.android.com/tools/support-library/index.html) | Android Support Library
 [Dagger 2](https://github.com/google/dagger) | Android 依赖注入组件
 [retrofit](https://github.com/square/retrofit) | 网络请求组件
-[retroauth](https://github.com/Unic8/retroauth) | 基于 Retrofit, 用于简化处理账户认证请求
+[retroauth](https://github.com/andretietz/retroauth) | 基于 Retrofit, 用于简化处理账户认证请求
 [butterknife](https://github.com/JakeWharton/butterknife) | View注入框架
 [icepick](https://github.com/frankiesardo/icepick) | 一个通过注解来方便我们保存和恢复 Android Instance 状态的 Library
 [fresco](https://github.com/facebook/fresco) | Facebook 推出的 Android 图片加载库
