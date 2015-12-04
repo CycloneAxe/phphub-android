@@ -33,6 +33,9 @@ Gradle version 2.4
 
 3、将项目导入 Android Studio 运行即可
 
+## 测试环境下用户登陆二维码
+![](http://ww3.sinaimg.cn/large/76dc7f1bgw1exrg86f5ubj20ml0dsq45.jpg)
+
 ## 功能简述
 
 * 渠道包构建
