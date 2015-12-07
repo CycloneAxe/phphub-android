@@ -22,6 +22,8 @@ cache:
     - $HOME/.gradle
 
 before_install:
+ - rm -f gradle.properties
+ - cp gradle.properties.example gradle.properties
  - chmod +x gradlew
 
 script:
