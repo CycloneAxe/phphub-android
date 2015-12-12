@@ -1,3 +1,8 @@
+![PHPHub-Android](http://ww4.sinaimg.cn/large/76dc7f1bgw1eyfw7ewb0nj20q808774z.jpg)
+
+[![Build Status](https://api.travis-ci.org/CycloneAxe/phphub-android.svg?branch=master)](https://travis-ci.org/CycloneAxe/phphub-android)
+![License](https://img.shields.io/badge/license-Apache%202.0-brightgreen.svg?style=flat)
+
 
 ## 相关项目
 
