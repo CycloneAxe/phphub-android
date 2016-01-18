@@ -86,6 +86,7 @@ Gradle version 2.4
 [android-iconify](https://github.com/JoanZapata/android-iconify) | 一个将 Aweome ICON 和 Android 结合起来的项目
 [Localify](https://github.com/polok/localify) | 从文件中加载内容的Android类库
 [PhotoDraweeView](https://github.com/ongakuer/PhotoDraweeView) | 基于 Fresco 的图片缩放控件
+[Velodrome](https://github.com/Levelmoney/velodrome) | onActivityResult handlers for Android
 
 ## 参与贡献
 [晓晓鱼](https://github.com/xiaoxiaoyu)
