@@ -5,8 +5,9 @@ android:
     - tools
     - build-tools-23.0.2
     - android-23
-    - android-21
+    - android-22
     - extra-android-m2repository
+    - extra-android-support
 
 jdk:
     - oraclejdk7
@@ -24,7 +25,7 @@ cache:
 before_install:
  - rm -f gradle.properties
  - cp gradle.properties.example gradle.properties
- - chmod +x gradlew
+ - chmod +x ./gradlew
 
 script:
     - ./gradlew clean assembleDebug
