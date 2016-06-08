@@ -12,10 +12,15 @@ android:
 jdk:
     - oraclejdk7
 
+env:
+  global:
+    - MALLOC_ARENA_MAX=2
+    - ADB_INSTALL_TIMEOUT=10
+
 notifications:
   email: false
 
-sudo: false
+sudo: required
 
 cache:
   directories:
