@@ -10,8 +10,8 @@ android:
     - extra-android-support
 
 jdk:
-    - oraclejdk7
-    - oraclejdk8
+    - openjdk7
+    - openjdk8
 
 notifications:
   email: false
