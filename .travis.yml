@@ -10,7 +10,7 @@ android:
     - extra-android-support
 
 jdk:
-    - openjdk7
+    - oraclejdk7
 
 notifications:
   email: false
