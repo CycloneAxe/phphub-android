@@ -11,7 +11,6 @@ android:
 
 jdk:
     - oraclejdk7
-    - oraclejdk8
 
 notifications:
   email: false
@@ -28,4 +27,4 @@ before_install:
  - chmod +x ./gradlew
 
 script:
-    - ./gradlew assembleDebug
+    - ./gradlew assembleDebug --stacktrace
