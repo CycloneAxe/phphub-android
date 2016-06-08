@@ -3,9 +3,9 @@ language: android
 android:
   components:
     - tools
+    - platform-tools
     - build-tools-23.0.2
     - android-23
-    - android-22
     - extra-android-m2repository
     - extra-android-support
 
@@ -28,4 +28,4 @@ before_install:
  - chmod +x ./gradlew
 
 script:
-    - ./gradlew clean assembleDebug
+    - ./gradlew assembleDebug
