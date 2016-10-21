@@ -1,6 +1,6 @@
 APP_CLIENT_ID=kHOugsx4dmcXwvVbmLkd
 APP_CLIENT_SECRET=PuuFCrF94MloSbSkxpwS
-API_ENDPOINT=https://staging_api.phphub.org/v1
+API_ENDPOINT=http://staging.phphub.org/v1
 
 JPUSH_CHANNEL=develop
 JPUSH_APPKEY=
