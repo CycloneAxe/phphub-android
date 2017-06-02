@@ -20,7 +20,7 @@
 
 ![](https://cloud.githubusercontent.com/assets/324764/10683969/448b0cda-797a-11e5-8f93-3e51ad7144df.png)
 
-[PHPHub Android APK 下载](http://fir.im/phphub)
+[PHPHub Android APK 下载](https://fir.im/phphub2a)
 
 ## 运行环境
 Min SDK verison 4.0+
