@@ -46,6 +46,20 @@ public abstract class BaseWebViewActivity<PresenterType extends Presenter> exten
 
         settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
     }
+    //fix Android WebView not stopping after user presses back
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        contentView.onResume();
+    }
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        contentView.onPause();
+    }
 
     protected static class WebAppClient extends WebViewClient {
         private Context context;
