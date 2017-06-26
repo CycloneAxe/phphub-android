@@ -1,3 +1,12 @@
+<p align="center">
+  <br>
+  <b>创造不息，交付不止</b>
+  <br>
+  <a href="https://www.yousails.com">
+    <img src="https://yousails.com/banners/brand.png" width=350>
+  </a>
+</p>
+
 ![PHPHub-Android](http://ww4.sinaimg.cn/large/76dc7f1bgw1eyfw7ewb0nj20q808774z.jpg)
 
 [![Build Status](https://api.travis-ci.org/CycloneAxe/phphub-android.svg?branch=master)](https://travis-ci.org/CycloneAxe/phphub-android)
